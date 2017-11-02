@@ -1,0 +1,21 @@
+map:{
+    ; 2017/11/02 23:58:44 = map:{
+        ; diffDate = 2017/11/02 23:58:44
+        ; tableCount = map:{
+            ; next = 8
+            ; previous = 9
+        }
+        ; tableDiff = map:{
+            ; new_table = map:{
+                ; tableName = new_table
+                ; diffType = DELETE
+            }
+        }
+        ; sequenceDiff = map:{
+            ; postgres.bacchus.new_table_aaa_seq = map:{
+                ; sequenceName = postgres.bacchus.new_table_aaa_seq
+                ; diffType = DELETE
+            }
+        }
+    }
+}

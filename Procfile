@@ -1,0 +1,1 @@
+web: java -jar build/libs/Bacchus-1.0.0-BUILD-SNAPSHOT.jar --server.port=$PORT

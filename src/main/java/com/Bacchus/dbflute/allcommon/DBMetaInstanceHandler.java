@@ -31,8 +31,12 @@ public class DBMetaInstanceHandler implements DBMetaProvider {
     protected static final Map<String, String> _tableDbNameClassNameMap;
     static {
         final Map<String, String> tmpMap = newHashMap();
+        tmpMap.put("candidate_t", "com.Bacchus.dbflute.bsentity.dbmeta.CandidateTDbm");
         tmpMap.put("display_def_m", "com.Bacchus.dbflute.bsentity.dbmeta.DisplayDefMDbm");
+        tmpMap.put("entry_t", "com.Bacchus.dbflute.bsentity.dbmeta.EntryTDbm");
+        tmpMap.put("event_t", "com.Bacchus.dbflute.bsentity.dbmeta.EventTDbm");
         tmpMap.put("general_code_m", "com.Bacchus.dbflute.bsentity.dbmeta.GeneralCodeMDbm");
+        tmpMap.put("subsidy_mng_m", "com.Bacchus.dbflute.bsentity.dbmeta.SubsidyMngMDbm");
         tmpMap.put("system_property_m", "com.Bacchus.dbflute.bsentity.dbmeta.SystemPropertyMDbm");
         tmpMap.put("user_t", "com.Bacchus.dbflute.bsentity.dbmeta.UserTDbm");
         _tableDbNameClassNameMap = Collections.unmodifiableMap(tmpMap);

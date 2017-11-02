@@ -12,12 +12,6 @@ DROP TABLE IF EXISTS user_t;
 
 
 
-/* Drop Sequences */
-
-DROP SEQUENCE IF EXISTS general_code_m_code_id_seq;
-
-
-
 
 /* Create Tables */
 
@@ -185,6 +179,9 @@ CREATE TABLE user_t
 	auth_level int DEFAULT 0 NOT NULL,
 	PRIMARY KEY (user_id)
 ) WITHOUT OIDS;
+
+
+ALTER SEQUENCE user_t_user_id_SEQ INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 RESTART 1 CACHE 1;
 
 
 

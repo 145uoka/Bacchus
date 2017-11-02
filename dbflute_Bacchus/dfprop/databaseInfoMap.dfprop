@@ -22,9 +22,9 @@ map:{
     #; url      = jdbc:postgresql://192.168.0.24:5431/postgres
     # Local
     ; url      = jdbc:postgresql://localhost:5432/postgres
-    ; schema   = lesson
-    ; user     = lesson
-    ; password = lesson
+    ; schema   =bacchus
+    ; user     =bacchus
+    ; password =bacchus
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # o propertiesMap: (NotRequired - Default map:{})

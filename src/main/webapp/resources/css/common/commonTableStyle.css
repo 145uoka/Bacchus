@@ -1,0 +1,24 @@
+/* table */
+table {
+  font-size: 12px;
+}
+
+/*スクロール用*/
+thead#scrollHead, tbody#scrollBody {
+  display: block;
+}
+
+tbody#scrollBody {
+  overflow-y: scroll;
+  height: 600px;
+}
+
+.check_table .hover_tr td,
+.radio_table .hover_tr td {
+  background-color: #fff1a5;
+  color: #333;
+}
+.check_table .checked_tr td,
+.radio_table .checked_tr td {
+  background-color: #fff1a5;
+}

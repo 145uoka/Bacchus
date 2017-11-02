@@ -1,0 +1,61 @@
+@charset "utf-8";
+
+/*================================
+ *
+ * 共通 スタイル定義
+ *
+ *================================*/
+
+/* 濃青 */
+.main-background-color {
+	background-color: #9ED78F;
+}
+
+/* 薄青 */
+.sub-background-color {
+	background-color: #e5ffe5;
+}
+
+/* 濃青 */
+.main-border-color {
+	border-color: #9ED78F;
+}
+
+/* 薄青 */
+.sub-border-color {
+	border-color: #e5ffe5;
+}
+
+/* 応急処置 */
+.panel-default >
+.panel-heading {
+	background-color: #9ED78F;
+}
+
+/* 削除ボタン */
+.btn-delete {
+  color: #fff;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+
+/* 追加ボタン */
+.btn-add {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+
+/* 編集ボタン */
+.btn-edit {
+  color: #fff;
+  background-color: #f0ad4e;
+  border-color: #eea236;
+}
+
+/* 履歴表示ボタン */
+.btn-hist {
+  color: #400040;
+  background-color: #ffffff;
+  border-color: #ffffff;
+}

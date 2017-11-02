@@ -1,0 +1,46 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<c:if test="${fn:length(successMessages) > 0}">
+  <div class="alert alert-success" role="alert" align="left">
+    <c:forEach var="successMessage" items="${successMessages}">
+      <c:out value="${successMessage}" />
+    </c:forEach>
+  </div>
+</c:if>
+
+<c:if test="${fn:length(warnMessages) > 0}">
+  <div class="alert alert-warning" role="alert">
+    <c:forEach var="warnMessage" items="${warnMessages}">
+      <p>
+        <c:out value="${warnMessage}" />
+      </p>
+    </c:forEach>
+  </div>
+</c:if>
+
+<c:if test="${fn:length(errorMessages) > 0}">
+  <div class="alert alert-danger" role="alert" align="left">
+    <c:forEach var="errorMessage" items="${errorMessages}">
+      <c:out value="${errorMessage}" />
+    </c:forEach>
+  </div>
+</c:if>
+
+<c:if test="${fn:length(infoMessages) > 0}">
+  <div class="alert alert-info" role="alert" align="left">
+    <c:forEach var="infoMessage" items="${infoMessages}">
+      <h5>
+        <c:out value="${infoMessage.message}" />
+      </h5>
+      <ul>
+        <c:if test="${fn:length(infoMessage.itemizeList) > 0}">
+          <c:forEach var="itemize" items="${infoMessage.itemizeList}">
+            <li><c:out value="${itemize}" />
+          </c:forEach>
+        </c:if>
+      </ul>
+    </c:forEach>
+  </div>
+</c:if>

@@ -1,0 +1,25 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+
+html,
+body {
+  height: 100%;
+  /* html ‚Æ body —v‘f‚ÍƒpƒfƒBƒ“ƒO‚âƒ}[ƒWƒ“‚ðŽ‚Ä‚Ü‚¹‚ñ */
+}
+
+/* ƒtƒbƒ^[‚ð‰º•”‚Ö‰Ÿ‚µ‚â‚é‚½‚ß‚ÌAƒRƒ“ƒeƒ“ƒc‚Ìƒ‰ƒbƒp[ */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* ƒtƒbƒ^[‚Ì‚‚³•ª‚¾‚¯AƒlƒKƒeƒBƒuƒCƒ“ƒfƒ“ƒg‚ðŽw’è */
+  margin: 0 auto -40px;
+  /* ƒtƒbƒ^[‚Ì‚‚³•ª‚¾‚¯AƒpƒfƒBƒ“ƒO‚ðŽw’è */
+  padding: 0 0 40px;
+}
+
+/* ‚±‚±‚Åƒtƒbƒ^[‚Ì‚‚³‚ðŽw’è */
+#footer {
+  height: 40px;
+  background-color: #f5f5f5;
+  text-align: center;
+}

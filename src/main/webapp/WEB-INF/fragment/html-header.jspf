@@ -1,0 +1,35 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
+<meta name="keywords" content="カード,クレジットカード,ローン,キャッシング,ゴールドカード,MasterCard,提携カード,リボルビング,自由払い,オンライン入会,カード決済,アメニティ,オリコカード,オートローン,ショッピングクレジット,集金代行,ポイント,目的ローン，信販"/>
+<meta name="description" content="クレジットカードや目的ローンのオンライン申込。業界最高水準のポイント還元率。旅行やショッピングをはじめ、公共料金の支払いはオリコカードが断然おトク。キャンペーンやイベントなどクレジットカードでトクする情報満載。オリコは生活シーンのさまざまな資金ニーズにお応えします。"/>
+<meta name="copyright" content="Copyright (C) Orient Corporation"/>
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+<meta name="ROBOTS"              content="NOINDEX,NOFOLLOW,NOARCHIVE">
+<meta http-equiv="Pragma"        content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires"       content="-1">
+
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/common/css/weborder_standard.css"/>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/common/js/jquery-1.4.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/common/js/jquery-ui.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/common/js/jquery.ui.datepicker-ja.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/common/js/tip.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/common/js/select_tip.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/common/js/formassist.js" charset="UTF-8"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/common/js/KKLAXB0001.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/common/js/KKLAXB0002.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/common/js/KKLAXB0004.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/common/js/KKLAXB0005.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/common/js/ready.js"></script>
+<!--[if lte IE 8]><script type="text/javascript" src="${pageContext.request.contextPath}/resources/common/js/excanvas.js"></script><![endif]-->
+
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/app-common.css"/>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
+
+<%@include file="/WEB-INF/fragment/analytics-tag-head.jspf"%>

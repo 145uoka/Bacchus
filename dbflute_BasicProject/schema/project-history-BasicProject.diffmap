@@ -1,0 +1,48 @@
+map:{
+    ; 2017/11/02 18:44:16 = map:{
+        ; diffDate = 2017/11/02 18:44:16
+        ; tableDiff = map:{
+            ; user_t = map:{
+                ; tableName = user_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; user_type = map:{
+                        ; columnName = user_type
+                        ; diffType = ADD
+                    }
+                    ; auth_level = map:{
+                        ; columnName = auth_level
+                        ; diffType = ADD
+                    }
+                    ; user_code = map:{
+                        ; columnName = user_code
+                        ; diffType = DELETE
+                    }
+                    ; auth_div = map:{
+                        ; columnName = auth_div
+                        ; diffType = DELETE
+                    }
+                }
+            }
+        }
+    }
+    ; 2017/11/02 12:06:45 = map:{
+        ; diffDate = 2017/11/02 12:06:45
+        ; tableCount = map:{
+            ; next = 4
+            ; previous = 3
+        }
+        ; tableDiff = map:{
+            ; user_t = map:{
+                ; tableName = user_t
+                ; diffType = ADD
+            }
+        }
+        ; sequenceDiff = map:{
+            ; postgres.lesson.user_t_user_id_seq = map:{
+                ; sequenceName = postgres.lesson.user_t_user_id_seq
+                ; diffType = ADD
+            }
+        }
+    }
+}

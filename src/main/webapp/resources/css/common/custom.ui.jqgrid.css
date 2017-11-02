@@ -1,0 +1,35 @@
+
+
+/* table */
+#gridTable {
+  font-size: 12px;
+}
+
+/* th */
+.ui-th-column, .ui-jqgrid .ui-jqgrid-htable th.ui-th-column {
+  background: #9ED78F;
+  color: black;
+  font-size: 12px;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default,
+  .ui-widget-header .ui-state-default {
+  color: black;
+}
+
+.ui-widget-content {
+  background: #ffffff;
+}
+
+.ui-widget {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* td */
+#gridTable td {
+  padding: 0px 5px !important;
+}
+
+#gridTable_frozen td {
+  padding: 0px 5px !important;
+}

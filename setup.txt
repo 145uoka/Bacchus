@@ -1,0 +1,3 @@
+参照：http://dbflute.seasar.org/ja/manual/function/helper/maven/#install11x
+mvn -e dbflute:download
+mvn -e dbflute:create-client

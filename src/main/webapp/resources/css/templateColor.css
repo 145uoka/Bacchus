@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+/*================================
+ *
+ * 共通 スタイル定義
+ *
+ *================================*/
+
+/* 濃青 */
+.main-background-color {
+	background-color: #9ED78F;
+}
+
+/* 薄青 */
+.sub-background-color {
+	background-color: #e5ffe5;
+}
+
+/* 濃青 */
+.main-border-color {
+	border-color: #9ED78F;
+}
+
+/* 薄青 */
+.sub-border-color {
+	border-color: #e5ffe5;
+}
+
+/* 応急処置 */
+.panel-default >
+.panel-heading {
+	background-color: #9ED78F;
+}

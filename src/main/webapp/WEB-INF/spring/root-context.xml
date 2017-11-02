@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+
+	<context:annotation-config />
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<context:component-scan base-package="com.Bacchus.app.logic" />
+	<context:component-scan base-package="com.Bacchus.app.service" />
+	<context:component-scan base-package="com.Bacchus.app.form" />
+	<context:component-scan base-package="com.Bacchus.app.components" />
+	<context:component-scan base-package="com.Bacchus.webbase.components" />
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:messages</value>
+				<value>classpath:app-messages</value>
+				<value>classpath:log-messages</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- =========================== -->
+	<!-- JDBCおよびトランザクション -->
+	<!-- ===========================  -->
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/BasicProject" />
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<import resource="classpath:dbfluteBeans.xml"/>
+	<!--
+		CSRF protection. Here we only include the CsrfFilter instead of all of Spring Security.
+		See http://docs.spring.io/spring-security/site/docs/3.2.x/reference/htmlsingle/#csrf for more information on
+		Spring Security's CSRF protection
+	-->
+
+	<bean id="csrfTokenRepository" class="org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository"/>
+	<bean id="csrfFilter" class="com.Bacchus.webbase.appbase.CustomCsrfFilter">
+		<constructor-arg index="0" ref="csrfTokenRepository"/>
+		<!-- CsrfFilter内で発生する例外を検知するカスタムハンドラ(当PJではSessionTimeout検知用に改修) -->
+		<property name="accessDeniedHandler">
+			<bean class="com.Bacchus.webbase.appbase.CustomAccessDeniedHandler"/>
+		</property>
+	</bean>
+	<bean id="requestDataValueProcessor" class="org.springframework.security.web.servlet.support.csrf.CsrfRequestDataValueProcessor"/>
+	<bean id="logoutFilter" class="com.Bacchus.webbase.appbase.LogoutFilter">
+		<constructor-arg index="0" ref="csrfTokenRepository"/>
+	</bean>
+	<bean id="resetCsrfFilter" class="com.Bacchus.webbase.appbase.ResetCsrfFilter">
+		<constructor-arg index="0" ref="csrfTokenRepository"/>
+		<property name="resetURLs">
+			<set>
+				<value>/</value>
+			</set>
+		</property>
+	</bean>
+
+<!--
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+ -->
+<!--
+	<bean id="mailProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations" value="classpath:mail.properties" />
+	</bean>
+ -->
+	<!-- MultipartFilterにて利用する。ServletAPI3.0以降では StandardServletMultipartResolver が利用できる
+	<bean id="filterMultipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="50000000" />
+	</bean>
+	-->
+</beans>

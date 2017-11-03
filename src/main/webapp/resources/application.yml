@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://ec2-54-83-196-7.compute-1.amazonaws.com:5432/dbcba9c193qujt
+    schema: bacchus
+    username: drglwkanvozgvs
+    password: 069594b2822a5cac59783c3a04db7adeba5c2b094d50c6e5c7acc225f3889102
+    driverClassName: org.postgresql.Driver

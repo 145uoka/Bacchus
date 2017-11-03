@@ -1,1 +1,1 @@
-web: java -jar build/libs/Bacchus-1.0.0-BUILD-SNAPSHOT.jar --server.port=$PORT
+java $JAVA_OPTS -jar target/dependency/jetty-runner.jar --port $PORT target/*.war

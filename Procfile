@@ -1,1 +1,1 @@
-java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT target/Bacchus.war  --spring.profiles.active=heroku
+web: java -Dserver.port=$PORT -jar target/Bacchus.war --server.port=$PORT --spring.profiles.active=heroku

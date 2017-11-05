@@ -217,21 +217,7 @@
 			</build>
 		</profile>
 		<profile>
-			<id>staging</id>
-			<build>
-				<finalName>Bacchus</finalName>
-				<resources>
-					<resource>
-						<directory>src/profiles/staging/resources</directory>
-					</resource>
-					<resource>
-						<directory>src/main/resources</directory>
-					</resource>
-				</resources>
-			</build>
-		</profile>
-		<profile>
-			<id>production</id>
+			<id>heroku</id>
 			<properties>
 				<maven.test.skip>true</maven.test.skip>
 			</properties>
@@ -239,7 +225,7 @@
 				<finalName>Bacchus</finalName>
 				<resources>
 					<resource>
-						<directory>src/profiles/production/resources</directory>
+						<directory>src/profiles/heroku/resources</directory>
 					</resource>
 					<resource>
 						<directory>src/main/resources</directory>

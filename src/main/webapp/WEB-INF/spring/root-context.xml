@@ -31,12 +31,22 @@
 	<!-- =========================== -->
 	<!-- JDBCおよびトランザクション -->
 	<!-- ===========================  -->
-	<!-- jndi
+    <bean id="appProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="ignoreResourceNotFound"><value>true</value></property>
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+    <context:property-placeholder properties-ref="appProps" />
+
+    <!-- JNDI -->
+    <!--
 	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/Bacchus" />
 	-->
-	<!-- dataSource Direct -->
-	<bean id="dataSource"
-    class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
 	    <property name="driverClassName" value="${jdbc.driverClassName}" />
 	    <property name="url" value="${jdbc.url}" />
 	    <property name="username" value="${jdbc.username}" />

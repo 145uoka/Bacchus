@@ -54,7 +54,6 @@
         useLock="false"
     />
 
-	<Resource abandonWhenPercentageFull="0" auth="Container" defaultAutoCommit="false" defaultReadOnly="true" defaultTransactionIsolation="read_committed" driverClassName="org.postgresql.Driver" factory="org.apache.tomcat.jdbc.pool.DataSourceFactory" fairQueue="true" initialSize="1" jmxEnabled="false" logAbandoned="false" maxActive="1" maxAge="0" maxIdle="1" maxWait="-1" minIdle="1" name="jdbc/glue_net_emp" password="gluenet_emp" removeAbandoned="false" removeAbandonedTimeout="60" suspectTimeout="0" type="javax.sql.DataSource" url="jdbc:postgresql://localhost:5432/postgres" useLock="false" username="gluenet_emp"/>
     <!-- Uncomment this to disable session persistence across Tomcat restarts -->
     <!--
     <Manager pathname="" />

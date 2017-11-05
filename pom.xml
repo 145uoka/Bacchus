@@ -200,35 +200,24 @@
 
 	<profiles>
 		<profile>
-			<id>development</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-				<property>
-                <name>spring.profiles.active</name>
-                <value>development</value>
-            </property>
-			</activation>
+			<id>local</id>
+			<properties>
+				<maven.test.skip>true</maven.test.skip>
+			</properties>
 			<build>
 				<finalName>Bacchus</finalName>
 				<resources>
 					<resource>
-						<directory>src/main/resources</directory>
+						<directory>src/profiles/local/resources</directory>
 					</resource>
 					<resource>
-						<directory>src/profiles/development/resources</directory>
+						<directory>src/main/resources</directory>
 					</resource>
 				</resources>
 			</build>
 		</profile>
 		<profile>
 			<id>heroku</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-				<property>
-                <name>spring.profiles.active</name>
-                <value>heroku</value>
-            </property>
-			</activation>
 			<properties>
 				<maven.test.skip>true</maven.test.skip>
 			</properties>

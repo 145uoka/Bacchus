@@ -1,1 +1,1 @@
-java $JAVA_OPTS -jar target/dependency/jetty-runner.jar --port $PORT target/Bacchus.jar
+java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT target/Bacchus.jar

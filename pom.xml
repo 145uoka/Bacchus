@@ -203,6 +203,10 @@
 			<id>development</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
+				<property>
+                <name>spring.profiles.active</name>
+                <value>development</value>
+            </property>
 			</activation>
 			<build>
 				<finalName>Bacchus</finalName>
@@ -218,6 +222,13 @@
 		</profile>
 		<profile>
 			<id>heroku</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+				<property>
+                <name>spring.profiles.active</name>
+                <value>heroku</value>
+            </property>
+			</activation>
 			<properties>
 				<maven.test.skip>true</maven.test.skip>
 			</properties>

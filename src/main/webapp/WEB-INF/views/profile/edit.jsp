@@ -29,61 +29,61 @@
           <div class="panel panel-default main-border-color">
             <div class="panel-body sub-background-color">
               <div class="form-group <ext:isErrors path='userName' value='has-error'/>">
-                <label class="col-md-3 control-label">ユーザー名<span class="label label-danger" style="margin-left: 10px">必須</span></label>
-                <div class="col-md-5">
+                <label class="col-md-4 control-label">ユーザ名<span class="label label-danger" style="margin-left: 10px">必須</span></label>
+                <div class="col-md-6">
                   <form:input path="userName" class="form-control" maxlength="${ext:getMaxLen('CNT0001') }" />
                 </div>
                 <div style="clear: both;">
-                  <span class="col-md-3"></span>
-                  <div class="col-md-7">
+                  <span class="col-md-4"></span>
+                  <div class="col-md-6">
                     <form:errors path="userName" element="div" cssClass="text-danger" />
                   </div>
                 </div>
               </div>
               <div class="form-group <ext:isErrors path='email' value='has-error'/>">
-                <label class="col-md-3 control-label">Eメール<span class="label label-danger" style="margin-left: 10px">必須</span></label>
-                <div class="col-md-5">
+                <label class="col-md-4 control-label">Eメール<span class="label label-danger" style="margin-left: 10px">必須</span></label>
+                <div class="col-md-6">
                   <form:input path="email" class="form-control" maxlength="${ext:getMaxLen('CNT0001') }" />
                 </div>
                 <div style="clear: both;">
-                  <span class="col-md-3"></span>
-                  <div class="col-md-7">
+                  <span class="col-md-4"></span>
+                  <div class="col-md-6">
                     <form:errors path="email" element="div" cssClass="text-danger" />
                   </div>
                 </div>
               </div>
               <div class="form-group <ext:isErrors path='password' value='has-error'/>">
-                <label class="col-md-3 control-label">パスワード<span class="label label-danger" style="margin-left: 10px"></span></label>
-                <div class="col-md-5">
+                <label class="col-md-4 control-label">パスワード<span class="label label-danger" style="margin-left: 10px"></span></label>
+                <div class="col-md-6">
                   <form:password path="password" class="form-control" maxlength="${ext:getMaxLen('CNT0001') }" />
                 </div>
                 <div style="clear: both;">
-                  <span class="col-md-3"></span>
-                  <div class="col-md-7">
+                  <span class="col-md-4"></span>
+                  <div class="col-md-6">
                     <form:errors path="password" element="div" cssClass="text-danger" />
                   </div>
                 </div>
               </div>
               <div class="form-group <ext:isErrors path='newPassword' value='has-error'/>">
-                <label class="col-md-3 control-label">新しいパスワード<span class="label label-danger" style="margin-left: 10px"></span></label>
-                <div class="col-md-5">
+                <label class="col-md-4 control-label">新しいパスワード<span class="label label-danger" style="margin-left: 10px"></span></label>
+                <div class="col-md-6">
                   <form:password path="newPassword" class="form-control" maxlength="${ext:getMaxLen('CNT0001') }" />
                 </div>
                 <div style="clear: both;">
-                  <span class="col-md-3"></span>
-                  <div class="col-md-7">
+                  <span class="col-md-4"></span>
+                  <div class="col-md-6">
                     <form:errors path="newPassword" element="div" cssClass="text-danger" />
                   </div>
                 </div>
               </div>
               <div class="form-group <ext:isErrors path='confirmPassword' value='has-error'/>">
-                <label class="col-md-3 control-label">確認用パスワード<span class="label label-danger" style="margin-left: 10px"></span></label>
-                <div class="col-md-5">
+                <label class="col-md-4 control-label">確認用パスワード<span class="label label-danger" style="margin-left: 10px"></span></label>
+                <div class="col-md-6">
                   <form:password path="confirmPassword" class="form-control" maxlength="${ext:getMaxLen('CNT0001') }" />
                 </div>
                 <div style="clear: both;">
-                  <span class="col-md-3"></span>
-                  <div class="col-md-7">
+                  <span class="col-md-4"></span>
+                  <div class="col-md-6">
                     <form:errors path="confirmPassword" element="div" cssClass="text-danger" />
                   </div>
                 </div>

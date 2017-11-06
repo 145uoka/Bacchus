@@ -138,7 +138,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2017-04-12 17:17:54</creation_date>
-			<updated_date>2017-11-06 15:48:58</updated_date>
+			<updated_date>2017-11-06 17:12:49</updated_date>
 			<model_property>
 				<name>プロジェクト名</name>
 				<value></value>
@@ -161,7 +161,7 @@
 			</model_property>
 		</model_properties>
 		<table_properties>
-			<schema></schema>
+			<schema>Bacchus</schema>
 			<without_oids>true</without_oids>
 		</table_properties>
 		<environment_setting>

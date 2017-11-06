@@ -1,14 +1,14 @@
 package com.Bacchus.dbflute.cbean;
 
-import com.Bacchus.dbflute.cbean.bs.BsSubsidyMngMCB;
+import com.Bacchus.dbflute.cbean.bs.BsUserTypeMCB;
 
 /**
- * The condition-bean of subsidy_mng_m.
+ * The condition-bean of user_type_m.
  * <p>
  * You can implement your original methods here.
  * This class remains when re-generating.
  * </p>
  * @author DBFlute(AutoGenerator)
  */
-public class SubsidyMngMCB extends BsSubsidyMngMCB {
+public class UserTypeMCB extends BsUserTypeMCB {
 }

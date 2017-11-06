@@ -1,4 +1,148 @@
 map:{
+    ; 2017/11/06 11:43:21 = map:{
+        ; diffDate = 2017/11/06 11:43:21
+        ; tableDiff = map:{
+            ; user_type_m = map:{
+                ; tableName = user_type_m
+                ; diffType = ADD
+            }
+            ; user_t = map:{
+                ; tableName = user_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; user_type_id = map:{
+                        ; columnName = user_type_id
+                        ; diffType = ADD
+                    }
+                    ; user_type = map:{
+                        ; columnName = user_type
+                        ; diffType = DELETE
+                    }
+                    ; money_id = map:{
+                        ; columnName = money_id
+                        ; diffType = DELETE
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; user_t_user_type_id_fkey = map:{
+                        ; constraintName = user_t_user_type_id_fkey
+                        ; diffType = ADD
+                    }
+                    ; user_t_money_id_fkey = map:{
+                        ; constraintName = user_t_money_id_fkey
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; subsidy_mng_m = map:{
+                ; tableName = subsidy_mng_m
+                ; diffType = DELETE
+            }
+        }
+        ; sequenceDiff = map:{
+            ; postgres.bacchus.user_type_m_user_type_id_seq = map:{
+                ; sequenceName = postgres.bacchus.user_type_m_user_type_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.bacchus.subsidy_mng_m_money_id_seq = map:{
+                ; sequenceName = postgres.bacchus.subsidy_mng_m_money_id_seq
+                ; diffType = DELETE
+            }
+        }
+    }
+    ; 2017/11/06 11:23:32 = map:{
+        ; diffDate = 2017/11/06 11:23:32
+        ; tableDiff = map:{
+            ; candidate_t = map:{
+                ; tableName = candidate_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; event_no = map:{
+                        ; columnName = event_no
+                        ; diffType = CHANGE
+                        ; notNullDiff = map:{
+                            ; next = true
+                            ; previous = false
+                        }
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; candidate_t_event_no_fkey = map:{
+                        ; constraintName = candidate_t_event_no_fkey
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; entry_t = map:{
+                ; tableName = entry_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; candidate_no = map:{
+                        ; columnName = candidate_no
+                        ; diffType = CHANGE
+                        ; notNullDiff = map:{
+                            ; next = true
+                            ; previous = false
+                        }
+                    }
+                    ; user_id = map:{
+                        ; columnName = user_id
+                        ; diffType = CHANGE
+                        ; notNullDiff = map:{
+                            ; next = true
+                            ; previous = false
+                        }
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; entry_t_candidate_no_fkey = map:{
+                        ; constraintName = entry_t_candidate_no_fkey
+                        ; diffType = ADD
+                    }
+                    ; entry_t_user_id_fkey = map:{
+                        ; constraintName = entry_t_user_id_fkey
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; event_t = map:{
+                ; tableName = event_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; user_id = map:{
+                        ; columnName = user_id
+                        ; diffType = CHANGE
+                        ; notNullDiff = map:{
+                            ; next = true
+                            ; previous = false
+                        }
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; event_t_user_id_fkey = map:{
+                        ; constraintName = event_t_user_id_fkey
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; user_t = map:{
+                ; tableName = user_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; money_id = map:{
+                        ; columnName = money_id
+                        ; diffType = ADD
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; user_t_money_id_fkey = map:{
+                        ; constraintName = user_t_money_id_fkey
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
     ; 2017/11/02 23:58:44 = map:{
         ; diffDate = 2017/11/02 23:58:44
         ; tableCount = map:{

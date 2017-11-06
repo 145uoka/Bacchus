@@ -38,13 +38,13 @@ import com.Bacchus.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     
+ *     candidate_t, user_t
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     
+ *     candidateT, userT
  *
  * [referrer property]
  *     
@@ -379,6 +379,22 @@ public abstract class BsEntryTBhv extends AbstractBehaviorWritable<EntryT, Entry
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
+    /**
+     * Pull out the list of foreign table 'CandidateT'.
+     * @param entryTList The list of entryT. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<CandidateT> pulloutCandidateT(List<EntryT> entryTList)
+    { return helpPulloutInternally(entryTList, "candidateT"); }
+
+    /**
+     * Pull out the list of foreign table 'UserT'.
+     * @param entryTList The list of entryT. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<UserT> pulloutUserT(List<EntryT> entryTList)
+    { return helpPulloutInternally(entryTList, "userT"); }
+
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============

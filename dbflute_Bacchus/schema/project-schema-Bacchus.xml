@@ -9,13 +9,16 @@
             pkName="candidate_t_pkey" pkPosition="1" primaryKey="true"
             required="true" size="10" type="INTEGER"/>
         <column comment="イベント管理番号" dbType="int4" javaType="Integer"
-            name="event_no" size="10" type="INTEGER"/>
+            name="event_no" required="true" size="10" type="INTEGER"/>
         <column comment="開始日時" dbType="timestamp"
             javaType="java.time.LocalDateTime"
             name="event_start_datetime" size="29, 6" type="TIMESTAMP"/>
         <column comment="終了日時" dbType="timestamp"
             javaType="java.time.LocalDateTime" name="event_end_datetime"
             size="29, 6" type="TIMESTAMP"/>
+        <foreign-key foreignSchema="bacchus" foreignTable="event_t" name="candidate_t_event_no_fkey">
+            <reference foreign="event_no" local="event_no"/>
+        </foreign-key>
     </table>
     <table comment="画面名定義_M" name="display_def_m"
         schema="postgres.bacchus" type="TABLE">
@@ -41,11 +44,17 @@
             javaType="Integer" name="entry_id" pkName="entry_t_pkey"
             pkPosition="1" primaryKey="true" required="true" size="10" type="INTEGER"/>
         <column comment="候補日管理番号" dbType="int4" javaType="Integer"
-            name="candidate_no" size="10" type="INTEGER"/>
+            name="candidate_no" required="true" size="10" type="INTEGER"/>
         <column comment="user_id" dbType="int4" javaType="Integer"
-            name="user_id" size="10" type="INTEGER"/>
+            name="user_id" required="true" size="10" type="INTEGER"/>
         <column comment="参加区分" dbType="int4" javaType="Integer"
             name="entry_div" size="10" type="INTEGER"/>
+        <foreign-key foreignSchema="bacchus" foreignTable="candidate_t" name="entry_t_candidate_no_fkey">
+            <reference foreign="candidate_no" local="candidate_no"/>
+        </foreign-key>
+        <foreign-key foreignSchema="bacchus" foreignTable="user_t" name="entry_t_user_id_fkey">
+            <reference foreign="user_id" local="user_id"/>
+        </foreign-key>
     </table>
     <table comment="イベント_T" name="event_t" schema="postgres.bacchus" type="TABLE">
         <column autoIncrement="true" comment="イベント管理番号" dbType="serial"
@@ -76,8 +85,11 @@
             name="entry_people" size="10" type="INTEGER"/>
         <column comment="イベント区分" dbType="text" javaType="String"
             name="event_div" size="2147483647" type="VARCHAR"/>
-        <column comment="ユーザーID" dbType="int4" javaType="Integer"
-            name="user_id" size="10" type="INTEGER"/>
+        <column comment="幹事ユーザID" dbType="int4" javaType="Integer"
+            name="user_id" required="true" size="10" type="INTEGER"/>
+        <foreign-key foreignSchema="bacchus" foreignTable="user_t" name="event_t_user_id_fkey">
+            <reference foreign="user_id" local="user_id"/>
+        </foreign-key>
     </table>
     <table comment="汎用コード_M" name="general_code_m"
         schema="postgres.bacchus" type="TABLE">
@@ -109,18 +121,6 @@
         <column comment="更新者" dbType="text" javaType="String"
             name="update_user" size="2147483647" type="VARCHAR"/>
     </table>
-    <table comment="補助金管理_M" name="subsidy_mng_m"
-        schema="postgres.bacchus" type="TABLE">
-        <column autoIncrement="true" comment="金額ID" dbType="serial"
-            default="nextval('subsidy_mng_m_money_id_seq'::regclass)"
-            javaType="Integer" name="money_id"
-            pkName="subsidy_mng_m_pkey" pkPosition="1" primaryKey="true"
-            required="true" size="10" type="INTEGER"/>
-        <column comment="ユーザー区分" dbType="int4" javaType="Integer"
-            name="user_type" size="10" type="INTEGER"/>
-        <column comment="金額" dbType="int4" javaType="Integer"
-            name="money" size="10" type="INTEGER"/>
-    </table>
     <table comment="システムプロパティ_M" name="system_property_m"
         schema="postgres.bacchus" type="TABLE">
         <column comment="プロパティキー" dbType="text" javaType="String"
@@ -151,12 +151,28 @@
             name="user_name" required="true" size="2147483647" type="VARCHAR"/>
         <column comment="Eメール" dbType="text" javaType="String"
             name="email" size="2147483647" type="VARCHAR"/>
-        <column comment="ユーザー区分" dbType="int4" javaType="Integer"
-            name="user_type" size="10" type="INTEGER"/>
         <column comment="暗号化PWD" dbType="text" javaType="String"
             name="password" required="true" size="2147483647" type="VARCHAR"/>
         <column comment="権限レベル" dbType="int4" default="0"
             javaType="Integer" name="auth_level" required="true"
+            size="10" type="INTEGER"/>
+        <column comment="ユーザー区分ID" dbType="int4" javaType="Integer"
+            name="user_type_id" required="true" size="10" type="INTEGER"/>
+        <foreign-key foreignSchema="bacchus" foreignTable="user_type_m" name="user_t_user_type_id_fkey">
+            <reference foreign="user_type_id" local="user_type_id"/>
+        </foreign-key>
+    </table>
+    <table comment="ユーザー区分_M" name="user_type_m"
+        schema="postgres.bacchus" type="TABLE">
+        <column autoIncrement="true" comment="ユーザー区分ID" dbType="serial"
+            default="nextval('user_type_m_user_type_id_seq'::regclass)"
+            javaType="Integer" name="user_type_id"
+            pkName="user_type_m_pkey" pkPosition="1" primaryKey="true"
+            required="true" size="10" type="INTEGER"/>
+        <column comment="ユーザー区分名称" dbType="text" javaType="String"
+            name="user_type_name" required="true" size="2147483647" type="VARCHAR"/>
+        <column comment="補助金額" dbType="int4" default="0"
+            javaType="Integer" name="subsidy_amount" required="true"
             size="10" type="INTEGER"/>
     </table>
     <sequenceGroup>
@@ -169,8 +185,8 @@
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="general_code_m_code_id_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
-            minimumValue="1" name="subsidy_mng_m_money_id_seq" schema="postgres.bacchus"/>
-        <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="user_t_user_id_seq" schema="postgres.bacchus"/>
+        <sequence incrementSize="1" maximumValue="9223372036854775807"
+            minimumValue="1" name="user_type_m_user_type_id_seq" schema="postgres.bacchus"/>
     </sequenceGroup>
 </database>

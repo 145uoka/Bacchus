@@ -25,13 +25,13 @@ import com.Bacchus.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     candidate_t, user_t
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     
+ *     candidateT, userT
  *
  * [referrer property]
  *     
@@ -59,6 +59,20 @@ public class LoaderOfEntryT {
     // ===================================================================================
     //                                                                    Pull out Foreign
     //                                                                    ================
+    protected LoaderOfCandidateT _foreignCandidateTLoader;
+    public LoaderOfCandidateT pulloutCandidateT() {
+        if (_foreignCandidateTLoader == null)
+        { _foreignCandidateTLoader = new LoaderOfCandidateT().ready(myBhv().pulloutCandidateT(_selectedList), _selector); }
+        return _foreignCandidateTLoader;
+    }
+
+    protected LoaderOfUserT _foreignUserTLoader;
+    public LoaderOfUserT pulloutUserT() {
+        if (_foreignUserTLoader == null)
+        { _foreignUserTLoader = new LoaderOfUserT().ready(myBhv().pulloutUserT(_selectedList), _selector); }
+        return _foreignUserTLoader;
+    }
+
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========

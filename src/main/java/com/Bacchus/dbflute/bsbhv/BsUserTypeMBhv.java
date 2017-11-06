@@ -20,16 +20,16 @@ import com.Bacchus.dbflute.bsentity.dbmeta.*;
 import com.Bacchus.dbflute.cbean.*;
 
 /**
- * The behavior of subsidy_mng_m as TABLE. <br>
+ * The behavior of user_type_m as TABLE. <br>
  * <pre>
  * [primary key]
- *     money_id
+ *     user_type_id
  *
  * [column]
- *     money_id, user_type, money
+ *     user_type_id, user_type_name, subsidy_amount
  *
  * [sequence]
- *     subsidy_mng_m_money_id_seq
+ *     user_type_m_user_type_id_seq
  *
  * [identity]
  *     
@@ -41,17 +41,17 @@ import com.Bacchus.dbflute.cbean.*;
  *     
  *
  * [referrer table]
- *     
+ *     user_t
  *
  * [foreign property]
  *     
  *
  * [referrer property]
- *     
+ *     userTList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyMngM, SubsidyMngMCB> {
+public abstract class BsUserTypeMBhv extends AbstractBehaviorWritable<UserTypeM, UserTypeMCB> {
 
     // ===================================================================================
     //                                                                          Definition
@@ -63,15 +63,15 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
     //                                                                             DB Meta
     //                                                                             =======
     /** {@inheritDoc} */
-    public SubsidyMngMDbm asDBMeta() { return SubsidyMngMDbm.getInstance(); }
+    public UserTypeMDbm asDBMeta() { return UserTypeMDbm.getInstance(); }
     /** {@inheritDoc} */
-    public String asTableDbName() { return "subsidy_mng_m"; }
+    public String asTableDbName() { return "user_type_m"; }
 
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
-    public SubsidyMngMCB newConditionBean() { return new SubsidyMngMCB(); }
+    public UserTypeMCB newConditionBean() { return new UserTypeMCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -80,14 +80,14 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * Select the count of uniquely-selected records by the condition-bean. {IgnorePagingCondition, IgnoreSpecifyColumn}<br>
      * SpecifyColumn is ignored but you can use it only to remove text type column for union's distinct.
      * <pre>
-     * <span style="color: #70226C">int</span> count = <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">selectCount</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #70226C">int</span> count = <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">selectCount</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
      * });
      * </pre>
-     * @param cbLambda The callback for condition-bean of SubsidyMngM. (NotNull)
+     * @param cbLambda The callback for condition-bean of UserTypeM. (NotNull)
      * @return The count for the condition. (NotMinus)
      */
-    public int selectCount(CBCall<SubsidyMngMCB> cbLambda) {
+    public int selectCount(CBCall<UserTypeMCB> cbLambda) {
         return facadeSelectCount(createCB(cbLambda));
     }
 
@@ -101,38 +101,38 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * <span style="color: #AD4747; font-size: 120%">If it might be no data, isPresent() and orElse(), ...</span>
      * <pre>
      * <span style="color: #3F7E5E">// if the data always exists as your business rule</span>
-     * <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
-     * }).<span style="color: #CC4747">alwaysPresent</span>(<span style="color: #553000">subsidyMngM</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * }).<span style="color: #CC4747">alwaysPresent</span>(<span style="color: #553000">userTypeM</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #3F7E5E">// called if present, or exception</span>
-     *     ... = <span style="color: #553000">subsidyMngM</span>.get...
+     *     ... = <span style="color: #553000">userTypeM</span>.get...
      * });
      * 
      * <span style="color: #3F7E5E">// if it might be no data, ...</span>
-     * <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
-     * }).<span style="color: #CC4747">ifPresent</span>(<span style="color: #553000">subsidyMngM</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * }).<span style="color: #CC4747">ifPresent</span>(<span style="color: #553000">userTypeM</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #3F7E5E">// called if present</span>
-     *     ... = <span style="color: #553000">subsidyMngM</span>.get...
+     *     ... = <span style="color: #553000">userTypeM</span>.get...
      * }).<span style="color: #994747">orElse</span>(() <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #3F7E5E">// called if not present</span>
      * });
      * </pre>
-     * @param cbLambda The callback for condition-bean of SubsidyMngM. (NotNull)
+     * @param cbLambda The callback for condition-bean of UserTypeM. (NotNull)
      * @return The optional entity selected by the condition. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public OptionalEntity<SubsidyMngM> selectEntity(CBCall<SubsidyMngMCB> cbLambda) {
+    public OptionalEntity<UserTypeM> selectEntity(CBCall<UserTypeMCB> cbLambda) {
         return facadeSelectEntity(createCB(cbLambda));
     }
 
-    protected OptionalEntity<SubsidyMngM> facadeSelectEntity(SubsidyMngMCB cb) {
+    protected OptionalEntity<UserTypeM> facadeSelectEntity(UserTypeMCB cb) {
         return doSelectOptionalEntity(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends SubsidyMngM> OptionalEntity<ENTITY> doSelectOptionalEntity(SubsidyMngMCB cb, Class<? extends ENTITY> tp) {
+    protected <ENTITY extends UserTypeM> OptionalEntity<ENTITY> doSelectOptionalEntity(UserTypeMCB cb, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
@@ -142,46 +142,46 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * Select the entity by the condition-bean with deleted check. <br>
      * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, this method is good.</span>
      * <pre>
-     * SubsidyMngM <span style="color: #553000">subsidyMngM</span> = <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">selectEntityWithDeletedCheck</span>(cb <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> cb.acceptPK(1));
-     * ... = <span style="color: #553000">subsidyMngM</span>.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
+     * UserTypeM <span style="color: #553000">userTypeM</span> = <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">selectEntityWithDeletedCheck</span>(cb <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> cb.acceptPK(1));
+     * ... = <span style="color: #553000">userTypeM</span>.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
-     * @param cbLambda The callback for condition-bean of SubsidyMngM. (NotNull)
+     * @param cbLambda The callback for condition-bean of UserTypeM. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public SubsidyMngM selectEntityWithDeletedCheck(CBCall<SubsidyMngMCB> cbLambda) {
+    public UserTypeM selectEntityWithDeletedCheck(CBCall<UserTypeMCB> cbLambda) {
         return facadeSelectEntityWithDeletedCheck(createCB(cbLambda));
     }
 
     /**
      * Select the entity by the primary-key value.
-     * @param moneyId : PK, ID, NotNull, serial(10). (NotNull)
+     * @param userTypeId : PK, ID, NotNull, serial(10). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public OptionalEntity<SubsidyMngM> selectByPK(Integer moneyId) {
-        return facadeSelectByPK(moneyId);
+    public OptionalEntity<UserTypeM> selectByPK(Integer userTypeId) {
+        return facadeSelectByPK(userTypeId);
     }
 
-    protected OptionalEntity<SubsidyMngM> facadeSelectByPK(Integer moneyId) {
-        return doSelectOptionalByPK(moneyId, typeOfSelectedEntity());
+    protected OptionalEntity<UserTypeM> facadeSelectByPK(Integer userTypeId) {
+        return doSelectOptionalByPK(userTypeId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends SubsidyMngM> ENTITY doSelectByPK(Integer moneyId, Class<? extends ENTITY> tp) {
-        return doSelectEntity(xprepareCBAsPK(moneyId), tp);
+    protected <ENTITY extends UserTypeM> ENTITY doSelectByPK(Integer userTypeId, Class<? extends ENTITY> tp) {
+        return doSelectEntity(xprepareCBAsPK(userTypeId), tp);
     }
 
-    protected <ENTITY extends SubsidyMngM> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer moneyId, Class<? extends ENTITY> tp) {
-        return createOptionalEntity(doSelectByPK(moneyId, tp), moneyId);
+    protected <ENTITY extends UserTypeM> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer userTypeId, Class<? extends ENTITY> tp) {
+        return createOptionalEntity(doSelectByPK(userTypeId, tp), userTypeId);
     }
 
-    protected SubsidyMngMCB xprepareCBAsPK(Integer moneyId) {
-        assertObjectNotNull("moneyId", moneyId);
-        return newConditionBean().acceptPK(moneyId);
+    protected UserTypeMCB xprepareCBAsPK(Integer userTypeId) {
+        assertObjectNotNull("userTypeId", userTypeId);
+        return newConditionBean().acceptPK(userTypeId);
     }
 
     // ===================================================================================
@@ -190,19 +190,19 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
     /**
      * Select the list as result bean.
      * <pre>
-     * ListResultBean&lt;SubsidyMngM&gt; <span style="color: #553000">subsidyMngMList</span> = <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">selectList</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * ListResultBean&lt;UserTypeM&gt; <span style="color: #553000">userTypeMList</span> = <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">selectList</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...;
      *     <span style="color: #553000">cb</span>.query().addOrderBy...;
      * });
-     * <span style="color: #70226C">for</span> (SubsidyMngM <span style="color: #553000">subsidyMngM</span> : <span style="color: #553000">subsidyMngMList</span>) {
-     *     ... = <span style="color: #553000">subsidyMngM</span>.get...;
+     * <span style="color: #70226C">for</span> (UserTypeM <span style="color: #553000">userTypeM</span> : <span style="color: #553000">userTypeMList</span>) {
+     *     ... = <span style="color: #553000">userTypeM</span>.get...;
      * }
      * </pre>
-     * @param cbLambda The callback for condition-bean of SubsidyMngM. (NotNull)
+     * @param cbLambda The callback for condition-bean of UserTypeM. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
      * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public ListResultBean<SubsidyMngM> selectList(CBCall<SubsidyMngMCB> cbLambda) {
+    public ListResultBean<UserTypeM> selectList(CBCall<UserTypeMCB> cbLambda) {
         return facadeSelectList(createCB(cbLambda));
     }
 
@@ -216,7 +216,7 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * Select the page as result bean. <br>
      * (both count-select and paging-select are executed)
      * <pre>
-     * PagingResultBean&lt;SubsidyMngM&gt; <span style="color: #553000">page</span> = <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">selectPage</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * PagingResultBean&lt;UserTypeM&gt; <span style="color: #553000">page</span> = <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">selectPage</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
      *     <span style="color: #553000">cb</span>.query().addOrderBy...
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
@@ -226,15 +226,15 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * <span style="color: #70226C">boolean</span> isExistPrePage = <span style="color: #553000">page</span>.isExistPrePage();
      * <span style="color: #70226C">boolean</span> isExistNextPage = <span style="color: #553000">page</span>.isExistNextPage();
      * ...
-     * <span style="color: #70226C">for</span> (SubsidyMngM subsidyMngM : <span style="color: #553000">page</span>) {
-     *     ... = subsidyMngM.get...;
+     * <span style="color: #70226C">for</span> (UserTypeM userTypeM : <span style="color: #553000">page</span>) {
+     *     ... = userTypeM.get...;
      * }
      * </pre>
-     * @param cbLambda The callback for condition-bean of SubsidyMngM. (NotNull)
+     * @param cbLambda The callback for condition-bean of UserTypeM. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
      * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public PagingResultBean<SubsidyMngM> selectPage(CBCall<SubsidyMngMCB> cbLambda) {
+    public PagingResultBean<UserTypeM> selectPage(CBCall<UserTypeMCB> cbLambda) {
         return facadeSelectPage(createCB(cbLambda));
     }
 
@@ -244,16 +244,16 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
     /**
      * Select the cursor by the condition-bean.
      * <pre>
-     * <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">selectCursor</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">selectCursor</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
      * }, <span style="color: #553000">member</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     ... = <span style="color: #553000">member</span>.getMemberName();
      * });
      * </pre>
-     * @param cbLambda The callback for condition-bean of SubsidyMngM. (NotNull)
-     * @param entityLambda The handler of entity row of SubsidyMngM. (NotNull)
+     * @param cbLambda The callback for condition-bean of UserTypeM. (NotNull)
+     * @param entityLambda The handler of entity row of UserTypeM. (NotNull)
      */
-    public void selectCursor(CBCall<SubsidyMngMCB> cbLambda, EntityRowHandler<SubsidyMngM> entityLambda) {
+    public void selectCursor(CBCall<UserTypeMCB> cbLambda, EntityRowHandler<UserTypeM> entityLambda) {
         facadeSelectCursor(createCB(cbLambda), entityLambda);
     }
 
@@ -264,7 +264,7 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * Select the scalar value derived by a function from uniquely-selected records. <br>
      * You should call a function method after this method called like as follows:
      * <pre>
-     * <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">selectScalar</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">selectScalar</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">column...</span>; <span style="color: #3F7E5E">// required for the function</span>
      *     <span style="color: #553000">cb</span>.query().set...
      * });
@@ -273,7 +273,7 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * @param resultType The type of result. (NotNull)
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
-    public <RESULT> HpSLSFunction<SubsidyMngMCB, RESULT> selectScalar(Class<RESULT> resultType) {
+    public <RESULT> HpSLSFunction<UserTypeMCB, RESULT> selectScalar(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
 
@@ -335,12 +335,12 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * </pre>
      * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
      * The condition-bean, which the set-upper provides, has order by FK before callback.
-     * @param subsidyMngMList The entity list of subsidyMngM. (NotNull)
+     * @param userTypeMList The entity list of userTypeM. (NotNull)
      * @param loaderLambda The callback to handle the referrer loader for actually loading referrer. (NotNull)
      */
-    public void load(List<SubsidyMngM> subsidyMngMList, ReferrerLoaderHandler<LoaderOfSubsidyMngM> loaderLambda) {
-        xassLRArg(subsidyMngMList, loaderLambda);
-        loaderLambda.handle(new LoaderOfSubsidyMngM().ready(subsidyMngMList, _behaviorSelector));
+    public void load(List<UserTypeM> userTypeMList, ReferrerLoaderHandler<LoaderOfUserTypeM> loaderLambda) {
+        xassLRArg(userTypeMList, loaderLambda);
+        loaderLambda.handle(new LoaderOfUserTypeM().ready(userTypeMList, _behaviorSelector));
     }
 
     /**
@@ -368,12 +368,76 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * </pre>
      * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
      * The condition-bean, which the set-upper provides, has order by FK before callback.
-     * @param subsidyMngM The entity of subsidyMngM. (NotNull)
+     * @param userTypeM The entity of userTypeM. (NotNull)
      * @param loaderLambda The callback to handle the referrer loader for actually loading referrer. (NotNull)
      */
-    public void load(SubsidyMngM subsidyMngM, ReferrerLoaderHandler<LoaderOfSubsidyMngM> loaderLambda) {
-        xassLRArg(subsidyMngM, loaderLambda);
-        loaderLambda.handle(new LoaderOfSubsidyMngM().ready(xnewLRAryLs(subsidyMngM), _behaviorSelector));
+    public void load(UserTypeM userTypeM, ReferrerLoaderHandler<LoaderOfUserTypeM> loaderLambda) {
+        xassLRArg(userTypeM, loaderLambda);
+        loaderLambda.handle(new LoaderOfUserTypeM().ready(xnewLRAryLs(userTypeM), _behaviorSelector));
+    }
+
+    /**
+     * Load referrer of userTList by the set-upper of referrer. <br>
+     * user_t by user_type_id, named 'userTList'.
+     * <pre>
+     * <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">loadUserT</span>(<span style="color: #553000">userTypeMList</span>, <span style="color: #553000">tCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">tCB</span>.setupSelect...
+     *     <span style="color: #553000">tCB</span>.query().set...
+     *     <span style="color: #553000">tCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (UserTypeM userTypeM : <span style="color: #553000">userTypeMList</span>) {
+     *     ... = userTypeM.<span style="color: #CC4747">getUserTList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setUserTypeId_InScope(pkList);
+     * cb.query().addOrderBy_UserTypeId_Asc();
+     * </pre>
+     * @param userTypeMList The entity list of userTypeM. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<UserT> loadUserT(List<UserTypeM> userTypeMList, ReferrerConditionSetupper<UserTCB> refCBLambda) {
+        xassLRArg(userTypeMList, refCBLambda);
+        return doLoadUserT(userTypeMList, new LoadReferrerOption<UserTCB, UserT>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of userTList by the set-upper of referrer. <br>
+     * user_t by user_type_id, named 'userTList'.
+     * <pre>
+     * <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">loadUserT</span>(<span style="color: #553000">userTypeM</span>, <span style="color: #553000">tCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">tCB</span>.setupSelect...
+     *     <span style="color: #553000">tCB</span>.query().set...
+     *     <span style="color: #553000">tCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">userTypeM</span>.<span style="color: #CC4747">getUserTList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setUserTypeId_InScope(pkList);
+     * cb.query().addOrderBy_UserTypeId_Asc();
+     * </pre>
+     * @param userTypeM The entity of userTypeM. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<UserT> loadUserT(UserTypeM userTypeM, ReferrerConditionSetupper<UserTCB> refCBLambda) {
+        xassLRArg(userTypeM, refCBLambda);
+        return doLoadUserT(xnewLRLs(userTypeM), new LoadReferrerOption<UserTCB, UserT>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<UserT> doLoadUserT(List<UserTypeM> userTypeMList, LoadReferrerOption<UserTCB, UserT> option) {
+        return helpLoadReferrerInternally(userTypeMList, option, "userTList");
     }
 
     // ===================================================================================
@@ -383,12 +447,12 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
     //                                                                      Extract Column
     //                                                                      ==============
     /**
-     * Extract the value list of (single) primary key moneyId.
-     * @param subsidyMngMList The list of subsidyMngM. (NotNull, EmptyAllowed)
+     * Extract the value list of (single) primary key userTypeId.
+     * @param userTypeMList The list of userTypeM. (NotNull, EmptyAllowed)
      * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<Integer> extractMoneyIdList(List<SubsidyMngM> subsidyMngMList)
-    { return helpExtractListInternally(subsidyMngMList, "moneyId"); }
+    public List<Integer> extractUserTypeIdList(List<UserTypeM> userTypeMList)
+    { return helpExtractListInternally(userTypeMList, "userTypeId"); }
 
     // ===================================================================================
     //                                                                       Entity Update
@@ -396,80 +460,80 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
     /**
      * Insert the entity modified-only. (DefaultConstraintsEnabled)
      * <pre>
-     * SubsidyMngM subsidyMngM = <span style="color: #70226C">new</span> SubsidyMngM();
+     * UserTypeM userTypeM = <span style="color: #70226C">new</span> UserTypeM();
      * <span style="color: #3F7E5E">// if auto-increment, you don't need to set the PK value</span>
-     * subsidyMngM.setFoo...(value);
-     * subsidyMngM.setBar...(value);
+     * userTypeM.setFoo...(value);
+     * userTypeM.setBar...(value);
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
-     * <span style="color: #3F7E5E">//subsidyMngM.setRegisterUser(value);</span>
-     * <span style="color: #3F7E5E">//subsidyMngM.set...;</span>
-     * <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">insert</span>(subsidyMngM);
-     * ... = subsidyMngM.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
+     * <span style="color: #3F7E5E">//userTypeM.setRegisterUser(value);</span>
+     * <span style="color: #3F7E5E">//userTypeM.set...;</span>
+     * <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">insert</span>(userTypeM);
+     * ... = userTypeM.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
-     * @param subsidyMngM The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param userTypeM The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void insert(SubsidyMngM subsidyMngM) {
-        doInsert(subsidyMngM, null);
+    public void insert(UserTypeM userTypeM) {
+        doInsert(userTypeM, null);
     }
 
     /**
      * Update the entity modified-only. (ZeroUpdateException, NonExclusiveControl) <br>
      * By PK as default, and also you can update by unique keys using entity's uniqueOf().
      * <pre>
-     * SubsidyMngM subsidyMngM = <span style="color: #70226C">new</span> SubsidyMngM();
-     * subsidyMngM.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * subsidyMngM.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * UserTypeM userTypeM = <span style="color: #70226C">new</span> UserTypeM();
+     * userTypeM.setPK...(value); <span style="color: #3F7E5E">// required</span>
+     * userTypeM.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
-     * <span style="color: #3F7E5E">//subsidyMngM.setRegisterUser(value);</span>
-     * <span style="color: #3F7E5E">//subsidyMngM.set...;</span>
+     * <span style="color: #3F7E5E">//userTypeM.setRegisterUser(value);</span>
+     * <span style="color: #3F7E5E">//userTypeM.set...;</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
-     * subsidyMngM.<span style="color: #CC4747">setVersionNo</span>(value);
-     * <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">update</span>(subsidyMngM);
+     * userTypeM.<span style="color: #CC4747">setVersionNo</span>(value);
+     * <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">update</span>(userTypeM);
      * </pre>
-     * @param subsidyMngM The entity of update. (NotNull, PrimaryKeyNotNull)
+     * @param userTypeM The entity of update. (NotNull, PrimaryKeyNotNull)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void update(SubsidyMngM subsidyMngM) {
-        doUpdate(subsidyMngM, null);
+    public void update(UserTypeM userTypeM) {
+        doUpdate(userTypeM, null);
     }
 
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br>
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br>
      * <p><span style="color: #994747; font-size: 120%">Also you can update by unique keys using entity's uniqueOf().</span></p>
-     * @param subsidyMngM The entity of insert or update. (NotNull, ...depends on insert or update)
+     * @param userTypeM The entity of insert or update. (NotNull, ...depends on insert or update)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void insertOrUpdate(SubsidyMngM subsidyMngM) {
-        doInsertOrUpdate(subsidyMngM, null, null);
+    public void insertOrUpdate(UserTypeM userTypeM) {
+        doInsertOrUpdate(userTypeM, null, null);
     }
 
     /**
      * Delete the entity. (ZeroUpdateException, NonExclusiveControl) <br>
      * By PK as default, and also you can delete by unique keys using entity's uniqueOf().
      * <pre>
-     * SubsidyMngM subsidyMngM = <span style="color: #70226C">new</span> SubsidyMngM();
-     * subsidyMngM.setPK...(value); <span style="color: #3F7E5E">// required</span>
+     * UserTypeM userTypeM = <span style="color: #70226C">new</span> UserTypeM();
+     * userTypeM.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
-     * subsidyMngM.<span style="color: #CC4747">setVersionNo</span>(value);
+     * userTypeM.<span style="color: #CC4747">setVersionNo</span>(value);
      * <span style="color: #70226C">try</span> {
-     *     <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">delete</span>(subsidyMngM);
+     *     <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">delete</span>(userTypeM);
      * } <span style="color: #70226C">catch</span> (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
-     * @param subsidyMngM The entity of delete. (NotNull, PrimaryKeyNotNull)
+     * @param userTypeM The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      */
-    public void delete(SubsidyMngM subsidyMngM) {
-        doDelete(subsidyMngM, null);
+    public void delete(UserTypeM userTypeM) {
+        doDelete(userTypeM, null);
     }
 
     // ===================================================================================
@@ -481,26 +545,26 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * <p><span style="color: #CC4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
      * <pre>
      * <span style="color: #70226C">for</span> (... : ...) {
-     *     SubsidyMngM subsidyMngM = <span style="color: #70226C">new</span> SubsidyMngM();
-     *     subsidyMngM.setFooName("foo");
+     *     UserTypeM userTypeM = <span style="color: #70226C">new</span> UserTypeM();
+     *     userTypeM.setFooName("foo");
      *     <span style="color: #70226C">if</span> (...) {
-     *         subsidyMngM.setFooPrice(123);
+     *         userTypeM.setFooPrice(123);
      *     }
      *     <span style="color: #3F7E5E">// FOO_NAME and FOO_PRICE (and record meta columns) are registered</span>
      *     <span style="color: #3F7E5E">// FOO_PRICE not-called in any entities are registered as null without default value</span>
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
-     *     subsidyMngMList.add(subsidyMngM);
+     *     userTypeMList.add(userTypeM);
      * }
-     * <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">batchInsert</span>(subsidyMngMList);
+     * <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">batchInsert</span>(userTypeMList);
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
      * (When you use the (normal) insert(), you can get the incremented value from your entity)</p>
-     * @param subsidyMngMList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNullAllowed: when auto-increment)
+     * @param userTypeMList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNullAllowed: when auto-increment)
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
-    public int[] batchInsert(List<SubsidyMngM> subsidyMngMList) {
-        return doBatchInsert(subsidyMngMList, null);
+    public int[] batchInsert(List<UserTypeM> userTypeMList) {
+        return doBatchInsert(userTypeMList, null);
     }
 
     /**
@@ -509,37 +573,37 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * <span style="color: #CC4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
-     *     SubsidyMngM subsidyMngM = <span style="color: #70226C">new</span> SubsidyMngM();
-     *     subsidyMngM.setFooName("foo");
+     *     UserTypeM userTypeM = <span style="color: #70226C">new</span> UserTypeM();
+     *     userTypeM.setFooName("foo");
      *     <span style="color: #70226C">if</span> (...) {
-     *         subsidyMngM.setFooPrice(123);
+     *         userTypeM.setFooPrice(123);
      *     } <span style="color: #70226C">else</span> {
-     *         subsidyMngM.setFooPrice(null); <span style="color: #3F7E5E">// updated as null</span>
-     *         <span style="color: #3F7E5E">//subsidyMngM.setFooDate(...); // *not allowed, fragmented</span>
+     *         userTypeM.setFooPrice(null); <span style="color: #3F7E5E">// updated as null</span>
+     *         <span style="color: #3F7E5E">//userTypeM.setFooDate(...); // *not allowed, fragmented</span>
      *     }
      *     <span style="color: #3F7E5E">// FOO_NAME and FOO_PRICE (and record meta columns) are updated</span>
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
-     *     subsidyMngMList.add(subsidyMngM);
+     *     userTypeMList.add(userTypeM);
      * }
-     * <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">batchUpdate</span>(subsidyMngMList);
+     * <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">batchUpdate</span>(userTypeMList);
      * </pre>
-     * @param subsidyMngMList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param userTypeMList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
-    public int[] batchUpdate(List<SubsidyMngM> subsidyMngMList) {
-        return doBatchUpdate(subsidyMngMList, null);
+    public int[] batchUpdate(List<UserTypeM> userTypeMList) {
+        return doBatchUpdate(userTypeMList, null);
     }
 
     /**
      * Batch-delete the entity list. (NonExclusiveControl) <br>
      * This method uses executeBatch() of java.sql.PreparedStatement.
-     * @param subsidyMngMList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param userTypeMList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
-    public int[] batchDelete(List<SubsidyMngM> subsidyMngMList) {
-        return doBatchDelete(subsidyMngMList, null);
+    public int[] batchDelete(List<UserTypeM> userTypeMList) {
+        return doBatchDelete(userTypeMList, null);
     }
 
     // ===================================================================================
@@ -548,8 +612,8 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">queryInsert</span>(new QueryInsertSetupper&lt;SubsidyMngM, SubsidyMngMCB&gt;() {
-     *     public ConditionBean setup(SubsidyMngM entity, SubsidyMngMCB intoCB) {
+     * <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">queryInsert</span>(new QueryInsertSetupper&lt;UserTypeM, UserTypeMCB&gt;() {
+     *     public ConditionBean setup(UserTypeM entity, UserTypeMCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
      *
@@ -571,48 +635,48 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * @param manyArgLambda The callback to set up query-insert. (NotNull)
      * @return The inserted count.
      */
-    public int queryInsert(QueryInsertSetupper<SubsidyMngM, SubsidyMngMCB> manyArgLambda) {
+    public int queryInsert(QueryInsertSetupper<UserTypeM, UserTypeMCB> manyArgLambda) {
         return doQueryInsert(manyArgLambda, null);
     }
 
     /**
      * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
      * <pre>
-     * SubsidyMngM subsidyMngM = <span style="color: #70226C">new</span> SubsidyMngM();
+     * UserTypeM userTypeM = <span style="color: #70226C">new</span> UserTypeM();
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
-     * <span style="color: #3F7E5E">//subsidyMngM.setPK...(value);</span>
-     * subsidyMngM.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * <span style="color: #3F7E5E">//userTypeM.setPK...(value);</span>
+     * userTypeM.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
-     * <span style="color: #3F7E5E">//subsidyMngM.setRegisterUser(value);</span>
-     * <span style="color: #3F7E5E">//subsidyMngM.set...;</span>
+     * <span style="color: #3F7E5E">//userTypeM.setRegisterUser(value);</span>
+     * <span style="color: #3F7E5E">//userTypeM.set...;</span>
      * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
-     * <span style="color: #3F7E5E">//subsidyMngM.setVersionNo(value);</span>
-     * <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">queryUpdate</span>(subsidyMngM, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #3F7E5E">//userTypeM.setVersionNo(value);</span>
+     * <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">queryUpdate</span>(userTypeM, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().setFoo...
      * });
      * </pre>
-     * @param subsidyMngM The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
-     * @param cbLambda The callback for condition-bean of SubsidyMngM. (NotNull)
+     * @param userTypeM The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
+     * @param cbLambda The callback for condition-bean of UserTypeM. (NotNull)
      * @return The updated count.
      * @throws NonQueryUpdateNotAllowedException When the query has no condition.
      */
-    public int queryUpdate(SubsidyMngM subsidyMngM, CBCall<SubsidyMngMCB> cbLambda) {
-        return doQueryUpdate(subsidyMngM, createCB(cbLambda), null);
+    public int queryUpdate(UserTypeM userTypeM, CBCall<UserTypeMCB> cbLambda) {
+        return doQueryUpdate(userTypeM, createCB(cbLambda), null);
     }
 
     /**
      * Delete the several entities by query. (NonExclusiveControl)
      * <pre>
-     * <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">queryDelete</span>(subsidyMngM, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">queryDelete</span>(userTypeM, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().setFoo...
      * });
      * </pre>
-     * @param cbLambda The callback for condition-bean of SubsidyMngM. (NotNull)
+     * @param cbLambda The callback for condition-bean of UserTypeM. (NotNull)
      * @return The deleted count.
      * @throws NonQueryDeleteNotAllowedException When the query has no condition.
      */
-    public int queryDelete(CBCall<SubsidyMngMCB> cbLambda) {
+    public int queryDelete(CBCall<UserTypeMCB> cbLambda) {
         return doQueryDelete(createCB(cbLambda), null);
     }
 
@@ -627,22 +691,22 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br>
      * Other specifications are same as insert(entity).
      * <pre>
-     * SubsidyMngM subsidyMngM = <span style="color: #70226C">new</span> SubsidyMngM();
+     * UserTypeM userTypeM = <span style="color: #70226C">new</span> UserTypeM();
      * <span style="color: #3F7E5E">// if auto-increment, you don't need to set the PK value</span>
-     * subsidyMngM.setFoo...(value);
-     * subsidyMngM.setBar...(value);
-     * <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">varyingInsert</span>(subsidyMngM, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * userTypeM.setFoo...(value);
+     * userTypeM.setBar...(value);
+     * <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">varyingInsert</span>(userTypeM, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      *     <span style="color: #553000">op</span>.disableCommonColumnAutoSetup();
      * });
-     * ... = subsidyMngM.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
+     * ... = userTypeM.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
-     * @param subsidyMngM The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param userTypeM The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
      * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void varyingInsert(SubsidyMngM subsidyMngM, WritableOptionCall<SubsidyMngMCB, InsertOption<SubsidyMngMCB>> opLambda) {
-        doInsert(subsidyMngM, createInsertOption(opLambda));
+    public void varyingInsert(UserTypeM userTypeM, WritableOptionCall<UserTypeMCB, InsertOption<UserTypeMCB>> opLambda) {
+        doInsert(userTypeM, createInsertOption(opLambda));
     }
 
     /**
@@ -650,53 +714,53 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * For example, self(selfCalculationSpecification), specify(updateColumnSpecification), disableCommonColumnAutoSetup(). <br>
      * Other specifications are same as update(entity).
      * <pre>
-     * SubsidyMngM subsidyMngM = <span style="color: #70226C">new</span> SubsidyMngM();
-     * subsidyMngM.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * subsidyMngM.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * UserTypeM userTypeM = <span style="color: #70226C">new</span> UserTypeM();
+     * userTypeM.setPK...(value); <span style="color: #3F7E5E">// required</span>
+     * userTypeM.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
-     * subsidyMngM.<span style="color: #CC4747">setVersionNo</span>(value);
+     * userTypeM.<span style="color: #CC4747">setVersionNo</span>(value);
      * <span style="color: #3F7E5E">// you can update by self calculation values</span>
-     * <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">varyingUpdate</span>(subsidyMngM, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">varyingUpdate</span>(userTypeM, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">op</span>.self(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *         <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">columnXxxCount()</span>;
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
      * });
      * </pre>
-     * @param subsidyMngM The entity of update. (NotNull, PrimaryKeyNotNull)
+     * @param userTypeM The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void varyingUpdate(SubsidyMngM subsidyMngM, WritableOptionCall<SubsidyMngMCB, UpdateOption<SubsidyMngMCB>> opLambda) {
-        doUpdate(subsidyMngM, createUpdateOption(opLambda));
+    public void varyingUpdate(UserTypeM userTypeM, WritableOptionCall<UserTypeMCB, UpdateOption<UserTypeMCB>> opLambda) {
+        doUpdate(userTypeM, createUpdateOption(opLambda));
     }
 
     /**
      * Insert or update the entity with varying requests. (ExclusiveControl: when update) <br>
      * Other specifications are same as insertOrUpdate(entity).
-     * @param subsidyMngM The entity of insert or update. (NotNull)
+     * @param userTypeM The entity of insert or update. (NotNull)
      * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
      * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void varyingInsertOrUpdate(SubsidyMngM subsidyMngM, WritableOptionCall<SubsidyMngMCB, InsertOption<SubsidyMngMCB>> insertOpLambda, WritableOptionCall<SubsidyMngMCB, UpdateOption<SubsidyMngMCB>> updateOpLambda) {
-        doInsertOrUpdate(subsidyMngM, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
+    public void varyingInsertOrUpdate(UserTypeM userTypeM, WritableOptionCall<UserTypeMCB, InsertOption<UserTypeMCB>> insertOpLambda, WritableOptionCall<UserTypeMCB, UpdateOption<UserTypeMCB>> updateOpLambda) {
+        doInsertOrUpdate(userTypeM, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
     }
 
     /**
      * Delete the entity with varying requests. (ZeroUpdateException, NonExclusiveControl) <br>
      * Now a valid option does not exist. <br>
      * Other specifications are same as delete(entity).
-     * @param subsidyMngM The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
+     * @param userTypeM The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      */
-    public void varyingDelete(SubsidyMngM subsidyMngM, WritableOptionCall<SubsidyMngMCB, DeleteOption<SubsidyMngMCB>> opLambda) {
-        doDelete(subsidyMngM, createDeleteOption(opLambda));
+    public void varyingDelete(UserTypeM userTypeM, WritableOptionCall<UserTypeMCB, DeleteOption<UserTypeMCB>> opLambda) {
+        doDelete(userTypeM, createDeleteOption(opLambda));
     }
 
     // -----------------------------------------------------
@@ -707,12 +771,12 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * For example, disableCommonColumnAutoSetup()
      * , disablePrimaryKeyIdentity(), limitBatchInsertLogging(). <br>
      * Other specifications are same as batchInsert(entityList).
-     * @param subsidyMngMList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param userTypeMList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      */
-    public int[] varyingBatchInsert(List<SubsidyMngM> subsidyMngMList, WritableOptionCall<SubsidyMngMCB, InsertOption<SubsidyMngMCB>> opLambda) {
-        return doBatchInsert(subsidyMngMList, createInsertOption(opLambda));
+    public int[] varyingBatchInsert(List<UserTypeM> userTypeMList, WritableOptionCall<UserTypeMCB, InsertOption<UserTypeMCB>> opLambda) {
+        return doBatchInsert(userTypeMList, createInsertOption(opLambda));
     }
 
     /**
@@ -720,24 +784,24 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * For example, self(selfCalculationSpecification), specify(updateColumnSpecification)
      * , disableCommonColumnAutoSetup(), limitBatchUpdateLogging(). <br>
      * Other specifications are same as batchUpdate(entityList).
-     * @param subsidyMngMList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param userTypeMList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      */
-    public int[] varyingBatchUpdate(List<SubsidyMngM> subsidyMngMList, WritableOptionCall<SubsidyMngMCB, UpdateOption<SubsidyMngMCB>> opLambda) {
-        return doBatchUpdate(subsidyMngMList, createUpdateOption(opLambda));
+    public int[] varyingBatchUpdate(List<UserTypeM> userTypeMList, WritableOptionCall<UserTypeMCB, UpdateOption<UserTypeMCB>> opLambda) {
+        return doBatchUpdate(userTypeMList, createUpdateOption(opLambda));
     }
 
     /**
      * Batch-delete the list with varying requests. <br>
      * For example, limitBatchDeleteLogging(). <br>
      * Other specifications are same as batchDelete(entityList).
-     * @param subsidyMngMList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param userTypeMList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
      */
-    public int[] varyingBatchDelete(List<SubsidyMngM> subsidyMngMList, WritableOptionCall<SubsidyMngMCB, DeleteOption<SubsidyMngMCB>> opLambda) {
-        return doBatchDelete(subsidyMngMList, createDeleteOption(opLambda));
+    public int[] varyingBatchDelete(List<UserTypeM> userTypeMList, WritableOptionCall<UserTypeMCB, DeleteOption<UserTypeMCB>> opLambda) {
+        return doBatchDelete(userTypeMList, createDeleteOption(opLambda));
     }
 
     // -----------------------------------------------------
@@ -751,7 +815,7 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
      * @return The inserted count.
      */
-    public int varyingQueryInsert(QueryInsertSetupper<SubsidyMngM, SubsidyMngMCB> manyArgLambda, WritableOptionCall<SubsidyMngMCB, InsertOption<SubsidyMngMCB>> opLambda) {
+    public int varyingQueryInsert(QueryInsertSetupper<UserTypeM, UserTypeMCB> manyArgLambda, WritableOptionCall<UserTypeMCB, InsertOption<UserTypeMCB>> opLambda) {
         return doQueryInsert(manyArgLambda, createInsertOption(opLambda));
     }
 
@@ -762,14 +826,14 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * Other specifications are same as queryUpdate(entity, cb).
      * <pre>
      * <span style="color: #3F7E5E">// ex) you can update by self calculation values</span>
-     * SubsidyMngM subsidyMngM = <span style="color: #70226C">new</span> SubsidyMngM();
+     * UserTypeM userTypeM = <span style="color: #70226C">new</span> UserTypeM();
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
-     * <span style="color: #3F7E5E">//subsidyMngM.setPK...(value);</span>
-     * subsidyMngM.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * <span style="color: #3F7E5E">//userTypeM.setPK...(value);</span>
+     * userTypeM.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
-     * <span style="color: #3F7E5E">//subsidyMngM.setVersionNo(value);</span>
-     * <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">varyingQueryUpdate</span>(subsidyMngM, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #3F7E5E">//userTypeM.setVersionNo(value);</span>
+     * <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">varyingQueryUpdate</span>(userTypeM, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().setFoo...
      * }, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">op</span>.self(<span style="color: #553000">colCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -777,14 +841,14 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      *     }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
      * });
      * </pre>
-     * @param subsidyMngM The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
-     * @param cbLambda The callback for condition-bean of SubsidyMngM. (NotNull)
+     * @param userTypeM The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
+     * @param cbLambda The callback for condition-bean of UserTypeM. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
      * @throws NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryUpdate(SubsidyMngM subsidyMngM, CBCall<SubsidyMngMCB> cbLambda, WritableOptionCall<SubsidyMngMCB, UpdateOption<SubsidyMngMCB>> opLambda) {
-        return doQueryUpdate(subsidyMngM, createCB(cbLambda), createUpdateOption(opLambda));
+    public int varyingQueryUpdate(UserTypeM userTypeM, CBCall<UserTypeMCB> cbLambda, WritableOptionCall<UserTypeMCB, UpdateOption<UserTypeMCB>> opLambda) {
+        return doQueryUpdate(userTypeM, createCB(cbLambda), createUpdateOption(opLambda));
     }
 
     /**
@@ -792,18 +856,18 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * For example, allowNonQueryDelete(). <br>
      * Other specifications are same as queryDelete(cb).
      * <pre>
-     * <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">queryDelete</span>(subsidyMngM, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">userTypeMBhv</span>.<span style="color: #CC4747">queryDelete</span>(userTypeM, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().setFoo...
      * }, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">op</span>...
      * });
      * </pre>
-     * @param cbLambda The callback for condition-bean of SubsidyMngM. (NotNull)
+     * @param cbLambda The callback for condition-bean of UserTypeM. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
      * @throws NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryDelete(CBCall<SubsidyMngMCB> cbLambda, WritableOptionCall<SubsidyMngMCB, DeleteOption<SubsidyMngMCB>> opLambda) {
+    public int varyingQueryDelete(CBCall<UserTypeMCB> cbLambda, WritableOptionCall<UserTypeMCB, DeleteOption<UserTypeMCB>> opLambda) {
         return doQueryDelete(createCB(cbLambda), createDeleteOption(opLambda));
     }
 
@@ -814,38 +878,38 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
      * Prepare the all facade executor of outside-SQL to execute it.
      * <pre>
      * <span style="color: #3F7E5E">// main style</span> 
-     * subsidyMngMBhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span> 
-     * subsidyMngMBhv.outideSql().selectList(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
-     * subsidyMngMBhv.outideSql().selectPage(pmb); <span style="color: #3F7E5E">// PagingResultBean</span>
-     * subsidyMngMBhv.outideSql().selectPagedListOnly(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
-     * subsidyMngMBhv.outideSql().selectCursor(pmb, handler); <span style="color: #3F7E5E">// (by handler)</span>
-     * subsidyMngMBhv.outideSql().execute(pmb); <span style="color: #3F7E5E">// int (updated count)</span>
-     * subsidyMngMBhv.outideSql().call(pmb); <span style="color: #3F7E5E">// void (pmb has OUT parameters)</span>
+     * userTypeMBhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span> 
+     * userTypeMBhv.outideSql().selectList(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
+     * userTypeMBhv.outideSql().selectPage(pmb); <span style="color: #3F7E5E">// PagingResultBean</span>
+     * userTypeMBhv.outideSql().selectPagedListOnly(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
+     * userTypeMBhv.outideSql().selectCursor(pmb, handler); <span style="color: #3F7E5E">// (by handler)</span>
+     * userTypeMBhv.outideSql().execute(pmb); <span style="color: #3F7E5E">// int (updated count)</span>
+     * userTypeMBhv.outideSql().call(pmb); <span style="color: #3F7E5E">// void (pmb has OUT parameters)</span>
      *
      * <span style="color: #3F7E5E">// traditional style</span> 
-     * subsidyMngMBhv.outideSql().traditionalStyle().selectEntity(path, pmb, entityType);
-     * subsidyMngMBhv.outideSql().traditionalStyle().selectList(path, pmb, entityType);
-     * subsidyMngMBhv.outideSql().traditionalStyle().selectPage(path, pmb, entityType);
-     * subsidyMngMBhv.outideSql().traditionalStyle().selectPagedListOnly(path, pmb, entityType);
-     * subsidyMngMBhv.outideSql().traditionalStyle().selectCursor(path, pmb, handler);
-     * subsidyMngMBhv.outideSql().traditionalStyle().execute(path, pmb);
+     * userTypeMBhv.outideSql().traditionalStyle().selectEntity(path, pmb, entityType);
+     * userTypeMBhv.outideSql().traditionalStyle().selectList(path, pmb, entityType);
+     * userTypeMBhv.outideSql().traditionalStyle().selectPage(path, pmb, entityType);
+     * userTypeMBhv.outideSql().traditionalStyle().selectPagedListOnly(path, pmb, entityType);
+     * userTypeMBhv.outideSql().traditionalStyle().selectCursor(path, pmb, handler);
+     * userTypeMBhv.outideSql().traditionalStyle().execute(path, pmb);
      *
      * <span style="color: #3F7E5E">// options</span> 
-     * subsidyMngMBhv.outideSql().removeBlockComment().selectList()
-     * subsidyMngMBhv.outideSql().removeLineComment().selectList()
-     * subsidyMngMBhv.outideSql().formatSql().selectList()
+     * userTypeMBhv.outideSql().removeBlockComment().selectList()
+     * userTypeMBhv.outideSql().removeLineComment().selectList()
+     * userTypeMBhv.outideSql().formatSql().selectList()
      * </pre>
      * <p>The invoker of behavior command should be not null when you call this method.</p>
      * @return The new-created all facade executor of outside-SQL. (NotNull)
      */
-    public OutsideSqlAllFacadeExecutor<SubsidyMngMBhv> outsideSql() {
+    public OutsideSqlAllFacadeExecutor<UserTypeMBhv> outsideSql() {
         return doOutsideSql();
     }
 
     // ===================================================================================
     //                                                                         Type Helper
     //                                                                         ===========
-    protected Class<? extends SubsidyMngM> typeOfSelectedEntity() { return SubsidyMngM.class; }
-    protected Class<SubsidyMngM> typeOfHandlingEntity() { return SubsidyMngM.class; }
-    protected Class<SubsidyMngMCB> typeOfHandlingConditionBean() { return SubsidyMngMCB.class; }
+    protected Class<? extends UserTypeM> typeOfSelectedEntity() { return UserTypeM.class; }
+    protected Class<UserTypeM> typeOfHandlingEntity() { return UserTypeM.class; }
+    protected Class<UserTypeMCB> typeOfHandlingConditionBean() { return UserTypeMCB.class; }
 }

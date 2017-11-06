@@ -279,5 +279,13 @@ public class MessageKeyConstants {
         public static final String NOT_SET_UP_PARENT_CODE = "{error.not.set.up.parent.code}";
         /** メインに設定されている入力フォームは削除できません。 */
         public static final String NOT_DELETE_MAINFORM = "{error.not.delete.mainform}";
+        /** {0}と{1}が一致していません。 */
+        public static final String DIFFERENT_NEWPASSWORD = "{error.different.newpassword}";
+        /** {0}、{1}、{2}のいずれかが未入力です。 */
+        public static final String EXISTS_NOT_SET_PASSWORD = "{error.exists.not.set.password}";
+        /** {0}と{1}が同じです。 */
+        public static final String SAME_NEWPASSWORD = "{error.same.newpassword}";
+        /** {0}が登録している設定値と異なります。 */
+        public static final String DIFFERENT_PASSWORD = "{error.different.password}";
     }
 }

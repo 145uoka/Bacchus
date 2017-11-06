@@ -17,12 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Bacchus.app.form.LoginNameForm;
-import com.Bacchus.app.service.SystemPropertyService;
+import com.Bacchus.app.service.LoggerService;
 import com.Bacchus.app.util.EncryptUtil;
 import com.Bacchus.app.util.MessageKeyUtil;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.webbase.appbase.BaseController;
 import com.Bacchus.webbase.appbase.BeforeLogin;
+import com.Bacchus.webbase.common.constants.LogMessageKeyConstants;
 import com.Bacchus.webbase.common.constants.MessageKeyConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.MessageType;
@@ -32,7 +33,6 @@ import com.Bacchus.webbase.common.constants.SystemCodeConstants.Permissions;
  * ログイン用コントローラ。
  *
  * @author ishigouoka_k
- * $Id: LoginController.java 591 2017-08-08 07:48:14Z kanai_y@glue-si.com $
  */
 @BeforeLogin
 @Controller
@@ -40,7 +40,7 @@ import com.Bacchus.webbase.common.constants.SystemCodeConstants.Permissions;
 public class LoginController extends BaseController {
 
     @Autowired
-    SystemPropertyService systemPropertyService;
+    LoggerService loggerService;
 
     @Autowired
     UserTBhv userTBhv;
@@ -57,11 +57,10 @@ public class LoginController extends BaseController {
             cb.query().setPassword_Equal(encPassword);
         }).ifPresent(userT -> {
             // called if present
+            userInfo.setUserId(userT.getUserId());
             userInfo.setLogined(true);
             userInfo.setUserName(userT.getUserName());
             userInfo.setEmail(userT.getEmail());
-            userInfo.setUserType(userT.getUserType());
-
 
             Permissions permissions = Permissions.getPermissions(userT.getAuthLevel());
 
@@ -74,6 +73,12 @@ public class LoginController extends BaseController {
             Set<SystemCodeConstants.Permissions> permissionsSet = new HashSet<SystemCodeConstants.Permissions>();
             permissionsSet.add(permissions);
             userInfo.setPermissions(permissionsSet);
+
+            loggerService.outLog(LogMessageKeyConstants.Info.I_00_0001, new Object[] {
+                    userInfo.getUserId(),
+                    userInfo.getUserName(),
+                    userInfo.getEmail()
+                    });
 
         }).orElse(() -> {
             // called if not present

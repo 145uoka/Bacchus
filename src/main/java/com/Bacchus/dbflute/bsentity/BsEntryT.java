@@ -3,9 +3,11 @@ package com.Bacchus.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
+import org.dbflute.optional.OptionalEntity;
 import com.Bacchus.dbflute.allcommon.DBMetaInstanceHandler;
 import com.Bacchus.dbflute.exentity.*;
 
@@ -29,13 +31,13 @@ import com.Bacchus.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     candidate_t, user_t
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     
+ *     candidateT, userT
  *
  * [referrer property]
  *     
@@ -68,10 +70,10 @@ public abstract class BsEntryT extends AbstractEntity implements DomainEntity {
     /** entry_id: {PK, ID, NotNull, serial(10)} */
     protected Integer _entryId;
 
-    /** candidate_no: {int4(10)} */
+    /** candidate_no: {NotNull, int4(10), FK to candidate_t} */
     protected Integer _candidateNo;
 
-    /** user_id: {int4(10)} */
+    /** user_id: {NotNull, int4(10), FK to user_t} */
     protected Integer _userId;
 
     /** entry_div: {int4(10)} */
@@ -102,6 +104,48 @@ public abstract class BsEntryT extends AbstractEntity implements DomainEntity {
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
+    /** candidate_t by my candidate_no, named 'candidateT'. */
+    protected OptionalEntity<CandidateT> _candidateT;
+
+    /**
+     * [get] candidate_t by my candidate_no, named 'candidateT'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'candidateT'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<CandidateT> getCandidateT() {
+        if (_candidateT == null) { _candidateT = OptionalEntity.relationEmpty(this, "candidateT"); }
+        return _candidateT;
+    }
+
+    /**
+     * [set] candidate_t by my candidate_no, named 'candidateT'.
+     * @param candidateT The entity of foreign property 'candidateT'. (NullAllowed)
+     */
+    public void setCandidateT(OptionalEntity<CandidateT> candidateT) {
+        _candidateT = candidateT;
+    }
+
+    /** user_t by my user_id, named 'userT'. */
+    protected OptionalEntity<UserT> _userT;
+
+    /**
+     * [get] user_t by my user_id, named 'userT'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'userT'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<UserT> getUserT() {
+        if (_userT == null) { _userT = OptionalEntity.relationEmpty(this, "userT"); }
+        return _userT;
+    }
+
+    /**
+     * [set] user_t by my user_id, named 'userT'.
+     * @param userT The entity of foreign property 'userT'. (NullAllowed)
+     */
+    public void setUserT(OptionalEntity<UserT> userT) {
+        _userT = userT;
+    }
+
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
@@ -133,7 +177,15 @@ public abstract class BsEntryT extends AbstractEntity implements DomainEntity {
 
     @Override
     protected String doBuildStringWithRelation(String li) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_candidateT != null && _candidateT.isPresent())
+        { sb.append(li).append(xbRDS(_candidateT, "candidateT")); }
+        if (_userT != null && _userT.isPresent())
+        { sb.append(li).append(xbRDS(_userT, "userT")); }
+        return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override
@@ -152,7 +204,15 @@ public abstract class BsEntryT extends AbstractEntity implements DomainEntity {
 
     @Override
     protected String doBuildRelationString(String dm) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_candidateT != null && _candidateT.isPresent())
+        { sb.append(dm).append("candidateT"); }
+        if (_userT != null && _userT.isPresent())
+        { sb.append(dm).append("userT"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
+        }
+        return sb.toString();
     }
 
     @Override
@@ -184,9 +244,9 @@ public abstract class BsEntryT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] candidate_no: {int4(10)} <br>
+     * [get] candidate_no: {NotNull, int4(10), FK to candidate_t} <br>
      * 候補日管理番号
-     * @return The value of the column 'candidate_no'. (NullAllowed even if selected: for no constraint)
+     * @return The value of the column 'candidate_no'. (basically NotNull if selected: for the constraint)
      */
     public Integer getCandidateNo() {
         checkSpecifiedProperty("candidateNo");
@@ -194,9 +254,9 @@ public abstract class BsEntryT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] candidate_no: {int4(10)} <br>
+     * [set] candidate_no: {NotNull, int4(10), FK to candidate_t} <br>
      * 候補日管理番号
-     * @param candidateNo The value of the column 'candidate_no'. (NullAllowed: null update allowed for no constraint)
+     * @param candidateNo The value of the column 'candidate_no'. (basically NotNull if update: for the constraint)
      */
     public void setCandidateNo(Integer candidateNo) {
         registerModifiedProperty("candidateNo");
@@ -204,9 +264,9 @@ public abstract class BsEntryT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] user_id: {int4(10)} <br>
+     * [get] user_id: {NotNull, int4(10), FK to user_t} <br>
      * user_id
-     * @return The value of the column 'user_id'. (NullAllowed even if selected: for no constraint)
+     * @return The value of the column 'user_id'. (basically NotNull if selected: for the constraint)
      */
     public Integer getUserId() {
         checkSpecifiedProperty("userId");
@@ -214,9 +274,9 @@ public abstract class BsEntryT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] user_id: {int4(10)} <br>
+     * [set] user_id: {NotNull, int4(10), FK to user_t} <br>
      * user_id
-     * @param userId The value of the column 'user_id'. (NullAllowed: null update allowed for no constraint)
+     * @param userId The value of the column 'user_id'. (basically NotNull if update: for the constraint)
      */
     public void setUserId(Integer userId) {
         registerModifiedProperty("userId");

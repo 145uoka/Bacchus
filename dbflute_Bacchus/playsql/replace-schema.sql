@@ -1,14 +1,14 @@
 
 /* Drop Tables */
 
+DROP TABLE IF EXISTS entry_t;
 DROP TABLE IF EXISTS candidate_t;
 DROP TABLE IF EXISTS display_def_m;
-DROP TABLE IF EXISTS entry_t;
 DROP TABLE IF EXISTS event_t;
 DROP TABLE IF EXISTS general_code_m;
-DROP TABLE IF EXISTS subsidy_mng_m;
 DROP TABLE IF EXISTS system_property_m;
 DROP TABLE IF EXISTS user_t;
+DROP TABLE IF EXISTS user_type_m;
 
 
 
@@ -21,7 +21,7 @@ CREATE TABLE candidate_t
 	-- 候補日管理番号
 	candidate_no serial NOT NULL,
 	-- イベント管理番号
-	event_no int,
+	event_no int NOT NULL,
 	-- 開始日時
 	event_start_datetime timestamp,
 	-- 終了日時
@@ -55,9 +55,9 @@ CREATE TABLE entry_t
 	-- 参加ID
 	entry_id serial NOT NULL,
 	-- 候補日管理番号
-	candidate_no  int,
+	candidate_no int NOT NULL,
 	-- user_id
-	user_id int,
+	user_id int NOT NULL,
 	-- 参加区分
 	entry_div int,
 	PRIMARY KEY (entry_id)
@@ -93,8 +93,8 @@ CREATE TABLE event_t
 	entry_people int,
 	-- イベント区分
 	event_div text,
-	-- ユーザーID
-	user_id int,
+	-- 幹事ユーザID
+	user_id int NOT NULL,
 	PRIMARY KEY (event_no)
 ) WITHOUT OIDS;
 
@@ -128,19 +128,6 @@ CREATE TABLE general_code_m
 ) WITHOUT OIDS;
 
 
--- 補助金管理_M
-CREATE TABLE subsidy_mng_m
-(
-	-- 金額ID
-	money_id serial NOT NULL,
-	-- ユーザー区分
-	user_type int,
-	-- 金額
-	money int,
-	PRIMARY KEY (money_id)
-) WITHOUT OIDS;
-
-
 -- システムプロパティ_M
 CREATE TABLE system_property_m
 (
@@ -171,17 +158,73 @@ CREATE TABLE user_t
 	user_name text NOT NULL,
 	-- Eメール
 	email text,
-	-- ユーザー区分
-	user_type int,
 	-- 暗号化PWD
 	password text NOT NULL,
 	-- 権限レベル
 	auth_level int DEFAULT 0 NOT NULL,
+	-- ユーザー区分ID
+	user_type_id int NOT NULL,
 	PRIMARY KEY (user_id)
 ) WITHOUT OIDS;
 
 
 ALTER SEQUENCE user_t_user_id_SEQ INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 RESTART 1 CACHE 1;
+
+
+-- ユーザー区分_M
+CREATE TABLE user_type_m
+(
+	-- ユーザー区分ID
+	user_type_id serial NOT NULL,
+	-- ユーザー区分名称
+	user_type_name text NOT NULL,
+	-- 補助金額
+	subsidy_amount int DEFAULT 0 NOT NULL,
+	PRIMARY KEY (user_type_id)
+) WITHOUT OIDS;
+
+
+
+/* Create Foreign Keys */
+
+ALTER TABLE entry_t
+	ADD FOREIGN KEY (candidate_no)
+	REFERENCES candidate_t (candidate_no)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE candidate_t
+	ADD FOREIGN KEY (event_no)
+	REFERENCES event_t (event_no)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE entry_t
+	ADD FOREIGN KEY (user_id)
+	REFERENCES user_t (user_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE event_t
+	ADD FOREIGN KEY (user_id)
+	REFERENCES user_t (user_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE user_t
+	ADD FOREIGN KEY (user_type_id)
+	REFERENCES user_type_m (user_type_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
 
 
 
@@ -201,7 +244,7 @@ COMMENT ON COLUMN display_def_m.UPDATE_DATETIME IS '更新日時';
 COMMENT ON COLUMN display_def_m.UPDATE_USER IS '更新者';
 COMMENT ON TABLE entry_t IS '参加_T';
 COMMENT ON COLUMN entry_t.entry_id IS '参加ID';
-COMMENT ON COLUMN entry_t.candidate_no  IS '候補日管理番号';
+COMMENT ON COLUMN entry_t.candidate_no IS '候補日管理番号';
 COMMENT ON COLUMN entry_t.user_id IS 'user_id';
 COMMENT ON COLUMN entry_t.entry_div IS '参加区分';
 COMMENT ON TABLE event_t IS 'イベント_T';
@@ -218,7 +261,7 @@ COMMENT ON COLUMN event_t.candidate_no IS '候補日管理番号';
 COMMENT ON COLUMN event_t.store_name IS '店舗名';
 COMMENT ON COLUMN event_t.entry_people IS '参加人数';
 COMMENT ON COLUMN event_t.event_div IS 'イベント区分';
-COMMENT ON COLUMN event_t.user_id IS 'ユーザーID';
+COMMENT ON COLUMN event_t.user_id IS '幹事ユーザID';
 COMMENT ON TABLE general_code_m IS '汎用コード_M';
 COMMENT ON COLUMN general_code_m.code_id IS 'コードID';
 COMMENT ON COLUMN general_code_m.code_div IS 'コード区分';
@@ -231,10 +274,6 @@ COMMENT ON COLUMN general_code_m.REGISTER_DATETIME IS '作成日時';
 COMMENT ON COLUMN general_code_m.REGISTER_USER IS '作成者';
 COMMENT ON COLUMN general_code_m.UPDATE_DATETIME IS '更新日時';
 COMMENT ON COLUMN general_code_m.UPDATE_USER IS '更新者';
-COMMENT ON TABLE subsidy_mng_m IS '補助金管理_M';
-COMMENT ON COLUMN subsidy_mng_m.money_id IS '金額ID';
-COMMENT ON COLUMN subsidy_mng_m.user_type IS 'ユーザー区分';
-COMMENT ON COLUMN subsidy_mng_m.money IS '金額';
 COMMENT ON TABLE system_property_m IS 'システムプロパティ_M';
 COMMENT ON COLUMN system_property_m.prop_key IS 'プロパティキー';
 COMMENT ON COLUMN system_property_m.prop_value IS '値';
@@ -247,9 +286,13 @@ COMMENT ON TABLE user_t IS 'ユーザー_T';
 COMMENT ON COLUMN user_t.user_id IS 'user_id';
 COMMENT ON COLUMN user_t.user_name IS 'ユーザ名';
 COMMENT ON COLUMN user_t.email IS 'Eメール';
-COMMENT ON COLUMN user_t.user_type IS 'ユーザー区分';
 COMMENT ON COLUMN user_t.password IS '暗号化PWD';
 COMMENT ON COLUMN user_t.auth_level IS '権限レベル';
+COMMENT ON COLUMN user_t.user_type_id IS 'ユーザー区分ID';
+COMMENT ON TABLE user_type_m IS 'ユーザー区分_M';
+COMMENT ON COLUMN user_type_m.user_type_id IS 'ユーザー区分ID';
+COMMENT ON COLUMN user_type_m.user_type_name IS 'ユーザー区分名称';
+COMMENT ON COLUMN user_type_m.subsidy_amount IS '補助金額';
 
 
 

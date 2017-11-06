@@ -2,17 +2,17 @@ package com.Bacchus.dbflute.cbean.cq;
 
 import org.dbflute.cbean.ConditionQuery;
 import org.dbflute.cbean.sqlclause.SqlClause;
-import com.Bacchus.dbflute.cbean.cq.bs.BsSubsidyMngMCQ;
+import com.Bacchus.dbflute.cbean.cq.bs.BsUserTypeMCQ;
 
 /**
- * The condition-query of subsidy_mng_m.
+ * The condition-query of user_type_m.
  * <p>
  * You can implement your original methods here.
  * This class remains when re-generating.
  * </p>
  * @author DBFlute(AutoGenerator)
  */
-public class SubsidyMngMCQ extends BsSubsidyMngMCQ {
+public class UserTypeMCQ extends BsUserTypeMCQ {
 
     // ===================================================================================
     //                                                                         Constructor
@@ -25,7 +25,7 @@ public class SubsidyMngMCQ extends BsSubsidyMngMCQ {
      * @param aliasName The alias name for this query. (NotNull)
      * @param nestLevel The nest level of this query. (if zero, this is base query)
      */
-    public SubsidyMngMCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+    public UserTypeMCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
         super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 

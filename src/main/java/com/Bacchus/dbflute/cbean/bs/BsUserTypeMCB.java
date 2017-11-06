@@ -20,20 +20,20 @@ import com.Bacchus.dbflute.cbean.*;
 import com.Bacchus.dbflute.cbean.cq.*;
 
 /**
- * The base condition-bean of subsidy_mng_m.
+ * The base condition-bean of user_type_m.
  * @author DBFlute(AutoGenerator)
  */
-public class BsSubsidyMngMCB extends AbstractConditionBean {
+public class BsUserTypeMCB extends AbstractConditionBean {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected SubsidyMngMCQ _conditionQuery;
+    protected UserTypeMCQ _conditionQuery;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public BsSubsidyMngMCB() {
+    public BsUserTypeMCB() {
         if (DBFluteConfig.getInstance().isPagingCountLater()) {
             enablePagingCountLater();
         }
@@ -72,7 +72,7 @@ public class BsSubsidyMngMCB extends AbstractConditionBean {
     }
 
     public String asTableDbName() {
-        return "subsidy_mng_m";
+        return "user_type_m";
     }
 
     // ===================================================================================
@@ -80,23 +80,23 @@ public class BsSubsidyMngMCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param moneyId : PK, ID, NotNull, serial(10). (NotNull)
+     * @param userTypeId : PK, ID, NotNull, serial(10). (NotNull)
      * @return this. (NotNull)
      */
-    public SubsidyMngMCB acceptPK(Integer moneyId) {
-        assertObjectNotNull("moneyId", moneyId);
-        BsSubsidyMngMCB cb = this;
-        cb.query().setMoneyId_Equal(moneyId);
-        return (SubsidyMngMCB)this;
+    public UserTypeMCB acceptPK(Integer userTypeId) {
+        assertObjectNotNull("userTypeId", userTypeId);
+        BsUserTypeMCB cb = this;
+        cb.query().setUserTypeId_Equal(userTypeId);
+        return (UserTypeMCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
-        query().addOrderBy_MoneyId_Asc();
+        query().addOrderBy_UserTypeId_Asc();
         return this;
     }
 
     public ConditionBean addOrderBy_PK_Desc() {
-        query().addOrderBy_MoneyId_Desc();
+        query().addOrderBy_UserTypeId_Desc();
         return this;
     }
 
@@ -160,34 +160,34 @@ public class BsSubsidyMngMCB extends AbstractConditionBean {
      * </pre>
      * @return The instance of condition-query for base-point table to set up query. (NotNull)
      */
-    public SubsidyMngMCQ query() {
+    public UserTypeMCQ query() {
         assertQueryPurpose(); // assert only when user-public query 
         return doGetConditionQuery();
     }
 
-    public SubsidyMngMCQ xdfgetConditionQuery() { // public for parameter comment and internal
+    public UserTypeMCQ xdfgetConditionQuery() { // public for parameter comment and internal
         return doGetConditionQuery();
     }
 
-    protected SubsidyMngMCQ doGetConditionQuery() {
+    protected UserTypeMCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
         return _conditionQuery;
     }
 
-    protected SubsidyMngMCQ createLocalCQ() {
+    protected UserTypeMCQ createLocalCQ() {
         return xcreateCQ(null, getSqlClause(), getSqlClause().getBasePointAliasName(), 0);
     }
 
-    protected SubsidyMngMCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        SubsidyMngMCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected UserTypeMCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        UserTypeMCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
         cq.xsetBaseCB(this);
         return cq;
     }
 
-    protected SubsidyMngMCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        return new SubsidyMngMCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected UserTypeMCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        return new UserTypeMCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
     /**
@@ -211,10 +211,10 @@ public class BsSubsidyMngMCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union'. (NotNull)
      */
-    public void union(UnionQuery<SubsidyMngMCB> unionCBLambda) {
-        final SubsidyMngMCB cb = new SubsidyMngMCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+    public void union(UnionQuery<UserTypeMCB> unionCBLambda) {
+        final UserTypeMCB cb = new UserTypeMCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final SubsidyMngMCQ cq = cb.query(); query().xsetUnionQuery(cq);
+        final UserTypeMCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
     /**
@@ -228,10 +228,10 @@ public class BsSubsidyMngMCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union all'. (NotNull)
      */
-    public void unionAll(UnionQuery<SubsidyMngMCB> unionCBLambda) {
-        final SubsidyMngMCB cb = new SubsidyMngMCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+    public void unionAll(UnionQuery<UserTypeMCB> unionCBLambda) {
+        final UserTypeMCB cb = new UserTypeMCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final SubsidyMngMCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
+        final UserTypeMCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 
     // ===================================================================================
@@ -277,41 +277,58 @@ public class BsSubsidyMngMCB extends AbstractConditionBean {
         return _specification != null && _specification.hasSpecifiedColumn();
     }
 
-    public static class HpSpecification extends HpAbstractSpecification<SubsidyMngMCQ> {
-        public HpSpecification(ConditionBean baseCB, HpSpQyCall<SubsidyMngMCQ> qyCall
+    public static class HpSpecification extends HpAbstractSpecification<UserTypeMCQ> {
+        public HpSpecification(ConditionBean baseCB, HpSpQyCall<UserTypeMCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * money_id: {PK, ID, NotNull, serial(10)}
+         * user_type_id: {PK, ID, NotNull, serial(10)}
          * @return The information object of specified column. (NotNull)
          */
-        public SpecifiedColumn columnMoneyId() { return doColumn("money_id"); }
+        public SpecifiedColumn columnUserTypeId() { return doColumn("user_type_id"); }
         /**
-         * user_type: {int4(10)}
+         * user_type_name: {NotNull, text(2147483647)}
          * @return The information object of specified column. (NotNull)
          */
-        public SpecifiedColumn columnUserType() { return doColumn("user_type"); }
+        public SpecifiedColumn columnUserTypeName() { return doColumn("user_type_name"); }
         /**
-         * money: {int4(10)}
+         * subsidy_amount: {NotNull, int4(10), default=[0]}
          * @return The information object of specified column. (NotNull)
          */
-        public SpecifiedColumn columnMoney() { return doColumn("money"); }
+        public SpecifiedColumn columnSubsidyAmount() { return doColumn("subsidy_amount"); }
         public void everyColumn() { doEveryColumn(); }
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override
         protected void doSpecifyRequiredColumn() {
-            columnMoneyId(); // PK
+            columnUserTypeId(); // PK
         }
         @Override
-        protected String getTableDbName() { return "subsidy_mng_m"; }
+        protected String getTableDbName() { return "user_type_m"; }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from user_t where ...) as FOO_MAX} <br>
+         * user_t by user_type_id, named 'userTList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     tCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     tCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, UserT.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<UserTCB, UserTypeMCQ> derivedUserT() {
+            assertDerived("userTList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<UserTCB> sq, UserTypeMCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveUserTList(fn, sq, al, op), _dbmetaProvider);
+        }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)
          */
-        public HpSDRFunction<SubsidyMngMCB, SubsidyMngMCQ> myselfDerived() {
+        public HpSDRFunction<UserTypeMCB, UserTypeMCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<SubsidyMngMCB> sq, SubsidyMngMCQ cq, String al, DerivedReferrerOption op)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<UserTypeMCB> sq, UserTypeMCQ cq, String al, DerivedReferrerOption op)
                     -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
@@ -324,9 +341,9 @@ public class BsSubsidyMngMCB extends AbstractConditionBean {
      * This is very specialty so you can get the frontier spirit. Bon voyage!
      * @return The condition-bean for dream cruise, which is linked to main condition-bean.
      */
-    public SubsidyMngMCB dreamCruiseCB() {
-        SubsidyMngMCB cb = new SubsidyMngMCB();
-        cb.xsetupForDreamCruise((SubsidyMngMCB) this);
+    public UserTypeMCB dreamCruiseCB() {
+        UserTypeMCB cb = new UserTypeMCB();
+        cb.xsetupForDreamCruise((UserTypeMCB) this);
         return cb;
     }
 
@@ -351,15 +368,15 @@ public class BsSubsidyMngMCB extends AbstractConditionBean {
      * @param colCBLambda The callback for specify-query of left column. (NotNull)
      * @return The object for setting up operand and right column. (NotNull)
      */
-    public HpColQyOperand<SubsidyMngMCB> columnQuery(final SpecifyQuery<SubsidyMngMCB> colCBLambda) {
+    public HpColQyOperand<UserTypeMCB> columnQuery(final SpecifyQuery<UserTypeMCB> colCBLambda) {
         return xcreateColQyOperand((rightSp, operand) -> {
             return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
         });
     }
 
-    protected SubsidyMngMCB xcreateColumnQueryCB() {
-        SubsidyMngMCB cb = new SubsidyMngMCB();
-        cb.xsetupForColumnQuery((SubsidyMngMCB)this);
+    protected UserTypeMCB xcreateColumnQueryCB() {
+        UserTypeMCB cb = new UserTypeMCB();
+        cb.xsetupForColumnQuery((UserTypeMCB)this);
         return cb;
     }
 
@@ -379,8 +396,8 @@ public class BsSubsidyMngMCB extends AbstractConditionBean {
      * </pre>
      * @param orCBLambda The callback for query of or-condition. (NotNull)
      */
-    public void orScopeQuery(OrQuery<SubsidyMngMCB> orCBLambda) {
-        xorSQ((SubsidyMngMCB)this, orCBLambda);
+    public void orScopeQuery(OrQuery<UserTypeMCB> orCBLambda) {
+        xorSQ((UserTypeMCB)this, orCBLambda);
     }
 
     /**
@@ -398,8 +415,8 @@ public class BsSubsidyMngMCB extends AbstractConditionBean {
      * </pre>
      * @param andCBLambda The callback for query of and-condition. (NotNull)
      */
-    public void orScopeQueryAndPart(AndQuery<SubsidyMngMCB> andCBLambda) {
-        xorSQAP((SubsidyMngMCB)this, andCBLambda);
+    public void orScopeQueryAndPart(AndQuery<UserTypeMCB> andCBLambda) {
+        xorSQAP((UserTypeMCB)this, andCBLambda);
     }
 
     // ===================================================================================
@@ -429,11 +446,11 @@ public class BsSubsidyMngMCB extends AbstractConditionBean {
     //                                                                        ============
     @Override
     protected void xprepareSyncQyCall(ConditionBean mainCB) {
-        final SubsidyMngMCB cb;
+        final UserTypeMCB cb;
         if (mainCB != null) {
-            cb = (SubsidyMngMCB)mainCB;
+            cb = (UserTypeMCB)mainCB;
         } else {
-            cb = new SubsidyMngMCB();
+            cb = new UserTypeMCB();
         }
         specify().xsetSyncQyCall(xcreateSpQyCall(() -> true, () -> cb.query()));
     }
@@ -442,8 +459,8 @@ public class BsSubsidyMngMCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xgetConditionBeanClassNameInternally() { return SubsidyMngMCB.class.getName(); }
-    protected String xgetConditionQueryClassNameInternally() { return SubsidyMngMCQ.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return UserTypeMCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return UserTypeMCQ.class.getName(); }
     protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
     protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

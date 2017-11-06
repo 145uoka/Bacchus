@@ -79,6 +79,20 @@ public class BsEventTCQ extends AbstractBsEventTCQ {
       return _eventNo; }
     protected ConditionValue xgetCValueEventNo() { return xdfgetEventNo(); }
 
+    public Map<String, CandidateTCQ> xdfgetEventNo_ExistsReferrer_CandidateTList() { return xgetSQueMap("eventNo_ExistsReferrer_CandidateTList"); }
+    public String keepEventNo_ExistsReferrer_CandidateTList(CandidateTCQ sq) { return xkeepSQue("eventNo_ExistsReferrer_CandidateTList", sq); }
+
+    public Map<String, CandidateTCQ> xdfgetEventNo_NotExistsReferrer_CandidateTList() { return xgetSQueMap("eventNo_NotExistsReferrer_CandidateTList"); }
+    public String keepEventNo_NotExistsReferrer_CandidateTList(CandidateTCQ sq) { return xkeepSQue("eventNo_NotExistsReferrer_CandidateTList", sq); }
+
+    public Map<String, CandidateTCQ> xdfgetEventNo_SpecifyDerivedReferrer_CandidateTList() { return xgetSQueMap("eventNo_SpecifyDerivedReferrer_CandidateTList"); }
+    public String keepEventNo_SpecifyDerivedReferrer_CandidateTList(CandidateTCQ sq) { return xkeepSQue("eventNo_SpecifyDerivedReferrer_CandidateTList", sq); }
+
+    public Map<String, CandidateTCQ> xdfgetEventNo_QueryDerivedReferrer_CandidateTList() { return xgetSQueMap("eventNo_QueryDerivedReferrer_CandidateTList"); }
+    public String keepEventNo_QueryDerivedReferrer_CandidateTList(CandidateTCQ sq) { return xkeepSQue("eventNo_QueryDerivedReferrer_CandidateTList", sq); }
+    public Map<String, Object> xdfgetEventNo_QueryDerivedReferrer_CandidateTListParameter() { return xgetSQuePmMap("eventNo_QueryDerivedReferrer_CandidateTList"); }
+    public String keepEventNo_QueryDerivedReferrer_CandidateTListParameter(Object pm) { return xkeepSQuePm("eventNo_QueryDerivedReferrer_CandidateTList", pm); }
+
     /** 
      * Add order-by as ascend. <br>
      * event_no: {PK, ID, NotNull, serial(10)}
@@ -341,14 +355,14 @@ public class BsEventTCQ extends AbstractBsEventTCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @return this. (NotNull)
      */
     public BsEventTCQ addOrderBy_UserId_Asc() { regOBA("user_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @return this. (NotNull)
      */
     public BsEventTCQ addOrderBy_UserId_Desc() { regOBD("user_id"); return this; }
@@ -392,11 +406,36 @@ public class BsEventTCQ extends AbstractBsEventTCQ {
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        EventTCQ bq = (EventTCQ)bqs;
+        EventTCQ uq = (EventTCQ)uqs;
+        if (bq.hasConditionQueryUserT()) {
+            uq.queryUserT().reflectRelationOnUnionQuery(bq.queryUserT(), uq.queryUserT());
+        }
     }
 
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * user_t by my user_id, named 'userT'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public UserTCQ queryUserT() {
+        return xdfgetConditionQueryUserT();
+    }
+    public UserTCQ xdfgetConditionQueryUserT() {
+        String prop = "userT";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryUserT()); xsetupOuterJoinUserT(); }
+        return xgetQueRlMap(prop);
+    }
+    protected UserTCQ xcreateQueryUserT() {
+        String nrp = xresolveNRP("event_t", "userT"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new UserTCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "userT", nrp);
+    }
+    protected void xsetupOuterJoinUserT() { xregOutJo("userT"); }
+    public boolean hasConditionQueryUserT() { return xhasQueRlMap("userT"); }
+
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
     }

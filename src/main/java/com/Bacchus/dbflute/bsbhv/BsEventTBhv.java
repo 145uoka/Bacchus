@@ -38,16 +38,16 @@ import com.Bacchus.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     
+ *     user_t
  *
  * [referrer table]
- *     
+ *     candidate_t
  *
  * [foreign property]
- *     
+ *     userT
  *
  * [referrer property]
- *     
+ *     candidateTList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -376,9 +376,81 @@ public abstract class BsEventTBhv extends AbstractBehaviorWritable<EventT, Event
         loaderLambda.handle(new LoaderOfEventT().ready(xnewLRAryLs(eventT), _behaviorSelector));
     }
 
+    /**
+     * Load referrer of candidateTList by the set-upper of referrer. <br>
+     * candidate_t by event_no, named 'candidateTList'.
+     * <pre>
+     * <span style="color: #0000C0">eventTBhv</span>.<span style="color: #CC4747">loadCandidateT</span>(<span style="color: #553000">eventTList</span>, <span style="color: #553000">tCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">tCB</span>.setupSelect...
+     *     <span style="color: #553000">tCB</span>.query().set...
+     *     <span style="color: #553000">tCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (EventT eventT : <span style="color: #553000">eventTList</span>) {
+     *     ... = eventT.<span style="color: #CC4747">getCandidateTList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setEventNo_InScope(pkList);
+     * cb.query().addOrderBy_EventNo_Asc();
+     * </pre>
+     * @param eventTList The entity list of eventT. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<CandidateT> loadCandidateT(List<EventT> eventTList, ReferrerConditionSetupper<CandidateTCB> refCBLambda) {
+        xassLRArg(eventTList, refCBLambda);
+        return doLoadCandidateT(eventTList, new LoadReferrerOption<CandidateTCB, CandidateT>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of candidateTList by the set-upper of referrer. <br>
+     * candidate_t by event_no, named 'candidateTList'.
+     * <pre>
+     * <span style="color: #0000C0">eventTBhv</span>.<span style="color: #CC4747">loadCandidateT</span>(<span style="color: #553000">eventT</span>, <span style="color: #553000">tCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">tCB</span>.setupSelect...
+     *     <span style="color: #553000">tCB</span>.query().set...
+     *     <span style="color: #553000">tCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">eventT</span>.<span style="color: #CC4747">getCandidateTList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setEventNo_InScope(pkList);
+     * cb.query().addOrderBy_EventNo_Asc();
+     * </pre>
+     * @param eventT The entity of eventT. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<CandidateT> loadCandidateT(EventT eventT, ReferrerConditionSetupper<CandidateTCB> refCBLambda) {
+        xassLRArg(eventT, refCBLambda);
+        return doLoadCandidateT(xnewLRLs(eventT), new LoadReferrerOption<CandidateTCB, CandidateT>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<CandidateT> doLoadCandidateT(List<EventT> eventTList, LoadReferrerOption<CandidateTCB, CandidateT> option) {
+        return helpLoadReferrerInternally(eventTList, option, "candidateTList");
+    }
+
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
+    /**
+     * Pull out the list of foreign table 'UserT'.
+     * @param eventTList The list of eventT. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<UserT> pulloutUserT(List<EventT> eventTList)
+    { return helpPulloutInternally(eventTList, "userT"); }
+
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============

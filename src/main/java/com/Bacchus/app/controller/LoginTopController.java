@@ -13,7 +13,6 @@ import com.Bacchus.webbase.appbase.BaseController;
  * ログイン用コントローラ。
  *
  * @author ishigouoka_k
- * $Id: LoginController.java 591 2017-08-08 07:48:14Z kanai_y@glue-si.com $
  */
 @Controller
 @RequestMapping(value = "/loginTop")

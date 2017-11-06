@@ -62,6 +62,16 @@ public class EventTCIQ extends AbstractBsEventTCQ {
     //                                                                Override about Query
     //                                                                ====================
     protected ConditionValue xgetCValueEventNo() { return _myCQ.xdfgetEventNo(); }
+    public String keepEventNo_ExistsReferrer_CandidateTList(CandidateTCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepEventNo_NotExistsReferrer_CandidateTList(CandidateTCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepEventNo_SpecifyDerivedReferrer_CandidateTList(CandidateTCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepEventNo_QueryDerivedReferrer_CandidateTList(CandidateTCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepEventNo_QueryDerivedReferrer_CandidateTListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueEventName() { return _myCQ.xdfgetEventName(); }
     protected ConditionValue xgetCValueEventDetail() { return _myCQ.xdfgetEventDetail(); }
     protected ConditionValue xgetCValueEventPlace() { return _myCQ.xdfgetEventPlace(); }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
@@ -50,6 +51,18 @@ public class CandidateTDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
 
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    { xsetupEfpg(); }
+    @SuppressWarnings("unchecked")
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((CandidateT)et).getEventT(), (et, vl) -> ((CandidateT)et).setEventT((OptionalEntity<EventT>)vl), "eventT");
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
+
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
@@ -66,8 +79,8 @@ public class CandidateTDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnCandidateNo = cci("candidate_no", "candidate_no", null, null, Integer.class, "candidateNo", null, true, true, true, "serial", 10, 0, "nextval('candidate_t_candidate_no_seq'::regclass)", false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnEventNo = cci("event_no", "event_no", null, null, Integer.class, "eventNo", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnCandidateNo = cci("candidate_no", "candidate_no", null, null, Integer.class, "candidateNo", null, true, true, true, "serial", 10, 0, "nextval('candidate_t_candidate_no_seq'::regclass)", false, null, null, null, "entryTList", null, false);
+    protected final ColumnInfo _columnEventNo = cci("event_no", "event_no", null, null, Integer.class, "eventNo", null, false, false, true, "int4", 10, 0, null, false, null, null, "eventT", null, null, false);
     protected final ColumnInfo _columnEventStartDatetime = cci("event_start_datetime", "event_start_datetime", null, null, java.time.LocalDateTime.class, "eventStartDatetime", null, false, false, false, "timestamp", 29, 6, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEventEndDatetime = cci("event_end_datetime", "event_end_datetime", null, null, java.time.LocalDateTime.class, "eventEndDatetime", null, false, false, false, "timestamp", 29, 6, null, false, null, null, null, null, null, false);
 
@@ -77,7 +90,7 @@ public class CandidateTDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnCandidateNo() { return _columnCandidateNo; }
     /**
-     * event_no: {int4(10)}
+     * event_no: {NotNull, int4(10), FK to event_t}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnEventNo() { return _columnEventNo; }
@@ -121,10 +134,26 @@ public class CandidateTDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * event_t by my event_no, named 'eventT'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignEventT() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnEventNo(), EventTDbm.getInstance().columnEventNo());
+        return cfi("candidate_t_event_no_fkey", "eventT", this, EventTDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "candidateTList", false);
+    }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * entry_t by candidate_no, named 'entryTList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerEntryTList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnCandidateNo(), EntryTDbm.getInstance().columnCandidateNo());
+        return cri("entry_t_candidate_no_fkey", "entryTList", this, EntryTDbm.getInstance(), mp, false, "candidateT");
+    }
 
     // ===================================================================================
     //                                                                        Various Info

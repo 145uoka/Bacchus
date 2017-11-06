@@ -13,20 +13,20 @@ import com.Bacchus.dbflute.cbean.*;
 import com.Bacchus.dbflute.cbean.cq.*;
 
 /**
- * The base condition-query of subsidy_mng_m.
+ * The base condition-query of user_type_m.
  * @author DBFlute(AutoGenerator)
  */
-public class BsSubsidyMngMCQ extends AbstractBsSubsidyMngMCQ {
+public class BsUserTypeMCQ extends AbstractBsUserTypeMCQ {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected SubsidyMngMCIQ _inlineQuery;
+    protected UserTypeMCIQ _inlineQuery;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public BsSubsidyMngMCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+    public BsUserTypeMCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
         super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
@@ -35,103 +35,117 @@ public class BsSubsidyMngMCQ extends AbstractBsSubsidyMngMCQ {
     //                                                                 ===================
     /**
      * Prepare InlineView query. <br>
-     * {select ... from ... left outer join (select * from subsidy_mng_m) where FOO = [value] ...}
+     * {select ... from ... left outer join (select * from user_type_m) where FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">inline()</span>.setFoo...;
      * </pre>
      * @return The condition-query for InlineView query. (NotNull)
      */
-    public SubsidyMngMCIQ inline() {
+    public UserTypeMCIQ inline() {
         if (_inlineQuery == null) { _inlineQuery = xcreateCIQ(); }
         _inlineQuery.xsetOnClause(false); return _inlineQuery;
     }
 
-    protected SubsidyMngMCIQ xcreateCIQ() {
-        SubsidyMngMCIQ ciq = xnewCIQ();
+    protected UserTypeMCIQ xcreateCIQ() {
+        UserTypeMCIQ ciq = xnewCIQ();
         ciq.xsetBaseCB(_baseCB);
         return ciq;
     }
 
-    protected SubsidyMngMCIQ xnewCIQ() {
-        return new SubsidyMngMCIQ(xgetReferrerQuery(), xgetSqlClause(), xgetAliasName(), xgetNestLevel(), this);
+    protected UserTypeMCIQ xnewCIQ() {
+        return new UserTypeMCIQ(xgetReferrerQuery(), xgetSqlClause(), xgetAliasName(), xgetNestLevel(), this);
     }
 
     /**
      * Prepare OnClause query. <br>
-     * {select ... from ... left outer join subsidy_mng_m on ... and FOO = [value] ...}
+     * {select ... from ... left outer join user_type_m on ... and FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">on()</span>.setFoo...;
      * </pre>
      * @return The condition-query for OnClause query. (NotNull)
      * @throws IllegalConditionBeanOperationException When this condition-query is base query.
      */
-    public SubsidyMngMCIQ on() {
+    public UserTypeMCIQ on() {
         if (isBaseQuery()) { throw new IllegalConditionBeanOperationException("OnClause for local table is unavailable!"); }
-        SubsidyMngMCIQ inlineQuery = inline(); inlineQuery.xsetOnClause(true); return inlineQuery;
+        UserTypeMCIQ inlineQuery = inline(); inlineQuery.xsetOnClause(true); return inlineQuery;
     }
 
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    protected ConditionValue _moneyId;
-    public ConditionValue xdfgetMoneyId()
-    { if (_moneyId == null) { _moneyId = nCV(); }
-      return _moneyId; }
-    protected ConditionValue xgetCValueMoneyId() { return xdfgetMoneyId(); }
+    protected ConditionValue _userTypeId;
+    public ConditionValue xdfgetUserTypeId()
+    { if (_userTypeId == null) { _userTypeId = nCV(); }
+      return _userTypeId; }
+    protected ConditionValue xgetCValueUserTypeId() { return xdfgetUserTypeId(); }
+
+    public Map<String, UserTCQ> xdfgetUserTypeId_ExistsReferrer_UserTList() { return xgetSQueMap("userTypeId_ExistsReferrer_UserTList"); }
+    public String keepUserTypeId_ExistsReferrer_UserTList(UserTCQ sq) { return xkeepSQue("userTypeId_ExistsReferrer_UserTList", sq); }
+
+    public Map<String, UserTCQ> xdfgetUserTypeId_NotExistsReferrer_UserTList() { return xgetSQueMap("userTypeId_NotExistsReferrer_UserTList"); }
+    public String keepUserTypeId_NotExistsReferrer_UserTList(UserTCQ sq) { return xkeepSQue("userTypeId_NotExistsReferrer_UserTList", sq); }
+
+    public Map<String, UserTCQ> xdfgetUserTypeId_SpecifyDerivedReferrer_UserTList() { return xgetSQueMap("userTypeId_SpecifyDerivedReferrer_UserTList"); }
+    public String keepUserTypeId_SpecifyDerivedReferrer_UserTList(UserTCQ sq) { return xkeepSQue("userTypeId_SpecifyDerivedReferrer_UserTList", sq); }
+
+    public Map<String, UserTCQ> xdfgetUserTypeId_QueryDerivedReferrer_UserTList() { return xgetSQueMap("userTypeId_QueryDerivedReferrer_UserTList"); }
+    public String keepUserTypeId_QueryDerivedReferrer_UserTList(UserTCQ sq) { return xkeepSQue("userTypeId_QueryDerivedReferrer_UserTList", sq); }
+    public Map<String, Object> xdfgetUserTypeId_QueryDerivedReferrer_UserTListParameter() { return xgetSQuePmMap("userTypeId_QueryDerivedReferrer_UserTList"); }
+    public String keepUserTypeId_QueryDerivedReferrer_UserTListParameter(Object pm) { return xkeepSQuePm("userTypeId_QueryDerivedReferrer_UserTList", pm); }
 
     /** 
      * Add order-by as ascend. <br>
-     * money_id: {PK, ID, NotNull, serial(10)}
+     * user_type_id: {PK, ID, NotNull, serial(10)}
      * @return this. (NotNull)
      */
-    public BsSubsidyMngMCQ addOrderBy_MoneyId_Asc() { regOBA("money_id"); return this; }
+    public BsUserTypeMCQ addOrderBy_UserTypeId_Asc() { regOBA("user_type_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * money_id: {PK, ID, NotNull, serial(10)}
+     * user_type_id: {PK, ID, NotNull, serial(10)}
      * @return this. (NotNull)
      */
-    public BsSubsidyMngMCQ addOrderBy_MoneyId_Desc() { regOBD("money_id"); return this; }
+    public BsUserTypeMCQ addOrderBy_UserTypeId_Desc() { regOBD("user_type_id"); return this; }
 
-    protected ConditionValue _userType;
-    public ConditionValue xdfgetUserType()
-    { if (_userType == null) { _userType = nCV(); }
-      return _userType; }
-    protected ConditionValue xgetCValueUserType() { return xdfgetUserType(); }
+    protected ConditionValue _userTypeName;
+    public ConditionValue xdfgetUserTypeName()
+    { if (_userTypeName == null) { _userTypeName = nCV(); }
+      return _userTypeName; }
+    protected ConditionValue xgetCValueUserTypeName() { return xdfgetUserTypeName(); }
 
     /** 
      * Add order-by as ascend. <br>
-     * user_type: {int4(10)}
+     * user_type_name: {NotNull, text(2147483647)}
      * @return this. (NotNull)
      */
-    public BsSubsidyMngMCQ addOrderBy_UserType_Asc() { regOBA("user_type"); return this; }
+    public BsUserTypeMCQ addOrderBy_UserTypeName_Asc() { regOBA("user_type_name"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * user_type: {int4(10)}
+     * user_type_name: {NotNull, text(2147483647)}
      * @return this. (NotNull)
      */
-    public BsSubsidyMngMCQ addOrderBy_UserType_Desc() { regOBD("user_type"); return this; }
+    public BsUserTypeMCQ addOrderBy_UserTypeName_Desc() { regOBD("user_type_name"); return this; }
 
-    protected ConditionValue _money;
-    public ConditionValue xdfgetMoney()
-    { if (_money == null) { _money = nCV(); }
-      return _money; }
-    protected ConditionValue xgetCValueMoney() { return xdfgetMoney(); }
+    protected ConditionValue _subsidyAmount;
+    public ConditionValue xdfgetSubsidyAmount()
+    { if (_subsidyAmount == null) { _subsidyAmount = nCV(); }
+      return _subsidyAmount; }
+    protected ConditionValue xgetCValueSubsidyAmount() { return xdfgetSubsidyAmount(); }
 
     /** 
      * Add order-by as ascend. <br>
-     * money: {int4(10)}
+     * subsidy_amount: {NotNull, int4(10), default=[0]}
      * @return this. (NotNull)
      */
-    public BsSubsidyMngMCQ addOrderBy_Money_Asc() { regOBA("money"); return this; }
+    public BsUserTypeMCQ addOrderBy_SubsidyAmount_Asc() { regOBA("subsidy_amount"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * money: {int4(10)}
+     * subsidy_amount: {NotNull, int4(10), default=[0]}
      * @return this. (NotNull)
      */
-    public BsSubsidyMngMCQ addOrderBy_Money_Desc() { regOBD("money"); return this; }
+    public BsUserTypeMCQ addOrderBy_SubsidyAmount_Desc() { regOBD("subsidy_amount"); return this; }
 
     // ===================================================================================
     //                                                             SpecifiedDerivedOrderBy
@@ -150,7 +164,7 @@ public class BsSubsidyMngMCQ extends AbstractBsSubsidyMngMCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public BsSubsidyMngMCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
+    public BsUserTypeMCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
 
     /**
      * Add order-by for specified derived column as descend.
@@ -166,7 +180,7 @@ public class BsSubsidyMngMCQ extends AbstractBsSubsidyMngMCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public BsSubsidyMngMCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
+    public BsUserTypeMCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
 
     // ===================================================================================
     //                                                                         Union Query
@@ -184,39 +198,39 @@ public class BsSubsidyMngMCQ extends AbstractBsSubsidyMngMCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    public Map<String, SubsidyMngMCQ> xdfgetScalarCondition() { return xgetSQueMap("scalarCondition"); }
-    public String keepScalarCondition(SubsidyMngMCQ sq) { return xkeepSQue("scalarCondition", sq); }
+    public Map<String, UserTypeMCQ> xdfgetScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public String keepScalarCondition(UserTypeMCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public Map<String, SubsidyMngMCQ> xdfgetSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
-    public String keepSpecifyMyselfDerived(SubsidyMngMCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
+    public Map<String, UserTypeMCQ> xdfgetSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public String keepSpecifyMyselfDerived(UserTypeMCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    public Map<String, SubsidyMngMCQ> xdfgetQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
-    public String keepQueryMyselfDerived(SubsidyMngMCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
+    public Map<String, UserTypeMCQ> xdfgetQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public String keepQueryMyselfDerived(UserTypeMCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
     public Map<String, Object> xdfgetQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
-    protected Map<String, SubsidyMngMCQ> _myselfExistsMap;
-    public Map<String, SubsidyMngMCQ> xdfgetMyselfExists() { return xgetSQueMap("myselfExists"); }
-    public String keepMyselfExists(SubsidyMngMCQ sq) { return xkeepSQue("myselfExists", sq); }
+    protected Map<String, UserTypeMCQ> _myselfExistsMap;
+    public Map<String, UserTypeMCQ> xdfgetMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public String keepMyselfExists(UserTypeMCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    public Map<String, SubsidyMngMCQ> xdfgetMyselfInScope() { return xgetSQueMap("myselfInScope"); }
-    public String keepMyselfInScope(SubsidyMngMCQ sq) { return xkeepSQue("myselfInScope", sq); }
+    public Map<String, UserTypeMCQ> xdfgetMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public String keepMyselfInScope(UserTypeMCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xCB() { return SubsidyMngMCB.class.getName(); }
-    protected String xCQ() { return SubsidyMngMCQ.class.getName(); }
+    protected String xCB() { return UserTypeMCB.class.getName(); }
+    protected String xCQ() { return UserTypeMCQ.class.getName(); }
     protected String xCHp() { return HpQDRFunction.class.getName(); }
     protected String xCOp() { return ConditionOption.class.getName(); }
     protected String xMap() { return Map.class.getName(); }

@@ -158,6 +158,152 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
     }
 
     /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select user_id from entry_t where ...)} <br>
+     * entry_t by user_id, named 'entryTAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsEntryT</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     tCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of EntryTList for 'exists'. (NotNull)
+     */
+    public void existsEntryT(SubQuery<EntryTCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        EntryTCB cb = new EntryTCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_ExistsReferrer_EntryTList(cb.query());
+        registerExistsReferrer(cb.query(), "user_id", "user_id", pp, "entryTList");
+    }
+    public abstract String keepUserId_ExistsReferrer_EntryTList(EntryTCQ sq);
+
+    /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select user_id from event_t where ...)} <br>
+     * event_t by user_id, named 'eventTAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsEventT</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     tCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of EventTList for 'exists'. (NotNull)
+     */
+    public void existsEventT(SubQuery<EventTCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        EventTCB cb = new EventTCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_ExistsReferrer_EventTList(cb.query());
+        registerExistsReferrer(cb.query(), "user_id", "user_id", pp, "eventTList");
+    }
+    public abstract String keepUserId_ExistsReferrer_EventTList(EventTCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select user_id from entry_t where ...)} <br>
+     * entry_t by user_id, named 'entryTAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsEntryT</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     tCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of UserId_NotExistsReferrer_EntryTList for 'not exists'. (NotNull)
+     */
+    public void notExistsEntryT(SubQuery<EntryTCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        EntryTCB cb = new EntryTCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_NotExistsReferrer_EntryTList(cb.query());
+        registerNotExistsReferrer(cb.query(), "user_id", "user_id", pp, "entryTList");
+    }
+    public abstract String keepUserId_NotExistsReferrer_EntryTList(EntryTCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select user_id from event_t where ...)} <br>
+     * event_t by user_id, named 'eventTAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsEventT</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     tCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of UserId_NotExistsReferrer_EventTList for 'not exists'. (NotNull)
+     */
+    public void notExistsEventT(SubQuery<EventTCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        EventTCB cb = new EventTCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_NotExistsReferrer_EventTList(cb.query());
+        registerNotExistsReferrer(cb.query(), "user_id", "user_id", pp, "eventTList");
+    }
+    public abstract String keepUserId_NotExistsReferrer_EventTList(EventTCQ sq);
+
+    public void xsderiveEntryTList(String fn, SubQuery<EntryTCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        EntryTCB cb = new EntryTCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepUserId_SpecifyDerivedReferrer_EntryTList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "user_id", "user_id", pp, "entryTList", al, op);
+    }
+    public abstract String keepUserId_SpecifyDerivedReferrer_EntryTList(EntryTCQ sq);
+
+    public void xsderiveEventTList(String fn, SubQuery<EventTCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        EventTCB cb = new EventTCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepUserId_SpecifyDerivedReferrer_EventTList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "user_id", "user_id", pp, "eventTList", al, op);
+    }
+    public abstract String keepUserId_SpecifyDerivedReferrer_EventTList(EventTCQ sq);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from entry_t where ...)} <br>
+     * entry_t by user_id, named 'entryTAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedEntryT()</span>.<span style="color: #CC4747">max</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     tCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     tCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<EntryTCB> derivedEntryT() {
+        return xcreateQDRFunctionEntryTList();
+    }
+    protected HpQDRFunction<EntryTCB> xcreateQDRFunctionEntryTList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveEntryTList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveEntryTList(String fn, SubQuery<EntryTCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        EntryTCB cb = new EntryTCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepUserId_QueryDerivedReferrer_EntryTList(cb.query()); String prpp = keepUserId_QueryDerivedReferrer_EntryTListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "user_id", "user_id", sqpp, "entryTList", rd, vl, prpp, op);
+    }
+    public abstract String keepUserId_QueryDerivedReferrer_EntryTList(EntryTCQ sq);
+    public abstract String keepUserId_QueryDerivedReferrer_EntryTListParameter(Object vl);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from event_t where ...)} <br>
+     * event_t by user_id, named 'eventTAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedEventT()</span>.<span style="color: #CC4747">max</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     tCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     tCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<EventTCB> derivedEventT() {
+        return xcreateQDRFunctionEventTList();
+    }
+    protected HpQDRFunction<EventTCB> xcreateQDRFunctionEventTList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveEventTList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveEventTList(String fn, SubQuery<EventTCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        EventTCB cb = new EventTCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepUserId_QueryDerivedReferrer_EventTList(cb.query()); String prpp = keepUserId_QueryDerivedReferrer_EventTListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "user_id", "user_id", sqpp, "eventTList", rd, vl, prpp, op);
+    }
+    public abstract String keepUserId_QueryDerivedReferrer_EventTList(EventTCQ sq);
+    public abstract String keepUserId_QueryDerivedReferrer_EventTListParameter(Object vl);
+
+    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
      * user_id: {PK, ID, NotNull, serial(10)}
      */
@@ -461,135 +607,6 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
     protected abstract ConditionValue xgetCValueEmail();
 
     /**
-     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     * @param userType The value of userType as equal. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setUserType_Equal(Integer userType) {
-        doSetUserType_Equal(userType);
-    }
-
-    protected void doSetUserType_Equal(Integer userType) {
-        regUserType(CK_EQ, userType);
-    }
-
-    /**
-     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     * @param userType The value of userType as notEqual. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setUserType_NotEqual(Integer userType) {
-        doSetUserType_NotEqual(userType);
-    }
-
-    protected void doSetUserType_NotEqual(Integer userType) {
-        regUserType(CK_NES, userType);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     * @param userType The value of userType as greaterThan. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setUserType_GreaterThan(Integer userType) {
-        regUserType(CK_GT, userType);
-    }
-
-    /**
-     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     * @param userType The value of userType as lessThan. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setUserType_LessThan(Integer userType) {
-        regUserType(CK_LT, userType);
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     * @param userType The value of userType as greaterEqual. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setUserType_GreaterEqual(Integer userType) {
-        regUserType(CK_GE, userType);
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     * @param userType The value of userType as lessEqual. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setUserType_LessEqual(Integer userType) {
-        regUserType(CK_LE, userType);
-    }
-
-    /**
-     * RangeOf with various options. (versatile) <br>
-     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
-     * And NullIgnored, OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     * @param minNumber The min number of userType. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of userType. (NullAllowed: if null, no to-condition)
-     * @param opLambda The callback for option of range-of. (NotNull)
-     */
-    public void setUserType_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
-        setUserType_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
-    }
-
-    /**
-     * RangeOf with various options. (versatile) <br>
-     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
-     * And NullIgnored, OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     * @param minNumber The min number of userType. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of userType. (NullAllowed: if null, no to-condition)
-     * @param rangeOfOption The option of range-of. (NotNull)
-     */
-    protected void setUserType_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
-        regROO(minNumber, maxNumber, xgetCValueUserType(), "user_type", rangeOfOption);
-    }
-
-    /**
-     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * user_type: {int4(10)}
-     * @param userTypeList The collection of userType as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setUserType_InScope(Collection<Integer> userTypeList) {
-        doSetUserType_InScope(userTypeList);
-    }
-
-    protected void doSetUserType_InScope(Collection<Integer> userTypeList) {
-        regINS(CK_INS, cTL(userTypeList), xgetCValueUserType(), "user_type");
-    }
-
-    /**
-     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * user_type: {int4(10)}
-     * @param userTypeList The collection of userType as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setUserType_NotInScope(Collection<Integer> userTypeList) {
-        doSetUserType_NotInScope(userTypeList);
-    }
-
-    protected void doSetUserType_NotInScope(Collection<Integer> userTypeList) {
-        regINS(CK_NINS, cTL(userTypeList), xgetCValueUserType(), "user_type");
-    }
-
-    /**
-     * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     */
-    public void setUserType_IsNull() { regUserType(CK_ISN, DOBJ); }
-
-    /**
-     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     */
-    public void setUserType_IsNotNull() { regUserType(CK_ISNN, DOBJ); }
-
-    protected void regUserType(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueUserType(), "user_type"); }
-    protected abstract ConditionValue xgetCValueUserType();
-
-    /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * password: {NotNull, text(2147483647)}
      * @param password The value of password as equal. (NullAllowed: if null (or empty), no condition)
@@ -840,6 +857,123 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     protected void regAuthLevel(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueAuthLevel(), "auth_level"); }
     protected abstract ConditionValue xgetCValueAuthLevel();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param userTypeId The value of userTypeId as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setUserTypeId_Equal(Integer userTypeId) {
+        doSetUserTypeId_Equal(userTypeId);
+    }
+
+    protected void doSetUserTypeId_Equal(Integer userTypeId) {
+        regUserTypeId(CK_EQ, userTypeId);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param userTypeId The value of userTypeId as notEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setUserTypeId_NotEqual(Integer userTypeId) {
+        doSetUserTypeId_NotEqual(userTypeId);
+    }
+
+    protected void doSetUserTypeId_NotEqual(Integer userTypeId) {
+        regUserTypeId(CK_NES, userTypeId);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param userTypeId The value of userTypeId as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setUserTypeId_GreaterThan(Integer userTypeId) {
+        regUserTypeId(CK_GT, userTypeId);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param userTypeId The value of userTypeId as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setUserTypeId_LessThan(Integer userTypeId) {
+        regUserTypeId(CK_LT, userTypeId);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param userTypeId The value of userTypeId as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setUserTypeId_GreaterEqual(Integer userTypeId) {
+        regUserTypeId(CK_GE, userTypeId);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param userTypeId The value of userTypeId as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setUserTypeId_LessEqual(Integer userTypeId) {
+        regUserTypeId(CK_LE, userTypeId);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param minNumber The min number of userTypeId. (NullAllowed: if null, no from-condition)
+     * @param maxNumber The max number of userTypeId. (NullAllowed: if null, no to-condition)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setUserTypeId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setUserTypeId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param minNumber The min number of userTypeId. (NullAllowed: if null, no from-condition)
+     * @param maxNumber The max number of userTypeId. (NullAllowed: if null, no to-condition)
+     * @param rangeOfOption The option of range-of. (NotNull)
+     */
+    protected void setUserTypeId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValueUserTypeId(), "user_type_id", rangeOfOption);
+    }
+
+    /**
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param userTypeIdList The collection of userTypeId as inScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setUserTypeId_InScope(Collection<Integer> userTypeIdList) {
+        doSetUserTypeId_InScope(userTypeIdList);
+    }
+
+    protected void doSetUserTypeId_InScope(Collection<Integer> userTypeIdList) {
+        regINS(CK_INS, cTL(userTypeIdList), xgetCValueUserTypeId(), "user_type_id");
+    }
+
+    /**
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param userTypeIdList The collection of userTypeId as notInScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setUserTypeId_NotInScope(Collection<Integer> userTypeIdList) {
+        doSetUserTypeId_NotInScope(userTypeIdList);
+    }
+
+    protected void doSetUserTypeId_NotInScope(Collection<Integer> userTypeIdList) {
+        regINS(CK_NINS, cTL(userTypeIdList), xgetCValueUserTypeId(), "user_type_id");
+    }
+
+    protected void regUserTypeId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueUserTypeId(), "user_type_id"); }
+    protected abstract ConditionValue xgetCValueUserTypeId();
 
     // ===================================================================================
     //                                                                     ScalarCondition

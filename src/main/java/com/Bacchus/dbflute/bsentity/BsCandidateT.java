@@ -3,9 +3,11 @@ package com.Bacchus.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
+import org.dbflute.optional.OptionalEntity;
 import com.Bacchus.dbflute.allcommon.DBMetaInstanceHandler;
 import com.Bacchus.dbflute.exentity.*;
 
@@ -29,16 +31,16 @@ import com.Bacchus.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     event_t
  *
  * [referrer table]
- *     
+ *     entry_t
  *
  * [foreign property]
- *     
+ *     eventT
  *
  * [referrer property]
- *     
+ *     entryTList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -68,7 +70,7 @@ public abstract class BsCandidateT extends AbstractEntity implements DomainEntit
     /** candidate_no: {PK, ID, NotNull, serial(10)} */
     protected Integer _candidateNo;
 
-    /** event_no: {int4(10)} */
+    /** event_no: {NotNull, int4(10), FK to event_t} */
     protected Integer _eventNo;
 
     /** event_start_datetime: {timestamp(29, 6)} */
@@ -102,9 +104,50 @@ public abstract class BsCandidateT extends AbstractEntity implements DomainEntit
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
+    /** event_t by my event_no, named 'eventT'. */
+    protected OptionalEntity<EventT> _eventT;
+
+    /**
+     * [get] event_t by my event_no, named 'eventT'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'eventT'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<EventT> getEventT() {
+        if (_eventT == null) { _eventT = OptionalEntity.relationEmpty(this, "eventT"); }
+        return _eventT;
+    }
+
+    /**
+     * [set] event_t by my event_no, named 'eventT'.
+     * @param eventT The entity of foreign property 'eventT'. (NullAllowed)
+     */
+    public void setEventT(OptionalEntity<EventT> eventT) {
+        _eventT = eventT;
+    }
+
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
+    /** entry_t by candidate_no, named 'entryTList'. */
+    protected List<EntryT> _entryTList;
+
+    /**
+     * [get] entry_t by candidate_no, named 'entryTList'.
+     * @return The entity list of referrer property 'entryTList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<EntryT> getEntryTList() {
+        if (_entryTList == null) { _entryTList = newReferrerList(); }
+        return _entryTList;
+    }
+
+    /**
+     * [set] entry_t by candidate_no, named 'entryTList'.
+     * @param entryTList The entity list of referrer property 'entryTList'. (NullAllowed)
+     */
+    public void setEntryTList(List<EntryT> entryTList) {
+        _entryTList = entryTList;
+    }
+
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -133,7 +176,15 @@ public abstract class BsCandidateT extends AbstractEntity implements DomainEntit
 
     @Override
     protected String doBuildStringWithRelation(String li) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_eventT != null && _eventT.isPresent())
+        { sb.append(li).append(xbRDS(_eventT, "eventT")); }
+        if (_entryTList != null) { for (EntryT et : _entryTList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "entryTList")); } } }
+        return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override
@@ -152,7 +203,15 @@ public abstract class BsCandidateT extends AbstractEntity implements DomainEntit
 
     @Override
     protected String doBuildRelationString(String dm) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_eventT != null && _eventT.isPresent())
+        { sb.append(dm).append("eventT"); }
+        if (_entryTList != null && !_entryTList.isEmpty())
+        { sb.append(dm).append("entryTList"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
+        }
+        return sb.toString();
     }
 
     @Override
@@ -184,9 +243,9 @@ public abstract class BsCandidateT extends AbstractEntity implements DomainEntit
     }
 
     /**
-     * [get] event_no: {int4(10)} <br>
+     * [get] event_no: {NotNull, int4(10), FK to event_t} <br>
      * イベント管理番号
-     * @return The value of the column 'event_no'. (NullAllowed even if selected: for no constraint)
+     * @return The value of the column 'event_no'. (basically NotNull if selected: for the constraint)
      */
     public Integer getEventNo() {
         checkSpecifiedProperty("eventNo");
@@ -194,9 +253,9 @@ public abstract class BsCandidateT extends AbstractEntity implements DomainEntit
     }
 
     /**
-     * [set] event_no: {int4(10)} <br>
+     * [set] event_no: {NotNull, int4(10), FK to event_t} <br>
      * イベント管理番号
-     * @param eventNo The value of the column 'event_no'. (NullAllowed: null update allowed for no constraint)
+     * @param eventNo The value of the column 'event_no'. (basically NotNull if update: for the constraint)
      */
     public void setEventNo(Integer eventNo) {
         registerModifiedProperty("eventNo");

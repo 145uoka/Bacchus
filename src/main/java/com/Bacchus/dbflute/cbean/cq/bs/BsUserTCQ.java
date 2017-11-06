@@ -79,6 +79,34 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
       return _userId; }
     protected ConditionValue xgetCValueUserId() { return xdfgetUserId(); }
 
+    public Map<String, EntryTCQ> xdfgetUserId_ExistsReferrer_EntryTList() { return xgetSQueMap("userId_ExistsReferrer_EntryTList"); }
+    public String keepUserId_ExistsReferrer_EntryTList(EntryTCQ sq) { return xkeepSQue("userId_ExistsReferrer_EntryTList", sq); }
+
+    public Map<String, EventTCQ> xdfgetUserId_ExistsReferrer_EventTList() { return xgetSQueMap("userId_ExistsReferrer_EventTList"); }
+    public String keepUserId_ExistsReferrer_EventTList(EventTCQ sq) { return xkeepSQue("userId_ExistsReferrer_EventTList", sq); }
+
+    public Map<String, EntryTCQ> xdfgetUserId_NotExistsReferrer_EntryTList() { return xgetSQueMap("userId_NotExistsReferrer_EntryTList"); }
+    public String keepUserId_NotExistsReferrer_EntryTList(EntryTCQ sq) { return xkeepSQue("userId_NotExistsReferrer_EntryTList", sq); }
+
+    public Map<String, EventTCQ> xdfgetUserId_NotExistsReferrer_EventTList() { return xgetSQueMap("userId_NotExistsReferrer_EventTList"); }
+    public String keepUserId_NotExistsReferrer_EventTList(EventTCQ sq) { return xkeepSQue("userId_NotExistsReferrer_EventTList", sq); }
+
+    public Map<String, EntryTCQ> xdfgetUserId_SpecifyDerivedReferrer_EntryTList() { return xgetSQueMap("userId_SpecifyDerivedReferrer_EntryTList"); }
+    public String keepUserId_SpecifyDerivedReferrer_EntryTList(EntryTCQ sq) { return xkeepSQue("userId_SpecifyDerivedReferrer_EntryTList", sq); }
+
+    public Map<String, EventTCQ> xdfgetUserId_SpecifyDerivedReferrer_EventTList() { return xgetSQueMap("userId_SpecifyDerivedReferrer_EventTList"); }
+    public String keepUserId_SpecifyDerivedReferrer_EventTList(EventTCQ sq) { return xkeepSQue("userId_SpecifyDerivedReferrer_EventTList", sq); }
+
+    public Map<String, EntryTCQ> xdfgetUserId_QueryDerivedReferrer_EntryTList() { return xgetSQueMap("userId_QueryDerivedReferrer_EntryTList"); }
+    public String keepUserId_QueryDerivedReferrer_EntryTList(EntryTCQ sq) { return xkeepSQue("userId_QueryDerivedReferrer_EntryTList", sq); }
+    public Map<String, Object> xdfgetUserId_QueryDerivedReferrer_EntryTListParameter() { return xgetSQuePmMap("userId_QueryDerivedReferrer_EntryTList"); }
+    public String keepUserId_QueryDerivedReferrer_EntryTListParameter(Object pm) { return xkeepSQuePm("userId_QueryDerivedReferrer_EntryTList", pm); }
+
+    public Map<String, EventTCQ> xdfgetUserId_QueryDerivedReferrer_EventTList() { return xgetSQueMap("userId_QueryDerivedReferrer_EventTList"); }
+    public String keepUserId_QueryDerivedReferrer_EventTList(EventTCQ sq) { return xkeepSQue("userId_QueryDerivedReferrer_EventTList", sq); }
+    public Map<String, Object> xdfgetUserId_QueryDerivedReferrer_EventTListParameter() { return xgetSQuePmMap("userId_QueryDerivedReferrer_EventTList"); }
+    public String keepUserId_QueryDerivedReferrer_EventTListParameter(Object pm) { return xkeepSQuePm("userId_QueryDerivedReferrer_EventTList", pm); }
+
     /** 
      * Add order-by as ascend. <br>
      * user_id: {PK, ID, NotNull, serial(10)}
@@ -133,26 +161,6 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
      */
     public BsUserTCQ addOrderBy_Email_Desc() { regOBD("email"); return this; }
 
-    protected ConditionValue _userType;
-    public ConditionValue xdfgetUserType()
-    { if (_userType == null) { _userType = nCV(); }
-      return _userType; }
-    protected ConditionValue xgetCValueUserType() { return xdfgetUserType(); }
-
-    /** 
-     * Add order-by as ascend. <br>
-     * user_type: {int4(10)}
-     * @return this. (NotNull)
-     */
-    public BsUserTCQ addOrderBy_UserType_Asc() { regOBA("user_type"); return this; }
-
-    /**
-     * Add order-by as descend. <br>
-     * user_type: {int4(10)}
-     * @return this. (NotNull)
-     */
-    public BsUserTCQ addOrderBy_UserType_Desc() { regOBD("user_type"); return this; }
-
     protected ConditionValue _password;
     public ConditionValue xdfgetPassword()
     { if (_password == null) { _password = nCV(); }
@@ -193,6 +201,26 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
      */
     public BsUserTCQ addOrderBy_AuthLevel_Desc() { regOBD("auth_level"); return this; }
 
+    protected ConditionValue _userTypeId;
+    public ConditionValue xdfgetUserTypeId()
+    { if (_userTypeId == null) { _userTypeId = nCV(); }
+      return _userTypeId; }
+    protected ConditionValue xgetCValueUserTypeId() { return xdfgetUserTypeId(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_UserTypeId_Asc() { regOBA("user_type_id"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_UserTypeId_Desc() { regOBD("user_type_id"); return this; }
+
     // ===================================================================================
     //                                                             SpecifiedDerivedOrderBy
     //                                                             =======================
@@ -232,11 +260,36 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        UserTCQ bq = (UserTCQ)bqs;
+        UserTCQ uq = (UserTCQ)uqs;
+        if (bq.hasConditionQueryUserTypeM()) {
+            uq.queryUserTypeM().reflectRelationOnUnionQuery(bq.queryUserTypeM(), uq.queryUserTypeM());
+        }
     }
 
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * user_type_m by my user_type_id, named 'userTypeM'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public UserTypeMCQ queryUserTypeM() {
+        return xdfgetConditionQueryUserTypeM();
+    }
+    public UserTypeMCQ xdfgetConditionQueryUserTypeM() {
+        String prop = "userTypeM";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryUserTypeM()); xsetupOuterJoinUserTypeM(); }
+        return xgetQueRlMap(prop);
+    }
+    protected UserTypeMCQ xcreateQueryUserTypeM() {
+        String nrp = xresolveNRP("user_t", "userTypeM"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new UserTypeMCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "userTypeM", nrp);
+    }
+    protected void xsetupOuterJoinUserTypeM() { xregOutJo("userTypeM"); }
+    public boolean hasConditionQueryUserTypeM() { return xhasQueRlMap("userTypeM"); }
+
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
     }

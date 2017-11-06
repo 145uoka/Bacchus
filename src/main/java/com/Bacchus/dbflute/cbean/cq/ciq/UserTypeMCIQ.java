@@ -12,21 +12,21 @@ import com.Bacchus.dbflute.cbean.cq.bs.*;
 import com.Bacchus.dbflute.cbean.cq.*;
 
 /**
- * The condition-query for in-line of subsidy_mng_m.
+ * The condition-query for in-line of user_type_m.
  * @author DBFlute(AutoGenerator)
  */
-public class SubsidyMngMCIQ extends AbstractBsSubsidyMngMCQ {
+public class UserTypeMCIQ extends AbstractBsUserTypeMCQ {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected BsSubsidyMngMCQ _myCQ;
+    protected BsUserTypeMCQ _myCQ;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public SubsidyMngMCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
-                        , String aliasName, int nestLevel, BsSubsidyMngMCQ myCQ) {
+    public UserTypeMCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
+                        , String aliasName, int nestLevel, BsUserTypeMCQ myCQ) {
         super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
@@ -61,19 +61,29 @@ public class SubsidyMngMCIQ extends AbstractBsSubsidyMngMCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue xgetCValueMoneyId() { return _myCQ.xdfgetMoneyId(); }
-    protected ConditionValue xgetCValueUserType() { return _myCQ.xdfgetUserType(); }
-    protected ConditionValue xgetCValueMoney() { return _myCQ.xdfgetMoney(); }
+    protected ConditionValue xgetCValueUserTypeId() { return _myCQ.xdfgetUserTypeId(); }
+    public String keepUserTypeId_ExistsReferrer_UserTList(UserTCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepUserTypeId_NotExistsReferrer_UserTList(UserTCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepUserTypeId_SpecifyDerivedReferrer_UserTList(UserTCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepUserTypeId_QueryDerivedReferrer_UserTList(UserTCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepUserTypeId_QueryDerivedReferrer_UserTListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    protected ConditionValue xgetCValueUserTypeName() { return _myCQ.xdfgetUserTypeName(); }
+    protected ConditionValue xgetCValueSubsidyAmount() { return _myCQ.xdfgetSubsidyAmount(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
-    public String keepScalarCondition(SubsidyMngMCQ sq)
+    public String keepScalarCondition(UserTypeMCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(SubsidyMngMCQ sq)
+    public String keepSpecifyMyselfDerived(UserTypeMCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(SubsidyMngMCQ sq)
+    public String keepQueryMyselfDerived(UserTypeMCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(SubsidyMngMCQ sq)
+    public String keepMyselfExists(UserTypeMCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
 
     protected void throwIICBOE(String name)
@@ -83,6 +93,6 @@ public class SubsidyMngMCIQ extends AbstractBsSubsidyMngMCQ {
     //                                                                       Very Internal
     //                                                                       =============
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xinCB() { return SubsidyMngMCB.class.getName(); }
-    protected String xinCQ() { return SubsidyMngMCQ.class.getName(); }
+    protected String xinCB() { return UserTypeMCB.class.getName(); }
+    protected String xinCQ() { return UserTypeMCQ.class.getName(); }
 }

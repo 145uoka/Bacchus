@@ -298,8 +298,8 @@ dl.procedurelist dd.column pre {
 		<td class="rownumcell">1</td>
 		<td><a href="#candidate_t" title="type=TABLE, primaryKey={candidate_no}, nameLength=11, columnCount=4">candidate_t</a></td>
 		<td class="typecell">TABLE</td>
-		<td class="relcell">&nbsp;</td>
-		<td class="relcell">&nbsp;</td>
+		<td class="relcell"><a href="#event_t" title="candidate_t_event_no_fkey">event_t</a></td>
+		<td class="relcell"><a href="#entry_t" title="entry_t_candidate_no_fkey">entry_t</a></td>
 		<td class="commentcell"> 候補日_T</td>
 		<td class="subcell">CandidateT</td>
 	</tr>
@@ -316,7 +316,7 @@ dl.procedurelist dd.column pre {
 		<td class="rownumcell">3</td>
 		<td><a href="#entry_t" title="type=TABLE, primaryKey={entry_id}, nameLength=7, columnCount=4">entry_t</a></td>
 		<td class="typecell">TABLE</td>
-		<td class="relcell">&nbsp;</td>
+		<td class="relcell"><a href="#candidate_t" title="entry_t_candidate_no_fkey">candidate_t</a>, <a href="#user_t" title="entry_t_user_id_fkey">user_t</a></td>
 		<td class="relcell">&nbsp;</td>
 		<td class="commentcell"> 参加_T</td>
 		<td class="subcell">EntryT</td>
@@ -325,8 +325,8 @@ dl.procedurelist dd.column pre {
 		<td class="rownumcell">4</td>
 		<td><a href="#event_t" title="type=TABLE, primaryKey={event_no}, nameLength=7, columnCount=14">event_t</a></td>
 		<td class="typecell">TABLE</td>
-		<td class="relcell">&nbsp;</td>
-		<td class="relcell">&nbsp;</td>
+		<td class="relcell"><a href="#user_t" title="event_t_user_id_fkey">user_t</a></td>
+		<td class="relcell"><a href="#candidate_t" title="candidate_t_event_no_fkey">candidate_t</a></td>
 		<td class="commentcell"> イベント_T</td>
 		<td class="subcell">EventT</td>
 	</tr>
@@ -341,15 +341,6 @@ dl.procedurelist dd.column pre {
 	</tr>
 	<tr>
 		<td class="rownumcell">6</td>
-		<td><a href="#subsidy_mng_m" title="type=TABLE, primaryKey={money_id}, nameLength=13, columnCount=3">subsidy_mng_m</a></td>
-		<td class="typecell">TABLE</td>
-		<td class="relcell">&nbsp;</td>
-		<td class="relcell">&nbsp;</td>
-		<td class="commentcell"> 補助金管理_M</td>
-		<td class="subcell">SubsidyMngM</td>
-	</tr>
-	<tr>
-		<td class="rownumcell">7</td>
 		<td><a href="#system_property_m" title="type=TABLE, primaryKey={prop_key}, nameLength=17, columnCount=7">system_property_m</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell">&nbsp;</td>
@@ -358,13 +349,22 @@ dl.procedurelist dd.column pre {
 		<td class="subcell">SystemPropertyM</td>
 	</tr>
 	<tr>
-		<td class="rownumcell">8</td>
+		<td class="rownumcell">7</td>
 		<td><a href="#user_t" title="type=TABLE, primaryKey={user_id}, nameLength=6, columnCount=6">user_t</a></td>
 		<td class="typecell">TABLE</td>
-		<td class="relcell">&nbsp;</td>
-		<td class="relcell">&nbsp;</td>
+		<td class="relcell"><a href="#user_type_m" title="user_t_user_type_id_fkey">user_type_m</a></td>
+		<td class="relcell"><a href="#entry_t" title="entry_t_user_id_fkey">entry_t</a>, <a href="#event_t" title="event_t_user_id_fkey">event_t</a></td>
 		<td class="commentcell"> ユーザー_T</td>
 		<td class="subcell">UserT</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">8</td>
+		<td><a href="#user_type_m" title="type=TABLE, primaryKey={user_type_id}, nameLength=11, columnCount=3">user_type_m</a></td>
+		<td class="typecell">TABLE</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"><a href="#user_t" title="user_t_user_type_id_fkey">user_t</a></td>
+		<td class="commentcell"> ユーザー区分_M</td>
+		<td class="subcell">UserTypeM</td>
 	</tr>
 	</tbody>
 </table>
@@ -404,7 +404,7 @@ candidate_t
 		<td class="typecell">serial</td>
 		<td class="sizecell"> 10 </td>
 		<td class="relcell">&nbsp;&nbsp;</td>
-		<td class="relcell">&nbsp;</td>
+		<td class="relcell"><a href="#entry_t" title="entry_t_candidate_no_fkey">entry_t</a>&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> 候補日管理番号</td>
 		<td class="subcell">candidateNo</td>
@@ -416,11 +416,11 @@ candidate_t
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">*</td>
 		<td id="candidate_t_event_no">event_no</td>
 		<td class="typecell">int4</td>
 		<td class="sizecell"> 10 </td>
-		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell"><a href="#event_t" title="candidate_t_event_no_fkey">event_t</a>&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> イベント管理番号</td>
@@ -643,11 +643,11 @@ entry_t
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">*</td>
 		<td id="entry_t_candidate_no">candidate_no</td>
 		<td class="typecell">int4</td>
 		<td class="sizecell"> 10 </td>
-		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell"><a href="#candidate_t" title="entry_t_candidate_no_fkey">candidate_t</a>&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> 候補日管理番号</td>
@@ -660,11 +660,11 @@ entry_t
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">*</td>
 		<td id="entry_t_user_id">user_id</td>
 		<td class="typecell">int4</td>
 		<td class="sizecell"> 10 </td>
-		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell"><a href="#user_t" title="entry_t_user_id_fkey">user_t</a>&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> user_id</td>
@@ -724,7 +724,7 @@ event_t
 		<td class="typecell">serial</td>
 		<td class="sizecell"> 10 </td>
 		<td class="relcell">&nbsp;&nbsp;</td>
-		<td class="relcell">&nbsp;</td>
+		<td class="relcell"><a href="#candidate_t" title="candidate_t_event_no_fkey">candidate_t</a>&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> イベント管理番号</td>
 		<td class="subcell">eventNo</td>
@@ -940,14 +940,14 @@ event_t
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">*</td>
 		<td id="event_t_user_id">user_id</td>
 		<td class="typecell">int4</td>
 		<td class="sizecell"> 10 </td>
-		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell"><a href="#user_t" title="event_t_user_id_fkey">user_t</a>&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
-		<td class="commentcell"> ユーザーID</td>
+		<td class="commentcell"> 幹事ユーザID</td>
 		<td class="subcell">userId</td>
 		<td class="subcell">Integer</td>
 	</tr>
@@ -1176,82 +1176,6 @@ general_code_m
 		<td class="subcell">String</td>
 	</tr>
 </table>
-<h2 id="subsidy_mng_m" title="type=TABLE, primaryKey={money_id}, nameLength=13, columnCount=3">
-subsidy_mng_m
-</h2>
-<p class="tablecomment">補助金管理_M</p>
-<table>
-	<thead>
-	<tr>
-		<th class="rownumhead">No.</th>
-		<th>PK</th>
-		<th>ID</th>
-		<th>UQ</th>
-		<th>IX</th>
-		<th>Not<br />Null</th>
-		<th>Name</th>
-		<th>Type</th>
-		<th>Size</th>
-		<th>ForeignTable</th>
-		<th>ReferrerTable</th>
-		<th>Classification</th>
-		<th>ColumnComment</th>
-		<th>PropertyName</th>
-		<th>JavaType</th>
-	</tr>
-	</thead>
-	<tr>
-		<td class="rownumcell">1</td>
-		<td class="flgcell" title="subsidy_mng_m_pkey :: sequence=subsidy_mng_m_money_id_seq:minimum(1),maximum(9223372036854775807),increment(1)">o</td>
-		<td class="flgcell">o</td>
-		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell">*</td>
-		<td id="subsidy_mng_m_money_id">money_id</td>
-		<td class="typecell">serial</td>
-		<td class="sizecell"> 10 </td>
-		<td class="relcell">&nbsp;&nbsp;</td>
-		<td class="relcell">&nbsp;</td>
-		<td class="relcell"> &nbsp;</td>
-		<td class="commentcell"> 金額ID</td>
-		<td class="subcell">moneyId</td>
-		<td class="subcell">Integer</td>
-	</tr>
-	<tr>
-		<td class="rownumcell">2</td>
-		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell"> &nbsp;</td>
-		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell"> &nbsp;</td>
-		<td id="subsidy_mng_m_user_type">user_type</td>
-		<td class="typecell">int4</td>
-		<td class="sizecell"> 10 </td>
-		<td class="relcell">&nbsp;&nbsp;</td>
-		<td class="relcell">&nbsp;</td>
-		<td class="relcell"> &nbsp;</td>
-		<td class="commentcell"> ユーザー区分</td>
-		<td class="subcell">userType</td>
-		<td class="subcell">Integer</td>
-	</tr>
-	<tr>
-		<td class="rownumcell">3</td>
-		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell"> &nbsp;</td>
-		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell"> &nbsp;</td>
-		<td id="subsidy_mng_m_money">money</td>
-		<td class="typecell">int4</td>
-		<td class="sizecell"> 10 </td>
-		<td class="relcell">&nbsp;&nbsp;</td>
-		<td class="relcell">&nbsp;</td>
-		<td class="relcell"> &nbsp;</td>
-		<td class="commentcell"> 金額</td>
-		<td class="subcell">money</td>
-		<td class="subcell">Integer</td>
-	</tr>
-</table>
 <h2 id="system_property_m" title="type=TABLE, primaryKey={prop_key}, nameLength=17, columnCount=7">
 system_property_m
 </h2>
@@ -1441,7 +1365,7 @@ user_t
 		<td class="sizecell"> 10 </td>
 		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
-		<td class="relcell">&nbsp;</td>
+		<td class="relcell"><a href="#entry_t" title="entry_t_user_id_fkey">entry_t</a>,<br><a href="#event_t" title="event_t_user_id_fkey">event_t</a>&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> user_id</td>
 		<td class="subcell">userId</td>
@@ -1489,24 +1413,6 @@ user_t
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell"> &nbsp;</td>
-		<td id="user_t_user_type">user_type</td>
-		<td class="typecell">int4</td>
-		<td class="sizecell"> 10 </td>
-		<td class="defvalcell"> &nbsp;</td>
-		<td class="relcell">&nbsp;&nbsp;</td>
-		<td class="relcell">&nbsp;</td>
-		<td class="relcell"> &nbsp;</td>
-		<td class="commentcell"> ユーザー区分</td>
-		<td class="subcell">userType</td>
-		<td class="subcell">Integer</td>
-	</tr>
-	<tr>
-		<td class="rownumcell">5</td>
-		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell"> &nbsp;</td>
-		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">*</td>
 		<td id="user_t_password">password</td>
 		<td class="typecell">text</td>
@@ -1520,7 +1426,7 @@ user_t
 		<td class="subcell">String</td>
 	</tr>
 	<tr>
-		<td class="rownumcell">6</td>
+		<td class="rownumcell">5</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
@@ -1535,6 +1441,104 @@ user_t
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> 権限レベル</td>
 		<td class="subcell">authLevel</td>
+		<td class="subcell">Integer</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">6</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">*</td>
+		<td id="user_t_user_type_id">user_type_id</td>
+		<td class="typecell">int4</td>
+		<td class="sizecell"> 10 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell"><a href="#user_type_m" title="user_t_user_type_id_fkey">user_type_m</a>&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> ユーザー区分ID</td>
+		<td class="subcell">userTypeId</td>
+		<td class="subcell">Integer</td>
+	</tr>
+</table>
+<h2 id="user_type_m" title="type=TABLE, primaryKey={user_type_id}, nameLength=11, columnCount=3">
+user_type_m
+</h2>
+<p class="tablecomment">ユーザー区分_M</p>
+<table>
+	<thead>
+	<tr>
+		<th class="rownumhead">No.</th>
+		<th>PK</th>
+		<th>ID</th>
+		<th>UQ</th>
+		<th>IX</th>
+		<th>Not<br />Null</th>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Size</th>
+		<th>Default</th>
+		<th>ForeignTable</th>
+		<th>ReferrerTable</th>
+		<th>Classification</th>
+		<th>ColumnComment</th>
+		<th>PropertyName</th>
+		<th>JavaType</th>
+	</tr>
+	</thead>
+	<tr>
+		<td class="rownumcell">1</td>
+		<td class="flgcell" title="user_type_m_pkey :: sequence=user_type_m_user_type_id_seq:minimum(1),maximum(9223372036854775807),increment(1)">o</td>
+		<td class="flgcell">o</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">*</td>
+		<td id="user_type_m_user_type_id">user_type_id</td>
+		<td class="typecell">serial</td>
+		<td class="sizecell"> 10 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell"><a href="#user_t" title="user_t_user_type_id_fkey">user_t</a>&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> ユーザー区分ID</td>
+		<td class="subcell">userTypeId</td>
+		<td class="subcell">Integer</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">2</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">*</td>
+		<td id="user_type_m_user_type_name">user_type_name</td>
+		<td class="typecell">text</td>
+		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> ユーザー区分名称</td>
+		<td class="subcell">userTypeName</td>
+		<td class="subcell">String</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">3</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">*</td>
+		<td id="user_type_m_subsidy_amount">subsidy_amount</td>
+		<td class="typecell">int4</td>
+		<td class="sizecell"> 10 </td>
+		<td class="defvalcell"> 0</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 補助金額</td>
+		<td class="subcell">subsidyAmount</td>
 		<td class="subcell">Integer</td>
 	</tr>
 </table>

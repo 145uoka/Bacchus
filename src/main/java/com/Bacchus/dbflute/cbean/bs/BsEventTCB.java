@@ -18,6 +18,7 @@ import com.Bacchus.dbflute.allcommon.ImplementedInvokerAssistant;
 import com.Bacchus.dbflute.allcommon.ImplementedSqlClauseCreator;
 import com.Bacchus.dbflute.cbean.*;
 import com.Bacchus.dbflute.cbean.cq.*;
+import com.Bacchus.dbflute.cbean.nss.*;
 
 /**
  * The base condition-bean of event_t.
@@ -237,6 +238,35 @@ public class BsEventTCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    protected UserTNss _nssUserT;
+    public UserTNss xdfgetNssUserT() {
+        if (_nssUserT == null) { _nssUserT = new UserTNss(null); }
+        return _nssUserT;
+    }
+    /**
+     * Set up relation columns to select clause. <br>
+     * user_t by my user_id, named 'userT'.
+     * <pre>
+     * <span style="color: #0000C0">eventTBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_UserT()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">eventT</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">eventT</span>.<span style="color: #CC4747">getUserT()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
+     */
+    public UserTNss setupSelect_UserT() {
+        assertSetupSelectPurpose("userT");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnUserId();
+        }
+        doSetupSelect(() -> query().queryUserT());
+        if (_nssUserT == null || !_nssUserT.hasConditionQuery())
+        { _nssUserT = new UserTNss(query().queryUserT()); }
+        return _nssUserT;
+    }
+
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -278,6 +308,7 @@ public class BsEventTCB extends AbstractConditionBean {
     }
 
     public static class HpSpecification extends HpAbstractSpecification<EventTCQ> {
+        protected UserTCB.HpSpecification _userT;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<EventTCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
@@ -348,7 +379,7 @@ public class BsEventTCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnEventDiv() { return doColumn("event_div"); }
         /**
-         * user_id: {int4(10)}
+         * user_id: {NotNull, int4(10), FK to user_t}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUserId() { return doColumn("user_id"); }
@@ -357,9 +388,50 @@ public class BsEventTCB extends AbstractConditionBean {
         @Override
         protected void doSpecifyRequiredColumn() {
             columnEventNo(); // PK
+            if (qyCall().qy().hasConditionQueryUserT()
+                    || qyCall().qy().xgetReferrerQuery() instanceof UserTCQ) {
+                columnUserId(); // FK or one-to-one referrer
+            }
         }
         @Override
         protected String getTableDbName() { return "event_t"; }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * user_t by my user_id, named 'userT'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public UserTCB.HpSpecification specifyUserT() {
+            assertRelation("userT");
+            if (_userT == null) {
+                _userT = new UserTCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryUserT()
+                                    , () -> _qyCall.qy().queryUserT())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _userT.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryUserT()
+                      , () -> xsyncQyCall().qy().queryUserT()));
+                }
+            }
+            return _userT;
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from candidate_t where ...) as FOO_MAX} <br>
+         * candidate_t by event_no, named 'candidateTList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     tCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     tCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, CandidateT.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<CandidateTCB, EventTCQ> derivedCandidateT() {
+            assertDerived("candidateTList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<CandidateTCB> sq, EventTCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveCandidateTList(fn, sq, al, op), _dbmetaProvider);
+        }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)

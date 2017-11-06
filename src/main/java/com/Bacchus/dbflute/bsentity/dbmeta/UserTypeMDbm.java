@@ -13,17 +13,17 @@ import com.Bacchus.dbflute.allcommon.*;
 import com.Bacchus.dbflute.exentity.*;
 
 /**
- * The DB meta of subsidy_mng_m. (Singleton)
+ * The DB meta of user_type_m. (Singleton)
  * @author DBFlute(AutoGenerator)
  */
-public class SubsidyMngMDbm extends AbstractDBMeta {
+public class UserTypeMDbm extends AbstractDBMeta {
 
     // ===================================================================================
     //                                                                           Singleton
     //                                                                           =========
-    private static final SubsidyMngMDbm _instance = new SubsidyMngMDbm();
-    private SubsidyMngMDbm() {}
-    public static SubsidyMngMDbm getInstance() { return _instance; }
+    private static final UserTypeMDbm _instance = new UserTypeMDbm();
+    private UserTypeMDbm() {}
+    public static UserTypeMDbm getInstance() { return _instance; }
 
     // ===================================================================================
     //                                                                       Current DBDef
@@ -42,9 +42,9 @@ public class SubsidyMngMDbm extends AbstractDBMeta {
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     { xsetupEpg(); }
     protected void xsetupEpg() {
-        setupEpg(_epgMap, et -> ((SubsidyMngM)et).getMoneyId(), (et, vl) -> ((SubsidyMngM)et).setMoneyId(cti(vl)), "moneyId");
-        setupEpg(_epgMap, et -> ((SubsidyMngM)et).getUserType(), (et, vl) -> ((SubsidyMngM)et).setUserType(cti(vl)), "userType");
-        setupEpg(_epgMap, et -> ((SubsidyMngM)et).getMoney(), (et, vl) -> ((SubsidyMngM)et).setMoney(cti(vl)), "money");
+        setupEpg(_epgMap, et -> ((UserTypeM)et).getUserTypeId(), (et, vl) -> ((UserTypeM)et).setUserTypeId(cti(vl)), "userTypeId");
+        setupEpg(_epgMap, et -> ((UserTypeM)et).getUserTypeName(), (et, vl) -> ((UserTypeM)et).setUserTypeName((String)vl), "userTypeName");
+        setupEpg(_epgMap, et -> ((UserTypeM)et).getSubsidyAmount(), (et, vl) -> ((UserTypeM)et).setSubsidyAmount(cti(vl)), "subsidyAmount");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -52,10 +52,10 @@ public class SubsidyMngMDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
-    protected final String _tableDbName = "subsidy_mng_m";
-    protected final String _tableDispName = "subsidy_mng_m";
-    protected final String _tablePropertyName = "subsidyMngM";
-    protected final TableSqlName _tableSqlName = new TableSqlName("subsidy_mng_m", _tableDbName);
+    protected final String _tableDbName = "user_type_m";
+    protected final String _tableDispName = "user_type_m";
+    protected final String _tablePropertyName = "userTypeM";
+    protected final TableSqlName _tableSqlName = new TableSqlName("user_type_m", _tableDbName);
     { _tableSqlName.xacceptFilter(DBFluteConfig.getInstance().getTableSqlNameFilter()); }
     public String getTableDbName() { return _tableDbName; }
     public String getTableDispName() { return _tableDispName; }
@@ -65,31 +65,31 @@ public class SubsidyMngMDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMoneyId = cci("money_id", "money_id", null, null, Integer.class, "moneyId", null, true, true, true, "serial", 10, 0, "nextval('subsidy_mng_m_money_id_seq'::regclass)", false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnUserType = cci("user_type", "user_type", null, null, Integer.class, "userType", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnMoney = cci("money", "money", null, null, Integer.class, "money", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUserTypeId = cci("user_type_id", "user_type_id", null, null, Integer.class, "userTypeId", null, true, true, true, "serial", 10, 0, "nextval('user_type_m_user_type_id_seq'::regclass)", false, null, null, null, "userTList", null, false);
+    protected final ColumnInfo _columnUserTypeName = cci("user_type_name", "user_type_name", null, null, String.class, "userTypeName", null, false, false, true, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnSubsidyAmount = cci("subsidy_amount", "subsidy_amount", null, null, Integer.class, "subsidyAmount", null, false, false, true, "int4", 10, 0, "0", false, null, null, null, null, null, false);
 
     /**
-     * money_id: {PK, ID, NotNull, serial(10)}
+     * user_type_id: {PK, ID, NotNull, serial(10)}
      * @return The information object of specified column. (NotNull)
      */
-    public ColumnInfo columnMoneyId() { return _columnMoneyId; }
+    public ColumnInfo columnUserTypeId() { return _columnUserTypeId; }
     /**
-     * user_type: {int4(10)}
+     * user_type_name: {NotNull, text(2147483647)}
      * @return The information object of specified column. (NotNull)
      */
-    public ColumnInfo columnUserType() { return _columnUserType; }
+    public ColumnInfo columnUserTypeName() { return _columnUserTypeName; }
     /**
-     * money: {int4(10)}
+     * subsidy_amount: {NotNull, int4(10), default=[0]}
      * @return The information object of specified column. (NotNull)
      */
-    public ColumnInfo columnMoney() { return _columnMoney; }
+    public ColumnInfo columnSubsidyAmount() { return _columnSubsidyAmount; }
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
-        ls.add(columnMoneyId());
-        ls.add(columnUserType());
-        ls.add(columnMoney());
+        ls.add(columnUserTypeId());
+        ls.add(columnUserTypeName());
+        ls.add(columnSubsidyAmount());
         return ls;
     }
 
@@ -101,7 +101,7 @@ public class SubsidyMngMDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                       Primary Element
     //                                       ---------------
-    protected UniqueInfo cpui() { return hpcpui(columnMoneyId()); }
+    protected UniqueInfo cpui() { return hpcpui(columnUserTypeId()); }
     public boolean hasPrimaryKey() { return true; }
     public boolean hasCompoundPrimaryKey() { return false; }
 
@@ -117,39 +117,47 @@ public class SubsidyMngMDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * user_t by user_type_id, named 'userTList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerUserTList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserTypeId(), UserTDbm.getInstance().columnUserTypeId());
+        return cri("user_t_user_type_id_fkey", "userTList", this, UserTDbm.getInstance(), mp, false, "userTypeM");
+    }
 
     // ===================================================================================
     //                                                                        Various Info
     //                                                                        ============
     public boolean hasSequence() { return true; }
-    public String getSequenceName() { return "subsidy_mng_m_money_id_seq"; }
+    public String getSequenceName() { return "user_type_m_user_type_id_seq"; }
     public Integer getSequenceIncrementSize() { return 1; }
     public Integer getSequenceCacheSize() { return null; }
 
     // ===================================================================================
     //                                                                           Type Name
     //                                                                           =========
-    public String getEntityTypeName() { return "com.Bacchus.dbflute.exentity.SubsidyMngM"; }
-    public String getConditionBeanTypeName() { return "com.Bacchus.dbflute.cbean.SubsidyMngMCB"; }
-    public String getBehaviorTypeName() { return "com.Bacchus.dbflute.exbhv.SubsidyMngMBhv"; }
+    public String getEntityTypeName() { return "com.Bacchus.dbflute.exentity.UserTypeM"; }
+    public String getConditionBeanTypeName() { return "com.Bacchus.dbflute.cbean.UserTypeMCB"; }
+    public String getBehaviorTypeName() { return "com.Bacchus.dbflute.exbhv.UserTypeMBhv"; }
 
     // ===================================================================================
     //                                                                         Object Type
     //                                                                         ===========
-    public Class<SubsidyMngM> getEntityType() { return SubsidyMngM.class; }
+    public Class<UserTypeM> getEntityType() { return UserTypeM.class; }
 
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public SubsidyMngM newEntity() { return new SubsidyMngM(); }
+    public UserTypeM newEntity() { return new UserTypeM(); }
 
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
     public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
-    { doAcceptPrimaryKeyMap((SubsidyMngM)et, mp); }
+    { doAcceptPrimaryKeyMap((UserTypeM)et, mp); }
     public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
-    { doAcceptAllColumnMap((SubsidyMngM)et, mp); }
+    { doAcceptAllColumnMap((UserTypeM)et, mp); }
     public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
     public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

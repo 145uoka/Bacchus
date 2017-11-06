@@ -62,6 +62,16 @@ public class CandidateTCIQ extends AbstractBsCandidateTCQ {
     //                                                                Override about Query
     //                                                                ====================
     protected ConditionValue xgetCValueCandidateNo() { return _myCQ.xdfgetCandidateNo(); }
+    public String keepCandidateNo_ExistsReferrer_EntryTList(EntryTCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepCandidateNo_NotExistsReferrer_EntryTList(EntryTCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepCandidateNo_SpecifyDerivedReferrer_EntryTList(EntryTCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepCandidateNo_QueryDerivedReferrer_EntryTList(EntryTCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepCandidateNo_QueryDerivedReferrer_EntryTListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueEventNo() { return _myCQ.xdfgetEventNo(); }
     protected ConditionValue xgetCValueEventStartDatetime() { return _myCQ.xdfgetEventStartDatetime(); }
     protected ConditionValue xgetCValueEventEndDatetime() { return _myCQ.xdfgetEventEndDatetime(); }

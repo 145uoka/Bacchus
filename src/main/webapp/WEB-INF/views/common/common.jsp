@@ -6,6 +6,7 @@
   response.setHeader("Pragma","no-cache");
   response.setHeader("Cache-Control","no-cache");
 %>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="content-Type" content="text/html;charset=UTF-8" />
 
 <meta http-equiv="content-style-type" content="text/css" />

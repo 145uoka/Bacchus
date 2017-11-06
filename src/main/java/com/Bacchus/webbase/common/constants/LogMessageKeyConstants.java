@@ -12,6 +12,10 @@ public class LogMessageKeyConstants {
      * INFOログのメッセージID。
      */
     public static class Info {
+        /** ログインしました。ユーザーID=[{0}], 名前 = [{1}], Email = [{2}] */
+        public static final String I_00_0001 = "I_00_0001";
+        /** プロフィール編集を実施しました。ユーザーID=[{0}], 名前=[{1}], Email=[{2}] */
+        public static final String I_01_0001 = "I_01_0001";
     }
 
     /**

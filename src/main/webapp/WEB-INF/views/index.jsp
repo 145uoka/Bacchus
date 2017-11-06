@@ -25,31 +25,31 @@
                   <div class="panel-body sub-background-color">
                     <div class="row">
                       <div class="form-group <ext:isErrors path='userName' value='has-error'/>">
-                <label class="col-md-3 control-label">
+                <label class="col-md-5 control-label">
                   ユーザー名
                   <span class="label label-danger" style="margin-left: 10px">必須</span>
                 </label>
-                <div class="col-md-4">
+                <div class="col-md-5">
                   <form:input path="userName" class="form-control" maxlength="${ext:getMaxLen('CNT0001') }" />
                 </div>
                 <div style="clear: both;">
-                  <span class="col-md-3"></span>
-                  <div class="col-md-7">
+                  <span class="col-md-5"></span>
+                  <div class="col-md-5">
                     <form:errors path="userName" element="div" cssClass="text-danger" />
                   </div>
                 </div>
               </div>
               <div class="form-group <ext:isErrors path='password' value='has-error'/>">
-                <label class="col-md-3 control-label">
+                <label class="col-md-5 control-label">
                   パスワード
                   <span class="label label-danger" style="margin-left: 10px">必須</span>
                 </label>
-                <div class="col-md-4">
+                <div class="col-md-5">
                   <form:password path="password" class="form-control" maxlength="${ext:getMaxLen('CNT0002') }" />
                 </div>
                 <div style="clear: both;">
-                  <span class="col-md-3"></span>
-                  <div class="col-md-7">
+                  <span class="col-md-5"></span>
+                  <div class="col-md-5">
                     <form:errors path="password" element="div" cssClass="text-danger" />
                   </div>
                 </div>

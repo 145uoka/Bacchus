@@ -239,22 +239,22 @@ public class BsUserTCB extends AbstractConditionBean {
     //                                                                         ===========
     /**
      * Set up relation columns to select clause. <br>
-     * subsidy_mng_m by my money_id, named 'subsidyMngM'.
+     * user_type_m by my user_type_id, named 'userTypeM'.
      * <pre>
      * <span style="color: #0000C0">userTBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_SubsidyMngM()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_UserTypeM()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      *     <span style="color: #553000">cb</span>.query().set...
      * }).alwaysPresent(<span style="color: #553000">userT</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     ... = <span style="color: #553000">userT</span>.<span style="color: #CC4747">getSubsidyMngM()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     *     ... = <span style="color: #553000">userT</span>.<span style="color: #CC4747">getUserTypeM()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * });
      * </pre>
      */
-    public void setupSelect_SubsidyMngM() {
-        assertSetupSelectPurpose("subsidyMngM");
+    public void setupSelect_UserTypeM() {
+        assertSetupSelectPurpose("userTypeM");
         if (hasSpecifiedLocalColumn()) {
-            specify().columnMoneyId();
+            specify().columnUserTypeId();
         }
-        doSetupSelect(() -> query().querySubsidyMngM());
+        doSetupSelect(() -> query().queryUserTypeM());
     }
 
     // [DBFlute-0.7.4]
@@ -298,7 +298,7 @@ public class BsUserTCB extends AbstractConditionBean {
     }
 
     public static class HpSpecification extends HpAbstractSpecification<UserTCQ> {
-        protected SubsidyMngMCB.HpSpecification _subsidyMngM;
+        protected UserTypeMCB.HpSpecification _userTypeM;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<UserTCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
@@ -319,11 +319,6 @@ public class BsUserTCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnEmail() { return doColumn("email"); }
         /**
-         * user_type: {int4(10)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnUserType() { return doColumn("user_type"); }
-        /**
          * password: {NotNull, text(2147483647)}
          * @return The information object of specified column. (NotNull)
          */
@@ -334,41 +329,41 @@ public class BsUserTCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnAuthLevel() { return doColumn("auth_level"); }
         /**
-         * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
+         * user_type_id: {NotNull, int4(10), FK to user_type_m}
          * @return The information object of specified column. (NotNull)
          */
-        public SpecifiedColumn columnMoneyId() { return doColumn("money_id"); }
+        public SpecifiedColumn columnUserTypeId() { return doColumn("user_type_id"); }
         public void everyColumn() { doEveryColumn(); }
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override
         protected void doSpecifyRequiredColumn() {
             columnUserId(); // PK
-            if (qyCall().qy().hasConditionQuerySubsidyMngM()
-                    || qyCall().qy().xgetReferrerQuery() instanceof SubsidyMngMCQ) {
-                columnMoneyId(); // FK or one-to-one referrer
+            if (qyCall().qy().hasConditionQueryUserTypeM()
+                    || qyCall().qy().xgetReferrerQuery() instanceof UserTypeMCQ) {
+                columnUserTypeId(); // FK or one-to-one referrer
             }
         }
         @Override
         protected String getTableDbName() { return "user_t"; }
         /**
          * Prepare to specify functions about relation table. <br>
-         * subsidy_mng_m by my money_id, named 'subsidyMngM'.
+         * user_type_m by my user_type_id, named 'userTypeM'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
-        public SubsidyMngMCB.HpSpecification specifySubsidyMngM() {
-            assertRelation("subsidyMngM");
-            if (_subsidyMngM == null) {
-                _subsidyMngM = new SubsidyMngMCB.HpSpecification(_baseCB
-                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQuerySubsidyMngM()
-                                    , () -> _qyCall.qy().querySubsidyMngM())
+        public UserTypeMCB.HpSpecification specifyUserTypeM() {
+            assertRelation("userTypeM");
+            if (_userTypeM == null) {
+                _userTypeM = new UserTypeMCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryUserTypeM()
+                                    , () -> _qyCall.qy().queryUserTypeM())
                     , _purpose, _dbmetaProvider, xgetSDRFnFc());
                 if (xhasSyncQyCall()) { // inherits it
-                    _subsidyMngM.xsetSyncQyCall(xcreateSpQyCall(
-                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQuerySubsidyMngM()
-                      , () -> xsyncQyCall().qy().querySubsidyMngM()));
+                    _userTypeM.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryUserTypeM()
+                      , () -> xsyncQyCall().qy().queryUserTypeM()));
                 }
             }
-            return _subsidyMngM;
+            return _userTypeM;
         }
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>

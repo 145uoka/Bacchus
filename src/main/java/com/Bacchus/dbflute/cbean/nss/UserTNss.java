@@ -20,9 +20,9 @@ public class UserTNss {
     //                                                                     ===============
     /**
      * With nested relation columns to select clause. <br>
-     * subsidy_mng_m by my money_id, named 'subsidyMngM'.
+     * user_type_m by my user_type_id, named 'userTypeM'.
      */
-    public void withSubsidyMngM() {
-        _query.xdoNss(() -> _query.querySubsidyMngM());
+    public void withUserTypeM() {
+        _query.xdoNss(() -> _query.queryUserTypeM());
     }
 }

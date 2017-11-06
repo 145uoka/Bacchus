@@ -24,35 +24,27 @@ public class UserInfo implements Serializable {
 
 	private boolean logined = false;
 
+	private int userId;
+
 	private String email;
 
     private int authLevel;
 
     private String userName;
 
-    private int userType;
-
     private boolean adminFlg = false;
 
     private boolean generalFlg = false;
 
-    /**
-     * accountTypeを取得。
-     * @return accountType
-     */
-    public int getUserType() {
-        return userType;
-    }
-
-    /**
-     * accountTypeを設定。
-     * @param accountType accountType
-     */
-    public void setUserType(int userType) {
-        this.userType = userType;
-    }
-
     private Set<SystemCodeConstants.Permissions> permissions;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     public boolean isLogined() {
         return logined;

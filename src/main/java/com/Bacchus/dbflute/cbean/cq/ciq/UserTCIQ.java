@@ -84,10 +84,9 @@ public class UserTCIQ extends AbstractBsUserTCQ {
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueUserName() { return _myCQ.xdfgetUserName(); }
     protected ConditionValue xgetCValueEmail() { return _myCQ.xdfgetEmail(); }
-    protected ConditionValue xgetCValueUserType() { return _myCQ.xdfgetUserType(); }
     protected ConditionValue xgetCValuePassword() { return _myCQ.xdfgetPassword(); }
     protected ConditionValue xgetCValueAuthLevel() { return _myCQ.xdfgetAuthLevel(); }
-    protected ConditionValue xgetCValueMoneyId() { return _myCQ.xdfgetMoneyId(); }
+    protected ConditionValue xgetCValueUserTypeId() { return _myCQ.xdfgetUserTypeId(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(UserTCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

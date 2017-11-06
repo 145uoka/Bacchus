@@ -19,7 +19,7 @@ import com.Bacchus.dbflute.exentity.*;
  *     user_id
  *
  * [column]
- *     user_id, user_name, email, user_type, password, auth_level, money_id
+ *     user_id, user_name, email, password, auth_level, user_type_id
  *
  * [sequence]
  *     user_t_user_id_seq
@@ -31,13 +31,13 @@ import com.Bacchus.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     subsidy_mng_m
+ *     user_type_m
  *
  * [referrer table]
  *     entry_t, event_t
  *
  * [foreign property]
- *     subsidyMngM
+ *     userTypeM
  *
  * [referrer property]
  *     entryTList, eventTList
@@ -47,17 +47,15 @@ import com.Bacchus.dbflute.exentity.*;
  * Integer userId = entity.getUserId();
  * String userName = entity.getUserName();
  * String email = entity.getEmail();
- * Integer userType = entity.getUserType();
  * String password = entity.getPassword();
  * Integer authLevel = entity.getAuthLevel();
- * Integer moneyId = entity.getMoneyId();
+ * Integer userTypeId = entity.getUserTypeId();
  * entity.setUserId(userId);
  * entity.setUserName(userName);
  * entity.setEmail(email);
- * entity.setUserType(userType);
  * entity.setPassword(password);
  * entity.setAuthLevel(authLevel);
- * entity.setMoneyId(moneyId);
+ * entity.setUserTypeId(userTypeId);
  * = = = = = = = = = =/
  * </pre>
  * @author DBFlute(AutoGenerator)
@@ -82,17 +80,14 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     /** email: {text(2147483647)} */
     protected String _email;
 
-    /** user_type: {int4(10)} */
-    protected Integer _userType;
-
     /** password: {NotNull, text(2147483647)} */
     protected String _password;
 
     /** auth_level: {NotNull, int4(10), default=[0]} */
     protected Integer _authLevel;
 
-    /** money_id: {NotNull, int4(10), FK to subsidy_mng_m} */
-    protected Integer _moneyId;
+    /** user_type_id: {NotNull, int4(10), FK to user_type_m} */
+    protected Integer _userTypeId;
 
     // ===================================================================================
     //                                                                             DB Meta
@@ -119,25 +114,25 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
-    /** subsidy_mng_m by my money_id, named 'subsidyMngM'. */
-    protected OptionalEntity<SubsidyMngM> _subsidyMngM;
+    /** user_type_m by my user_type_id, named 'userTypeM'. */
+    protected OptionalEntity<UserTypeM> _userTypeM;
 
     /**
-     * [get] subsidy_mng_m by my money_id, named 'subsidyMngM'. <br>
+     * [get] user_type_m by my user_type_id, named 'userTypeM'. <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
-     * @return The entity of foreign property 'subsidyMngM'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     * @return The entity of foreign property 'userTypeM'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
-    public OptionalEntity<SubsidyMngM> getSubsidyMngM() {
-        if (_subsidyMngM == null) { _subsidyMngM = OptionalEntity.relationEmpty(this, "subsidyMngM"); }
-        return _subsidyMngM;
+    public OptionalEntity<UserTypeM> getUserTypeM() {
+        if (_userTypeM == null) { _userTypeM = OptionalEntity.relationEmpty(this, "userTypeM"); }
+        return _userTypeM;
     }
 
     /**
-     * [set] subsidy_mng_m by my money_id, named 'subsidyMngM'.
-     * @param subsidyMngM The entity of foreign property 'subsidyMngM'. (NullAllowed)
+     * [set] user_type_m by my user_type_id, named 'userTypeM'.
+     * @param userTypeM The entity of foreign property 'userTypeM'. (NullAllowed)
      */
-    public void setSubsidyMngM(OptionalEntity<SubsidyMngM> subsidyMngM) {
-        _subsidyMngM = subsidyMngM;
+    public void setUserTypeM(OptionalEntity<UserTypeM> userTypeM) {
+        _userTypeM = userTypeM;
     }
 
     // ===================================================================================
@@ -212,8 +207,8 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        if (_subsidyMngM != null && _subsidyMngM.isPresent())
-        { sb.append(li).append(xbRDS(_subsidyMngM, "subsidyMngM")); }
+        if (_userTypeM != null && _userTypeM.isPresent())
+        { sb.append(li).append(xbRDS(_userTypeM, "userTypeM")); }
         if (_entryTList != null) { for (EntryT et : _entryTList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "entryTList")); } } }
         if (_eventTList != null) { for (EventT et : _eventTList)
@@ -230,10 +225,9 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
         sb.append(dm).append(xfND(_userId));
         sb.append(dm).append(xfND(_userName));
         sb.append(dm).append(xfND(_email));
-        sb.append(dm).append(xfND(_userType));
         sb.append(dm).append(xfND(_password));
         sb.append(dm).append(xfND(_authLevel));
-        sb.append(dm).append(xfND(_moneyId));
+        sb.append(dm).append(xfND(_userTypeId));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
@@ -244,8 +238,8 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_subsidyMngM != null && _subsidyMngM.isPresent())
-        { sb.append(dm).append("subsidyMngM"); }
+        if (_userTypeM != null && _userTypeM.isPresent())
+        { sb.append(dm).append("userTypeM"); }
         if (_entryTList != null && !_entryTList.isEmpty())
         { sb.append(dm).append("entryTList"); }
         if (_eventTList != null && !_eventTList.isEmpty())
@@ -325,26 +319,6 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] user_type: {int4(10)} <br>
-     * ユーザー区分
-     * @return The value of the column 'user_type'. (NullAllowed even if selected: for no constraint)
-     */
-    public Integer getUserType() {
-        checkSpecifiedProperty("userType");
-        return _userType;
-    }
-
-    /**
-     * [set] user_type: {int4(10)} <br>
-     * ユーザー区分
-     * @param userType The value of the column 'user_type'. (NullAllowed: null update allowed for no constraint)
-     */
-    public void setUserType(Integer userType) {
-        registerModifiedProperty("userType");
-        _userType = userType;
-    }
-
-    /**
      * [get] password: {NotNull, text(2147483647)} <br>
      * 暗号化PWD
      * @return The value of the column 'password'. (basically NotNull if selected: for the constraint)
@@ -385,22 +359,22 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] money_id: {NotNull, int4(10), FK to subsidy_mng_m} <br>
-     * 金額ID
-     * @return The value of the column 'money_id'. (basically NotNull if selected: for the constraint)
+     * [get] user_type_id: {NotNull, int4(10), FK to user_type_m} <br>
+     * ユーザー区分ID
+     * @return The value of the column 'user_type_id'. (basically NotNull if selected: for the constraint)
      */
-    public Integer getMoneyId() {
-        checkSpecifiedProperty("moneyId");
-        return _moneyId;
+    public Integer getUserTypeId() {
+        checkSpecifiedProperty("userTypeId");
+        return _userTypeId;
     }
 
     /**
-     * [set] money_id: {NotNull, int4(10), FK to subsidy_mng_m} <br>
-     * 金額ID
-     * @param moneyId The value of the column 'money_id'. (basically NotNull if update: for the constraint)
+     * [set] user_type_id: {NotNull, int4(10), FK to user_type_m} <br>
+     * ユーザー区分ID
+     * @param userTypeId The value of the column 'user_type_id'. (basically NotNull if update: for the constraint)
      */
-    public void setMoneyId(Integer moneyId) {
-        registerModifiedProperty("moneyId");
-        _moneyId = moneyId;
+    public void setUserTypeId(Integer userTypeId) {
+        registerModifiedProperty("userTypeId");
+        _userTypeId = userTypeId;
     }
 }

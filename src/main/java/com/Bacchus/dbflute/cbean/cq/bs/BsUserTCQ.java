@@ -161,26 +161,6 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
      */
     public BsUserTCQ addOrderBy_Email_Desc() { regOBD("email"); return this; }
 
-    protected ConditionValue _userType;
-    public ConditionValue xdfgetUserType()
-    { if (_userType == null) { _userType = nCV(); }
-      return _userType; }
-    protected ConditionValue xgetCValueUserType() { return xdfgetUserType(); }
-
-    /** 
-     * Add order-by as ascend. <br>
-     * user_type: {int4(10)}
-     * @return this. (NotNull)
-     */
-    public BsUserTCQ addOrderBy_UserType_Asc() { regOBA("user_type"); return this; }
-
-    /**
-     * Add order-by as descend. <br>
-     * user_type: {int4(10)}
-     * @return this. (NotNull)
-     */
-    public BsUserTCQ addOrderBy_UserType_Desc() { regOBD("user_type"); return this; }
-
     protected ConditionValue _password;
     public ConditionValue xdfgetPassword()
     { if (_password == null) { _password = nCV(); }
@@ -221,25 +201,25 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
      */
     public BsUserTCQ addOrderBy_AuthLevel_Desc() { regOBD("auth_level"); return this; }
 
-    protected ConditionValue _moneyId;
-    public ConditionValue xdfgetMoneyId()
-    { if (_moneyId == null) { _moneyId = nCV(); }
-      return _moneyId; }
-    protected ConditionValue xgetCValueMoneyId() { return xdfgetMoneyId(); }
+    protected ConditionValue _userTypeId;
+    public ConditionValue xdfgetUserTypeId()
+    { if (_userTypeId == null) { _userTypeId = nCV(); }
+      return _userTypeId; }
+    protected ConditionValue xgetCValueUserTypeId() { return xdfgetUserTypeId(); }
 
     /** 
      * Add order-by as ascend. <br>
-     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
      * @return this. (NotNull)
      */
-    public BsUserTCQ addOrderBy_MoneyId_Asc() { regOBA("money_id"); return this; }
+    public BsUserTCQ addOrderBy_UserTypeId_Asc() { regOBA("user_type_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
      * @return this. (NotNull)
      */
-    public BsUserTCQ addOrderBy_MoneyId_Desc() { regOBD("money_id"); return this; }
+    public BsUserTCQ addOrderBy_UserTypeId_Desc() { regOBD("user_type_id"); return this; }
 
     // ===================================================================================
     //                                                             SpecifiedDerivedOrderBy
@@ -282,8 +262,8 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         UserTCQ bq = (UserTCQ)bqs;
         UserTCQ uq = (UserTCQ)uqs;
-        if (bq.hasConditionQuerySubsidyMngM()) {
-            uq.querySubsidyMngM().reflectRelationOnUnionQuery(bq.querySubsidyMngM(), uq.querySubsidyMngM());
+        if (bq.hasConditionQueryUserTypeM()) {
+            uq.queryUserTypeM().reflectRelationOnUnionQuery(bq.queryUserTypeM(), uq.queryUserTypeM());
         }
     }
 
@@ -292,23 +272,23 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
     //                                                                       =============
     /**
      * Get the condition-query for relation table. <br>
-     * subsidy_mng_m by my money_id, named 'subsidyMngM'.
+     * user_type_m by my user_type_id, named 'userTypeM'.
      * @return The instance of condition-query. (NotNull)
      */
-    public SubsidyMngMCQ querySubsidyMngM() {
-        return xdfgetConditionQuerySubsidyMngM();
+    public UserTypeMCQ queryUserTypeM() {
+        return xdfgetConditionQueryUserTypeM();
     }
-    public SubsidyMngMCQ xdfgetConditionQuerySubsidyMngM() {
-        String prop = "subsidyMngM";
-        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQuerySubsidyMngM()); xsetupOuterJoinSubsidyMngM(); }
+    public UserTypeMCQ xdfgetConditionQueryUserTypeM() {
+        String prop = "userTypeM";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryUserTypeM()); xsetupOuterJoinUserTypeM(); }
         return xgetQueRlMap(prop);
     }
-    protected SubsidyMngMCQ xcreateQuerySubsidyMngM() {
-        String nrp = xresolveNRP("user_t", "subsidyMngM"); String jan = xresolveJAN(nrp, xgetNNLvl());
-        return xinitRelCQ(new SubsidyMngMCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "subsidyMngM", nrp);
+    protected UserTypeMCQ xcreateQueryUserTypeM() {
+        String nrp = xresolveNRP("user_t", "userTypeM"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new UserTypeMCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "userTypeM", nrp);
     }
-    protected void xsetupOuterJoinSubsidyMngM() { xregOutJo("subsidyMngM"); }
-    public boolean hasConditionQuerySubsidyMngM() { return xhasQueRlMap("subsidyMngM"); }
+    protected void xsetupOuterJoinUserTypeM() { xregOutJo("userTypeM"); }
+    public boolean hasConditionQueryUserTypeM() { return xhasQueRlMap("userTypeM"); }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;

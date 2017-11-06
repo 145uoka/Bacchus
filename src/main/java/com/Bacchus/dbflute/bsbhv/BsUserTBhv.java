@@ -26,7 +26,7 @@ import com.Bacchus.dbflute.cbean.*;
  *     user_id
  *
  * [column]
- *     user_id, user_name, email, user_type, password, auth_level, money_id
+ *     user_id, user_name, email, password, auth_level, user_type_id
  *
  * [sequence]
  *     user_t_user_id_seq
@@ -38,13 +38,13 @@ import com.Bacchus.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     subsidy_mng_m
+ *     user_type_m
  *
  * [referrer table]
  *     entry_t, event_t
  *
  * [foreign property]
- *     subsidyMngM
+ *     userTypeM
  *
  * [referrer property]
  *     entryTList, eventTList
@@ -508,12 +508,12 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
     //                                                                   Pull out Relation
     //                                                                   =================
     /**
-     * Pull out the list of foreign table 'SubsidyMngM'.
+     * Pull out the list of foreign table 'UserTypeM'.
      * @param userTList The list of userT. (NotNull, EmptyAllowed)
      * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<SubsidyMngM> pulloutSubsidyMngM(List<UserT> userTList)
-    { return helpPulloutInternally(userTList, "subsidyMngM"); }
+    public List<UserTypeM> pulloutUserTypeM(List<UserT> userTList)
+    { return helpPulloutInternally(userTList, "userTypeM"); }
 
     // ===================================================================================
     //                                                                      Extract Column

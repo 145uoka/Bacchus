@@ -607,135 +607,6 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
     protected abstract ConditionValue xgetCValueEmail();
 
     /**
-     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     * @param userType The value of userType as equal. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setUserType_Equal(Integer userType) {
-        doSetUserType_Equal(userType);
-    }
-
-    protected void doSetUserType_Equal(Integer userType) {
-        regUserType(CK_EQ, userType);
-    }
-
-    /**
-     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     * @param userType The value of userType as notEqual. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setUserType_NotEqual(Integer userType) {
-        doSetUserType_NotEqual(userType);
-    }
-
-    protected void doSetUserType_NotEqual(Integer userType) {
-        regUserType(CK_NES, userType);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     * @param userType The value of userType as greaterThan. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setUserType_GreaterThan(Integer userType) {
-        regUserType(CK_GT, userType);
-    }
-
-    /**
-     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     * @param userType The value of userType as lessThan. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setUserType_LessThan(Integer userType) {
-        regUserType(CK_LT, userType);
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     * @param userType The value of userType as greaterEqual. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setUserType_GreaterEqual(Integer userType) {
-        regUserType(CK_GE, userType);
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     * @param userType The value of userType as lessEqual. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setUserType_LessEqual(Integer userType) {
-        regUserType(CK_LE, userType);
-    }
-
-    /**
-     * RangeOf with various options. (versatile) <br>
-     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
-     * And NullIgnored, OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     * @param minNumber The min number of userType. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of userType. (NullAllowed: if null, no to-condition)
-     * @param opLambda The callback for option of range-of. (NotNull)
-     */
-    public void setUserType_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
-        setUserType_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
-    }
-
-    /**
-     * RangeOf with various options. (versatile) <br>
-     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
-     * And NullIgnored, OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     * @param minNumber The min number of userType. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of userType. (NullAllowed: if null, no to-condition)
-     * @param rangeOfOption The option of range-of. (NotNull)
-     */
-    protected void setUserType_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
-        regROO(minNumber, maxNumber, xgetCValueUserType(), "user_type", rangeOfOption);
-    }
-
-    /**
-     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * user_type: {int4(10)}
-     * @param userTypeList The collection of userType as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setUserType_InScope(Collection<Integer> userTypeList) {
-        doSetUserType_InScope(userTypeList);
-    }
-
-    protected void doSetUserType_InScope(Collection<Integer> userTypeList) {
-        regINS(CK_INS, cTL(userTypeList), xgetCValueUserType(), "user_type");
-    }
-
-    /**
-     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * user_type: {int4(10)}
-     * @param userTypeList The collection of userType as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setUserType_NotInScope(Collection<Integer> userTypeList) {
-        doSetUserType_NotInScope(userTypeList);
-    }
-
-    protected void doSetUserType_NotInScope(Collection<Integer> userTypeList) {
-        regINS(CK_NINS, cTL(userTypeList), xgetCValueUserType(), "user_type");
-    }
-
-    /**
-     * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     */
-    public void setUserType_IsNull() { regUserType(CK_ISN, DOBJ); }
-
-    /**
-     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * user_type: {int4(10)}
-     */
-    public void setUserType_IsNotNull() { regUserType(CK_ISNN, DOBJ); }
-
-    protected void regUserType(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueUserType(), "user_type"); }
-    protected abstract ConditionValue xgetCValueUserType();
-
-    /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * password: {NotNull, text(2147483647)}
      * @param password The value of password as equal. (NullAllowed: if null (or empty), no condition)
@@ -989,120 +860,120 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
-     * @param moneyId The value of moneyId as equal. (basically NotNull: error as default, or no condition as option)
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param userTypeId The value of userTypeId as equal. (basically NotNull: error as default, or no condition as option)
      */
-    public void setMoneyId_Equal(Integer moneyId) {
-        doSetMoneyId_Equal(moneyId);
+    public void setUserTypeId_Equal(Integer userTypeId) {
+        doSetUserTypeId_Equal(userTypeId);
     }
 
-    protected void doSetMoneyId_Equal(Integer moneyId) {
-        regMoneyId(CK_EQ, moneyId);
+    protected void doSetUserTypeId_Equal(Integer userTypeId) {
+        regUserTypeId(CK_EQ, userTypeId);
     }
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
-     * @param moneyId The value of moneyId as notEqual. (basically NotNull: error as default, or no condition as option)
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param userTypeId The value of userTypeId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setMoneyId_NotEqual(Integer moneyId) {
-        doSetMoneyId_NotEqual(moneyId);
+    public void setUserTypeId_NotEqual(Integer userTypeId) {
+        doSetUserTypeId_NotEqual(userTypeId);
     }
 
-    protected void doSetMoneyId_NotEqual(Integer moneyId) {
-        regMoneyId(CK_NES, moneyId);
+    protected void doSetUserTypeId_NotEqual(Integer userTypeId) {
+        regUserTypeId(CK_NES, userTypeId);
     }
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
-     * @param moneyId The value of moneyId as greaterThan. (basically NotNull: error as default, or no condition as option)
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param userTypeId The value of userTypeId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
-    public void setMoneyId_GreaterThan(Integer moneyId) {
-        regMoneyId(CK_GT, moneyId);
+    public void setUserTypeId_GreaterThan(Integer userTypeId) {
+        regUserTypeId(CK_GT, userTypeId);
     }
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
-     * @param moneyId The value of moneyId as lessThan. (basically NotNull: error as default, or no condition as option)
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param userTypeId The value of userTypeId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
-    public void setMoneyId_LessThan(Integer moneyId) {
-        regMoneyId(CK_LT, moneyId);
+    public void setUserTypeId_LessThan(Integer userTypeId) {
+        regUserTypeId(CK_LT, userTypeId);
     }
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
-     * @param moneyId The value of moneyId as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param userTypeId The value of userTypeId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setMoneyId_GreaterEqual(Integer moneyId) {
-        regMoneyId(CK_GE, moneyId);
+    public void setUserTypeId_GreaterEqual(Integer userTypeId) {
+        regUserTypeId(CK_GE, userTypeId);
     }
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
-     * @param moneyId The value of moneyId as lessEqual. (basically NotNull: error as default, or no condition as option)
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param userTypeId The value of userTypeId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setMoneyId_LessEqual(Integer moneyId) {
-        regMoneyId(CK_LE, moneyId);
+    public void setUserTypeId_LessEqual(Integer userTypeId) {
+        regUserTypeId(CK_LE, userTypeId);
     }
 
     /**
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
-     * @param minNumber The min number of moneyId. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of moneyId. (NullAllowed: if null, no to-condition)
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param minNumber The min number of userTypeId. (NullAllowed: if null, no from-condition)
+     * @param maxNumber The max number of userTypeId. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
-    public void setMoneyId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
-        setMoneyId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    public void setUserTypeId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setUserTypeId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
-     * @param minNumber The min number of moneyId. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of moneyId. (NullAllowed: if null, no to-condition)
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param minNumber The min number of userTypeId. (NullAllowed: if null, no from-condition)
+     * @param maxNumber The max number of userTypeId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    protected void setMoneyId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
-        regROO(minNumber, maxNumber, xgetCValueMoneyId(), "money_id", rangeOfOption);
+    protected void setUserTypeId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValueUserTypeId(), "user_type_id", rangeOfOption);
     }
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
-     * @param moneyIdList The collection of moneyId as inScope. (NullAllowed: if null (or empty), no condition)
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param userTypeIdList The collection of userTypeId as inScope. (NullAllowed: if null (or empty), no condition)
      */
-    public void setMoneyId_InScope(Collection<Integer> moneyIdList) {
-        doSetMoneyId_InScope(moneyIdList);
+    public void setUserTypeId_InScope(Collection<Integer> userTypeIdList) {
+        doSetUserTypeId_InScope(userTypeIdList);
     }
 
-    protected void doSetMoneyId_InScope(Collection<Integer> moneyIdList) {
-        regINS(CK_INS, cTL(moneyIdList), xgetCValueMoneyId(), "money_id");
+    protected void doSetUserTypeId_InScope(Collection<Integer> userTypeIdList) {
+        regINS(CK_INS, cTL(userTypeIdList), xgetCValueUserTypeId(), "user_type_id");
     }
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
-     * @param moneyIdList The collection of moneyId as notInScope. (NullAllowed: if null (or empty), no condition)
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * @param userTypeIdList The collection of userTypeId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
-    public void setMoneyId_NotInScope(Collection<Integer> moneyIdList) {
-        doSetMoneyId_NotInScope(moneyIdList);
+    public void setUserTypeId_NotInScope(Collection<Integer> userTypeIdList) {
+        doSetUserTypeId_NotInScope(userTypeIdList);
     }
 
-    protected void doSetMoneyId_NotInScope(Collection<Integer> moneyIdList) {
-        regINS(CK_NINS, cTL(moneyIdList), xgetCValueMoneyId(), "money_id");
+    protected void doSetUserTypeId_NotInScope(Collection<Integer> userTypeIdList) {
+        regINS(CK_NINS, cTL(userTypeIdList), xgetCValueUserTypeId(), "user_type_id");
     }
 
-    protected void regMoneyId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueMoneyId(), "money_id"); }
-    protected abstract ConditionValue xgetCValueMoneyId();
+    protected void regUserTypeId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueUserTypeId(), "user_type_id"); }
+    protected abstract ConditionValue xgetCValueUserTypeId();
 
     // ===================================================================================
     //                                                                     ScalarCondition

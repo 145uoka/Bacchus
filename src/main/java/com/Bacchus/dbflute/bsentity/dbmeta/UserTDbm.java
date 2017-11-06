@@ -46,10 +46,9 @@ public class UserTDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((UserT)et).getUserId(), (et, vl) -> ((UserT)et).setUserId(cti(vl)), "userId");
         setupEpg(_epgMap, et -> ((UserT)et).getUserName(), (et, vl) -> ((UserT)et).setUserName((String)vl), "userName");
         setupEpg(_epgMap, et -> ((UserT)et).getEmail(), (et, vl) -> ((UserT)et).setEmail((String)vl), "email");
-        setupEpg(_epgMap, et -> ((UserT)et).getUserType(), (et, vl) -> ((UserT)et).setUserType(cti(vl)), "userType");
         setupEpg(_epgMap, et -> ((UserT)et).getPassword(), (et, vl) -> ((UserT)et).setPassword((String)vl), "password");
         setupEpg(_epgMap, et -> ((UserT)et).getAuthLevel(), (et, vl) -> ((UserT)et).setAuthLevel(cti(vl)), "authLevel");
-        setupEpg(_epgMap, et -> ((UserT)et).getMoneyId(), (et, vl) -> ((UserT)et).setMoneyId(cti(vl)), "moneyId");
+        setupEpg(_epgMap, et -> ((UserT)et).getUserTypeId(), (et, vl) -> ((UserT)et).setUserTypeId(cti(vl)), "userTypeId");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -61,7 +60,7 @@ public class UserTDbm extends AbstractDBMeta {
     { xsetupEfpg(); }
     @SuppressWarnings("unchecked")
     protected void xsetupEfpg() {
-        setupEfpg(_efpgMap, et -> ((UserT)et).getSubsidyMngM(), (et, vl) -> ((UserT)et).setSubsidyMngM((OptionalEntity<SubsidyMngM>)vl), "subsidyMngM");
+        setupEfpg(_efpgMap, et -> ((UserT)et).getUserTypeM(), (et, vl) -> ((UserT)et).setUserTypeM((OptionalEntity<UserTypeM>)vl), "userTypeM");
     }
     public PropertyGateway findForeignPropertyGateway(String prop)
     { return doFindEfpg(_efpgMap, prop); }
@@ -85,10 +84,9 @@ public class UserTDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, true, true, true, "serial", 10, 0, "nextval('user_t_user_id_seq'::regclass)", false, null, null, null, "entryTList,eventTList", null, false);
     protected final ColumnInfo _columnUserName = cci("user_name", "user_name", null, null, String.class, "userName", null, false, false, true, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEmail = cci("email", "email", null, null, String.class, "email", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnUserType = cci("user_type", "user_type", null, null, Integer.class, "userType", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnPassword = cci("password", "password", null, null, String.class, "password", null, false, false, true, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnAuthLevel = cci("auth_level", "auth_level", null, null, Integer.class, "authLevel", null, false, false, true, "int4", 10, 0, "0", false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnMoneyId = cci("money_id", "money_id", null, null, Integer.class, "moneyId", null, false, false, true, "int4", 10, 0, null, false, null, null, "subsidyMngM", null, null, false);
+    protected final ColumnInfo _columnUserTypeId = cci("user_type_id", "user_type_id", null, null, Integer.class, "userTypeId", null, false, false, true, "int4", 10, 0, null, false, null, null, "userTypeM", null, null, false);
 
     /**
      * user_id: {PK, ID, NotNull, serial(10)}
@@ -106,11 +104,6 @@ public class UserTDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnEmail() { return _columnEmail; }
     /**
-     * user_type: {int4(10)}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnUserType() { return _columnUserType; }
-    /**
      * password: {NotNull, text(2147483647)}
      * @return The information object of specified column. (NotNull)
      */
@@ -121,20 +114,19 @@ public class UserTDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnAuthLevel() { return _columnAuthLevel; }
     /**
-     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
      * @return The information object of specified column. (NotNull)
      */
-    public ColumnInfo columnMoneyId() { return _columnMoneyId; }
+    public ColumnInfo columnUserTypeId() { return _columnUserTypeId; }
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
         ls.add(columnUserId());
         ls.add(columnUserName());
         ls.add(columnEmail());
-        ls.add(columnUserType());
         ls.add(columnPassword());
         ls.add(columnAuthLevel());
-        ls.add(columnMoneyId());
+        ls.add(columnUserTypeId());
         return ls;
     }
 
@@ -159,12 +151,12 @@ public class UserTDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     /**
-     * subsidy_mng_m by my money_id, named 'subsidyMngM'.
+     * user_type_m by my user_type_id, named 'userTypeM'.
      * @return The information object of foreign property. (NotNull)
      */
-    public ForeignInfo foreignSubsidyMngM() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMoneyId(), SubsidyMngMDbm.getInstance().columnMoneyId());
-        return cfi("user_t_money_id_fkey", "subsidyMngM", this, SubsidyMngMDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "userTList", false);
+    public ForeignInfo foreignUserTypeM() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserTypeId(), UserTypeMDbm.getInstance().columnUserTypeId());
+        return cfi("user_t_user_type_id_fkey", "userTypeM", this, UserTypeMDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "userTList", false);
     }
 
     // -----------------------------------------------------

@@ -32,13 +32,13 @@ import com.Bacchus.dbflute.exentity.*;
  *     
  *
  * [referrer table]
- *     
+ *     user_t
  *
  * [foreign property]
  *     
  *
  * [referrer property]
- *     
+ *     userTList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -100,6 +100,26 @@ public abstract class BsSubsidyMngM extends AbstractEntity implements DomainEnti
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
+    /** user_t by money_id, named 'userTList'. */
+    protected List<UserT> _userTList;
+
+    /**
+     * [get] user_t by money_id, named 'userTList'.
+     * @return The entity list of referrer property 'userTList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<UserT> getUserTList() {
+        if (_userTList == null) { _userTList = newReferrerList(); }
+        return _userTList;
+    }
+
+    /**
+     * [set] user_t by money_id, named 'userTList'.
+     * @param userTList The entity list of referrer property 'userTList'. (NullAllowed)
+     */
+    public void setUserTList(List<UserT> userTList) {
+        _userTList = userTList;
+    }
+
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -128,7 +148,10 @@ public abstract class BsSubsidyMngM extends AbstractEntity implements DomainEnti
 
     @Override
     protected String doBuildStringWithRelation(String li) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_userTList != null) { for (UserT et : _userTList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "userTList")); } } }
+        return sb.toString();
     }
 
     @Override
@@ -146,7 +169,13 @@ public abstract class BsSubsidyMngM extends AbstractEntity implements DomainEnti
 
     @Override
     protected String doBuildRelationString(String dm) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_userTList != null && !_userTList.isEmpty())
+        { sb.append(dm).append("userTList"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
+        }
+        return sb.toString();
     }
 
     @Override

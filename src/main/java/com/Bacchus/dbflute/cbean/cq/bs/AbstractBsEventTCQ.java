@@ -158,6 +158,79 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
     }
 
     /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select event_no from candidate_t where ...)} <br>
+     * candidate_t by event_no, named 'candidateTAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsCandidateT</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     tCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of CandidateTList for 'exists'. (NotNull)
+     */
+    public void existsCandidateT(SubQuery<CandidateTCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        CandidateTCB cb = new CandidateTCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepEventNo_ExistsReferrer_CandidateTList(cb.query());
+        registerExistsReferrer(cb.query(), "event_no", "event_no", pp, "candidateTList");
+    }
+    public abstract String keepEventNo_ExistsReferrer_CandidateTList(CandidateTCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select event_no from candidate_t where ...)} <br>
+     * candidate_t by event_no, named 'candidateTAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsCandidateT</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     tCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of EventNo_NotExistsReferrer_CandidateTList for 'not exists'. (NotNull)
+     */
+    public void notExistsCandidateT(SubQuery<CandidateTCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        CandidateTCB cb = new CandidateTCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepEventNo_NotExistsReferrer_CandidateTList(cb.query());
+        registerNotExistsReferrer(cb.query(), "event_no", "event_no", pp, "candidateTList");
+    }
+    public abstract String keepEventNo_NotExistsReferrer_CandidateTList(CandidateTCQ sq);
+
+    public void xsderiveCandidateTList(String fn, SubQuery<CandidateTCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        CandidateTCB cb = new CandidateTCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepEventNo_SpecifyDerivedReferrer_CandidateTList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "event_no", "event_no", pp, "candidateTList", al, op);
+    }
+    public abstract String keepEventNo_SpecifyDerivedReferrer_CandidateTList(CandidateTCQ sq);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from candidate_t where ...)} <br>
+     * candidate_t by event_no, named 'candidateTAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedCandidateT()</span>.<span style="color: #CC4747">max</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     tCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     tCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<CandidateTCB> derivedCandidateT() {
+        return xcreateQDRFunctionCandidateTList();
+    }
+    protected HpQDRFunction<CandidateTCB> xcreateQDRFunctionCandidateTList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveCandidateTList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveCandidateTList(String fn, SubQuery<CandidateTCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        CandidateTCB cb = new CandidateTCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepEventNo_QueryDerivedReferrer_CandidateTList(cb.query()); String prpp = keepEventNo_QueryDerivedReferrer_CandidateTListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "event_no", "event_no", sqpp, "candidateTList", rd, vl, prpp, op);
+    }
+    public abstract String keepEventNo_QueryDerivedReferrer_CandidateTList(CandidateTCQ sq);
+    public abstract String keepEventNo_QueryDerivedReferrer_CandidateTListParameter(Object vl);
+
+    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
      * event_no: {PK, ID, NotNull, serial(10)}
      */
@@ -1890,7 +1963,7 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param userId The value of userId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_Equal(Integer userId) {
@@ -1903,7 +1976,7 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param userId The value of userId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_NotEqual(Integer userId) {
@@ -1916,7 +1989,7 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param userId The value of userId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_GreaterThan(Integer userId) {
@@ -1925,7 +1998,7 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param userId The value of userId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_LessThan(Integer userId) {
@@ -1934,7 +2007,7 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param userId The value of userId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_GreaterEqual(Integer userId) {
@@ -1943,7 +2016,7 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param userId The value of userId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_LessEqual(Integer userId) {
@@ -1954,7 +2027,7 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param minNumber The min number of userId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of userId. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -1967,7 +2040,7 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param minNumber The min number of userId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of userId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -1978,7 +2051,7 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param userIdList The collection of userId as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserId_InScope(Collection<Integer> userIdList) {
@@ -1991,7 +2064,7 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param userIdList The collection of userId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserId_NotInScope(Collection<Integer> userIdList) {
@@ -2001,18 +2074,6 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
     protected void doSetUserId_NotInScope(Collection<Integer> userIdList) {
         regINS(CK_NINS, cTL(userIdList), xgetCValueUserId(), "user_id");
     }
-
-    /**
-     * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
-     */
-    public void setUserId_IsNull() { regUserId(CK_ISN, DOBJ); }
-
-    /**
-     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
-     */
-    public void setUserId_IsNotNull() { regUserId(CK_ISNN, DOBJ); }
 
     protected void regUserId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueUserId(), "user_id"); }
     protected abstract ConditionValue xgetCValueUserId();

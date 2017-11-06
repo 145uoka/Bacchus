@@ -65,7 +65,7 @@ public class SubsidyMngMDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMoneyId = cci("money_id", "money_id", null, null, Integer.class, "moneyId", null, true, true, true, "serial", 10, 0, "nextval('subsidy_mng_m_money_id_seq'::regclass)", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnMoneyId = cci("money_id", "money_id", null, null, Integer.class, "moneyId", null, true, true, true, "serial", 10, 0, "nextval('subsidy_mng_m_money_id_seq'::regclass)", false, null, null, null, "userTList", null, false);
     protected final ColumnInfo _columnUserType = cci("user_type", "user_type", null, null, Integer.class, "userType", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnMoney = cci("money", "money", null, null, Integer.class, "money", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
 
@@ -117,6 +117,14 @@ public class SubsidyMngMDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * user_t by money_id, named 'userTList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerUserTList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMoneyId(), UserTDbm.getInstance().columnMoneyId());
+        return cri("user_t_money_id_fkey", "userTList", this, UserTDbm.getInstance(), mp, false, "subsidyMngM");
+    }
 
     // ===================================================================================
     //                                                                        Various Info

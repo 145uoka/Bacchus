@@ -41,13 +41,13 @@ import com.Bacchus.dbflute.cbean.*;
  *     
  *
  * [referrer table]
- *     
+ *     user_t
  *
  * [foreign property]
  *     
  *
  * [referrer property]
- *     
+ *     userTList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -374,6 +374,70 @@ public abstract class BsSubsidyMngMBhv extends AbstractBehaviorWritable<SubsidyM
     public void load(SubsidyMngM subsidyMngM, ReferrerLoaderHandler<LoaderOfSubsidyMngM> loaderLambda) {
         xassLRArg(subsidyMngM, loaderLambda);
         loaderLambda.handle(new LoaderOfSubsidyMngM().ready(xnewLRAryLs(subsidyMngM), _behaviorSelector));
+    }
+
+    /**
+     * Load referrer of userTList by the set-upper of referrer. <br>
+     * user_t by money_id, named 'userTList'.
+     * <pre>
+     * <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">loadUserT</span>(<span style="color: #553000">subsidyMngMList</span>, <span style="color: #553000">tCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">tCB</span>.setupSelect...
+     *     <span style="color: #553000">tCB</span>.query().set...
+     *     <span style="color: #553000">tCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (SubsidyMngM subsidyMngM : <span style="color: #553000">subsidyMngMList</span>) {
+     *     ... = subsidyMngM.<span style="color: #CC4747">getUserTList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setMoneyId_InScope(pkList);
+     * cb.query().addOrderBy_MoneyId_Asc();
+     * </pre>
+     * @param subsidyMngMList The entity list of subsidyMngM. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<UserT> loadUserT(List<SubsidyMngM> subsidyMngMList, ReferrerConditionSetupper<UserTCB> refCBLambda) {
+        xassLRArg(subsidyMngMList, refCBLambda);
+        return doLoadUserT(subsidyMngMList, new LoadReferrerOption<UserTCB, UserT>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of userTList by the set-upper of referrer. <br>
+     * user_t by money_id, named 'userTList'.
+     * <pre>
+     * <span style="color: #0000C0">subsidyMngMBhv</span>.<span style="color: #CC4747">loadUserT</span>(<span style="color: #553000">subsidyMngM</span>, <span style="color: #553000">tCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">tCB</span>.setupSelect...
+     *     <span style="color: #553000">tCB</span>.query().set...
+     *     <span style="color: #553000">tCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">subsidyMngM</span>.<span style="color: #CC4747">getUserTList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setMoneyId_InScope(pkList);
+     * cb.query().addOrderBy_MoneyId_Asc();
+     * </pre>
+     * @param subsidyMngM The entity of subsidyMngM. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<UserT> loadUserT(SubsidyMngM subsidyMngM, ReferrerConditionSetupper<UserTCB> refCBLambda) {
+        xassLRArg(subsidyMngM, refCBLambda);
+        return doLoadUserT(xnewLRLs(subsidyMngM), new LoadReferrerOption<UserTCB, UserT>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<UserT> doLoadUserT(List<SubsidyMngM> subsidyMngMList, LoadReferrerOption<UserTCB, UserT> option) {
+        return helpLoadReferrerInternally(subsidyMngMList, option, "userTList");
     }
 
     // ===================================================================================

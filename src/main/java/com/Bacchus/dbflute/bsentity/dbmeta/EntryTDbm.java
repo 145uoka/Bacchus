@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
@@ -50,6 +51,19 @@ public class EntryTDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
 
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    { xsetupEfpg(); }
+    @SuppressWarnings("unchecked")
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((EntryT)et).getCandidateT(), (et, vl) -> ((EntryT)et).setCandidateT((OptionalEntity<CandidateT>)vl), "candidateT");
+        setupEfpg(_efpgMap, et -> ((EntryT)et).getUserT(), (et, vl) -> ((EntryT)et).setUserT((OptionalEntity<UserT>)vl), "userT");
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
+
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
@@ -67,8 +81,8 @@ public class EntryTDbm extends AbstractDBMeta {
     //                                                                         Column Info
     //                                                                         ===========
     protected final ColumnInfo _columnEntryId = cci("entry_id", "entry_id", null, null, Integer.class, "entryId", null, true, true, true, "serial", 10, 0, "nextval('entry_t_entry_id_seq'::regclass)", false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnCandidateNo = cci("candidate_no", "candidate_no", null, null, Integer.class, "candidateNo", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnCandidateNo = cci("candidate_no", "candidate_no", null, null, Integer.class, "candidateNo", null, false, false, true, "int4", 10, 0, null, false, null, null, "candidateT", null, null, false);
+    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, true, "int4", 10, 0, null, false, null, null, "userT", null, null, false);
     protected final ColumnInfo _columnEntryDiv = cci("entry_div", "entry_div", null, null, Integer.class, "entryDiv", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
 
     /**
@@ -77,12 +91,12 @@ public class EntryTDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnEntryId() { return _columnEntryId; }
     /**
-     * candidate_no: {int4(10)}
+     * candidate_no: {NotNull, int4(10), FK to candidate_t}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnCandidateNo() { return _columnCandidateNo; }
     /**
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUserId() { return _columnUserId; }
@@ -121,6 +135,22 @@ public class EntryTDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * candidate_t by my candidate_no, named 'candidateT'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignCandidateT() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnCandidateNo(), CandidateTDbm.getInstance().columnCandidateNo());
+        return cfi("entry_t_candidate_no_fkey", "candidateT", this, CandidateTDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "entryTList", false);
+    }
+    /**
+     * user_t by my user_id, named 'userT'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignUserT() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), UserTDbm.getInstance().columnUserId());
+        return cfi("entry_t_user_id_fkey", "userT", this, UserTDbm.getInstance(), mp, 1, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "entryTList", false);
+    }
 
     // -----------------------------------------------------
     //                                     Referrer Property

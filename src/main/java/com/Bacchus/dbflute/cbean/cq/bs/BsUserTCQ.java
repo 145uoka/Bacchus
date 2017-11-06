@@ -79,6 +79,34 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
       return _userId; }
     protected ConditionValue xgetCValueUserId() { return xdfgetUserId(); }
 
+    public Map<String, EntryTCQ> xdfgetUserId_ExistsReferrer_EntryTList() { return xgetSQueMap("userId_ExistsReferrer_EntryTList"); }
+    public String keepUserId_ExistsReferrer_EntryTList(EntryTCQ sq) { return xkeepSQue("userId_ExistsReferrer_EntryTList", sq); }
+
+    public Map<String, EventTCQ> xdfgetUserId_ExistsReferrer_EventTList() { return xgetSQueMap("userId_ExistsReferrer_EventTList"); }
+    public String keepUserId_ExistsReferrer_EventTList(EventTCQ sq) { return xkeepSQue("userId_ExistsReferrer_EventTList", sq); }
+
+    public Map<String, EntryTCQ> xdfgetUserId_NotExistsReferrer_EntryTList() { return xgetSQueMap("userId_NotExistsReferrer_EntryTList"); }
+    public String keepUserId_NotExistsReferrer_EntryTList(EntryTCQ sq) { return xkeepSQue("userId_NotExistsReferrer_EntryTList", sq); }
+
+    public Map<String, EventTCQ> xdfgetUserId_NotExistsReferrer_EventTList() { return xgetSQueMap("userId_NotExistsReferrer_EventTList"); }
+    public String keepUserId_NotExistsReferrer_EventTList(EventTCQ sq) { return xkeepSQue("userId_NotExistsReferrer_EventTList", sq); }
+
+    public Map<String, EntryTCQ> xdfgetUserId_SpecifyDerivedReferrer_EntryTList() { return xgetSQueMap("userId_SpecifyDerivedReferrer_EntryTList"); }
+    public String keepUserId_SpecifyDerivedReferrer_EntryTList(EntryTCQ sq) { return xkeepSQue("userId_SpecifyDerivedReferrer_EntryTList", sq); }
+
+    public Map<String, EventTCQ> xdfgetUserId_SpecifyDerivedReferrer_EventTList() { return xgetSQueMap("userId_SpecifyDerivedReferrer_EventTList"); }
+    public String keepUserId_SpecifyDerivedReferrer_EventTList(EventTCQ sq) { return xkeepSQue("userId_SpecifyDerivedReferrer_EventTList", sq); }
+
+    public Map<String, EntryTCQ> xdfgetUserId_QueryDerivedReferrer_EntryTList() { return xgetSQueMap("userId_QueryDerivedReferrer_EntryTList"); }
+    public String keepUserId_QueryDerivedReferrer_EntryTList(EntryTCQ sq) { return xkeepSQue("userId_QueryDerivedReferrer_EntryTList", sq); }
+    public Map<String, Object> xdfgetUserId_QueryDerivedReferrer_EntryTListParameter() { return xgetSQuePmMap("userId_QueryDerivedReferrer_EntryTList"); }
+    public String keepUserId_QueryDerivedReferrer_EntryTListParameter(Object pm) { return xkeepSQuePm("userId_QueryDerivedReferrer_EntryTList", pm); }
+
+    public Map<String, EventTCQ> xdfgetUserId_QueryDerivedReferrer_EventTList() { return xgetSQueMap("userId_QueryDerivedReferrer_EventTList"); }
+    public String keepUserId_QueryDerivedReferrer_EventTList(EventTCQ sq) { return xkeepSQue("userId_QueryDerivedReferrer_EventTList", sq); }
+    public Map<String, Object> xdfgetUserId_QueryDerivedReferrer_EventTListParameter() { return xgetSQuePmMap("userId_QueryDerivedReferrer_EventTList"); }
+    public String keepUserId_QueryDerivedReferrer_EventTListParameter(Object pm) { return xkeepSQuePm("userId_QueryDerivedReferrer_EventTList", pm); }
+
     /** 
      * Add order-by as ascend. <br>
      * user_id: {PK, ID, NotNull, serial(10)}
@@ -193,6 +221,26 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
      */
     public BsUserTCQ addOrderBy_AuthLevel_Desc() { regOBD("auth_level"); return this; }
 
+    protected ConditionValue _moneyId;
+    public ConditionValue xdfgetMoneyId()
+    { if (_moneyId == null) { _moneyId = nCV(); }
+      return _moneyId; }
+    protected ConditionValue xgetCValueMoneyId() { return xdfgetMoneyId(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_MoneyId_Asc() { regOBA("money_id"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_MoneyId_Desc() { regOBD("money_id"); return this; }
+
     // ===================================================================================
     //                                                             SpecifiedDerivedOrderBy
     //                                                             =======================
@@ -232,11 +280,36 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        UserTCQ bq = (UserTCQ)bqs;
+        UserTCQ uq = (UserTCQ)uqs;
+        if (bq.hasConditionQuerySubsidyMngM()) {
+            uq.querySubsidyMngM().reflectRelationOnUnionQuery(bq.querySubsidyMngM(), uq.querySubsidyMngM());
+        }
     }
 
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * subsidy_mng_m by my money_id, named 'subsidyMngM'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public SubsidyMngMCQ querySubsidyMngM() {
+        return xdfgetConditionQuerySubsidyMngM();
+    }
+    public SubsidyMngMCQ xdfgetConditionQuerySubsidyMngM() {
+        String prop = "subsidyMngM";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQuerySubsidyMngM()); xsetupOuterJoinSubsidyMngM(); }
+        return xgetQueRlMap(prop);
+    }
+    protected SubsidyMngMCQ xcreateQuerySubsidyMngM() {
+        String nrp = xresolveNRP("user_t", "subsidyMngM"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new SubsidyMngMCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "subsidyMngM", nrp);
+    }
+    protected void xsetupOuterJoinSubsidyMngM() { xregOutJo("subsidyMngM"); }
+    public boolean hasConditionQuerySubsidyMngM() { return xhasQueRlMap("subsidyMngM"); }
+
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
     }

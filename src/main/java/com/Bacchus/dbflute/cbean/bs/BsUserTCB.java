@@ -237,6 +237,26 @@ public class BsUserTCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    /**
+     * Set up relation columns to select clause. <br>
+     * subsidy_mng_m by my money_id, named 'subsidyMngM'.
+     * <pre>
+     * <span style="color: #0000C0">userTBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_SubsidyMngM()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">userT</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">userT</span>.<span style="color: #CC4747">getSubsidyMngM()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     */
+    public void setupSelect_SubsidyMngM() {
+        assertSetupSelectPurpose("subsidyMngM");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnMoneyId();
+        }
+        doSetupSelect(() -> query().querySubsidyMngM());
+    }
+
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -278,6 +298,7 @@ public class BsUserTCB extends AbstractConditionBean {
     }
 
     public static class HpSpecification extends HpAbstractSpecification<UserTCQ> {
+        protected SubsidyMngMCB.HpSpecification _subsidyMngM;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<UserTCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
@@ -312,14 +333,77 @@ public class BsUserTCB extends AbstractConditionBean {
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnAuthLevel() { return doColumn("auth_level"); }
+        /**
+         * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnMoneyId() { return doColumn("money_id"); }
         public void everyColumn() { doEveryColumn(); }
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override
         protected void doSpecifyRequiredColumn() {
             columnUserId(); // PK
+            if (qyCall().qy().hasConditionQuerySubsidyMngM()
+                    || qyCall().qy().xgetReferrerQuery() instanceof SubsidyMngMCQ) {
+                columnMoneyId(); // FK or one-to-one referrer
+            }
         }
         @Override
         protected String getTableDbName() { return "user_t"; }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * subsidy_mng_m by my money_id, named 'subsidyMngM'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public SubsidyMngMCB.HpSpecification specifySubsidyMngM() {
+            assertRelation("subsidyMngM");
+            if (_subsidyMngM == null) {
+                _subsidyMngM = new SubsidyMngMCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQuerySubsidyMngM()
+                                    , () -> _qyCall.qy().querySubsidyMngM())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _subsidyMngM.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQuerySubsidyMngM()
+                      , () -> xsyncQyCall().qy().querySubsidyMngM()));
+                }
+            }
+            return _subsidyMngM;
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from entry_t where ...) as FOO_MAX} <br>
+         * entry_t by user_id, named 'entryTList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     tCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     tCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, EntryT.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<EntryTCB, UserTCQ> derivedEntryT() {
+            assertDerived("entryTList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<EntryTCB> sq, UserTCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveEntryTList(fn, sq, al, op), _dbmetaProvider);
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from event_t where ...) as FOO_MAX} <br>
+         * event_t by user_id, named 'eventTList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     tCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     tCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, EventT.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<EventTCB, UserTCQ> derivedEventT() {
+            assertDerived("eventTList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<EventTCB> sq, UserTCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveEventTList(fn, sq, al, op), _dbmetaProvider);
+        }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)

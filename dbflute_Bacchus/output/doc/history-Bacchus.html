@@ -118,6 +118,63 @@ p.tablecount {
 </div>
 
 <div class="section">
+	<h2><span class="dt">Diff Date: </span>2017/11/03 11:52:07</h2>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4><a href="./schema-Bacchus.html#candidate_t">candidate_t</a></h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>event_no</dt>
+				<dd><span>Not Null</span>false&nbsp;-&gt;&nbsp;true</dd>
+			</dl>
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>candidate_t_event_no_fkey</li>
+			</ul>
+		</div>
+		<h4><a href="./schema-Bacchus.html#entry_t">entry_t</a></h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>candidate_no</dt>
+				<dd><span>Not Null</span>false&nbsp;-&gt;&nbsp;true</dd>
+				<dt>user_id</dt>
+				<dd><span>Not Null</span>false&nbsp;-&gt;&nbsp;true</dd>
+			</dl>
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>entry_t_candidate_no_fkey</li>
+				<li>entry_t_user_id_fkey</li>
+			</ul>
+		</div>
+		<h4><a href="./schema-Bacchus.html#event_t">event_t</a></h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>user_id</dt>
+				<dd><span>Not Null</span>false&nbsp;-&gt;&nbsp;true</dd>
+			</dl>
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>event_t_user_id_fkey</li>
+			</ul>
+		</div>
+		<h4><a href="./schema-Bacchus.html#user_t">user_t</a></h4>
+		<div class="change-table-content">
+			<h5>Add Column</h5>
+			<ul class="column-content">
+				<li>money_id</li>
+			</ul>
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>user_t_money_id_fkey</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section">
 	<h2><span class="dt">Diff Date: </span>2017/11/02 23:58:44</h2>
 	<p class="tablecount"><span class="dt">table count: </span>9&nbsp;-&gt;&nbsp;8</p>
 

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
@@ -48,9 +49,22 @@ public class UserTDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((UserT)et).getUserType(), (et, vl) -> ((UserT)et).setUserType(cti(vl)), "userType");
         setupEpg(_epgMap, et -> ((UserT)et).getPassword(), (et, vl) -> ((UserT)et).setPassword((String)vl), "password");
         setupEpg(_epgMap, et -> ((UserT)et).getAuthLevel(), (et, vl) -> ((UserT)et).setAuthLevel(cti(vl)), "authLevel");
+        setupEpg(_epgMap, et -> ((UserT)et).getMoneyId(), (et, vl) -> ((UserT)et).setMoneyId(cti(vl)), "moneyId");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
+
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    { xsetupEfpg(); }
+    @SuppressWarnings("unchecked")
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((UserT)et).getSubsidyMngM(), (et, vl) -> ((UserT)et).setSubsidyMngM((OptionalEntity<SubsidyMngM>)vl), "subsidyMngM");
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -68,12 +82,13 @@ public class UserTDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, true, true, true, "serial", 10, 0, "nextval('user_t_user_id_seq'::regclass)", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, true, true, true, "serial", 10, 0, "nextval('user_t_user_id_seq'::regclass)", false, null, null, null, "entryTList,eventTList", null, false);
     protected final ColumnInfo _columnUserName = cci("user_name", "user_name", null, null, String.class, "userName", null, false, false, true, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEmail = cci("email", "email", null, null, String.class, "email", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnUserType = cci("user_type", "user_type", null, null, Integer.class, "userType", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnPassword = cci("password", "password", null, null, String.class, "password", null, false, false, true, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnAuthLevel = cci("auth_level", "auth_level", null, null, Integer.class, "authLevel", null, false, false, true, "int4", 10, 0, "0", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnMoneyId = cci("money_id", "money_id", null, null, Integer.class, "moneyId", null, false, false, true, "int4", 10, 0, null, false, null, null, "subsidyMngM", null, null, false);
 
     /**
      * user_id: {PK, ID, NotNull, serial(10)}
@@ -105,6 +120,11 @@ public class UserTDbm extends AbstractDBMeta {
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnAuthLevel() { return _columnAuthLevel; }
+    /**
+     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnMoneyId() { return _columnMoneyId; }
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
@@ -114,6 +134,7 @@ public class UserTDbm extends AbstractDBMeta {
         ls.add(columnUserType());
         ls.add(columnPassword());
         ls.add(columnAuthLevel());
+        ls.add(columnMoneyId());
         return ls;
     }
 
@@ -137,10 +158,34 @@ public class UserTDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * subsidy_mng_m by my money_id, named 'subsidyMngM'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignSubsidyMngM() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMoneyId(), SubsidyMngMDbm.getInstance().columnMoneyId());
+        return cfi("user_t_money_id_fkey", "subsidyMngM", this, SubsidyMngMDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "userTList", false);
+    }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * entry_t by user_id, named 'entryTList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerEntryTList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), EntryTDbm.getInstance().columnUserId());
+        return cri("entry_t_user_id_fkey", "entryTList", this, EntryTDbm.getInstance(), mp, false, "userT");
+    }
+    /**
+     * event_t by user_id, named 'eventTList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerEventTList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), EventTDbm.getInstance().columnUserId());
+        return cri("event_t_user_id_fkey", "eventTList", this, EventTDbm.getInstance(), mp, false, "userT");
+    }
 
     // ===================================================================================
     //                                                                        Various Info

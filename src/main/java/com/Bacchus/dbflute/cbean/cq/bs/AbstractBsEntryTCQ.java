@@ -174,7 +174,7 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * candidate_no: {int4(10)}
+     * candidate_no: {NotNull, int4(10), FK to candidate_t}
      * @param candidateNo The value of candidateNo as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setCandidateNo_Equal(Integer candidateNo) {
@@ -187,7 +187,7 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * candidate_no: {int4(10)}
+     * candidate_no: {NotNull, int4(10), FK to candidate_t}
      * @param candidateNo The value of candidateNo as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setCandidateNo_NotEqual(Integer candidateNo) {
@@ -200,7 +200,7 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * candidate_no: {int4(10)}
+     * candidate_no: {NotNull, int4(10), FK to candidate_t}
      * @param candidateNo The value of candidateNo as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setCandidateNo_GreaterThan(Integer candidateNo) {
@@ -209,7 +209,7 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * candidate_no: {int4(10)}
+     * candidate_no: {NotNull, int4(10), FK to candidate_t}
      * @param candidateNo The value of candidateNo as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setCandidateNo_LessThan(Integer candidateNo) {
@@ -218,7 +218,7 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * candidate_no: {int4(10)}
+     * candidate_no: {NotNull, int4(10), FK to candidate_t}
      * @param candidateNo The value of candidateNo as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setCandidateNo_GreaterEqual(Integer candidateNo) {
@@ -227,7 +227,7 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * candidate_no: {int4(10)}
+     * candidate_no: {NotNull, int4(10), FK to candidate_t}
      * @param candidateNo The value of candidateNo as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setCandidateNo_LessEqual(Integer candidateNo) {
@@ -238,7 +238,7 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * candidate_no: {int4(10)}
+     * candidate_no: {NotNull, int4(10), FK to candidate_t}
      * @param minNumber The min number of candidateNo. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of candidateNo. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -251,7 +251,7 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * candidate_no: {int4(10)}
+     * candidate_no: {NotNull, int4(10), FK to candidate_t}
      * @param minNumber The min number of candidateNo. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of candidateNo. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -262,7 +262,7 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * candidate_no: {int4(10)}
+     * candidate_no: {NotNull, int4(10), FK to candidate_t}
      * @param candidateNoList The collection of candidateNo as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setCandidateNo_InScope(Collection<Integer> candidateNoList) {
@@ -275,7 +275,7 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * candidate_no: {int4(10)}
+     * candidate_no: {NotNull, int4(10), FK to candidate_t}
      * @param candidateNoList The collection of candidateNo as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setCandidateNo_NotInScope(Collection<Integer> candidateNoList) {
@@ -286,24 +286,12 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(candidateNoList), xgetCValueCandidateNo(), "candidate_no");
     }
 
-    /**
-     * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * candidate_no: {int4(10)}
-     */
-    public void setCandidateNo_IsNull() { regCandidateNo(CK_ISN, DOBJ); }
-
-    /**
-     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * candidate_no: {int4(10)}
-     */
-    public void setCandidateNo_IsNotNull() { regCandidateNo(CK_ISNN, DOBJ); }
-
     protected void regCandidateNo(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueCandidateNo(), "candidate_no"); }
     protected abstract ConditionValue xgetCValueCandidateNo();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param userId The value of userId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_Equal(Integer userId) {
@@ -316,7 +304,7 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param userId The value of userId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_NotEqual(Integer userId) {
@@ -329,7 +317,7 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param userId The value of userId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_GreaterThan(Integer userId) {
@@ -338,7 +326,7 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param userId The value of userId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_LessThan(Integer userId) {
@@ -347,7 +335,7 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param userId The value of userId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_GreaterEqual(Integer userId) {
@@ -356,7 +344,7 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param userId The value of userId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_LessEqual(Integer userId) {
@@ -367,7 +355,7 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param minNumber The min number of userId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of userId. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -380,7 +368,7 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param minNumber The min number of userId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of userId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -391,7 +379,7 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param userIdList The collection of userId as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserId_InScope(Collection<Integer> userIdList) {
@@ -404,7 +392,7 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @param userIdList The collection of userId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserId_NotInScope(Collection<Integer> userIdList) {
@@ -414,18 +402,6 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
     protected void doSetUserId_NotInScope(Collection<Integer> userIdList) {
         regINS(CK_NINS, cTL(userIdList), xgetCValueUserId(), "user_id");
     }
-
-    /**
-     * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
-     */
-    public void setUserId_IsNull() { regUserId(CK_ISN, DOBJ); }
-
-    /**
-     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * user_id: {int4(10)}
-     */
-    public void setUserId_IsNotNull() { regUserId(CK_ISNN, DOBJ); }
 
     protected void regUserId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueUserId(), "user_id"); }
     protected abstract ConditionValue xgetCValueUserId();

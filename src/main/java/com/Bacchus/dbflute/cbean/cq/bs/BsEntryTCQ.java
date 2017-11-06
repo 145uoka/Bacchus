@@ -101,14 +101,14 @@ public class BsEntryTCQ extends AbstractBsEntryTCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * candidate_no: {int4(10)}
+     * candidate_no: {NotNull, int4(10), FK to candidate_t}
      * @return this. (NotNull)
      */
     public BsEntryTCQ addOrderBy_CandidateNo_Asc() { regOBA("candidate_no"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * candidate_no: {int4(10)}
+     * candidate_no: {NotNull, int4(10), FK to candidate_t}
      * @return this. (NotNull)
      */
     public BsEntryTCQ addOrderBy_CandidateNo_Desc() { regOBD("candidate_no"); return this; }
@@ -121,14 +121,14 @@ public class BsEntryTCQ extends AbstractBsEntryTCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @return this. (NotNull)
      */
     public BsEntryTCQ addOrderBy_UserId_Asc() { regOBA("user_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @return this. (NotNull)
      */
     public BsEntryTCQ addOrderBy_UserId_Desc() { regOBD("user_id"); return this; }
@@ -192,11 +192,59 @@ public class BsEntryTCQ extends AbstractBsEntryTCQ {
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        EntryTCQ bq = (EntryTCQ)bqs;
+        EntryTCQ uq = (EntryTCQ)uqs;
+        if (bq.hasConditionQueryCandidateT()) {
+            uq.queryCandidateT().reflectRelationOnUnionQuery(bq.queryCandidateT(), uq.queryCandidateT());
+        }
+        if (bq.hasConditionQueryUserT()) {
+            uq.queryUserT().reflectRelationOnUnionQuery(bq.queryUserT(), uq.queryUserT());
+        }
     }
 
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * candidate_t by my candidate_no, named 'candidateT'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public CandidateTCQ queryCandidateT() {
+        return xdfgetConditionQueryCandidateT();
+    }
+    public CandidateTCQ xdfgetConditionQueryCandidateT() {
+        String prop = "candidateT";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryCandidateT()); xsetupOuterJoinCandidateT(); }
+        return xgetQueRlMap(prop);
+    }
+    protected CandidateTCQ xcreateQueryCandidateT() {
+        String nrp = xresolveNRP("entry_t", "candidateT"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new CandidateTCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "candidateT", nrp);
+    }
+    protected void xsetupOuterJoinCandidateT() { xregOutJo("candidateT"); }
+    public boolean hasConditionQueryCandidateT() { return xhasQueRlMap("candidateT"); }
+
+    /**
+     * Get the condition-query for relation table. <br>
+     * user_t by my user_id, named 'userT'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public UserTCQ queryUserT() {
+        return xdfgetConditionQueryUserT();
+    }
+    public UserTCQ xdfgetConditionQueryUserT() {
+        String prop = "userT";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryUserT()); xsetupOuterJoinUserT(); }
+        return xgetQueRlMap(prop);
+    }
+    protected UserTCQ xcreateQueryUserT() {
+        String nrp = xresolveNRP("entry_t", "userT"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new UserTCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "userT", nrp);
+    }
+    protected void xsetupOuterJoinUserT() { xregOutJo("userT"); }
+    public boolean hasConditionQueryUserT() { return xhasQueRlMap("userT"); }
+
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
     }

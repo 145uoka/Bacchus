@@ -26,7 +26,7 @@ import com.Bacchus.dbflute.cbean.*;
  *     user_id
  *
  * [column]
- *     user_id, user_name, email, user_type, password, auth_level
+ *     user_id, user_name, email, user_type, password, auth_level, money_id
  *
  * [sequence]
  *     user_t_user_id_seq
@@ -38,16 +38,16 @@ import com.Bacchus.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     
+ *     subsidy_mng_m
  *
  * [referrer table]
- *     
+ *     entry_t, event_t
  *
  * [foreign property]
- *     
+ *     subsidyMngM
  *
  * [referrer property]
- *     
+ *     entryTList, eventTList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -376,9 +376,145 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
         loaderLambda.handle(new LoaderOfUserT().ready(xnewLRAryLs(userT), _behaviorSelector));
     }
 
+    /**
+     * Load referrer of entryTList by the set-upper of referrer. <br>
+     * entry_t by user_id, named 'entryTList'.
+     * <pre>
+     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">loadEntryT</span>(<span style="color: #553000">userTList</span>, <span style="color: #553000">tCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">tCB</span>.setupSelect...
+     *     <span style="color: #553000">tCB</span>.query().set...
+     *     <span style="color: #553000">tCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (UserT userT : <span style="color: #553000">userTList</span>) {
+     *     ... = userT.<span style="color: #CC4747">getEntryTList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setUserId_InScope(pkList);
+     * cb.query().addOrderBy_UserId_Asc();
+     * </pre>
+     * @param userTList The entity list of userT. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<EntryT> loadEntryT(List<UserT> userTList, ReferrerConditionSetupper<EntryTCB> refCBLambda) {
+        xassLRArg(userTList, refCBLambda);
+        return doLoadEntryT(userTList, new LoadReferrerOption<EntryTCB, EntryT>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of entryTList by the set-upper of referrer. <br>
+     * entry_t by user_id, named 'entryTList'.
+     * <pre>
+     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">loadEntryT</span>(<span style="color: #553000">userT</span>, <span style="color: #553000">tCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">tCB</span>.setupSelect...
+     *     <span style="color: #553000">tCB</span>.query().set...
+     *     <span style="color: #553000">tCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">userT</span>.<span style="color: #CC4747">getEntryTList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setUserId_InScope(pkList);
+     * cb.query().addOrderBy_UserId_Asc();
+     * </pre>
+     * @param userT The entity of userT. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<EntryT> loadEntryT(UserT userT, ReferrerConditionSetupper<EntryTCB> refCBLambda) {
+        xassLRArg(userT, refCBLambda);
+        return doLoadEntryT(xnewLRLs(userT), new LoadReferrerOption<EntryTCB, EntryT>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<EntryT> doLoadEntryT(List<UserT> userTList, LoadReferrerOption<EntryTCB, EntryT> option) {
+        return helpLoadReferrerInternally(userTList, option, "entryTList");
+    }
+
+    /**
+     * Load referrer of eventTList by the set-upper of referrer. <br>
+     * event_t by user_id, named 'eventTList'.
+     * <pre>
+     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">loadEventT</span>(<span style="color: #553000">userTList</span>, <span style="color: #553000">tCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">tCB</span>.setupSelect...
+     *     <span style="color: #553000">tCB</span>.query().set...
+     *     <span style="color: #553000">tCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (UserT userT : <span style="color: #553000">userTList</span>) {
+     *     ... = userT.<span style="color: #CC4747">getEventTList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setUserId_InScope(pkList);
+     * cb.query().addOrderBy_UserId_Asc();
+     * </pre>
+     * @param userTList The entity list of userT. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<EventT> loadEventT(List<UserT> userTList, ReferrerConditionSetupper<EventTCB> refCBLambda) {
+        xassLRArg(userTList, refCBLambda);
+        return doLoadEventT(userTList, new LoadReferrerOption<EventTCB, EventT>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of eventTList by the set-upper of referrer. <br>
+     * event_t by user_id, named 'eventTList'.
+     * <pre>
+     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">loadEventT</span>(<span style="color: #553000">userT</span>, <span style="color: #553000">tCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">tCB</span>.setupSelect...
+     *     <span style="color: #553000">tCB</span>.query().set...
+     *     <span style="color: #553000">tCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">userT</span>.<span style="color: #CC4747">getEventTList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setUserId_InScope(pkList);
+     * cb.query().addOrderBy_UserId_Asc();
+     * </pre>
+     * @param userT The entity of userT. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<EventT> loadEventT(UserT userT, ReferrerConditionSetupper<EventTCB> refCBLambda) {
+        xassLRArg(userT, refCBLambda);
+        return doLoadEventT(xnewLRLs(userT), new LoadReferrerOption<EventTCB, EventT>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<EventT> doLoadEventT(List<UserT> userTList, LoadReferrerOption<EventTCB, EventT> option) {
+        return helpLoadReferrerInternally(userTList, option, "eventTList");
+    }
+
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
+    /**
+     * Pull out the list of foreign table 'SubsidyMngM'.
+     * @param userTList The list of userT. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<SubsidyMngM> pulloutSubsidyMngM(List<UserT> userTList)
+    { return helpPulloutInternally(userTList, "subsidyMngM"); }
+
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============

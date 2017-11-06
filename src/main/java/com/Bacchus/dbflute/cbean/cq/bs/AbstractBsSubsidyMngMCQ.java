@@ -158,6 +158,79 @@ public abstract class AbstractBsSubsidyMngMCQ extends AbstractConditionQuery {
     }
 
     /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select money_id from user_t where ...)} <br>
+     * user_t by money_id, named 'userTAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsUserT</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     tCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of UserTList for 'exists'. (NotNull)
+     */
+    public void existsUserT(SubQuery<UserTCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        UserTCB cb = new UserTCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepMoneyId_ExistsReferrer_UserTList(cb.query());
+        registerExistsReferrer(cb.query(), "money_id", "money_id", pp, "userTList");
+    }
+    public abstract String keepMoneyId_ExistsReferrer_UserTList(UserTCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select money_id from user_t where ...)} <br>
+     * user_t by money_id, named 'userTAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsUserT</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     tCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of MoneyId_NotExistsReferrer_UserTList for 'not exists'. (NotNull)
+     */
+    public void notExistsUserT(SubQuery<UserTCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        UserTCB cb = new UserTCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepMoneyId_NotExistsReferrer_UserTList(cb.query());
+        registerNotExistsReferrer(cb.query(), "money_id", "money_id", pp, "userTList");
+    }
+    public abstract String keepMoneyId_NotExistsReferrer_UserTList(UserTCQ sq);
+
+    public void xsderiveUserTList(String fn, SubQuery<UserTCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        UserTCB cb = new UserTCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepMoneyId_SpecifyDerivedReferrer_UserTList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "money_id", "money_id", pp, "userTList", al, op);
+    }
+    public abstract String keepMoneyId_SpecifyDerivedReferrer_UserTList(UserTCQ sq);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from user_t where ...)} <br>
+     * user_t by money_id, named 'userTAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedUserT()</span>.<span style="color: #CC4747">max</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     tCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     tCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<UserTCB> derivedUserT() {
+        return xcreateQDRFunctionUserTList();
+    }
+    protected HpQDRFunction<UserTCB> xcreateQDRFunctionUserTList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveUserTList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveUserTList(String fn, SubQuery<UserTCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        UserTCB cb = new UserTCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepMoneyId_QueryDerivedReferrer_UserTList(cb.query()); String prpp = keepMoneyId_QueryDerivedReferrer_UserTListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "money_id", "money_id", sqpp, "userTList", rd, vl, prpp, op);
+    }
+    public abstract String keepMoneyId_QueryDerivedReferrer_UserTList(UserTCQ sq);
+    public abstract String keepMoneyId_QueryDerivedReferrer_UserTListParameter(Object vl);
+
+    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
      * money_id: {PK, ID, NotNull, serial(10)}
      */

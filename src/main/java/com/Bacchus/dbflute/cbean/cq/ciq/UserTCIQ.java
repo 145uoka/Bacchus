@@ -62,11 +62,32 @@ public class UserTCIQ extends AbstractBsUserTCQ {
     //                                                                Override about Query
     //                                                                ====================
     protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
+    public String keepUserId_ExistsReferrer_EntryTList(EntryTCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepUserId_ExistsReferrer_EventTList(EventTCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepUserId_NotExistsReferrer_EntryTList(EntryTCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepUserId_NotExistsReferrer_EventTList(EventTCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepUserId_SpecifyDerivedReferrer_EntryTList(EntryTCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepUserId_SpecifyDerivedReferrer_EventTList(EventTCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepUserId_QueryDerivedReferrer_EntryTList(EntryTCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepUserId_QueryDerivedReferrer_EntryTListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepUserId_QueryDerivedReferrer_EventTList(EventTCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepUserId_QueryDerivedReferrer_EventTListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueUserName() { return _myCQ.xdfgetUserName(); }
     protected ConditionValue xgetCValueEmail() { return _myCQ.xdfgetEmail(); }
     protected ConditionValue xgetCValueUserType() { return _myCQ.xdfgetUserType(); }
     protected ConditionValue xgetCValuePassword() { return _myCQ.xdfgetPassword(); }
     protected ConditionValue xgetCValueAuthLevel() { return _myCQ.xdfgetAuthLevel(); }
+    protected ConditionValue xgetCValueMoneyId() { return _myCQ.xdfgetMoneyId(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(UserTCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

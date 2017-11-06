@@ -62,6 +62,16 @@ public class SubsidyMngMCIQ extends AbstractBsSubsidyMngMCQ {
     //                                                                Override about Query
     //                                                                ====================
     protected ConditionValue xgetCValueMoneyId() { return _myCQ.xdfgetMoneyId(); }
+    public String keepMoneyId_ExistsReferrer_UserTList(UserTCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepMoneyId_NotExistsReferrer_UserTList(UserTCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepMoneyId_SpecifyDerivedReferrer_UserTList(UserTCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepMoneyId_QueryDerivedReferrer_UserTList(UserTCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepMoneyId_QueryDerivedReferrer_UserTListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueUserType() { return _myCQ.xdfgetUserType(); }
     protected ConditionValue xgetCValueMoney() { return _myCQ.xdfgetMoney(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }

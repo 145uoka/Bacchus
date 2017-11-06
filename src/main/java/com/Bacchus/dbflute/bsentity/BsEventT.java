@@ -3,9 +3,11 @@ package com.Bacchus.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
+import org.dbflute.optional.OptionalEntity;
 import com.Bacchus.dbflute.allcommon.DBMetaInstanceHandler;
 import com.Bacchus.dbflute.exentity.*;
 
@@ -29,16 +31,16 @@ import com.Bacchus.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     user_t
  *
  * [referrer table]
- *     
+ *     candidate_t
  *
  * [foreign property]
- *     
+ *     userT
  *
  * [referrer property]
- *     
+ *     candidateTList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -124,7 +126,7 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
     /** event_div: {text(2147483647)} */
     protected String _eventDiv;
 
-    /** user_id: {int4(10)} */
+    /** user_id: {NotNull, int4(10), FK to user_t} */
     protected Integer _userId;
 
     // ===================================================================================
@@ -152,9 +154,50 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
+    /** user_t by my user_id, named 'userT'. */
+    protected OptionalEntity<UserT> _userT;
+
+    /**
+     * [get] user_t by my user_id, named 'userT'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'userT'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<UserT> getUserT() {
+        if (_userT == null) { _userT = OptionalEntity.relationEmpty(this, "userT"); }
+        return _userT;
+    }
+
+    /**
+     * [set] user_t by my user_id, named 'userT'.
+     * @param userT The entity of foreign property 'userT'. (NullAllowed)
+     */
+    public void setUserT(OptionalEntity<UserT> userT) {
+        _userT = userT;
+    }
+
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
+    /** candidate_t by event_no, named 'candidateTList'. */
+    protected List<CandidateT> _candidateTList;
+
+    /**
+     * [get] candidate_t by event_no, named 'candidateTList'.
+     * @return The entity list of referrer property 'candidateTList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<CandidateT> getCandidateTList() {
+        if (_candidateTList == null) { _candidateTList = newReferrerList(); }
+        return _candidateTList;
+    }
+
+    /**
+     * [set] candidate_t by event_no, named 'candidateTList'.
+     * @param candidateTList The entity list of referrer property 'candidateTList'. (NullAllowed)
+     */
+    public void setCandidateTList(List<CandidateT> candidateTList) {
+        _candidateTList = candidateTList;
+    }
+
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -183,7 +226,15 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
 
     @Override
     protected String doBuildStringWithRelation(String li) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_userT != null && _userT.isPresent())
+        { sb.append(li).append(xbRDS(_userT, "userT")); }
+        if (_candidateTList != null) { for (CandidateT et : _candidateTList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "candidateTList")); } } }
+        return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override
@@ -212,7 +263,15 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
 
     @Override
     protected String doBuildRelationString(String dm) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_userT != null && _userT.isPresent())
+        { sb.append(dm).append("userT"); }
+        if (_candidateTList != null && !_candidateTList.isEmpty())
+        { sb.append(dm).append("candidateTList"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
+        }
+        return sb.toString();
     }
 
     @Override
@@ -484,9 +543,9 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] user_id: {int4(10)} <br>
-     * ユーザーID
-     * @return The value of the column 'user_id'. (NullAllowed even if selected: for no constraint)
+     * [get] user_id: {NotNull, int4(10), FK to user_t} <br>
+     * 幹事ユーザID
+     * @return The value of the column 'user_id'. (basically NotNull if selected: for the constraint)
      */
     public Integer getUserId() {
         checkSpecifiedProperty("userId");
@@ -494,9 +553,9 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] user_id: {int4(10)} <br>
-     * ユーザーID
-     * @param userId The value of the column 'user_id'. (NullAllowed: null update allowed for no constraint)
+     * [set] user_id: {NotNull, int4(10), FK to user_t} <br>
+     * 幹事ユーザID
+     * @param userId The value of the column 'user_id'. (basically NotNull if update: for the constraint)
      */
     public void setUserId(Integer userId) {
         registerModifiedProperty("userId");

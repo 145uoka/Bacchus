@@ -18,6 +18,7 @@ import com.Bacchus.dbflute.allcommon.ImplementedInvokerAssistant;
 import com.Bacchus.dbflute.allcommon.ImplementedSqlClauseCreator;
 import com.Bacchus.dbflute.cbean.*;
 import com.Bacchus.dbflute.cbean.cq.*;
+import com.Bacchus.dbflute.cbean.nss.*;
 
 /**
  * The base condition-bean of entry_t.
@@ -237,6 +238,64 @@ public class BsEntryTCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    protected CandidateTNss _nssCandidateT;
+    public CandidateTNss xdfgetNssCandidateT() {
+        if (_nssCandidateT == null) { _nssCandidateT = new CandidateTNss(null); }
+        return _nssCandidateT;
+    }
+    /**
+     * Set up relation columns to select clause. <br>
+     * candidate_t by my candidate_no, named 'candidateT'.
+     * <pre>
+     * <span style="color: #0000C0">entryTBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_CandidateT()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">entryT</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">entryT</span>.<span style="color: #CC4747">getCandidateT()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
+     */
+    public CandidateTNss setupSelect_CandidateT() {
+        assertSetupSelectPurpose("candidateT");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnCandidateNo();
+        }
+        doSetupSelect(() -> query().queryCandidateT());
+        if (_nssCandidateT == null || !_nssCandidateT.hasConditionQuery())
+        { _nssCandidateT = new CandidateTNss(query().queryCandidateT()); }
+        return _nssCandidateT;
+    }
+
+    protected UserTNss _nssUserT;
+    public UserTNss xdfgetNssUserT() {
+        if (_nssUserT == null) { _nssUserT = new UserTNss(null); }
+        return _nssUserT;
+    }
+    /**
+     * Set up relation columns to select clause. <br>
+     * user_t by my user_id, named 'userT'.
+     * <pre>
+     * <span style="color: #0000C0">entryTBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_UserT()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">entryT</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">entryT</span>.<span style="color: #CC4747">getUserT()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
+     */
+    public UserTNss setupSelect_UserT() {
+        assertSetupSelectPurpose("userT");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnUserId();
+        }
+        doSetupSelect(() -> query().queryUserT());
+        if (_nssUserT == null || !_nssUserT.hasConditionQuery())
+        { _nssUserT = new UserTNss(query().queryUserT()); }
+        return _nssUserT;
+    }
+
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -278,6 +337,8 @@ public class BsEntryTCB extends AbstractConditionBean {
     }
 
     public static class HpSpecification extends HpAbstractSpecification<EntryTCQ> {
+        protected CandidateTCB.HpSpecification _candidateT;
+        protected UserTCB.HpSpecification _userT;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<EntryTCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
@@ -288,12 +349,12 @@ public class BsEntryTCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnEntryId() { return doColumn("entry_id"); }
         /**
-         * candidate_no: {int4(10)}
+         * candidate_no: {NotNull, int4(10), FK to candidate_t}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnCandidateNo() { return doColumn("candidate_no"); }
         /**
-         * user_id: {int4(10)}
+         * user_id: {NotNull, int4(10), FK to user_t}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUserId() { return doColumn("user_id"); }
@@ -307,9 +368,57 @@ public class BsEntryTCB extends AbstractConditionBean {
         @Override
         protected void doSpecifyRequiredColumn() {
             columnEntryId(); // PK
+            if (qyCall().qy().hasConditionQueryCandidateT()
+                    || qyCall().qy().xgetReferrerQuery() instanceof CandidateTCQ) {
+                columnCandidateNo(); // FK or one-to-one referrer
+            }
+            if (qyCall().qy().hasConditionQueryUserT()
+                    || qyCall().qy().xgetReferrerQuery() instanceof UserTCQ) {
+                columnUserId(); // FK or one-to-one referrer
+            }
         }
         @Override
         protected String getTableDbName() { return "entry_t"; }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * candidate_t by my candidate_no, named 'candidateT'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public CandidateTCB.HpSpecification specifyCandidateT() {
+            assertRelation("candidateT");
+            if (_candidateT == null) {
+                _candidateT = new CandidateTCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryCandidateT()
+                                    , () -> _qyCall.qy().queryCandidateT())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _candidateT.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryCandidateT()
+                      , () -> xsyncQyCall().qy().queryCandidateT()));
+                }
+            }
+            return _candidateT;
+        }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * user_t by my user_id, named 'userT'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public UserTCB.HpSpecification specifyUserT() {
+            assertRelation("userT");
+            if (_userT == null) {
+                _userT = new UserTCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryUserT()
+                                    , () -> _qyCall.qy().queryUserT())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _userT.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryUserT()
+                      , () -> xsyncQyCall().qy().queryUserT()));
+                }
+            }
+            return _userT;
+        }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)

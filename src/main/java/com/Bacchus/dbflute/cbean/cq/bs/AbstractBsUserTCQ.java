@@ -158,6 +158,152 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
     }
 
     /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select user_id from entry_t where ...)} <br>
+     * entry_t by user_id, named 'entryTAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsEntryT</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     tCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of EntryTList for 'exists'. (NotNull)
+     */
+    public void existsEntryT(SubQuery<EntryTCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        EntryTCB cb = new EntryTCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_ExistsReferrer_EntryTList(cb.query());
+        registerExistsReferrer(cb.query(), "user_id", "user_id", pp, "entryTList");
+    }
+    public abstract String keepUserId_ExistsReferrer_EntryTList(EntryTCQ sq);
+
+    /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select user_id from event_t where ...)} <br>
+     * event_t by user_id, named 'eventTAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsEventT</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     tCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of EventTList for 'exists'. (NotNull)
+     */
+    public void existsEventT(SubQuery<EventTCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        EventTCB cb = new EventTCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_ExistsReferrer_EventTList(cb.query());
+        registerExistsReferrer(cb.query(), "user_id", "user_id", pp, "eventTList");
+    }
+    public abstract String keepUserId_ExistsReferrer_EventTList(EventTCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select user_id from entry_t where ...)} <br>
+     * entry_t by user_id, named 'entryTAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsEntryT</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     tCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of UserId_NotExistsReferrer_EntryTList for 'not exists'. (NotNull)
+     */
+    public void notExistsEntryT(SubQuery<EntryTCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        EntryTCB cb = new EntryTCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_NotExistsReferrer_EntryTList(cb.query());
+        registerNotExistsReferrer(cb.query(), "user_id", "user_id", pp, "entryTList");
+    }
+    public abstract String keepUserId_NotExistsReferrer_EntryTList(EntryTCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select user_id from event_t where ...)} <br>
+     * event_t by user_id, named 'eventTAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsEventT</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     tCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of UserId_NotExistsReferrer_EventTList for 'not exists'. (NotNull)
+     */
+    public void notExistsEventT(SubQuery<EventTCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        EventTCB cb = new EventTCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_NotExistsReferrer_EventTList(cb.query());
+        registerNotExistsReferrer(cb.query(), "user_id", "user_id", pp, "eventTList");
+    }
+    public abstract String keepUserId_NotExistsReferrer_EventTList(EventTCQ sq);
+
+    public void xsderiveEntryTList(String fn, SubQuery<EntryTCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        EntryTCB cb = new EntryTCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepUserId_SpecifyDerivedReferrer_EntryTList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "user_id", "user_id", pp, "entryTList", al, op);
+    }
+    public abstract String keepUserId_SpecifyDerivedReferrer_EntryTList(EntryTCQ sq);
+
+    public void xsderiveEventTList(String fn, SubQuery<EventTCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        EventTCB cb = new EventTCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepUserId_SpecifyDerivedReferrer_EventTList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "user_id", "user_id", pp, "eventTList", al, op);
+    }
+    public abstract String keepUserId_SpecifyDerivedReferrer_EventTList(EventTCQ sq);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from entry_t where ...)} <br>
+     * entry_t by user_id, named 'entryTAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedEntryT()</span>.<span style="color: #CC4747">max</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     tCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     tCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<EntryTCB> derivedEntryT() {
+        return xcreateQDRFunctionEntryTList();
+    }
+    protected HpQDRFunction<EntryTCB> xcreateQDRFunctionEntryTList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveEntryTList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveEntryTList(String fn, SubQuery<EntryTCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        EntryTCB cb = new EntryTCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepUserId_QueryDerivedReferrer_EntryTList(cb.query()); String prpp = keepUserId_QueryDerivedReferrer_EntryTListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "user_id", "user_id", sqpp, "entryTList", rd, vl, prpp, op);
+    }
+    public abstract String keepUserId_QueryDerivedReferrer_EntryTList(EntryTCQ sq);
+    public abstract String keepUserId_QueryDerivedReferrer_EntryTListParameter(Object vl);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from event_t where ...)} <br>
+     * event_t by user_id, named 'eventTAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedEventT()</span>.<span style="color: #CC4747">max</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     tCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     tCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<EventTCB> derivedEventT() {
+        return xcreateQDRFunctionEventTList();
+    }
+    protected HpQDRFunction<EventTCB> xcreateQDRFunctionEventTList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveEventTList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveEventTList(String fn, SubQuery<EventTCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        EventTCB cb = new EventTCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepUserId_QueryDerivedReferrer_EventTList(cb.query()); String prpp = keepUserId_QueryDerivedReferrer_EventTListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "user_id", "user_id", sqpp, "eventTList", rd, vl, prpp, op);
+    }
+    public abstract String keepUserId_QueryDerivedReferrer_EventTList(EventTCQ sq);
+    public abstract String keepUserId_QueryDerivedReferrer_EventTListParameter(Object vl);
+
+    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
      * user_id: {PK, ID, NotNull, serial(10)}
      */
@@ -840,6 +986,123 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     protected void regAuthLevel(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueAuthLevel(), "auth_level"); }
     protected abstract ConditionValue xgetCValueAuthLevel();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
+     * @param moneyId The value of moneyId as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setMoneyId_Equal(Integer moneyId) {
+        doSetMoneyId_Equal(moneyId);
+    }
+
+    protected void doSetMoneyId_Equal(Integer moneyId) {
+        regMoneyId(CK_EQ, moneyId);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
+     * @param moneyId The value of moneyId as notEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setMoneyId_NotEqual(Integer moneyId) {
+        doSetMoneyId_NotEqual(moneyId);
+    }
+
+    protected void doSetMoneyId_NotEqual(Integer moneyId) {
+        regMoneyId(CK_NES, moneyId);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
+     * @param moneyId The value of moneyId as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setMoneyId_GreaterThan(Integer moneyId) {
+        regMoneyId(CK_GT, moneyId);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
+     * @param moneyId The value of moneyId as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setMoneyId_LessThan(Integer moneyId) {
+        regMoneyId(CK_LT, moneyId);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
+     * @param moneyId The value of moneyId as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setMoneyId_GreaterEqual(Integer moneyId) {
+        regMoneyId(CK_GE, moneyId);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
+     * @param moneyId The value of moneyId as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setMoneyId_LessEqual(Integer moneyId) {
+        regMoneyId(CK_LE, moneyId);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
+     * @param minNumber The min number of moneyId. (NullAllowed: if null, no from-condition)
+     * @param maxNumber The max number of moneyId. (NullAllowed: if null, no to-condition)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setMoneyId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setMoneyId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
+     * @param minNumber The min number of moneyId. (NullAllowed: if null, no from-condition)
+     * @param maxNumber The max number of moneyId. (NullAllowed: if null, no to-condition)
+     * @param rangeOfOption The option of range-of. (NotNull)
+     */
+    protected void setMoneyId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValueMoneyId(), "money_id", rangeOfOption);
+    }
+
+    /**
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
+     * @param moneyIdList The collection of moneyId as inScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setMoneyId_InScope(Collection<Integer> moneyIdList) {
+        doSetMoneyId_InScope(moneyIdList);
+    }
+
+    protected void doSetMoneyId_InScope(Collection<Integer> moneyIdList) {
+        regINS(CK_INS, cTL(moneyIdList), xgetCValueMoneyId(), "money_id");
+    }
+
+    /**
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * money_id: {NotNull, int4(10), FK to subsidy_mng_m}
+     * @param moneyIdList The collection of moneyId as notInScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setMoneyId_NotInScope(Collection<Integer> moneyIdList) {
+        doSetMoneyId_NotInScope(moneyIdList);
+    }
+
+    protected void doSetMoneyId_NotInScope(Collection<Integer> moneyIdList) {
+        regINS(CK_NINS, cTL(moneyIdList), xgetCValueMoneyId(), "money_id");
+    }
+
+    protected void regMoneyId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueMoneyId(), "money_id"); }
+    protected abstract ConditionValue xgetCValueMoneyId();
 
     // ===================================================================================
     //                                                                     ScalarCondition

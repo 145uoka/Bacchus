@@ -79,6 +79,20 @@ public class BsSubsidyMngMCQ extends AbstractBsSubsidyMngMCQ {
       return _moneyId; }
     protected ConditionValue xgetCValueMoneyId() { return xdfgetMoneyId(); }
 
+    public Map<String, UserTCQ> xdfgetMoneyId_ExistsReferrer_UserTList() { return xgetSQueMap("moneyId_ExistsReferrer_UserTList"); }
+    public String keepMoneyId_ExistsReferrer_UserTList(UserTCQ sq) { return xkeepSQue("moneyId_ExistsReferrer_UserTList", sq); }
+
+    public Map<String, UserTCQ> xdfgetMoneyId_NotExistsReferrer_UserTList() { return xgetSQueMap("moneyId_NotExistsReferrer_UserTList"); }
+    public String keepMoneyId_NotExistsReferrer_UserTList(UserTCQ sq) { return xkeepSQue("moneyId_NotExistsReferrer_UserTList", sq); }
+
+    public Map<String, UserTCQ> xdfgetMoneyId_SpecifyDerivedReferrer_UserTList() { return xgetSQueMap("moneyId_SpecifyDerivedReferrer_UserTList"); }
+    public String keepMoneyId_SpecifyDerivedReferrer_UserTList(UserTCQ sq) { return xkeepSQue("moneyId_SpecifyDerivedReferrer_UserTList", sq); }
+
+    public Map<String, UserTCQ> xdfgetMoneyId_QueryDerivedReferrer_UserTList() { return xgetSQueMap("moneyId_QueryDerivedReferrer_UserTList"); }
+    public String keepMoneyId_QueryDerivedReferrer_UserTList(UserTCQ sq) { return xkeepSQue("moneyId_QueryDerivedReferrer_UserTList", sq); }
+    public Map<String, Object> xdfgetMoneyId_QueryDerivedReferrer_UserTListParameter() { return xgetSQuePmMap("moneyId_QueryDerivedReferrer_UserTList"); }
+    public String keepMoneyId_QueryDerivedReferrer_UserTListParameter(Object pm) { return xkeepSQuePm("moneyId_QueryDerivedReferrer_UserTList", pm); }
+
     /** 
      * Add order-by as ascend. <br>
      * money_id: {PK, ID, NotNull, serial(10)}

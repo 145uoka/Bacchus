@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
@@ -60,6 +61,18 @@ public class EventTDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
 
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    { xsetupEfpg(); }
+    @SuppressWarnings("unchecked")
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((EventT)et).getUserT(), (et, vl) -> ((EventT)et).setUserT((OptionalEntity<UserT>)vl), "userT");
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
+
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
@@ -76,7 +89,7 @@ public class EventTDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnEventNo = cci("event_no", "event_no", null, null, Integer.class, "eventNo", null, true, true, true, "serial", 10, 0, "nextval('event_t_event_no_seq'::regclass)", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnEventNo = cci("event_no", "event_no", null, null, Integer.class, "eventNo", null, true, true, true, "serial", 10, 0, "nextval('event_t_event_no_seq'::regclass)", false, null, null, null, "candidateTList", null, false);
     protected final ColumnInfo _columnEventName = cci("event_name", "event_name", null, null, String.class, "eventName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEventDetail = cci("event_detail", "event_detail", null, null, String.class, "eventDetail", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEventPlace = cci("event_place", "event_place", null, null, String.class, "eventPlace", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
@@ -89,7 +102,7 @@ public class EventTDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnStoreName = cci("store_name", "store_name", null, null, String.class, "storeName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEntryPeople = cci("entry_people", "entry_people", null, null, Integer.class, "entryPeople", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEventDiv = cci("event_div", "event_div", null, null, String.class, "eventDiv", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, true, "int4", 10, 0, null, false, null, null, "userT", null, null, false);
 
     /**
      * event_no: {PK, ID, NotNull, serial(10)}
@@ -157,7 +170,7 @@ public class EventTDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnEventDiv() { return _columnEventDiv; }
     /**
-     * user_id: {int4(10)}
+     * user_id: {NotNull, int4(10), FK to user_t}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUserId() { return _columnUserId; }
@@ -201,10 +214,26 @@ public class EventTDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * user_t by my user_id, named 'userT'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignUserT() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), UserTDbm.getInstance().columnUserId());
+        return cfi("event_t_user_id_fkey", "userT", this, UserTDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "eventTList", false);
+    }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * candidate_t by event_no, named 'candidateTList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerCandidateTList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnEventNo(), CandidateTDbm.getInstance().columnEventNo());
+        return cri("candidate_t_event_no_fkey", "candidateTList", this, CandidateTDbm.getInstance(), mp, false, "eventT");
+    }
 
     // ===================================================================================
     //                                                                        Various Info

@@ -1,6 +1,57 @@
 map:{
-    ; 2017/11/03 11:52:07 = map:{
-        ; diffDate = 2017/11/03 11:52:07
+    ; 2017/11/06 11:43:21 = map:{
+        ; diffDate = 2017/11/06 11:43:21
+        ; tableDiff = map:{
+            ; user_type_m = map:{
+                ; tableName = user_type_m
+                ; diffType = ADD
+            }
+            ; user_t = map:{
+                ; tableName = user_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; user_type_id = map:{
+                        ; columnName = user_type_id
+                        ; diffType = ADD
+                    }
+                    ; user_type = map:{
+                        ; columnName = user_type
+                        ; diffType = DELETE
+                    }
+                    ; money_id = map:{
+                        ; columnName = money_id
+                        ; diffType = DELETE
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; user_t_user_type_id_fkey = map:{
+                        ; constraintName = user_t_user_type_id_fkey
+                        ; diffType = ADD
+                    }
+                    ; user_t_money_id_fkey = map:{
+                        ; constraintName = user_t_money_id_fkey
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; subsidy_mng_m = map:{
+                ; tableName = subsidy_mng_m
+                ; diffType = DELETE
+            }
+        }
+        ; sequenceDiff = map:{
+            ; postgres.bacchus.user_type_m_user_type_id_seq = map:{
+                ; sequenceName = postgres.bacchus.user_type_m_user_type_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.bacchus.subsidy_mng_m_money_id_seq = map:{
+                ; sequenceName = postgres.bacchus.subsidy_mng_m_money_id_seq
+                ; diffType = DELETE
+            }
+        }
+    }
+    ; 2017/11/06 11:23:32 = map:{
+        ; diffDate = 2017/11/06 11:23:32
         ; tableDiff = map:{
             ; candidate_t = map:{
                 ; tableName = candidate_t

@@ -18,4 +18,11 @@ public class DisplayIdConstants {
         public static final String BACCHUS_0101 = "BACCHUS_0101";
 
     }
+
+    /** ユーザー管理 */
+    public static class UserMng {
+        /** 編集 */
+        public static final String BACCHUS_0201 = "BACCHUS_0201";
+
+    }
 }

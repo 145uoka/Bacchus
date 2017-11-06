@@ -36,47 +36,53 @@
 
 			<div class="row">
 				<div class="col-md-offset-1 col-md-10">
-					<button type="submit" class="btn btn-success" id="back">
-						<i class="glyphicon glyphicon-menu-left"></i> 戻る
-					</button>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-offset-1 col-md-10">
-					<h3>ユーザー登録</h3>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-md-offset-1 col-md-10">
 					<div class="panel panel-default main-border-color">
 						<div class="panel-body sub-background-color">
-							<div class="form-group">
+							<div
+								class="form-group <ext:isErrors path='userName' value='has-error'/>">
 								<label class="col-md-3 control-label">氏名</label>
 								<div class="col-md-3">
 									<form:input path="userName" class="form-control" />
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label">ユーザー区分</label>
-								<div class="col-md-2">
-									<form:input path="userCode" class="form-control" />
+								<div style="clear: both;">
+									<span class="col-md-3"></span>
+									<div class="col-md-3">
+										<form:errors path="userName" element="div"
+											cssClass="text-danger" />
+									</div>
 								</div>
 							</div>
-							<div class="form-group">
+							<div
+								class="form-group <ext:isErrors path='email' value='has-error'/>">
 								<label class="col-md-3 control-label">メールアドレス</label>
-								<div class="col-md-2">
+								<div class="col-md-3">
 									<form:input path="email" class="form-control" />
 								</div>
+								<div style="clear: both;">
+									<span class="col-md-3"></span>
+									<div class="col-md-3">
+										<form:errors path="email" element="div" cssClass="text-danger" />
+									</div>
+								</div>
 							</div>
-							<div class="form-group">
+							<div
+								class="form-group <ext:isErrors path='password' value='has-error'/>">
 								<label class="col-md-3 control-label">パスワード</label>
-								<div class="col-md-2">
+								<div class="col-md-3">
 									<form:input path="password" class="form-control" />
+								</div>
+								<div style="clear: both;">
+									<span class="col-md-3"></span>
+									<div class="col-md-3">
+										<form:errors path="password" element="div"
+											cssClass="text-danger" />
+									</div>
 								</div>
 							</div>
 
 
+						</div>
+						<div class="row">
 							<div class="col-md-offset-1 col-md-10" align="center">
 
 								<table style="margin-bottom: 20px">

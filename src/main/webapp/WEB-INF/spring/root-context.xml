@@ -31,6 +31,7 @@
 	<!-- =========================== -->
 	<!-- JDBCおよびトランザクション -->
 	<!-- ===========================  -->
+    <!--
     <bean id="appProps" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="ignoreResourceNotFound"><value>true</value></property>
         <property name="locations">
@@ -40,6 +41,8 @@
         </property>
     </bean>
     <context:property-placeholder properties-ref="appProps" />
+     -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
 
 	<bean class="java.net.URI" id="dbUrl">
 	    <constructor-arg value="${HEROKU_POSTGRESQL_MAUVE_URL}"/>

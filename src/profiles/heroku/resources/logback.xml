@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE logback>
+<configuration>
+
+  <!-- ファイル出力 -->
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>
+        %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %X{loginId} %X{sessionId}\(%file:%line\) - %X{remoteAddr} %msg%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <!-- Application Loggers -->
+  <logger name="com.Bacchus" level="info" />
+
+  <!-- 3rdparty Loggers -->
+  <logger name="org.springframework.core" level="warn" />
+  <logger name="org.springframework.beans" level="warn" />
+  <logger name="org.springframework.context" level="warn" />
+  <logger name="org.springframework.web" level="warn" />
+
+    <logger name="org.apache.commons.logging.impl.SimpleLog" level="debug"/>
+
+    <!-- db-flute -->
+    <!-- IT以降ではSTDOUTは不要 -->
+    <logger name="org.dbflute" level="debug" />
+
+  <!-- turn OFF all logging (children can override) -->
+  <root level="OFF">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>

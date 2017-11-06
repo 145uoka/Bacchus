@@ -44,17 +44,17 @@
         <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
         <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
     </bean>
-	<bean id="subsidyMngMBhv" class="com.Bacchus.dbflute.exbhv.SubsidyMngMBhv" autowire="byType">
-        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
-        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
-        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
-    </bean>
 	<bean id="systemPropertyMBhv" class="com.Bacchus.dbflute.exbhv.SystemPropertyMBhv" autowire="byType">
         <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
         <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
         <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
     </bean>
 	<bean id="userTBhv" class="com.Bacchus.dbflute.exbhv.UserTBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="userTypeMBhv" class="com.Bacchus.dbflute.exbhv.UserTypeMBhv" autowire="byType">
         <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
         <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
         <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>

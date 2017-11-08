@@ -102,7 +102,7 @@ public class EventTDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnStoreName = cci("store_name", "store_name", null, null, String.class, "storeName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEntryPeople = cci("entry_people", "entry_people", null, null, Integer.class, "entryPeople", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEventDiv = cci("event_div", "event_div", null, null, String.class, "eventDiv", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, true, "int4", 10, 0, null, false, null, null, "userT", null, null, false);
+    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, false, "int4", 10, 0, null, false, null, null, "userT", null, null, false);
 
     /**
      * event_no: {PK, ID, NotNull, serial(10)}
@@ -170,7 +170,7 @@ public class EventTDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnEventDiv() { return _columnEventDiv; }
     /**
-     * user_id: {NotNull, int4(10), FK to user_t}
+     * user_id: {int4(10), FK to user_t}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUserId() { return _columnUserId; }

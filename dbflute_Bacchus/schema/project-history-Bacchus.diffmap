@@ -1,4 +1,42 @@
 map:{
+    ; 2017/11/07 01:19:27 = map:{
+        ; diffDate = 2017/11/07 01:19:27
+        ; tableDiff = map:{
+            ; event_t = map:{
+                ; tableName = event_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; user_id = map:{
+                        ; columnName = user_id
+                        ; diffType = CHANGE
+                        ; notNullDiff = map:{
+                            ; next = false
+                            ; previous = true
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ; 2017/11/06 23:07:01 = map:{
+        ; diffDate = 2017/11/06 23:07:01
+        ; tableDiff = map:{
+            ; candidate_t = map:{
+                ; tableName = candidate_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; start_date = map:{
+                        ; columnName = start_date
+                        ; diffType = ADD
+                    }
+                    ; start_time = map:{
+                        ; columnName = start_time
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
     ; 2017/11/06 11:43:21 = map:{
         ; diffDate = 2017/11/06 11:43:21
         ; tableDiff = map:{

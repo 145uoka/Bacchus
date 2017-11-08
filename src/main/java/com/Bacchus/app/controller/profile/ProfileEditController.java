@@ -72,7 +72,7 @@ public class ProfileEditController extends BaseController {
             BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) throws RecordNotFoundException {
 
         // 画面名の設定
-        super.setDisplayTitle(model, DisplayIdConstants.Profile.BACCHUS_0101);
+        super.setDisplayTitle(model, DisplayIdConstants.Profile.BACCHUS_0103);
 
         // ログインユーザーのユーザ情報を取得
         OptionalEntity<UserT> usertT = userTBhv.selectByPK(userInfo.getUserId());
@@ -107,7 +107,7 @@ public class ProfileEditController extends BaseController {
         if (bindingResult.hasErrors()) {
             model.addAttribute(MODEL_KEY_FORM, form);
             model.addAttribute("errors", bindingResult);
-            super.setDisplayTitle(model, DisplayIdConstants.Profile.BACCHUS_0101);
+            super.setDisplayTitle(model, DisplayIdConstants.Profile.BACCHUS_0103);
             model.addAttribute(MessageType.ERROR, messageList);
             return INDEX_VIEW;
         }
@@ -124,7 +124,7 @@ public class ProfileEditController extends BaseController {
         redirectAttributes.addFlashAttribute(MessageType.SUCCESS, successMessageList);
 
         // ログ出力
-        loggerService.outLog(LogMessageKeyConstants.Info.I_01_0001, new Object[] {
+        loggerService.outLog(LogMessageKeyConstants.Info.I_01_0301, new Object[] {
                 userInfo.getUserId(),
                 userInfo.getUserName(),
                 userInfo.getEmail()

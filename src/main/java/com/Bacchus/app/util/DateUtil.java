@@ -299,4 +299,12 @@ public class DateUtil {
         return firstDay.with(TemporalAdjusters.lastDayOfMonth());
     }
 
+    public static String formatStrToMmdd(String mmdd) {
+        if (StringUtils.isEmpty(mmdd)) {
+            return mmdd;
+        }
+
+        return mmdd.substring(0, 1) + ":" + mmdd.substring(2);
+    }
+
 }

@@ -167,6 +167,46 @@ public class BsCandidateTCQ extends AbstractBsCandidateTCQ {
      */
     public BsCandidateTCQ addOrderBy_EventEndDatetime_Desc() { regOBD("event_end_datetime"); return this; }
 
+    protected ConditionValue _startDate;
+    public ConditionValue xdfgetStartDate()
+    { if (_startDate == null) { _startDate = nCV(); }
+      return _startDate; }
+    protected ConditionValue xgetCValueStartDate() { return xdfgetStartDate(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * start_date: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsCandidateTCQ addOrderBy_StartDate_Asc() { regOBA("start_date"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * start_date: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsCandidateTCQ addOrderBy_StartDate_Desc() { regOBD("start_date"); return this; }
+
+    protected ConditionValue _startTime;
+    public ConditionValue xdfgetStartTime()
+    { if (_startTime == null) { _startTime = nCV(); }
+      return _startTime; }
+    protected ConditionValue xgetCValueStartTime() { return xdfgetStartTime(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * start_time: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsCandidateTCQ addOrderBy_StartTime_Asc() { regOBA("start_time"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * start_time: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsCandidateTCQ addOrderBy_StartTime_Desc() { regOBD("start_time"); return this; }
+
     // ===================================================================================
     //                                                             SpecifiedDerivedOrderBy
     //                                                             =======================

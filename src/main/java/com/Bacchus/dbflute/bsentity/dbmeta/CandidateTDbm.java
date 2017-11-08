@@ -47,6 +47,8 @@ public class CandidateTDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((CandidateT)et).getEventNo(), (et, vl) -> ((CandidateT)et).setEventNo(cti(vl)), "eventNo");
         setupEpg(_epgMap, et -> ((CandidateT)et).getEventStartDatetime(), (et, vl) -> ((CandidateT)et).setEventStartDatetime(ctldt(vl)), "eventStartDatetime");
         setupEpg(_epgMap, et -> ((CandidateT)et).getEventEndDatetime(), (et, vl) -> ((CandidateT)et).setEventEndDatetime(ctldt(vl)), "eventEndDatetime");
+        setupEpg(_epgMap, et -> ((CandidateT)et).getStartDate(), (et, vl) -> ((CandidateT)et).setStartDate((String)vl), "startDate");
+        setupEpg(_epgMap, et -> ((CandidateT)et).getStartTime(), (et, vl) -> ((CandidateT)et).setStartTime((String)vl), "startTime");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -83,6 +85,8 @@ public class CandidateTDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnEventNo = cci("event_no", "event_no", null, null, Integer.class, "eventNo", null, false, false, true, "int4", 10, 0, null, false, null, null, "eventT", null, null, false);
     protected final ColumnInfo _columnEventStartDatetime = cci("event_start_datetime", "event_start_datetime", null, null, java.time.LocalDateTime.class, "eventStartDatetime", null, false, false, false, "timestamp", 29, 6, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEventEndDatetime = cci("event_end_datetime", "event_end_datetime", null, null, java.time.LocalDateTime.class, "eventEndDatetime", null, false, false, false, "timestamp", 29, 6, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnStartDate = cci("start_date", "start_date", null, null, String.class, "startDate", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnStartTime = cci("start_time", "start_time", null, null, String.class, "startTime", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
 
     /**
      * candidate_no: {PK, ID, NotNull, serial(10)}
@@ -104,6 +108,16 @@ public class CandidateTDbm extends AbstractDBMeta {
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnEventEndDatetime() { return _columnEventEndDatetime; }
+    /**
+     * start_date: {text(2147483647)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnStartDate() { return _columnStartDate; }
+    /**
+     * start_time: {text(2147483647)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnStartTime() { return _columnStartTime; }
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
@@ -111,6 +125,8 @@ public class CandidateTDbm extends AbstractDBMeta {
         ls.add(columnEventNo());
         ls.add(columnEventStartDatetime());
         ls.add(columnEventEndDatetime());
+        ls.add(columnStartDate());
+        ls.add(columnStartTime());
         return ls;
     }
 

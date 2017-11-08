@@ -26,6 +26,10 @@ CREATE TABLE Bacchus.candidate_t
 	event_start_datetime timestamp,
 	-- 終了日時
 	event_end_datetime timestamp,
+	-- 開始年月日
+	start_date text,
+	-- 開始時分
+	start_time text,
 	PRIMARY KEY (candidate_no)
 ) WITHOUT OIDS;
 
@@ -94,7 +98,7 @@ CREATE TABLE Bacchus.event_t
 	-- イベント区分
 	event_div text,
 	-- 幹事ユーザID
-	user_id int NOT NULL,
+	user_id int,
 	PRIMARY KEY (event_no)
 ) WITHOUT OIDS;
 
@@ -235,6 +239,8 @@ COMMENT ON COLUMN Bacchus.candidate_t.candidate_no IS '候補日管理番号';
 COMMENT ON COLUMN Bacchus.candidate_t.event_no IS 'イベント管理番号';
 COMMENT ON COLUMN Bacchus.candidate_t.event_start_datetime IS '開始日時';
 COMMENT ON COLUMN Bacchus.candidate_t.event_end_datetime IS '終了日時';
+COMMENT ON COLUMN Bacchus.candidate_t.start_date IS '開始年月日';
+COMMENT ON COLUMN Bacchus.candidate_t.start_time IS '開始時分';
 COMMENT ON TABLE Bacchus.display_def_m IS '画面名定義_M';
 COMMENT ON COLUMN Bacchus.display_def_m.display_id IS '画面ID';
 COMMENT ON COLUMN Bacchus.display_def_m.display_name IS '画面名';

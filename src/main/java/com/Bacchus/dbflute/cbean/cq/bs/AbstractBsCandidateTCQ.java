@@ -536,6 +536,312 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
     protected void regEventEndDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueEventEndDatetime(), "event_end_datetime"); }
     protected abstract ConditionValue xgetCValueEventEndDatetime();
 
+    /**
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * start_date: {text(2147483647)}
+     * @param startDate The value of startDate as equal. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setStartDate_Equal(String startDate) {
+        doSetStartDate_Equal(fRES(startDate));
+    }
+
+    protected void doSetStartDate_Equal(String startDate) {
+        regStartDate(CK_EQ, startDate);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * start_date: {text(2147483647)}
+     * @param startDate The value of startDate as notEqual. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setStartDate_NotEqual(String startDate) {
+        doSetStartDate_NotEqual(fRES(startDate));
+    }
+
+    protected void doSetStartDate_NotEqual(String startDate) {
+        regStartDate(CK_NES, startDate);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * start_date: {text(2147483647)}
+     * @param startDate The value of startDate as greaterThan. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setStartDate_GreaterThan(String startDate) {
+        regStartDate(CK_GT, fRES(startDate));
+    }
+
+    /**
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * start_date: {text(2147483647)}
+     * @param startDate The value of startDate as lessThan. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setStartDate_LessThan(String startDate) {
+        regStartDate(CK_LT, fRES(startDate));
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * start_date: {text(2147483647)}
+     * @param startDate The value of startDate as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setStartDate_GreaterEqual(String startDate) {
+        regStartDate(CK_GE, fRES(startDate));
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * start_date: {text(2147483647)}
+     * @param startDate The value of startDate as lessEqual. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setStartDate_LessEqual(String startDate) {
+        regStartDate(CK_LE, fRES(startDate));
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * start_date: {text(2147483647)}
+     * @param startDateList The collection of startDate as inScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setStartDate_InScope(Collection<String> startDateList) {
+        doSetStartDate_InScope(startDateList);
+    }
+
+    protected void doSetStartDate_InScope(Collection<String> startDateList) {
+        regINS(CK_INS, cTL(startDateList), xgetCValueStartDate(), "start_date");
+    }
+
+    /**
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * start_date: {text(2147483647)}
+     * @param startDateList The collection of startDate as notInScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setStartDate_NotInScope(Collection<String> startDateList) {
+        doSetStartDate_NotInScope(startDateList);
+    }
+
+    protected void doSetStartDate_NotInScope(Collection<String> startDateList) {
+        regINS(CK_NINS, cTL(startDateList), xgetCValueStartDate(), "start_date");
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * start_date: {text(2147483647)} <br>
+     * <pre>e.g. setStartDate_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param startDate The value of startDate as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setStartDate_LikeSearch(String startDate, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setStartDate_LikeSearch(startDate, xcLSOP(opLambda));
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * start_date: {text(2147483647)} <br>
+     * <pre>e.g. setStartDate_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param startDate The value of startDate as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param likeSearchOption The option of like-search. (NotNull)
+     */
+    protected void setStartDate_LikeSearch(String startDate, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(startDate), xgetCValueStartDate(), "start_date", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * start_date: {text(2147483647)}
+     * @param startDate The value of startDate as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setStartDate_NotLikeSearch(String startDate, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setStartDate_NotLikeSearch(startDate, xcLSOP(opLambda));
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * start_date: {text(2147483647)}
+     * @param startDate The value of startDate as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param likeSearchOption The option of not-like-search. (NotNull)
+     */
+    protected void setStartDate_NotLikeSearch(String startDate, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(startDate), xgetCValueStartDate(), "start_date", likeSearchOption);
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * start_date: {text(2147483647)}
+     */
+    public void setStartDate_IsNull() { regStartDate(CK_ISN, DOBJ); }
+
+    /**
+     * IsNullOrEmpty {is null or empty}. And OnlyOnceRegistered. <br>
+     * start_date: {text(2147483647)}
+     */
+    public void setStartDate_IsNullOrEmpty() { regStartDate(CK_ISNOE, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * start_date: {text(2147483647)}
+     */
+    public void setStartDate_IsNotNull() { regStartDate(CK_ISNN, DOBJ); }
+
+    protected void regStartDate(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueStartDate(), "start_date"); }
+    protected abstract ConditionValue xgetCValueStartDate();
+
+    /**
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * start_time: {text(2147483647)}
+     * @param startTime The value of startTime as equal. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setStartTime_Equal(String startTime) {
+        doSetStartTime_Equal(fRES(startTime));
+    }
+
+    protected void doSetStartTime_Equal(String startTime) {
+        regStartTime(CK_EQ, startTime);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * start_time: {text(2147483647)}
+     * @param startTime The value of startTime as notEqual. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setStartTime_NotEqual(String startTime) {
+        doSetStartTime_NotEqual(fRES(startTime));
+    }
+
+    protected void doSetStartTime_NotEqual(String startTime) {
+        regStartTime(CK_NES, startTime);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * start_time: {text(2147483647)}
+     * @param startTime The value of startTime as greaterThan. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setStartTime_GreaterThan(String startTime) {
+        regStartTime(CK_GT, fRES(startTime));
+    }
+
+    /**
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * start_time: {text(2147483647)}
+     * @param startTime The value of startTime as lessThan. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setStartTime_LessThan(String startTime) {
+        regStartTime(CK_LT, fRES(startTime));
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * start_time: {text(2147483647)}
+     * @param startTime The value of startTime as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setStartTime_GreaterEqual(String startTime) {
+        regStartTime(CK_GE, fRES(startTime));
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * start_time: {text(2147483647)}
+     * @param startTime The value of startTime as lessEqual. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setStartTime_LessEqual(String startTime) {
+        regStartTime(CK_LE, fRES(startTime));
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * start_time: {text(2147483647)}
+     * @param startTimeList The collection of startTime as inScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setStartTime_InScope(Collection<String> startTimeList) {
+        doSetStartTime_InScope(startTimeList);
+    }
+
+    protected void doSetStartTime_InScope(Collection<String> startTimeList) {
+        regINS(CK_INS, cTL(startTimeList), xgetCValueStartTime(), "start_time");
+    }
+
+    /**
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * start_time: {text(2147483647)}
+     * @param startTimeList The collection of startTime as notInScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setStartTime_NotInScope(Collection<String> startTimeList) {
+        doSetStartTime_NotInScope(startTimeList);
+    }
+
+    protected void doSetStartTime_NotInScope(Collection<String> startTimeList) {
+        regINS(CK_NINS, cTL(startTimeList), xgetCValueStartTime(), "start_time");
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * start_time: {text(2147483647)} <br>
+     * <pre>e.g. setStartTime_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param startTime The value of startTime as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setStartTime_LikeSearch(String startTime, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setStartTime_LikeSearch(startTime, xcLSOP(opLambda));
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * start_time: {text(2147483647)} <br>
+     * <pre>e.g. setStartTime_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param startTime The value of startTime as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param likeSearchOption The option of like-search. (NotNull)
+     */
+    protected void setStartTime_LikeSearch(String startTime, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(startTime), xgetCValueStartTime(), "start_time", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * start_time: {text(2147483647)}
+     * @param startTime The value of startTime as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setStartTime_NotLikeSearch(String startTime, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setStartTime_NotLikeSearch(startTime, xcLSOP(opLambda));
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * start_time: {text(2147483647)}
+     * @param startTime The value of startTime as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param likeSearchOption The option of not-like-search. (NotNull)
+     */
+    protected void setStartTime_NotLikeSearch(String startTime, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(startTime), xgetCValueStartTime(), "start_time", likeSearchOption);
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * start_time: {text(2147483647)}
+     */
+    public void setStartTime_IsNull() { regStartTime(CK_ISN, DOBJ); }
+
+    /**
+     * IsNullOrEmpty {is null or empty}. And OnlyOnceRegistered. <br>
+     * start_time: {text(2147483647)}
+     */
+    public void setStartTime_IsNullOrEmpty() { regStartTime(CK_ISNOE, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * start_time: {text(2147483647)}
+     */
+    public void setStartTime_IsNotNull() { regStartTime(CK_ISNN, DOBJ); }
+
+    protected void regStartTime(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueStartTime(), "start_time"); }
+    protected abstract ConditionValue xgetCValueStartTime();
+
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============

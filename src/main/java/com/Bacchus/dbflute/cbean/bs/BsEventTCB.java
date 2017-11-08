@@ -379,7 +379,7 @@ public class BsEventTCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnEventDiv() { return doColumn("event_div"); }
         /**
-         * user_id: {NotNull, int4(10), FK to user_t}
+         * user_id: {int4(10), FK to user_t}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUserId() { return doColumn("user_id"); }

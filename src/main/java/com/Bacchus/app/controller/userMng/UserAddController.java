@@ -64,7 +64,7 @@ public class UserAddController extends BaseController {
 	public String index(@ModelAttribute("form") UserAddForm form,Model model) throws Exception {
 
 		model.addAttribute("form", form);
-		super.setDisplayTitle(model, DisplayIdConstants.UserMng.BACCHUS_0201);
+		super.setDisplayTitle(model, DisplayIdConstants.UserMng.BACCHUS_0101);
 
 		return "/userMng/addView";
 	}
@@ -72,7 +72,7 @@ public class UserAddController extends BaseController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String add(@Validated @ModelAttribute("form") UserAddForm form, BindingResult bindingResult, Model model) throws Exception {
 
-		super.setDisplayTitle(model, DisplayIdConstants.UserMng.BACCHUS_0201);
+		super.setDisplayTitle(model, DisplayIdConstants.UserMng.BACCHUS_0101);
 
 		// validation確認
         if (bindingResult.hasErrors()) {
@@ -104,7 +104,7 @@ public class UserAddController extends BaseController {
 			throw new RecordNotFoundException("USER_T", form.getUserName());
 		} else {
 			;
-			loggerService.outLog(LogMessageKeyConstants.Info.I_02_0001, new Object[] {
+			loggerService.outLog(LogMessageKeyConstants.Info.I_01_0001, new Object[] {
 					userTList.get(0).getUserId(),
 					userTList.get(0).getUserName(),
 					userTList.get(0).getEmail()

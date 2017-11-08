@@ -19,7 +19,7 @@ import com.Bacchus.dbflute.exentity.*;
  *     candidate_no
  *
  * [column]
- *     candidate_no, event_no, event_start_datetime, event_end_datetime
+ *     candidate_no, event_no, event_start_datetime, event_end_datetime, start_date, start_time
  *
  * [sequence]
  *     candidate_t_candidate_no_seq
@@ -48,10 +48,14 @@ import com.Bacchus.dbflute.exentity.*;
  * Integer eventNo = entity.getEventNo();
  * java.time.LocalDateTime eventStartDatetime = entity.getEventStartDatetime();
  * java.time.LocalDateTime eventEndDatetime = entity.getEventEndDatetime();
+ * String startDate = entity.getStartDate();
+ * String startTime = entity.getStartTime();
  * entity.setCandidateNo(candidateNo);
  * entity.setEventNo(eventNo);
  * entity.setEventStartDatetime(eventStartDatetime);
  * entity.setEventEndDatetime(eventEndDatetime);
+ * entity.setStartDate(startDate);
+ * entity.setStartTime(startTime);
  * = = = = = = = = = =/
  * </pre>
  * @author DBFlute(AutoGenerator)
@@ -78,6 +82,12 @@ public abstract class BsCandidateT extends AbstractEntity implements DomainEntit
 
     /** event_end_datetime: {timestamp(29, 6)} */
     protected java.time.LocalDateTime _eventEndDatetime;
+
+    /** start_date: {text(2147483647)} */
+    protected String _startDate;
+
+    /** start_time: {text(2147483647)} */
+    protected String _startTime;
 
     // ===================================================================================
     //                                                                             DB Meta
@@ -194,6 +204,8 @@ public abstract class BsCandidateT extends AbstractEntity implements DomainEntit
         sb.append(dm).append(xfND(_eventNo));
         sb.append(dm).append(xfND(_eventStartDatetime));
         sb.append(dm).append(xfND(_eventEndDatetime));
+        sb.append(dm).append(xfND(_startDate));
+        sb.append(dm).append(xfND(_startTime));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
@@ -300,5 +312,45 @@ public abstract class BsCandidateT extends AbstractEntity implements DomainEntit
     public void setEventEndDatetime(java.time.LocalDateTime eventEndDatetime) {
         registerModifiedProperty("eventEndDatetime");
         _eventEndDatetime = eventEndDatetime;
+    }
+
+    /**
+     * [get] start_date: {text(2147483647)} <br>
+     * 開始年月日
+     * @return The value of the column 'start_date'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getStartDate() {
+        checkSpecifiedProperty("startDate");
+        return _startDate;
+    }
+
+    /**
+     * [set] start_date: {text(2147483647)} <br>
+     * 開始年月日
+     * @param startDate The value of the column 'start_date'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setStartDate(String startDate) {
+        registerModifiedProperty("startDate");
+        _startDate = startDate;
+    }
+
+    /**
+     * [get] start_time: {text(2147483647)} <br>
+     * 開始時分
+     * @return The value of the column 'start_time'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getStartTime() {
+        checkSpecifiedProperty("startTime");
+        return _startTime;
+    }
+
+    /**
+     * [set] start_time: {text(2147483647)} <br>
+     * 開始時分
+     * @param startTime The value of the column 'start_time'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setStartTime(String startTime) {
+        registerModifiedProperty("startTime");
+        _startTime = startTime;
     }
 }

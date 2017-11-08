@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.Bacchus.app.Exception.AbnormalRecordsDetection;
 import com.Bacchus.app.components.GeneralCodeDto;
+import com.Bacchus.app.components.LabelValueDto;
 import com.Bacchus.dbflute.cbean.GeneralCodeMCB;
 import com.Bacchus.dbflute.exbhv.GeneralCodeMBhv;
 import com.Bacchus.dbflute.exentity.GeneralCodeM;
@@ -81,54 +82,25 @@ public class CommonService {
         return generalRemarks;
     }
 
-    /**
-     * 性別リストを取得
-     * @return 性別リスト
-     */
-    public List<GeneralCodeDto> getSexList(){
-        GeneralCodeMCB wlmcb = new GeneralCodeMCB();
-        wlmcb.query().setCodeDiv_Equal(SystemCodeConstants.GeneralCodeKbn.SEX_CODE);
-        wlmcb.query().addOrderBy_OrderNumber_Asc();
-        return convertGeneralCodeMListToDtoList(generalCodeMBhv.readList(wlmcb));
+    public List<LabelValueDto> creatOptionalLabelValueList(String codeKbn, String optionalNullText) {
+
+        List<LabelValueDto> resultList = new ArrayList<LabelValueDto>();
+        LabelValueDto labelValueDto = new LabelValueDto();
+        labelValueDto.setValue("");
+        labelValueDto.setLabel(optionalNullText);
+        resultList.add(labelValueDto);
+
+        List<GeneralCodeDto> generalCodeDtoList = getGeneralCodeListByCodeKbn(codeKbn);
+
+        for (GeneralCodeDto generalCodeDto :generalCodeDtoList) {
+            labelValueDto = new LabelValueDto();
+            labelValueDto.setValue(generalCodeDto.getCode());
+            labelValueDto.setLabel(generalCodeDto.getName());
+
+            resultList.add(labelValueDto);
+        }
+        return resultList;
     }
-
-    /**
-     * 在籍状況リストを取得
-     * @return 在籍状況リスト
-     */
-    public List<GeneralCodeDto> getEmploymentStatusList() {
-        GeneralCodeMCB wlmcb = new GeneralCodeMCB();
-        wlmcb.query().setCodeDiv_Equal(SystemCodeConstants.GeneralCodeKbn.EMPLOYEE_STATUS);
-        wlmcb.query().addOrderBy_OrderNumber_Asc();
-        // 取得したレコードのエンティティをDTOに変換してListを再構築
-        return convertGeneralCodeMListToDtoList(generalCodeMBhv.readList(wlmcb));
-    }
-
-    /**
-     * 職種リストを取得
-     * @return 職種リスト
-     */
-    public List<GeneralCodeDto> getOccupationList(){
-        GeneralCodeMCB wlmcb = new GeneralCodeMCB();
-        wlmcb.query().setCodeDiv_Equal(SystemCodeConstants.GeneralCodeKbn.OCCUPATION_CODE);
-        wlmcb.query().addOrderBy_OrderNumber_Asc();
-        // 取得したレコードのエンティティをDTOに変換してListを再構築
-        return convertGeneralCodeMListToDtoList(generalCodeMBhv.readList(wlmcb));
-    }
-
-    /**
-     * 所属地域リストを取得
-     * @return 所属地域リスト
-     */
-    public List<GeneralCodeDto> getAreaList(){
-        GeneralCodeMCB wlmcb = new GeneralCodeMCB();
-        wlmcb.query().setCodeDiv_Equal(SystemCodeConstants.GeneralCodeKbn.AREA_CODE);
-        wlmcb.query().addOrderBy_OrderNumber_Asc();
-        // 取得したレコードのエンティティをDTOに変換してListを再構築
-        return convertGeneralCodeMListToDtoList(generalCodeMBhv.readList(wlmcb));
-    }
-
-
     /**
      * 指定したコード区分の汎用コードマスタのリストを取得。
      * @param codeKbn
@@ -164,7 +136,6 @@ public class CommonService {
      */
     private static List<GeneralCodeDto> convertGeneralCodeMListToDtoList(List<GeneralCodeM> generalCodeMList) {
         List<GeneralCodeDto> dtoList = new ArrayList<>();
-        dtoList.add(new GeneralCodeDto());
         for (GeneralCodeM entity : generalCodeMList) {
             GeneralCodeDto dto = new GeneralCodeDto();
             dto.setCodeId(entity.getCodeId());
@@ -178,5 +149,7 @@ public class CommonService {
         }
         return dtoList;
     }
+
+
 
 }

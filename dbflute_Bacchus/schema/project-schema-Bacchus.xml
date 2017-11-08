@@ -16,6 +16,10 @@
         <column comment="終了日時" dbType="timestamp"
             javaType="java.time.LocalDateTime" name="event_end_datetime"
             size="29, 6" type="TIMESTAMP"/>
+        <column comment="開始年月日" dbType="text" javaType="String"
+            name="start_date" size="2147483647" type="VARCHAR"/>
+        <column comment="開始時分" dbType="text" javaType="String"
+            name="start_time" size="2147483647" type="VARCHAR"/>
         <foreign-key foreignSchema="bacchus" foreignTable="event_t" name="candidate_t_event_no_fkey">
             <reference foreign="event_no" local="event_no"/>
         </foreign-key>
@@ -86,7 +90,7 @@
         <column comment="イベント区分" dbType="text" javaType="String"
             name="event_div" size="2147483647" type="VARCHAR"/>
         <column comment="幹事ユーザID" dbType="int4" javaType="Integer"
-            name="user_id" required="true" size="10" type="INTEGER"/>
+            name="user_id" size="10" type="INTEGER"/>
         <foreign-key foreignSchema="bacchus" foreignTable="user_t" name="event_t_user_id_fkey">
             <reference foreign="user_id" local="user_id"/>
         </foreign-key>
@@ -147,7 +151,7 @@
             default="nextval('user_t_user_id_seq'::regclass)"
             javaType="Integer" name="user_id" pkName="user_t_pkey"
             pkPosition="1" primaryKey="true" required="true" size="10" type="INTEGER"/>
-        <column comment="ユーザ名" dbType="text" javaType="String"
+        <column comment="ユーザー名" dbType="text" javaType="String"
             name="user_name" required="true" size="2147483647" type="VARCHAR"/>
         <column comment="Eメール" dbType="text" javaType="String"
             name="email" size="2147483647" type="VARCHAR"/>

@@ -126,7 +126,7 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
     /** event_div: {text(2147483647)} */
     protected String _eventDiv;
 
-    /** user_id: {NotNull, int4(10), FK to user_t} */
+    /** user_id: {int4(10), FK to user_t} */
     protected Integer _userId;
 
     // ===================================================================================
@@ -543,9 +543,9 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] user_id: {NotNull, int4(10), FK to user_t} <br>
+     * [get] user_id: {int4(10), FK to user_t} <br>
      * 幹事ユーザID
-     * @return The value of the column 'user_id'. (basically NotNull if selected: for the constraint)
+     * @return The value of the column 'user_id'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getUserId() {
         checkSpecifiedProperty("userId");
@@ -553,9 +553,9 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] user_id: {NotNull, int4(10), FK to user_t} <br>
+     * [set] user_id: {int4(10), FK to user_t} <br>
      * 幹事ユーザID
-     * @param userId The value of the column 'user_id'. (basically NotNull if update: for the constraint)
+     * @param userId The value of the column 'user_id'. (NullAllowed: null update allowed for no constraint)
      */
     public void setUserId(Integer userId) {
         registerModifiedProperty("userId");

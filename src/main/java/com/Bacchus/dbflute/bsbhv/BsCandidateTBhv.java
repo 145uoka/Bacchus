@@ -26,7 +26,7 @@ import com.Bacchus.dbflute.cbean.*;
  *     candidate_no
  *
  * [column]
- *     candidate_no, event_no, event_start_datetime, event_end_datetime
+ *     candidate_no, event_no, event_start_datetime, event_end_datetime, start_date, start_time
  *
  * [sequence]
  *     candidate_t_candidate_no_seq

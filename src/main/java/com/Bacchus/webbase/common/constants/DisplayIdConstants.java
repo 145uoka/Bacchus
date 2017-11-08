@@ -15,14 +15,23 @@ public class DisplayIdConstants {
     /** プロフィール編集 */
     public static class Profile {
         /** 編集 */
-        public static final String BACCHUS_0101 = "BACCHUS_0101";
+        public static final String BACCHUS_0103 = "BACCHUS_0103";
 
     }
 
     /** ユーザー管理 */
     public static class UserMng {
         /** 編集 */
-        public static final String BACCHUS_0201 = "BACCHUS_0201";
+        public static final String BACCHUS_0101 = "BACCHUS_0101";
+
+    }
+
+    /**
+     * イベント関連:02
+     */
+    public static class Event {
+        /** 参加可否入力 */
+        public static final String BACCHUS_0205 = "BACCHUS_0205";
 
     }
 }

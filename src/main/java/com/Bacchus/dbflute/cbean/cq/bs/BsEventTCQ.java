@@ -355,14 +355,14 @@ public class BsEventTCQ extends AbstractBsEventTCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * user_id: {NotNull, int4(10), FK to user_t}
+     * user_id: {int4(10), FK to user_t}
      * @return this. (NotNull)
      */
     public BsEventTCQ addOrderBy_UserId_Asc() { regOBA("user_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * user_id: {NotNull, int4(10), FK to user_t}
+     * user_id: {int4(10), FK to user_t}
      * @return this. (NotNull)
      */
     public BsEventTCQ addOrderBy_UserId_Desc() { regOBD("user_id"); return this; }

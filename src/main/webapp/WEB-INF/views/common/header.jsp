@@ -10,7 +10,11 @@
       <!-- メニュー -->
       <c:if test="${userInfo.logined}">
         <ul class="nav navbar-nav">
-          <li><a href="${pageContext.request.contextPath}/">xxxx</a></li>
+          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">xxxx<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="${pageContext.request.contextPath}/">xxxx</a></li>
+                <li><a href="${pageContext.request.contextPath}/event/entry/input?eventNo=1&userId=${userInfo.userId}">参加可否入力</a></li>
+              </ul></li>
           <c:if test="${userInfo.adminFlg}">
             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">アカウント管理<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">

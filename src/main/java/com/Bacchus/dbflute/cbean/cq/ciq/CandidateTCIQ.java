@@ -75,6 +75,8 @@ public class CandidateTCIQ extends AbstractBsCandidateTCQ {
     protected ConditionValue xgetCValueEventNo() { return _myCQ.xdfgetEventNo(); }
     protected ConditionValue xgetCValueEventStartDatetime() { return _myCQ.xdfgetEventStartDatetime(); }
     protected ConditionValue xgetCValueEventEndDatetime() { return _myCQ.xdfgetEventEndDatetime(); }
+    protected ConditionValue xgetCValueStartDate() { return _myCQ.xdfgetStartDate(); }
+    protected ConditionValue xgetCValueStartTime() { return _myCQ.xdfgetStartTime(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(CandidateTCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

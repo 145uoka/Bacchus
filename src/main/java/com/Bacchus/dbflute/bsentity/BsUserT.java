@@ -280,7 +280,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
 
     /**
      * [get] user_name: {NotNull, text(2147483647)} <br>
-     * ユーザ名
+     * ユーザー名
      * @return The value of the column 'user_name'. (basically NotNull if selected: for the constraint)
      */
     public String getUserName() {
@@ -290,7 +290,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
 
     /**
      * [set] user_name: {NotNull, text(2147483647)} <br>
-     * ユーザ名
+     * ユーザー名
      * @param userName The value of the column 'user_name'. (basically NotNull if update: for the constraint)
      */
     public void setUserName(String userName) {

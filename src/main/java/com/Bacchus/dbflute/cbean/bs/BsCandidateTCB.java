@@ -333,6 +333,16 @@ public class BsCandidateTCB extends AbstractConditionBean {
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnEventEndDatetime() { return doColumn("event_end_datetime"); }
+        /**
+         * start_date: {text(2147483647)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnStartDate() { return doColumn("start_date"); }
+        /**
+         * start_time: {text(2147483647)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnStartTime() { return doColumn("start_time"); }
         public void everyColumn() { doEveryColumn(); }
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override

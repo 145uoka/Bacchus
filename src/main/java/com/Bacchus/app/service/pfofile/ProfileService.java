@@ -3,6 +3,7 @@ package com.Bacchus.app.service.pfofile;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.Bacchus.app.form.profile.ProfileEditForm;
@@ -12,7 +13,7 @@ import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.dbflute.exentity.UserT;
 
 /**
- * システムプロパティ関連のサービスクラス。
+ * プロフィール編集のサービスクラス。
  *
  * @author ishigouoka_k
  * $Id:$
@@ -24,6 +25,7 @@ public class ProfileService extends AbstractService {
     @Autowired
     UserTBhv userTBhv;
 
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public void updateProfile(ProfileEditForm profileEditForm) {
 
         UserT userT = new UserT();

@@ -138,6 +138,7 @@ public class LoginController extends BaseController {
         userInfo.setLogined(true);
         userInfo.setAuthLevel(userT.getAuthLevel());
         userInfo.setUserId(userT.getUserId());
+        userInfo.setUserName(userT.getUserName());
 
         Permissions permissions = Permissions.getPermissions(userT.getAuthLevel());
 

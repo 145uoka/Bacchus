@@ -7,6 +7,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -79,6 +87,27 @@ public class LoginController extends BaseController {
 
         System.out.println("code : " + code);
         System.out.println("state : " + state);
+
+        HttpPost httpPost = new HttpPost("https://api.line.me/oauth2/v2.1/token");
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("grant_type", "authorization_code"));
+        params.add(new BasicNameValuePair("code", code));
+        params.add(new BasicNameValuePair("redirect_uri", "https%3A%2F%2Fglue-bacchus.herokuapp.com%2Flogin%2Fcallback"));
+        params.add(new BasicNameValuePair("client_id", "1545279597"));
+        params.add(new BasicNameValuePair("client_secret", "0e994f18b1e437b590bc5d25addcf1f5"));
+
+        UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(params, SystemCodeConstants.CHARACTER_ENCODING);
+        httpPost.setEntity(formEntity);
+
+        httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpResponse httpResponse = httpClient.execute(httpPost);
+
+        String result = EntityUtils.toString(httpResponse.getEntity(), SystemCodeConstants.CHARACTER_ENCODING);
+
+        System.out.println(result);
 
         return "/";
     }

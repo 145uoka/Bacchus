@@ -72,26 +72,18 @@ public class ProfileEditController extends BaseController {
             BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model)
             throws RecordNotFoundException {
 
-        System.out.println("◆◆◆◆◆◆1◆◆◆◆◆");
-
         // 画面名の設定
         super.setDisplayTitle(model, DisplayIdConstants.Profile.BACCHUS_0103);
 
         // ログインユーザーのユーザ情報を取得
         OptionalEntity<UserT> usertT = userTBhv.selectByPK(userInfo.getUserId());
-
-        System.out.println("◆◆◆◆◆◆2◆◆◆◆◆");
-
         if (usertT.isPresent() && usertT != null) {
-            System.out.println("◆◆◆◆◆◆3◆◆◆◆◆");
             form.setUserName(usertT.get().getUserName());
             form.setEmail(usertT.get().getEmail());
         } else {
-            System.out.println("◆◆◆◆◆◆4◆◆◆◆◆");
             throw new RecordNotFoundException("USER_T", userInfo.getUserId());
         }
 
-        System.out.println("◆◆◆◆◆◆5◆◆◆◆◆");
         model.addAttribute("form", form);
 
         return INDEX_VIEW;

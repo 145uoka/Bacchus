@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Bacchus.app.form.LoginNameForm;
@@ -52,9 +53,9 @@ public class LoginController extends BaseController {
 
         String responsetype = "response_type=code";
         String client_id = "client_id=1545279597";
-        String redirect_uri = "redirect_uri=https%3A%2F%2Fglue-bacchus.herokuapp.com%2F";
+        String redirect_uri = "redirect_uri=https%3A%2F%2Fglue-bacchus.herokuapp.com%2Fcallback";
         String state = "state=12345abcde";
-        String scope = "openid%20profile";
+        String scope = "scope=openid%20profile";
 
         StringBuffer sb = new StringBuffer();
         sb.append(authorizeUrl);
@@ -70,6 +71,16 @@ public class LoginController extends BaseController {
         sb.append(scope);
 
         return super.redirect(sb.toString());
+    }
+
+    @RequestMapping(value = "/callback", method = RequestMethod.GET)
+    public String callback(@RequestParam("code") String code,
+            @RequestParam("state") String state) throws Exception {
+
+        System.out.println("code : " + code);
+        System.out.println("state : " + state);
+
+        return "/";
     }
 
     @RequestMapping(method = RequestMethod.POST)

@@ -45,6 +45,33 @@ public class LoginController extends BaseController {
     @Autowired
     UserTBhv userTBhv;
 
+    @RequestMapping(value = "/lineLogin", method = RequestMethod.GET)
+    public String lineLogin() throws Exception {
+
+        String authorizeUrl = "https://access.line.me/oauth2/v2.1/authorize";
+
+        String responsetype = "response_type=code";
+        String client_id = "client_id=1545279597";
+        String redirect_uri = "redirect_uri=https%3A%2F%2Fglue-bacchus.herokuapp.com%2F";
+        String state = "state=12345abcde";
+        String scope = "openid%20profile";
+
+        StringBuffer sb = new StringBuffer();
+        sb.append(authorizeUrl);
+        sb.append("?");
+        sb.append(responsetype);
+        sb.append("&");
+        sb.append(client_id);
+        sb.append("&");
+        sb.append(redirect_uri);
+        sb.append("&");
+        sb.append(state);
+        sb.append("&");
+        sb.append(scope);
+
+        return super.redirect(sb.toString());
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public String loginName(@ModelAttribute("form") LoginNameForm form, BindingResult bindingResult,
             RedirectAttributes redirectAttributes, Model model) throws Exception {

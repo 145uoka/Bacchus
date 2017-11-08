@@ -44,6 +44,7 @@ public class OAuthService {
             userT.setUserTypeId(1);
             userT.setAuthLevel(1);
             userTBhv.insert(userT);
+            System.out.println("create user!!! : "+ userT.getUserId() + " : " + userT.getUserName());
         } else {
             userT = userTList.get(0);
         }

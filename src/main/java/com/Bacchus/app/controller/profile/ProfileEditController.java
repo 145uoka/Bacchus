@@ -69,20 +69,29 @@ public class ProfileEditController extends BaseController {
      */
     @RequestMapping(value = INDEX_VIEW, method = RequestMethod.GET)
     public String index(@ModelAttribute("form") ProfileEditForm form,
-            BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) throws RecordNotFoundException {
+            BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model)
+            throws RecordNotFoundException {
+
+        System.out.println("◆◆◆◆◆◆1◆◆◆◆◆");
 
         // 画面名の設定
         super.setDisplayTitle(model, DisplayIdConstants.Profile.BACCHUS_0103);
 
         // ログインユーザーのユーザ情報を取得
         OptionalEntity<UserT> usertT = userTBhv.selectByPK(userInfo.getUserId());
+
+        System.out.println("◆◆◆◆◆◆2◆◆◆◆◆");
+
         if (usertT.isPresent() && usertT != null) {
+            System.out.println("◆◆◆◆◆◆3◆◆◆◆◆");
             form.setUserName(usertT.get().getUserName());
             form.setEmail(usertT.get().getEmail());
         } else {
+            System.out.println("◆◆◆◆◆◆4◆◆◆◆◆");
             throw new RecordNotFoundException("USER_T", userInfo.getUserId());
         }
 
+        System.out.println("◆◆◆◆◆◆5◆◆◆◆◆");
         model.addAttribute("form", form);
 
         return INDEX_VIEW;
@@ -128,7 +137,7 @@ public class ProfileEditController extends BaseController {
                 userInfo.getUserId(),
                 userInfo.getUserName(),
                 userInfo.getEmail()
-                });
+        });
 
         return super.redirect(INDEX_VIEW);
     }
@@ -155,31 +164,31 @@ public class ProfileEditController extends BaseController {
                 StringUtils.isNotBlank(form.getNewPassword()) ||
                 StringUtils.isNotBlank(form.getConfirmPassword())) {
             // 現PWD、新PWD、確認PWDのいずれかが未入力
-            bindingResult.rejectValue("password",null, null, "");
-            bindingResult.rejectValue("newPassword",null, null, "");
-            bindingResult.rejectValue("confirmPassword",null, null, "");
+            bindingResult.rejectValue("password", null, null, "");
+            bindingResult.rejectValue("newPassword", null, null, "");
+            bindingResult.rejectValue("confirmPassword", null, null, "");
             message = messageSource.getMessage(MessageKeyUtil.encloseStringDelete(
                     MessageKeyConstants.Error.EXISTS_NOT_SET_PASSWORD),
-                    new String[]{"パスワード", "新しいパスワード", "確認用パスワード"},
+                    new String[] { "パスワード", "新しいパスワード", "確認用パスワード" },
                     Locale.getDefault());
 
         } else if (!StringUtils.equals(form.getNewPassword(), form.getConfirmPassword())) {
             // 新PWDと確認PWDが異なる
-            bindingResult.rejectValue("newPassword",null, null, "");
-            bindingResult.rejectValue("confirmPassword",null, null, "");
+            bindingResult.rejectValue("newPassword", null, null, "");
+            bindingResult.rejectValue("confirmPassword", null, null, "");
             message = messageSource.getMessage(MessageKeyUtil.encloseStringDelete(
                     MessageKeyConstants.Error.DIFFERENT_NEWPASSWORD),
-                    new String[]{"新しいパスワード", "確認用パスワード"},
+                    new String[] { "新しいパスワード", "確認用パスワード" },
                     Locale.getDefault());
 
         } else if (StringUtils.equals(form.getPassword(), form.getNewPassword())) {
             // 現PWDと新PWDが同じ
-            bindingResult.rejectValue("password",null, null, "");
-            bindingResult.rejectValue("newPassword",null, null, "");
-            bindingResult.rejectValue("confirmPassword",null, null, "");
+            bindingResult.rejectValue("password", null, null, "");
+            bindingResult.rejectValue("newPassword", null, null, "");
+            bindingResult.rejectValue("confirmPassword", null, null, "");
             message = messageSource.getMessage(MessageKeyUtil.encloseStringDelete(
                     MessageKeyConstants.Error.SAME_NEWPASSWORD),
-                    new String[]{"パスワード", "新しいパスワード"},
+                    new String[] { "パスワード", "新しいパスワード" },
                     Locale.getDefault());
 
         } else {
@@ -193,10 +202,10 @@ public class ProfileEditController extends BaseController {
 
             if (cnt <= 0) {
 
-                bindingResult.rejectValue("password",null, null, "");
+                bindingResult.rejectValue("password", null, null, "");
                 message = messageSource.getMessage(MessageKeyUtil.encloseStringDelete(
                         MessageKeyConstants.Error.DIFFERENT_PASSWORD),
-                        new String[]{"パスワード"},
+                        new String[] { "パスワード" },
                         Locale.getDefault());
             }
         }

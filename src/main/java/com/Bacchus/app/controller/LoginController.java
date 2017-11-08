@@ -53,7 +53,7 @@ public class LoginController extends BaseController {
 
         String responsetype = "response_type=code";
         String client_id = "client_id=1545279597";
-        String redirect_uri = "redirect_uri=https%3A%2F%2Fglue-bacchus.herokuapp.com%2Fcallback";
+        String redirect_uri = "redirect_uri=https%3A%2F%2Fglue-bacchus.herokuapp.com%2Flogin%2Fcallback";
         String state = "state=12345abcde";
         String scope = "scope=openid%20profile";
 

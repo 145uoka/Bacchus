@@ -29,9 +29,11 @@ import com.Bacchus.app.components.AccessToken;
 import com.Bacchus.app.components.IdToken;
 import com.Bacchus.app.form.LoginNameForm;
 import com.Bacchus.app.service.LoggerService;
+import com.Bacchus.app.service.OAuthService;
 import com.Bacchus.app.util.EncryptUtil;
 import com.Bacchus.app.util.MessageKeyUtil;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
+import com.Bacchus.dbflute.exentity.UserT;
 import com.Bacchus.webbase.appbase.BaseController;
 import com.Bacchus.webbase.appbase.BeforeLogin;
 import com.Bacchus.webbase.common.constants.LogMessageKeyConstants;
@@ -54,6 +56,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 @RequestMapping(value = "/login")
 public class LoginController extends BaseController {
+
+    @Autowired
+    OAuthService oAuthService;
 
     @Autowired
     LoggerService loggerService;
@@ -128,9 +133,23 @@ public class LoginController extends BaseController {
 
         IdToken idToken = idToken(accessToken.id_token);
 
-        System.out.println("aud:" + idToken.aud);
-        System.out.println("name:" + idToken.name);
+        UserT userT = oAuthService.loginByLine(idToken);
 
+        userInfo.setLogined(true);
+        userInfo.setAuthLevel(userT.getAuthLevel());
+        userInfo.setUserId(userT.getUserId());
+
+        Permissions permissions = Permissions.getPermissions(userT.getAuthLevel());
+
+        if (permissions == SystemCodeConstants.Permissions.ADMIN){
+            userInfo.setAdminFlg(true);
+        } else {
+            userInfo.setGeneralFlg(true);
+        }
+
+        Set<SystemCodeConstants.Permissions> permissionsSet = new HashSet<SystemCodeConstants.Permissions>();
+        permissionsSet.add(permissions);
+        userInfo.setPermissions(permissionsSet);
 
         return "/";
     }

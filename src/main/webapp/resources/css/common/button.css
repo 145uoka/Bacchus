@@ -1,0 +1,14 @@
+a.btn-line-login {
+ display: block;
+ width: 142px;
+ height: 40px;
+ background: url(../../image/button/btn_login_base.png) no-repeat 0 0;
+}
+a.btn-line-login:hover {
+ background: url(../../image/button/btn_login_hover.png) no-repeat 0 0;
+}
+
+a.btn-line-login:active {
+ background: url(../../image/button/btn_login_press.png) no-repeat 0 0;
+}
+

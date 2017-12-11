@@ -16,7 +16,6 @@
         <div class="container-main">
           <div class="row">
             <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" align="center">
-              <%@include file="/WEB-INF/fragment/messages.jspf"%>
             </div>
           </div>
         </div>

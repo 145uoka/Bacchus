@@ -25,13 +25,11 @@ public class IndexController extends BaseController {
     @RequestMapping(method = RequestMethod.GET)
     public String index(@ModelAttribute("form") LoginNameForm form, Model model) throws Exception {
 
-        model.addAttribute("form", form);
-
         if (userInfo.isLogined()) {
             return redirect("/loginTop");
         }
 
-
+        model.addAttribute("form", form);
         return "index";
     }
 

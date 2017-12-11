@@ -149,7 +149,7 @@ public class LoginController extends BaseController {
         permissionsSet.add(permissions);
         userInfo.setPermissions(permissionsSet);
 
-        return "/";
+        return redirect("/");
     }
 
     public IdToken idToken(String id_token) {

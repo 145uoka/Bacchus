@@ -30,7 +30,7 @@ public class LoginTopController extends BaseController {
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model) throws Exception {
 
-        model.addAttribute("message", "Wellcome!!!");
+//        model.addAttribute("message", "Wellcome!!!");
 
         return "loginTop";
     }

@@ -9,7 +9,6 @@
 </head>
 <body>
   <jsp:include page="common/header.jsp" />
-  <form id="form" accept-charset="UTF-8" action="${pageContext.request.contextPath}/login" method="get">
     <div class="container">
       <!-- コンテンツエリア -->
       <div class="container">
@@ -21,7 +20,6 @@
         </div>
       </div>
     </div>
-  </form>
   <jsp:include page="common/footer.jsp" />
 </body>
 </html>

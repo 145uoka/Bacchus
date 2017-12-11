@@ -42,7 +42,7 @@ public class OAuthService {
             userT.setUserId(userTBhv.selectNextVal());
             userT.setUserTypeId(1);
             userT.setAuthLevel(2);
-            userT.setLineFlg(Flag.ON.getIntegerValue());
+            userT.setLineFlg(Flag.ON.getIntegerValue().intValue());
             userT.setLineId(idToken.sub);
             userT.setUserName(idToken.name);
             userTBhv.insert(userT);

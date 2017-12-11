@@ -34,10 +34,10 @@
 # *The line that starts with '#' means comment-out.
 #
 map:{
-    ;  ; FK_MEMBER_USERTYPEM_TO_USERT = map:{
-        ; localTableName  = user_t             ; foreignTableName  = user_type_m
-        ; localColumnName = user_type_id ; foreignColumnName = user_type_id
-    }
+#    ; FK_MEMBER_USERTYPEM_TO_USERT = map:{
+#        ; localTableName  = user_t             ; foreignTableName  = user_type_m
+#        ; localColumnName = user_type_id ; foreignColumnName = user_type_id
+#    }
 
 }
 # ----------------/

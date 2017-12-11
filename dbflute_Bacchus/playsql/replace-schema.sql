@@ -177,7 +177,7 @@ CREATE TABLE Bacchus.user_t
 	-- 権限レベル
 	auth_level int DEFAULT 0 NOT NULL,
 	-- ユーザー区分ID
-	user_type_id int,
+	user_type_id int NOT NULL,
 	PRIMARY KEY (user_id)
 ) WITHOUT OIDS;
 

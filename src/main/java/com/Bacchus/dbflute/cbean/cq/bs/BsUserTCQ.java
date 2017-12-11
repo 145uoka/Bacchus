@@ -309,14 +309,14 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * user_type_id: {int4(10), FK to user_type_m}
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
      * @return this. (NotNull)
      */
     public BsUserTCQ addOrderBy_UserTypeId_Asc() { regOBA("user_type_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * user_type_id: {int4(10), FK to user_type_m}
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
      * @return this. (NotNull)
      */
     public BsUserTCQ addOrderBy_UserTypeId_Desc() { regOBD("user_type_id"); return this; }

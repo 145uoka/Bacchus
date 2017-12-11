@@ -366,7 +366,7 @@ public class BsUserTCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnAuthLevel() { return doColumn("auth_level"); }
         /**
-         * user_type_id: {int4(10), FK to user_type_m}
+         * user_type_id: {NotNull, int4(10), FK to user_type_m}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUserTypeId() { return doColumn("user_type_id"); }

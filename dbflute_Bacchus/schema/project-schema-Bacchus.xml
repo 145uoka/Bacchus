@@ -171,7 +171,7 @@
             javaType="Integer" name="auth_level" required="true"
             size="10" type="INTEGER"/>
         <column comment="ユーザー区分ID" dbType="int4" javaType="Integer"
-            name="user_type_id" size="10" type="INTEGER"/>
+            name="user_type_id" required="true" size="10" type="INTEGER"/>
         <foreign-key foreignSchema="bacchus" foreignTable="user_type_m" name="user_t_user_type_id_fkey">
             <reference foreign="user_type_id" local="user_type_id"/>
         </foreign-key>
@@ -194,7 +194,7 @@
     </table>
     <sequenceGroup>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
-            minimumValue="1" name="user_t_user_id_seq" schema="postgres.bacchus"/>
+            minimumValue="1" name="candidate_t_candidate_no_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="entry_t_entry_id_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
@@ -202,8 +202,8 @@
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="general_code_m_code_id_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
-            minimumValue="1" name="user_type_m_user_type_id_seq" schema="postgres.bacchus"/>
+            minimumValue="1" name="user_t_user_id_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
-            minimumValue="1" name="candidate_t_candidate_no_seq" schema="postgres.bacchus"/>
+            minimumValue="1" name="user_type_m_user_type_id_seq" schema="postgres.bacchus"/>
     </sequenceGroup>
 </database>

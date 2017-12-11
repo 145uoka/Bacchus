@@ -111,7 +111,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     /** auth_level: {NotNull, int4(10), default=[0]} */
     protected Integer _authLevel;
 
-    /** user_type_id: {int4(10), FK to user_type_m} */
+    /** user_type_id: {NotNull, int4(10), FK to user_type_m} */
     protected Integer _userTypeId;
 
     // ===================================================================================
@@ -500,9 +500,9 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] user_type_id: {int4(10), FK to user_type_m} <br>
+     * [get] user_type_id: {NotNull, int4(10), FK to user_type_m} <br>
      * ユーザー区分ID
-     * @return The value of the column 'user_type_id'. (NullAllowed even if selected: for no constraint)
+     * @return The value of the column 'user_type_id'. (basically NotNull if selected: for the constraint)
      */
     public Integer getUserTypeId() {
         checkSpecifiedProperty("userTypeId");
@@ -510,9 +510,9 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] user_type_id: {int4(10), FK to user_type_m} <br>
+     * [set] user_type_id: {NotNull, int4(10), FK to user_type_m} <br>
      * ユーザー区分ID
-     * @param userTypeId The value of the column 'user_type_id'. (NullAllowed: null update allowed for no constraint)
+     * @param userTypeId The value of the column 'user_type_id'. (basically NotNull if update: for the constraint)
      */
     public void setUserTypeId(Integer userTypeId) {
         registerModifiedProperty("userTypeId");

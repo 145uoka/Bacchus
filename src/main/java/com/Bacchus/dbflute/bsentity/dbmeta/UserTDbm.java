@@ -96,7 +96,7 @@ public class UserTDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnEmail = cci("email", "email", null, null, String.class, "email", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnPassword = cci("password", "password", null, null, String.class, "password", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnAuthLevel = cci("auth_level", "auth_level", null, null, Integer.class, "authLevel", null, false, false, true, "int4", 10, 0, "0", false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnUserTypeId = cci("user_type_id", "user_type_id", null, null, Integer.class, "userTypeId", null, false, false, false, "int4", 10, 0, null, false, null, null, "userTypeM", null, null, false);
+    protected final ColumnInfo _columnUserTypeId = cci("user_type_id", "user_type_id", null, null, Integer.class, "userTypeId", null, false, false, true, "int4", 10, 0, null, false, null, null, "userTypeM", null, null, false);
 
     /**
      * user_id: {PK, ID, NotNull, serial(10)}
@@ -149,7 +149,7 @@ public class UserTDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnAuthLevel() { return _columnAuthLevel; }
     /**
-     * user_type_id: {int4(10), FK to user_type_m}
+     * user_type_id: {NotNull, int4(10), FK to user_type_m}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUserTypeId() { return _columnUserTypeId; }

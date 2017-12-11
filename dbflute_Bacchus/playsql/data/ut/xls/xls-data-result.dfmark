@@ -8,7 +8,7 @@ data-directory: playsql/data/ut/xls
 
 [UT_TEST_DATA.xls]
   system_property_m (10)
-  DISPLAY_DEF_M (5)
+  DISPLAY_DEF_M (9)
   user_type_m (2)
   user_t (2)
   event_t (1)

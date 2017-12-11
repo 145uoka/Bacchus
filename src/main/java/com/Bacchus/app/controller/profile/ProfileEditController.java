@@ -69,11 +69,10 @@ public class ProfileEditController extends BaseController {
      */
     @RequestMapping(value = INDEX_VIEW, method = RequestMethod.GET)
     public String index(@ModelAttribute("form") ProfileEditForm form,
-            BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model)
-            throws RecordNotFoundException {
+            BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) throws RecordNotFoundException {
 
         // 画面名の設定
-        super.setDisplayTitle(model, DisplayIdConstants.Profile.BACCHUS_0103);
+        super.setDisplayTitle(model, DisplayIdConstants.Profile.BACCHUS_0401);
 
         // ログインユーザーのユーザ情報を取得
         OptionalEntity<UserT> usertT = userTBhv.selectByPK(userInfo.getUserId());
@@ -108,7 +107,7 @@ public class ProfileEditController extends BaseController {
         if (bindingResult.hasErrors()) {
             model.addAttribute(MODEL_KEY_FORM, form);
             model.addAttribute("errors", bindingResult);
-            super.setDisplayTitle(model, DisplayIdConstants.Profile.BACCHUS_0103);
+            super.setDisplayTitle(model, DisplayIdConstants.Profile.BACCHUS_0401);
             model.addAttribute(MessageType.ERROR, messageList);
             return INDEX_VIEW;
         }
@@ -129,7 +128,7 @@ public class ProfileEditController extends BaseController {
                 userInfo.getUserId(),
                 userInfo.getUserName(),
                 userInfo.getEmail()
-        });
+                });
 
         return super.redirect(INDEX_VIEW);
     }
@@ -152,54 +151,57 @@ public class ProfileEditController extends BaseController {
                 StringUtils.isBlank(form.getNewPassword()) &&
                 StringUtils.isBlank(form.getConfirmPassword())) {
 
-        } else if (StringUtils.isNotBlank(form.getPassword()) ||
-                StringUtils.isNotBlank(form.getNewPassword()) ||
-                StringUtils.isNotBlank(form.getConfirmPassword())) {
-            // 現PWD、新PWD、確認PWDのいずれかが未入力
-            bindingResult.rejectValue("password", null, null, "");
-            bindingResult.rejectValue("newPassword", null, null, "");
-            bindingResult.rejectValue("confirmPassword", null, null, "");
-            message = messageSource.getMessage(MessageKeyUtil.encloseStringDelete(
-                    MessageKeyConstants.Error.EXISTS_NOT_SET_PASSWORD),
-                    new String[] { "パスワード", "新しいパスワード", "確認用パスワード" },
-                    Locale.getDefault());
+        } else  {
 
-        } else if (!StringUtils.equals(form.getNewPassword(), form.getConfirmPassword())) {
-            // 新PWDと確認PWDが異なる
-            bindingResult.rejectValue("newPassword", null, null, "");
-            bindingResult.rejectValue("confirmPassword", null, null, "");
-            message = messageSource.getMessage(MessageKeyUtil.encloseStringDelete(
-                    MessageKeyConstants.Error.DIFFERENT_NEWPASSWORD),
-                    new String[] { "新しいパスワード", "確認用パスワード" },
-                    Locale.getDefault());
-
-        } else if (StringUtils.equals(form.getPassword(), form.getNewPassword())) {
-            // 現PWDと新PWDが同じ
-            bindingResult.rejectValue("password", null, null, "");
-            bindingResult.rejectValue("newPassword", null, null, "");
-            bindingResult.rejectValue("confirmPassword", null, null, "");
-            message = messageSource.getMessage(MessageKeyUtil.encloseStringDelete(
-                    MessageKeyConstants.Error.SAME_NEWPASSWORD),
-                    new String[] { "パスワード", "新しいパスワード" },
-                    Locale.getDefault());
-
-        } else {
-            // 現PWDが登録値と異なる
-            String encPassword = EncryptUtil.saltHash(form.getPassword(), EncryptUtil.EncryptType.MD5);
-
-            UserTCB cb = new UserTCB();
-            cb.query().setUserId_Equal(userInfo.getUserId());
-            cb.query().setPassword_Equal(encPassword);
-            int cnt = userTBhv.readCount(cb);
-
-            if (cnt <= 0) {
-
-                bindingResult.rejectValue("password", null, null, "");
+        	if (StringUtils.isBlank(form.getPassword()) || StringUtils.isBlank(form.getNewPassword()) ||
+                    StringUtils.isBlank(form.getConfirmPassword())) {
+                // 現PWD、新PWD、確認PWDのいずれかが未入力
+                bindingResult.rejectValue("password",null, null, "");
+                bindingResult.rejectValue("newPassword",null, null, "");
+                bindingResult.rejectValue("confirmPassword",null, null, "");
                 message = messageSource.getMessage(MessageKeyUtil.encloseStringDelete(
-                        MessageKeyConstants.Error.DIFFERENT_PASSWORD),
-                        new String[] { "パスワード" },
+                        MessageKeyConstants.Error.EXISTS_NOT_SET_PASSWORD),
+                        new String[]{"パスワード", "新しいパスワード", "確認用パスワード"},
                         Locale.getDefault());
-            }
+
+            } else if (!StringUtils.equals(form.getNewPassword(), form.getConfirmPassword())) {
+                // 新PWDと確認PWDが異なる
+                bindingResult.rejectValue("newPassword",null, null, "");
+                bindingResult.rejectValue("confirmPassword",null, null, "");
+                message = messageSource.getMessage(MessageKeyUtil.encloseStringDelete(
+                        MessageKeyConstants.Error.DIFFERENT_NEWPASSWORD),
+                        new String[]{"新しいパスワード", "確認用パスワード"},
+                        Locale.getDefault());
+
+            } else if (StringUtils.equals(form.getPassword(), form.getNewPassword())) {
+                // 現PWDと新PWDが同じ
+                bindingResult.rejectValue("password",null, null, "");
+                bindingResult.rejectValue("newPassword",null, null, "");
+                bindingResult.rejectValue("confirmPassword",null, null, "");
+                message = messageSource.getMessage(MessageKeyUtil.encloseStringDelete(
+                        MessageKeyConstants.Error.SAME_NEWPASSWORD),
+                        new String[]{"パスワード", "新しいパスワード"},
+                        Locale.getDefault());
+
+            } else {
+                // 現PWDが登録値と異なる
+                String encPassword = EncryptUtil.saltHash(form.getPassword(), EncryptUtil.EncryptType.MD5);
+
+                UserTCB cb = new UserTCB();
+                cb.query().setUserId_Equal(userInfo.getUserId());
+                cb.query().setPassword_Equal(encPassword);
+                int cnt = userTBhv.readCount(cb);
+
+                if (cnt <= 0) {
+
+                    bindingResult.rejectValue("password",null, null, "");
+                    message = messageSource.getMessage(MessageKeyUtil.encloseStringDelete(
+                            MessageKeyConstants.Error.DIFFERENT_PASSWORD),
+                            new String[]{"パスワード"},
+                            Locale.getDefault());
+                }
+        	}
+
         }
 
         if (StringUtils.isNotBlank(message)) {

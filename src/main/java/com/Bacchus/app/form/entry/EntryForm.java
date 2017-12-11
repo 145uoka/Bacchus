@@ -1,4 +1,4 @@
-package com.Bacchus.app.form.event;
+package com.Bacchus.app.form.entry;
 
 import java.io.Serializable;
 

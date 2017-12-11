@@ -157,29 +157,29 @@ public abstract class BsEntryTBhv extends AbstractBehaviorWritable<EntryT, Entry
 
     /**
      * Select the entity by the primary-key value.
-     * @param entryId : PK, ID, NotNull, serial(10). (NotNull)
+     * @param entryId : PK, ID, NotNull, bigserial(19). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public OptionalEntity<EntryT> selectByPK(Integer entryId) {
+    public OptionalEntity<EntryT> selectByPK(Long entryId) {
         return facadeSelectByPK(entryId);
     }
 
-    protected OptionalEntity<EntryT> facadeSelectByPK(Integer entryId) {
+    protected OptionalEntity<EntryT> facadeSelectByPK(Long entryId) {
         return doSelectOptionalByPK(entryId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends EntryT> ENTITY doSelectByPK(Integer entryId, Class<? extends ENTITY> tp) {
+    protected <ENTITY extends EntryT> ENTITY doSelectByPK(Long entryId, Class<? extends ENTITY> tp) {
         return doSelectEntity(xprepareCBAsPK(entryId), tp);
     }
 
-    protected <ENTITY extends EntryT> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer entryId, Class<? extends ENTITY> tp) {
+    protected <ENTITY extends EntryT> OptionalEntity<ENTITY> doSelectOptionalByPK(Long entryId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(entryId, tp), entryId);
     }
 
-    protected EntryTCB xprepareCBAsPK(Integer entryId) {
+    protected EntryTCB xprepareCBAsPK(Long entryId) {
         assertObjectNotNull("entryId", entryId);
         return newConditionBean().acceptPK(entryId);
     }
@@ -286,12 +286,12 @@ public abstract class BsEntryTBhv extends AbstractBehaviorWritable<EntryT, Entry
      * So you don't need to call this as long as you need to get next value before insert().
      * @return The next value. (NotNull)
      */
-    public Integer selectNextVal() {
+    public Long selectNextVal() {
         return facadeSelectNextVal();
     }
 
-    protected Integer facadeSelectNextVal() {
-        return doSelectNextVal(Integer.class);
+    protected Long facadeSelectNextVal() {
+        return doSelectNextVal(Long.class);
     }
 
     protected <RESULT> RESULT doSelectNextVal(Class<RESULT> tp) {
@@ -403,7 +403,7 @@ public abstract class BsEntryTBhv extends AbstractBehaviorWritable<EntryT, Entry
      * @param entryTList The list of entryT. (NotNull, EmptyAllowed)
      * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<Integer> extractEntryIdList(List<EntryT> entryTList)
+    public List<Long> extractEntryIdList(List<EntryT> entryTList)
     { return helpExtractListInternally(entryTList, "entryId"); }
 
     // ===================================================================================

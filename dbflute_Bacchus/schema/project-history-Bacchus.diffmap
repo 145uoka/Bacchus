@@ -1,4 +1,132 @@
 map:{
+    ; 2017/12/12 01:46:30 = map:{
+        ; diffDate = 2017/12/12 01:46:30
+        ; tableDiff = map:{
+            ; user_t = map:{
+                ; tableName = user_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; login_id = map:{
+                        ; columnName = login_id
+                        ; diffType = CHANGE
+                        ; notNullDiff = map:{
+                            ; next = false
+                            ; previous = true
+                        }
+                    }
+                    ; password = map:{
+                        ; columnName = password
+                        ; diffType = CHANGE
+                        ; notNullDiff = map:{
+                            ; next = false
+                            ; previous = true
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ; 2017/12/12 01:35:00 = map:{
+        ; diffDate = 2017/12/12 01:35:00
+        ; tableDiff = map:{
+            ; user_t = map:{
+                ; tableName = user_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; last_name = map:{
+                        ; columnName = last_name
+                        ; diffType = ADD
+                    }
+                    ; first_name = map:{
+                        ; columnName = first_name
+                        ; diffType = ADD
+                    }
+                    ; lastname = map:{
+                        ; columnName = lastname
+                        ; diffType = DELETE
+                    }
+                    ; firstname = map:{
+                        ; columnName = firstname
+                        ; diffType = DELETE
+                    }
+                }
+            }
+        }
+    }
+    ; 2017/12/12 01:17:13 = map:{
+        ; diffDate = 2017/12/12 01:17:13
+        ; tableDiff = map:{
+            ; user_t = map:{
+                ; tableName = user_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; login_id = map:{
+                        ; columnName = login_id
+                        ; diffType = ADD
+                    }
+                    ; line_id = map:{
+                        ; columnName = line_id
+                        ; diffType = ADD
+                    }
+                    ; line_flg = map:{
+                        ; columnName = line_flg
+                        ; diffType = ADD
+                    }
+                    ; user_type_id = map:{
+                        ; columnName = user_type_id
+                        ; diffType = CHANGE
+                        ; notNullDiff = map:{
+                            ; next = false
+                            ; previous = true
+                        }
+                    }
+                }
+                ; uniqueKeyDiff = map:{
+                    ; user_t_login_id_key = map:{
+                        ; constraintName = user_t_login_id_key
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
+    ; 2017/11/21 19:49:19 = map:{
+        ; diffDate = 2017/11/21 19:49:19
+        ; tableDiff = map:{
+            ; entry_t = map:{
+                ; tableName = entry_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; entry_id = map:{
+                        ; columnName = entry_id
+                        ; diffType = CHANGE
+                        ; dbTypeDiff = map:{
+                            ; next = bigserial
+                            ; previous = serial
+                        }
+                        ; columnSizeDiff = map:{
+                            ; next = 19
+                            ; previous = 10
+                        }
+                    }
+                }
+            }
+            ; user_t = map:{
+                ; tableName = user_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; lastname = map:{
+                        ; columnName = lastname
+                        ; diffType = ADD
+                    }
+                    ; firstname = map:{
+                        ; columnName = firstname
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
     ; 2017/11/07 01:19:27 = map:{
         ; diffDate = 2017/11/07 01:19:27
         ; tableDiff = map:{

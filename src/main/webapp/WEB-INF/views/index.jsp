@@ -25,16 +25,16 @@
                 <div class="panel panel-default main-border-color">
                   <div class="panel-body sub-background-color">
                     <div class="row">
-                      <div class="form-group <ext:isErrors path='userName' value='has-error'/>">
-                        <label class="col-md-5 control-label"> ユーザー名 <span class="label label-danger" style="margin-left: 10px">必須</span>
+                      <div class="form-group <ext:isErrors path='loginId' value='has-error'/>">
+                        <label class="col-md-5 control-label"> ログインID <span class="label label-danger" style="margin-left: 10px">必須</span>
                         </label>
                         <div class="col-md-5">
-                          <form:input path="userName" class="form-control" maxlength="${ext:getMaxLen('CNT0001') }" />
+                          <form:input path="loginId" class="form-control" maxlength="${ext:getMaxLen('CNT0001') }" />
                         </div>
                         <div style="clear: both;">
                           <span class="col-md-5"></span>
                           <div class="col-md-5">
-                            <form:errors path="userName" element="div" cssClass="text-danger" />
+                            <form:errors path="loginId" element="div" cssClass="text-danger" />
                           </div>
                         </div>
                       </div>

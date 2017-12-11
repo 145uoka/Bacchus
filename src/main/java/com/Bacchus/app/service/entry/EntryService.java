@@ -1,4 +1,4 @@
-package com.Bacchus.app.service.event;
+package com.Bacchus.app.service.entry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.Bacchus.app.components.EventDto;
-import com.Bacchus.app.form.event.EntryForm;
-import com.Bacchus.app.form.event.EntryRegisterForm;
+import com.Bacchus.app.form.entry.EntryForm;
+import com.Bacchus.app.form.entry.EntryRegisterForm;
 import com.Bacchus.app.service.AbstractService;
 import com.Bacchus.dbflute.cbean.CandidateTCB;
 import com.Bacchus.dbflute.cbean.EntryTCB;

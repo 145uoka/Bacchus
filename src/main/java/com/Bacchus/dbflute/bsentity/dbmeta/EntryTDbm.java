@@ -43,7 +43,7 @@ public class EntryTDbm extends AbstractDBMeta {
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     { xsetupEpg(); }
     protected void xsetupEpg() {
-        setupEpg(_epgMap, et -> ((EntryT)et).getEntryId(), (et, vl) -> ((EntryT)et).setEntryId(cti(vl)), "entryId");
+        setupEpg(_epgMap, et -> ((EntryT)et).getEntryId(), (et, vl) -> ((EntryT)et).setEntryId(ctl(vl)), "entryId");
         setupEpg(_epgMap, et -> ((EntryT)et).getCandidateNo(), (et, vl) -> ((EntryT)et).setCandidateNo(cti(vl)), "candidateNo");
         setupEpg(_epgMap, et -> ((EntryT)et).getUserId(), (et, vl) -> ((EntryT)et).setUserId(cti(vl)), "userId");
         setupEpg(_epgMap, et -> ((EntryT)et).getEntryDiv(), (et, vl) -> ((EntryT)et).setEntryDiv(cti(vl)), "entryDiv");
@@ -80,13 +80,13 @@ public class EntryTDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnEntryId = cci("entry_id", "entry_id", null, null, Integer.class, "entryId", null, true, true, true, "serial", 10, 0, "nextval('entry_t_entry_id_seq'::regclass)", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnEntryId = cci("entry_id", "entry_id", null, null, Long.class, "entryId", null, true, true, true, "bigserial", 19, 0, "nextval('entry_t_entry_id_seq'::regclass)", false, null, null, null, null, null, false);
     protected final ColumnInfo _columnCandidateNo = cci("candidate_no", "candidate_no", null, null, Integer.class, "candidateNo", null, false, false, true, "int4", 10, 0, null, false, null, null, "candidateT", null, null, false);
     protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, true, "int4", 10, 0, null, false, null, null, "userT", null, null, false);
     protected final ColumnInfo _columnEntryDiv = cci("entry_div", "entry_div", null, null, Integer.class, "entryDiv", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
 
     /**
-     * entry_id: {PK, ID, NotNull, serial(10)}
+     * entry_id: {PK, ID, NotNull, bigserial(19)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnEntryId() { return _columnEntryId; }

@@ -57,7 +57,7 @@ CREATE TABLE Bacchus.display_def_m
 CREATE TABLE Bacchus.entry_t
 (
 	-- 参加ID
-	entry_id serial NOT NULL,
+	entry_id bigserial NOT NULL,
 	-- 候補日管理番号
 	candidate_no int NOT NULL,
 	-- user_id
@@ -158,16 +158,26 @@ CREATE TABLE Bacchus.user_t
 (
 	-- user_id
 	user_id serial NOT NULL,
+	-- ログインID
+	login_id text UNIQUE,
+	-- LineID
+	line_id text,
 	-- ユーザー名
 	user_name text NOT NULL,
+	-- Lineフラグ
+	line_flg int DEFAULT 0 NOT NULL,
+	-- 苗字(氏)
+	last_name text,
+	-- 名前(名)
+	first_name text,
 	-- Eメール
 	email text,
 	-- 暗号化PWD
-	password text NOT NULL,
+	password text,
 	-- 権限レベル
 	auth_level int DEFAULT 0 NOT NULL,
 	-- ユーザー区分ID
-	user_type_id int NOT NULL,
+	user_type_id int,
 	PRIMARY KEY (user_id)
 ) WITHOUT OIDS;
 
@@ -290,7 +300,12 @@ COMMENT ON COLUMN Bacchus.system_property_m.UPDATE_DATETIME IS '更新日時';
 COMMENT ON COLUMN Bacchus.system_property_m.UPDATE_USER IS '更新者';
 COMMENT ON TABLE Bacchus.user_t IS 'ユーザー_T';
 COMMENT ON COLUMN Bacchus.user_t.user_id IS 'user_id';
+COMMENT ON COLUMN Bacchus.user_t.login_id IS 'ログインID';
+COMMENT ON COLUMN Bacchus.user_t.line_id IS 'LineID';
 COMMENT ON COLUMN Bacchus.user_t.user_name IS 'ユーザー名';
+COMMENT ON COLUMN Bacchus.user_t.line_flg IS 'Lineフラグ';
+COMMENT ON COLUMN Bacchus.user_t.last_name IS '苗字(氏)';
+COMMENT ON COLUMN Bacchus.user_t.first_name IS '名前(名)';
 COMMENT ON COLUMN Bacchus.user_t.email IS 'Eメール';
 COMMENT ON COLUMN Bacchus.user_t.password IS '暗号化PWD';
 COMMENT ON COLUMN Bacchus.user_t.auth_level IS '権限レベル';

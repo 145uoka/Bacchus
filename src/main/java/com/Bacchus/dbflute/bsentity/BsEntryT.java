@@ -44,7 +44,7 @@ import com.Bacchus.dbflute.exentity.*;
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * Integer entryId = entity.getEntryId();
+ * Long entryId = entity.getEntryId();
  * Integer candidateNo = entity.getCandidateNo();
  * Integer userId = entity.getUserId();
  * Integer entryDiv = entity.getEntryDiv();
@@ -67,8 +67,8 @@ public abstract class BsEntryT extends AbstractEntity implements DomainEntity {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** entry_id: {PK, ID, NotNull, serial(10)} */
-    protected Integer _entryId;
+    /** entry_id: {PK, ID, NotNull, bigserial(19)} */
+    protected Long _entryId;
 
     /** candidate_no: {NotNull, int4(10), FK to candidate_t} */
     protected Integer _candidateNo;
@@ -224,21 +224,21 @@ public abstract class BsEntryT extends AbstractEntity implements DomainEntity {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] entry_id: {PK, ID, NotNull, serial(10)} <br>
+     * [get] entry_id: {PK, ID, NotNull, bigserial(19)} <br>
      * 参加ID
      * @return The value of the column 'entry_id'. (basically NotNull if selected: for the constraint)
      */
-    public Integer getEntryId() {
+    public Long getEntryId() {
         checkSpecifiedProperty("entryId");
         return _entryId;
     }
 
     /**
-     * [set] entry_id: {PK, ID, NotNull, serial(10)} <br>
+     * [set] entry_id: {PK, ID, NotNull, bigserial(19)} <br>
      * 参加ID
      * @param entryId The value of the column 'entry_id'. (basically NotNull if update: for the constraint)
      */
-    public void setEntryId(Integer entryId) {
+    public void setEntryId(Long entryId) {
         registerModifiedProperty("entryId");
         _entryId = entryId;
     }

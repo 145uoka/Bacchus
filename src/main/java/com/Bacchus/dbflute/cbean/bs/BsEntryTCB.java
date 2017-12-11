@@ -81,10 +81,10 @@ public class BsEntryTCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param entryId : PK, ID, NotNull, serial(10). (NotNull)
+     * @param entryId : PK, ID, NotNull, bigserial(19). (NotNull)
      * @return this. (NotNull)
      */
-    public EntryTCB acceptPK(Integer entryId) {
+    public EntryTCB acceptPK(Long entryId) {
         assertObjectNotNull("entryId", entryId);
         BsEntryTCB cb = this;
         cb.query().setEntryId_Equal(entryId);
@@ -344,7 +344,7 @@ public class BsEntryTCB extends AbstractConditionBean {
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * entry_id: {PK, ID, NotNull, serial(10)}
+         * entry_id: {PK, ID, NotNull, bigserial(19)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnEntryId() { return doColumn("entry_id"); }

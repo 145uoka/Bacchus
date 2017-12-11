@@ -45,63 +45,63 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
     //                                                                               =====
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * entry_id: {PK, ID, NotNull, serial(10)}
+     * entry_id: {PK, ID, NotNull, bigserial(19)}
      * @param entryId The value of entryId as equal. (basically NotNull: error as default, or no condition as option)
      */
-    public void setEntryId_Equal(Integer entryId) {
+    public void setEntryId_Equal(Long entryId) {
         doSetEntryId_Equal(entryId);
     }
 
-    protected void doSetEntryId_Equal(Integer entryId) {
+    protected void doSetEntryId_Equal(Long entryId) {
         regEntryId(CK_EQ, entryId);
     }
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * entry_id: {PK, ID, NotNull, serial(10)}
+     * entry_id: {PK, ID, NotNull, bigserial(19)}
      * @param entryId The value of entryId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setEntryId_NotEqual(Integer entryId) {
+    public void setEntryId_NotEqual(Long entryId) {
         doSetEntryId_NotEqual(entryId);
     }
 
-    protected void doSetEntryId_NotEqual(Integer entryId) {
+    protected void doSetEntryId_NotEqual(Long entryId) {
         regEntryId(CK_NES, entryId);
     }
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * entry_id: {PK, ID, NotNull, serial(10)}
+     * entry_id: {PK, ID, NotNull, bigserial(19)}
      * @param entryId The value of entryId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
-    public void setEntryId_GreaterThan(Integer entryId) {
+    public void setEntryId_GreaterThan(Long entryId) {
         regEntryId(CK_GT, entryId);
     }
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * entry_id: {PK, ID, NotNull, serial(10)}
+     * entry_id: {PK, ID, NotNull, bigserial(19)}
      * @param entryId The value of entryId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
-    public void setEntryId_LessThan(Integer entryId) {
+    public void setEntryId_LessThan(Long entryId) {
         regEntryId(CK_LT, entryId);
     }
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * entry_id: {PK, ID, NotNull, serial(10)}
+     * entry_id: {PK, ID, NotNull, bigserial(19)}
      * @param entryId The value of entryId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setEntryId_GreaterEqual(Integer entryId) {
+    public void setEntryId_GreaterEqual(Long entryId) {
         regEntryId(CK_GE, entryId);
     }
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * entry_id: {PK, ID, NotNull, serial(10)}
+     * entry_id: {PK, ID, NotNull, bigserial(19)}
      * @param entryId The value of entryId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setEntryId_LessEqual(Integer entryId) {
+    public void setEntryId_LessEqual(Long entryId) {
         regEntryId(CK_LE, entryId);
     }
 
@@ -109,12 +109,12 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * entry_id: {PK, ID, NotNull, serial(10)}
+     * entry_id: {PK, ID, NotNull, bigserial(19)}
      * @param minNumber The min number of entryId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of entryId. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
-    public void setEntryId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+    public void setEntryId_RangeOf(Long minNumber, Long maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
         setEntryId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
@@ -122,50 +122,50 @@ public abstract class AbstractBsEntryTCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * entry_id: {PK, ID, NotNull, serial(10)}
+     * entry_id: {PK, ID, NotNull, bigserial(19)}
      * @param minNumber The min number of entryId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of entryId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    protected void setEntryId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+    protected void setEntryId_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueEntryId(), "entry_id", rangeOfOption);
     }
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * entry_id: {PK, ID, NotNull, serial(10)}
+     * entry_id: {PK, ID, NotNull, bigserial(19)}
      * @param entryIdList The collection of entryId as inScope. (NullAllowed: if null (or empty), no condition)
      */
-    public void setEntryId_InScope(Collection<Integer> entryIdList) {
+    public void setEntryId_InScope(Collection<Long> entryIdList) {
         doSetEntryId_InScope(entryIdList);
     }
 
-    protected void doSetEntryId_InScope(Collection<Integer> entryIdList) {
+    protected void doSetEntryId_InScope(Collection<Long> entryIdList) {
         regINS(CK_INS, cTL(entryIdList), xgetCValueEntryId(), "entry_id");
     }
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * entry_id: {PK, ID, NotNull, serial(10)}
+     * entry_id: {PK, ID, NotNull, bigserial(19)}
      * @param entryIdList The collection of entryId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
-    public void setEntryId_NotInScope(Collection<Integer> entryIdList) {
+    public void setEntryId_NotInScope(Collection<Long> entryIdList) {
         doSetEntryId_NotInScope(entryIdList);
     }
 
-    protected void doSetEntryId_NotInScope(Collection<Integer> entryIdList) {
+    protected void doSetEntryId_NotInScope(Collection<Long> entryIdList) {
         regINS(CK_NINS, cTL(entryIdList), xgetCValueEntryId(), "entry_id");
     }
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * entry_id: {PK, ID, NotNull, serial(10)}
+     * entry_id: {PK, ID, NotNull, bigserial(19)}
      */
     public void setEntryId_IsNull() { regEntryId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * entry_id: {PK, ID, NotNull, serial(10)}
+     * entry_id: {PK, ID, NotNull, bigserial(19)}
      */
     public void setEntryId_IsNotNull() { regEntryId(CK_ISNN, DOBJ); }
 

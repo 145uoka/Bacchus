@@ -43,10 +43,10 @@
             name="update_user" size="2147483647" type="VARCHAR"/>
     </table>
     <table comment="参加_T" name="entry_t" schema="postgres.bacchus" type="TABLE">
-        <column autoIncrement="true" comment="参加ID" dbType="serial"
+        <column autoIncrement="true" comment="参加ID" dbType="bigserial"
             default="nextval('entry_t_entry_id_seq'::regclass)"
-            javaType="Integer" name="entry_id" pkName="entry_t_pkey"
-            pkPosition="1" primaryKey="true" required="true" size="10" type="INTEGER"/>
+            javaType="Long" name="entry_id" pkName="entry_t_pkey"
+            pkPosition="1" primaryKey="true" required="true" size="19" type="BIGINT"/>
         <column comment="候補日管理番号" dbType="int4" javaType="Integer"
             name="candidate_no" required="true" size="10" type="INTEGER"/>
         <column comment="user_id" dbType="int4" javaType="Integer"
@@ -151,20 +151,33 @@
             default="nextval('user_t_user_id_seq'::regclass)"
             javaType="Integer" name="user_id" pkName="user_t_pkey"
             pkPosition="1" primaryKey="true" required="true" size="10" type="INTEGER"/>
+        <column comment="ログインID" dbType="text" javaType="String"
+            name="login_id" size="2147483647" type="VARCHAR"/>
+        <column comment="LineID" dbType="text" javaType="String"
+            name="line_id" size="2147483647" type="VARCHAR"/>
         <column comment="ユーザー名" dbType="text" javaType="String"
             name="user_name" required="true" size="2147483647" type="VARCHAR"/>
+        <column comment="Lineフラグ" dbType="int4" default="0"
+            javaType="Integer" name="line_flg" required="true" size="10" type="INTEGER"/>
+        <column comment="苗字(氏)" dbType="text" javaType="String"
+            name="last_name" size="2147483647" type="VARCHAR"/>
+        <column comment="名前(名)" dbType="text" javaType="String"
+            name="first_name" size="2147483647" type="VARCHAR"/>
         <column comment="Eメール" dbType="text" javaType="String"
             name="email" size="2147483647" type="VARCHAR"/>
         <column comment="暗号化PWD" dbType="text" javaType="String"
-            name="password" required="true" size="2147483647" type="VARCHAR"/>
+            name="password" size="2147483647" type="VARCHAR"/>
         <column comment="権限レベル" dbType="int4" default="0"
             javaType="Integer" name="auth_level" required="true"
             size="10" type="INTEGER"/>
         <column comment="ユーザー区分ID" dbType="int4" javaType="Integer"
-            name="user_type_id" required="true" size="10" type="INTEGER"/>
+            name="user_type_id" size="10" type="INTEGER"/>
         <foreign-key foreignSchema="bacchus" foreignTable="user_type_m" name="user_t_user_type_id_fkey">
             <reference foreign="user_type_id" local="user_type_id"/>
         </foreign-key>
+        <unique name="user_t_login_id_key">
+            <unique-column name="login_id" position="1"/>
+        </unique>
     </table>
     <table comment="ユーザー区分_M" name="user_type_m"
         schema="postgres.bacchus" type="TABLE">
@@ -181,7 +194,7 @@
     </table>
     <sequenceGroup>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
-            minimumValue="1" name="candidate_t_candidate_no_seq" schema="postgres.bacchus"/>
+            minimumValue="1" name="user_t_user_id_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="entry_t_entry_id_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
@@ -189,8 +202,8 @@
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="general_code_m_code_id_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
-            minimumValue="1" name="user_t_user_id_seq" schema="postgres.bacchus"/>
-        <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="user_type_m_user_type_id_seq" schema="postgres.bacchus"/>
+        <sequence incrementSize="1" maximumValue="9223372036854775807"
+            minimumValue="1" name="candidate_t_candidate_no_seq" schema="postgres.bacchus"/>
     </sequenceGroup>
 </database>

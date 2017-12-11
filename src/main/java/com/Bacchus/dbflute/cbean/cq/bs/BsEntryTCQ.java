@@ -81,14 +81,14 @@ public class BsEntryTCQ extends AbstractBsEntryTCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * entry_id: {PK, ID, NotNull, serial(10)}
+     * entry_id: {PK, ID, NotNull, bigserial(19)}
      * @return this. (NotNull)
      */
     public BsEntryTCQ addOrderBy_EntryId_Asc() { regOBA("entry_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * entry_id: {PK, ID, NotNull, serial(10)}
+     * entry_id: {PK, ID, NotNull, bigserial(19)}
      * @return this. (NotNull)
      */
     public BsEntryTCQ addOrderBy_EntryId_Desc() { regOBD("entry_id"); return this; }

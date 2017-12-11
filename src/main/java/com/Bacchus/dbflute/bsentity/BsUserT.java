@@ -19,7 +19,7 @@ import com.Bacchus.dbflute.exentity.*;
  *     user_id
  *
  * [column]
- *     user_id, user_name, email, password, auth_level, user_type_id
+ *     user_id, login_id, line_id, user_name, line_flg, last_name, first_name, email, password, auth_level, user_type_id
  *
  * [sequence]
  *     user_t_user_id_seq
@@ -45,13 +45,23 @@ import com.Bacchus.dbflute.exentity.*;
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Integer userId = entity.getUserId();
+ * String loginId = entity.getLoginId();
+ * String lineId = entity.getLineId();
  * String userName = entity.getUserName();
+ * Integer lineFlg = entity.getLineFlg();
+ * String lastName = entity.getLastName();
+ * String firstName = entity.getFirstName();
  * String email = entity.getEmail();
  * String password = entity.getPassword();
  * Integer authLevel = entity.getAuthLevel();
  * Integer userTypeId = entity.getUserTypeId();
  * entity.setUserId(userId);
+ * entity.setLoginId(loginId);
+ * entity.setLineId(lineId);
  * entity.setUserName(userName);
+ * entity.setLineFlg(lineFlg);
+ * entity.setLastName(lastName);
+ * entity.setFirstName(firstName);
  * entity.setEmail(email);
  * entity.setPassword(password);
  * entity.setAuthLevel(authLevel);
@@ -74,19 +84,34 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     /** user_id: {PK, ID, NotNull, serial(10)} */
     protected Integer _userId;
 
+    /** login_id: {UQ, text(2147483647)} */
+    protected String _loginId;
+
+    /** line_id: {text(2147483647)} */
+    protected String _lineId;
+
     /** user_name: {NotNull, text(2147483647)} */
     protected String _userName;
+
+    /** line_flg: {NotNull, int4(10), default=[0]} */
+    protected Integer _lineFlg;
+
+    /** last_name: {text(2147483647)} */
+    protected String _lastName;
+
+    /** first_name: {text(2147483647)} */
+    protected String _firstName;
 
     /** email: {text(2147483647)} */
     protected String _email;
 
-    /** password: {NotNull, text(2147483647)} */
+    /** password: {text(2147483647)} */
     protected String _password;
 
     /** auth_level: {NotNull, int4(10), default=[0]} */
     protected Integer _authLevel;
 
-    /** user_type_id: {NotNull, int4(10), FK to user_type_m} */
+    /** user_type_id: {int4(10), FK to user_type_m} */
     protected Integer _userTypeId;
 
     // ===================================================================================
@@ -109,6 +134,17 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     public boolean hasPrimaryKeyValue() {
         if (_userId == null) { return false; }
         return true;
+    }
+
+    /**
+     * To be unique by the unique column. <br>
+     * You can update the entity by the key when entity update (NOT batch update).
+     * @param loginId : UQ, text(2147483647). (NotNull)
+     */
+    public void uniqueBy(String loginId) {
+        __uniqueDrivenProperties.clear();
+        __uniqueDrivenProperties.addPropertyName("loginId");
+        setLoginId(loginId);
     }
 
     // ===================================================================================
@@ -223,7 +259,12 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
         sb.append(dm).append(xfND(_userId));
+        sb.append(dm).append(xfND(_loginId));
+        sb.append(dm).append(xfND(_lineId));
         sb.append(dm).append(xfND(_userName));
+        sb.append(dm).append(xfND(_lineFlg));
+        sb.append(dm).append(xfND(_lastName));
+        sb.append(dm).append(xfND(_firstName));
         sb.append(dm).append(xfND(_email));
         sb.append(dm).append(xfND(_password));
         sb.append(dm).append(xfND(_authLevel));
@@ -279,6 +320,46 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
+     * [get] login_id: {UQ, text(2147483647)} <br>
+     * ログインID
+     * @return The value of the column 'login_id'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getLoginId() {
+        checkSpecifiedProperty("loginId");
+        return _loginId;
+    }
+
+    /**
+     * [set] login_id: {UQ, text(2147483647)} <br>
+     * ログインID
+     * @param loginId The value of the column 'login_id'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setLoginId(String loginId) {
+        registerModifiedProperty("loginId");
+        _loginId = loginId;
+    }
+
+    /**
+     * [get] line_id: {text(2147483647)} <br>
+     * LineID
+     * @return The value of the column 'line_id'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getLineId() {
+        checkSpecifiedProperty("lineId");
+        return _lineId;
+    }
+
+    /**
+     * [set] line_id: {text(2147483647)} <br>
+     * LineID
+     * @param lineId The value of the column 'line_id'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setLineId(String lineId) {
+        registerModifiedProperty("lineId");
+        _lineId = lineId;
+    }
+
+    /**
      * [get] user_name: {NotNull, text(2147483647)} <br>
      * ユーザー名
      * @return The value of the column 'user_name'. (basically NotNull if selected: for the constraint)
@@ -296,6 +377,66 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     public void setUserName(String userName) {
         registerModifiedProperty("userName");
         _userName = userName;
+    }
+
+    /**
+     * [get] line_flg: {NotNull, int4(10), default=[0]} <br>
+     * Lineフラグ
+     * @return The value of the column 'line_flg'. (basically NotNull if selected: for the constraint)
+     */
+    public Integer getLineFlg() {
+        checkSpecifiedProperty("lineFlg");
+        return _lineFlg;
+    }
+
+    /**
+     * [set] line_flg: {NotNull, int4(10), default=[0]} <br>
+     * Lineフラグ
+     * @param lineFlg The value of the column 'line_flg'. (basically NotNull if update: for the constraint)
+     */
+    public void setLineFlg(Integer lineFlg) {
+        registerModifiedProperty("lineFlg");
+        _lineFlg = lineFlg;
+    }
+
+    /**
+     * [get] last_name: {text(2147483647)} <br>
+     * 苗字(氏)
+     * @return The value of the column 'last_name'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getLastName() {
+        checkSpecifiedProperty("lastName");
+        return _lastName;
+    }
+
+    /**
+     * [set] last_name: {text(2147483647)} <br>
+     * 苗字(氏)
+     * @param lastName The value of the column 'last_name'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setLastName(String lastName) {
+        registerModifiedProperty("lastName");
+        _lastName = lastName;
+    }
+
+    /**
+     * [get] first_name: {text(2147483647)} <br>
+     * 名前(名)
+     * @return The value of the column 'first_name'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getFirstName() {
+        checkSpecifiedProperty("firstName");
+        return _firstName;
+    }
+
+    /**
+     * [set] first_name: {text(2147483647)} <br>
+     * 名前(名)
+     * @param firstName The value of the column 'first_name'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setFirstName(String firstName) {
+        registerModifiedProperty("firstName");
+        _firstName = firstName;
     }
 
     /**
@@ -319,9 +460,9 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] password: {NotNull, text(2147483647)} <br>
+     * [get] password: {text(2147483647)} <br>
      * 暗号化PWD
-     * @return The value of the column 'password'. (basically NotNull if selected: for the constraint)
+     * @return The value of the column 'password'. (NullAllowed even if selected: for no constraint)
      */
     public String getPassword() {
         checkSpecifiedProperty("password");
@@ -329,9 +470,9 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] password: {NotNull, text(2147483647)} <br>
+     * [set] password: {text(2147483647)} <br>
      * 暗号化PWD
-     * @param password The value of the column 'password'. (basically NotNull if update: for the constraint)
+     * @param password The value of the column 'password'. (NullAllowed: null update allowed for no constraint)
      */
     public void setPassword(String password) {
         registerModifiedProperty("password");
@@ -359,9 +500,9 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] user_type_id: {NotNull, int4(10), FK to user_type_m} <br>
+     * [get] user_type_id: {int4(10), FK to user_type_m} <br>
      * ユーザー区分ID
-     * @return The value of the column 'user_type_id'. (basically NotNull if selected: for the constraint)
+     * @return The value of the column 'user_type_id'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getUserTypeId() {
         checkSpecifiedProperty("userTypeId");
@@ -369,9 +510,9 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] user_type_id: {NotNull, int4(10), FK to user_type_m} <br>
+     * [set] user_type_id: {int4(10), FK to user_type_m} <br>
      * ユーザー区分ID
-     * @param userTypeId The value of the column 'user_type_id'. (basically NotNull if update: for the constraint)
+     * @param userTypeId The value of the column 'user_type_id'. (NullAllowed: null update allowed for no constraint)
      */
     public void setUserTypeId(Integer userTypeId) {
         registerModifiedProperty("userTypeId");

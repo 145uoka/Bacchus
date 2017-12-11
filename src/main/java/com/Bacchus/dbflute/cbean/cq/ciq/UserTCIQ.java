@@ -82,7 +82,12 @@ public class UserTCIQ extends AbstractBsUserTCQ {
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepUserId_QueryDerivedReferrer_EventTListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    protected ConditionValue xgetCValueLoginId() { return _myCQ.xdfgetLoginId(); }
+    protected ConditionValue xgetCValueLineId() { return _myCQ.xdfgetLineId(); }
     protected ConditionValue xgetCValueUserName() { return _myCQ.xdfgetUserName(); }
+    protected ConditionValue xgetCValueLineFlg() { return _myCQ.xdfgetLineFlg(); }
+    protected ConditionValue xgetCValueLastName() { return _myCQ.xdfgetLastName(); }
+    protected ConditionValue xgetCValueFirstName() { return _myCQ.xdfgetFirstName(); }
     protected ConditionValue xgetCValueEmail() { return _myCQ.xdfgetEmail(); }
     protected ConditionValue xgetCValuePassword() { return _myCQ.xdfgetPassword(); }
     protected ConditionValue xgetCValueAuthLevel() { return _myCQ.xdfgetAuthLevel(); }

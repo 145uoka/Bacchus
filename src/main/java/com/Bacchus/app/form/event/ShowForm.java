@@ -3,12 +3,11 @@ package com.Bacchus.app.form.event;
 import java.io.Serializable;
 
 /**
- * 参加可否登録用Form。
+ * イベント詳細用Form。
  *
  * @author ishigouoka_k
- * $Id:$
  */
-public class EntryInputForm implements Serializable {
+public class ShowForm implements Serializable {
 
     /** serialVersionUID */
     private static final long serialVersionUID = 1L;
@@ -54,5 +53,4 @@ public class EntryInputForm implements Serializable {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
-
 }

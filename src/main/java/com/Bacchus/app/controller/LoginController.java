@@ -97,9 +97,6 @@ public class LoginController extends BaseController {
     public String callback(@RequestParam("code") String code,
             @RequestParam("state") String state) throws Exception {
 
-        System.out.println("code : " + code);
-        System.out.println("state : " + state);
-
         HttpPost httpPost = new HttpPost("https://api.line.me/oauth2/v2.1/token");
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -176,16 +173,24 @@ public class LoginController extends BaseController {
     public String loginName(@ModelAttribute("form") LoginNameForm form, BindingResult bindingResult,
             RedirectAttributes redirectAttributes, Model model) throws Exception {
 
-        String userName = form.getUserName();
+        String loginId = form.getLoginId();
         String encPassword = EncryptUtil.saltHash(form.getPassword(), EncryptUtil.EncryptType.MD5);
 
         userTBhv.selectEntity(cb -> {
-            cb.query().setUserName_Equal(userName);
+            cb.query().setLoginId_Equal(loginId);
             cb.query().setPassword_Equal(encPassword);
         }).ifPresent(userT -> {
             // called if present
-            userInfo.setUserId(userT.getUserId());
             userInfo.setLogined(true);
+            userInfo.setUserId(userT.getUserId());
+            userInfo.setAuthLevel(userT.getAuthLevel());
+            userInfo.setFirstName(userT.getFirstName());
+            userInfo.setLastName(userT.getLastName());
+            userInfo.setLineFlg(userT.getLineFlg());
+            userInfo.setLineId(userT.getLineId());
+            userInfo.setLoginId(userT.getLoginId());
+            userInfo.setPassword(userT.getPassword());
+            userInfo.setUserTypeId(userT.getUserTypeId());
             userInfo.setUserName(userT.getUserName());
             userInfo.setEmail(userT.getEmail());
 

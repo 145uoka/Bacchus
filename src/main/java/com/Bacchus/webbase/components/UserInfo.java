@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.Bacchus.app.components.UserDto;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants;
 
 /**
@@ -18,19 +19,11 @@ import com.Bacchus.webbase.common.constants.SystemCodeConstants;
  */
 @Component
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class UserInfo implements Serializable {
+public class UserInfo extends UserDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private boolean logined = false;
-
-	private int userId;
-
-	private String email;
-
-    private int authLevel;
-
-    private String userName;
 
     private boolean adminFlg = false;
 
@@ -38,63 +31,12 @@ public class UserInfo implements Serializable {
 
     private Set<SystemCodeConstants.Permissions> permissions;
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     public boolean isLogined() {
         return logined;
     }
 
     public void setLogined(boolean logined) {
         this.logined = logined;
-    }
-
-
-    /**
-     * emailを取得。
-     * @return email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * emailを設定。
-     * @param email email
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getAuthLevel() {
-        return authLevel;
-    }
-
-    public void setAuthLevel(int authLevel) {
-        this.authLevel = authLevel;
-    }
-
-
-
-    /**
-     * accountFullNameを取得。
-     * @return accountFullName
-     */
-    public String getUserName() {
-        return userName;
-    }
-
-    /**
-     * accountFullNameを設定。
-     * @param accountFullName accountFullName
-     */
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public Set<SystemCodeConstants.Permissions> getPermissions() {

@@ -121,6 +121,46 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
      */
     public BsUserTCQ addOrderBy_UserId_Desc() { regOBD("user_id"); return this; }
 
+    protected ConditionValue _loginId;
+    public ConditionValue xdfgetLoginId()
+    { if (_loginId == null) { _loginId = nCV(); }
+      return _loginId; }
+    protected ConditionValue xgetCValueLoginId() { return xdfgetLoginId(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * login_id: {UQ, text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_LoginId_Asc() { regOBA("login_id"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * login_id: {UQ, text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_LoginId_Desc() { regOBD("login_id"); return this; }
+
+    protected ConditionValue _lineId;
+    public ConditionValue xdfgetLineId()
+    { if (_lineId == null) { _lineId = nCV(); }
+      return _lineId; }
+    protected ConditionValue xgetCValueLineId() { return xdfgetLineId(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * line_id: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_LineId_Asc() { regOBA("line_id"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * line_id: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_LineId_Desc() { regOBD("line_id"); return this; }
+
     protected ConditionValue _userName;
     public ConditionValue xdfgetUserName()
     { if (_userName == null) { _userName = nCV(); }
@@ -140,6 +180,66 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
      * @return this. (NotNull)
      */
     public BsUserTCQ addOrderBy_UserName_Desc() { regOBD("user_name"); return this; }
+
+    protected ConditionValue _lineFlg;
+    public ConditionValue xdfgetLineFlg()
+    { if (_lineFlg == null) { _lineFlg = nCV(); }
+      return _lineFlg; }
+    protected ConditionValue xgetCValueLineFlg() { return xdfgetLineFlg(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * line_flg: {NotNull, int4(10), default=[0]}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_LineFlg_Asc() { regOBA("line_flg"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * line_flg: {NotNull, int4(10), default=[0]}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_LineFlg_Desc() { regOBD("line_flg"); return this; }
+
+    protected ConditionValue _lastName;
+    public ConditionValue xdfgetLastName()
+    { if (_lastName == null) { _lastName = nCV(); }
+      return _lastName; }
+    protected ConditionValue xgetCValueLastName() { return xdfgetLastName(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * last_name: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_LastName_Asc() { regOBA("last_name"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * last_name: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_LastName_Desc() { regOBD("last_name"); return this; }
+
+    protected ConditionValue _firstName;
+    public ConditionValue xdfgetFirstName()
+    { if (_firstName == null) { _firstName = nCV(); }
+      return _firstName; }
+    protected ConditionValue xgetCValueFirstName() { return xdfgetFirstName(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * first_name: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_FirstName_Asc() { regOBA("first_name"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * first_name: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_FirstName_Desc() { regOBD("first_name"); return this; }
 
     protected ConditionValue _email;
     public ConditionValue xdfgetEmail()
@@ -169,14 +269,14 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * password: {NotNull, text(2147483647)}
+     * password: {text(2147483647)}
      * @return this. (NotNull)
      */
     public BsUserTCQ addOrderBy_Password_Asc() { regOBA("password"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * password: {NotNull, text(2147483647)}
+     * password: {text(2147483647)}
      * @return this. (NotNull)
      */
     public BsUserTCQ addOrderBy_Password_Desc() { regOBD("password"); return this; }
@@ -209,14 +309,14 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * user_type_id: {int4(10), FK to user_type_m}
      * @return this. (NotNull)
      */
     public BsUserTCQ addOrderBy_UserTypeId_Asc() { regOBA("user_type_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * user_type_id: {int4(10), FK to user_type_m}
      * @return this. (NotNull)
      */
     public BsUserTCQ addOrderBy_UserTypeId_Desc() { regOBD("user_type_id"); return this; }

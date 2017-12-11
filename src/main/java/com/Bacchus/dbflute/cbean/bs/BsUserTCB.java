@@ -90,6 +90,18 @@ public class BsUserTCB extends AbstractConditionBean {
         return (UserTCB)this;
     }
 
+    /**
+     * Accept the query condition of unique key as equal.
+     * @param loginId : UQ, text(2147483647). (NotNull)
+     * @return this. (NotNull)
+     */
+    public UserTCB acceptUniqueOf(String loginId) {
+        assertObjectNotNull("loginId", loginId);
+        BsUserTCB cb = this;
+        cb.query().setLoginId_Equal(loginId);
+        return (UserTCB)this;
+    }
+
     public ConditionBean addOrderBy_PK_Asc() {
         query().addOrderBy_UserId_Asc();
         return this;
@@ -309,17 +321,42 @@ public class BsUserTCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnUserId() { return doColumn("user_id"); }
         /**
+         * login_id: {UQ, text(2147483647)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnLoginId() { return doColumn("login_id"); }
+        /**
+         * line_id: {text(2147483647)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnLineId() { return doColumn("line_id"); }
+        /**
          * user_name: {NotNull, text(2147483647)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUserName() { return doColumn("user_name"); }
+        /**
+         * line_flg: {NotNull, int4(10), default=[0]}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnLineFlg() { return doColumn("line_flg"); }
+        /**
+         * last_name: {text(2147483647)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnLastName() { return doColumn("last_name"); }
+        /**
+         * first_name: {text(2147483647)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnFirstName() { return doColumn("first_name"); }
         /**
          * email: {text(2147483647)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnEmail() { return doColumn("email"); }
         /**
-         * password: {NotNull, text(2147483647)}
+         * password: {text(2147483647)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnPassword() { return doColumn("password"); }
@@ -329,7 +366,7 @@ public class BsUserTCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnAuthLevel() { return doColumn("auth_level"); }
         /**
-         * user_type_id: {NotNull, int4(10), FK to user_type_m}
+         * user_type_id: {int4(10), FK to user_type_m}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUserTypeId() { return doColumn("user_type_id"); }

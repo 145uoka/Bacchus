@@ -350,7 +350,7 @@ dl.procedurelist dd.column pre {
 	</tr>
 	<tr>
 		<td class="rownumcell">7</td>
-		<td><a href="#user_t" title="type=TABLE, primaryKey={user_id}, nameLength=6, columnCount=6">user_t</a></td>
+		<td><a href="#user_t" title="type=TABLE, primaryKey={user_id}, nameLength=6, columnCount=11">user_t</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#user_type_m" title="user_t_user_type_id_fkey">user_type_m</a></td>
 		<td class="relcell"><a href="#entry_t" title="entry_t_user_id_fkey">entry_t</a>, <a href="#event_t" title="event_t_user_id_fkey">event_t</a></td>
@@ -662,14 +662,14 @@ entry_t
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">*</td>
 		<td id="entry_t_entry_id">entry_id</td>
-		<td class="typecell">serial</td>
-		<td class="sizecell"> 10 </td>
+		<td class="typecell">bigserial</td>
+		<td class="sizecell"> 19 </td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> 参加ID</td>
 		<td class="subcell">entryId</td>
-		<td class="subcell">Integer</td>
+		<td class="subcell">Long</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
@@ -1362,7 +1362,7 @@ system_property_m
 		<td class="subcell">String</td>
 	</tr>
 </table>
-<h2 id="user_t" title="type=TABLE, primaryKey={user_id}, nameLength=6, columnCount=6">
+<h2 id="user_t" title="type=TABLE, primaryKey={user_id}, nameLength=6, columnCount=11">
 user_t
 </h2>
 <p class="tablecomment">ユーザー_T</p>
@@ -1409,6 +1409,42 @@ user_t
 		<td class="rownumcell">2</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell" title="user_t_login_id_key(login_id)">o</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td id="user_t_login_id">login_id</td>
+		<td class="typecell">text</td>
+		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> ログインID</td>
+		<td class="subcell">loginId</td>
+		<td class="subcell">String</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">3</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td id="user_t_line_id">line_id</td>
+		<td class="typecell">text</td>
+		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> LineID</td>
+		<td class="subcell">lineId</td>
+		<td class="subcell">String</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">4</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">*</td>
@@ -1424,7 +1460,61 @@ user_t
 		<td class="subcell">String</td>
 	</tr>
 	<tr>
-		<td class="rownumcell">3</td>
+		<td class="rownumcell">5</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">*</td>
+		<td id="user_t_line_flg">line_flg</td>
+		<td class="typecell">int4</td>
+		<td class="sizecell"> 10 </td>
+		<td class="defvalcell"> 0</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> Lineフラグ</td>
+		<td class="subcell">lineFlg</td>
+		<td class="subcell">Integer</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">6</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td id="user_t_last_name">last_name</td>
+		<td class="typecell">text</td>
+		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 苗字(氏)</td>
+		<td class="subcell">lastName</td>
+		<td class="subcell">String</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">7</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td id="user_t_first_name">first_name</td>
+		<td class="typecell">text</td>
+		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 名前(名)</td>
+		<td class="subcell">firstName</td>
+		<td class="subcell">String</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">8</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
@@ -1442,12 +1532,12 @@ user_t
 		<td class="subcell">String</td>
 	</tr>
 	<tr>
-		<td class="rownumcell">4</td>
+		<td class="rownumcell">9</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell">*</td>
+		<td class="flgcell"> &nbsp;</td>
 		<td id="user_t_password">password</td>
 		<td class="typecell">text</td>
 		<td class="sizecell"> 2147483647 </td>
@@ -1460,7 +1550,7 @@ user_t
 		<td class="subcell">String</td>
 	</tr>
 	<tr>
-		<td class="rownumcell">5</td>
+		<td class="rownumcell">10</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
@@ -1478,12 +1568,12 @@ user_t
 		<td class="subcell">Integer</td>
 	</tr>
 	<tr>
-		<td class="rownumcell">6</td>
+		<td class="rownumcell">11</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell">*</td>
+		<td class="flgcell"> &nbsp;</td>
 		<td id="user_t_user_type_id">user_type_id</td>
 		<td class="typecell">int4</td>
 		<td class="sizecell"> 10 </td>

@@ -42,7 +42,7 @@ public class ProfileService extends AbstractService {
         }
         if (StringUtils.isNotBlank(profileEditForm.getPassword())) {
             String encPassword =
-                    EncryptUtil.saltHash(profileEditForm.getPassword(), EncryptUtil.EncryptType.MD5);
+                    EncryptUtil.saltHash(profileEditForm.getNewPassword(), EncryptUtil.EncryptType.MD5);
             userT.setPassword(encPassword);
         }
 

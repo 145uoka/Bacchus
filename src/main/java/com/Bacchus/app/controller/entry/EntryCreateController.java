@@ -1,4 +1,4 @@
-package com.Bacchus.app.controller.event;
+package com.Bacchus.app.controller.entry;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,15 +19,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.Bacchus.app.Exception.IllegalRequestParamException;
 import com.Bacchus.app.Exception.RecordNotFoundException;
 import com.Bacchus.app.components.EventDto;
 import com.Bacchus.app.components.LabelValueDto;
-import com.Bacchus.app.form.event.EntryForm;
-import com.Bacchus.app.form.event.EntryInputForm;
-import com.Bacchus.app.form.event.EntryRegisterForm;
+import com.Bacchus.app.form.entry.EntryForm;
+import com.Bacchus.app.form.entry.EntryInputForm;
+import com.Bacchus.app.form.entry.EntryRegisterForm;
 import com.Bacchus.app.service.CommonService;
 import com.Bacchus.app.service.LoggerService;
-import com.Bacchus.app.service.event.EntryService;
+import com.Bacchus.app.service.entry.EntryService;
 import com.Bacchus.app.util.DateUtil;
 import com.Bacchus.app.util.MessageKeyUtil;
 import com.Bacchus.dbflute.exbhv.EntryTBhv;
@@ -39,9 +40,10 @@ import com.Bacchus.dbflute.exentity.EventT;
 import com.Bacchus.dbflute.exentity.UserT;
 import com.Bacchus.webbase.appbase.BaseController;
 import com.Bacchus.webbase.appbase.Permission;
-import com.Bacchus.webbase.common.constants.DisplayIdConstants;
+import com.Bacchus.webbase.common.constants.Entry;
 import com.Bacchus.webbase.common.constants.LogMessageKeyConstants;
 import com.Bacchus.webbase.common.constants.MessageKeyConstants;
+import com.Bacchus.webbase.common.constants.ProcConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.MessageType;
 
@@ -53,8 +55,8 @@ import com.Bacchus.webbase.common.constants.SystemCodeConstants.MessageType;
  */
 @Controller
 @Permission({ SystemCodeConstants.Permissions.ADMIN, SystemCodeConstants.Permissions.GENERAL })
-@RequestMapping(value = "/event/entry")
-public class EntryController extends BaseController {
+@RequestMapping(value = ProcConstants.ENTRY)
+public class EntryCreateController extends BaseController {
 
     /** ロガーロジック */
     @Autowired
@@ -76,9 +78,6 @@ public class EntryController extends BaseController {
     @Autowired
     EntryService entryService;
 
-    /** 入力フォーム画面用path */
-    private final String INDEX_VIEW = "/input";
-
     /**
      * 参加可否入力。
      *
@@ -88,13 +87,21 @@ public class EntryController extends BaseController {
      * @param model モデル
      * @return /event/entry/input
      * @throws RecordNotFoundException
+     * @throws IllegalRequestParamException
      */
-    @RequestMapping(value = INDEX_VIEW, method = RequestMethod.GET)
-    public String index(@ModelAttribute("form") EntryInputForm inputForm,
-            BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) throws RecordNotFoundException {
+    @RequestMapping(value = ProcConstants.Operation.CREATE, method = RequestMethod.GET)
+    public String create(@ModelAttribute("form") EntryInputForm inputForm,
+            BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) throws RecordNotFoundException, IllegalRequestParamException {
+
+        if(!userInfo.isAdminFlg()) {
+            if (inputForm.getUserId() == null ||
+                    inputForm.getUserId().intValue() != userInfo.getUserId()) {
+                throw new IllegalRequestParamException("userId", inputForm.getUserId());
+            }
+        }
 
         // 画面名の設定
-        super.setDisplayTitle(model, DisplayIdConstants.Event.BACCHUS_0205);
+        super.setDisplayTitle(model, Entry.BACCHUS_0205);
 
         // 選択したイベント管理番号から、候補日_Tを取得
         ListResultBean<CandidateT> candidateTList =
@@ -161,7 +168,7 @@ public class EntryController extends BaseController {
 
         model.addAttribute("eventDto", eventDto);
 
-        return "/event/entry" + INDEX_VIEW;
+        return ProcConstants.ENTRY + ProcConstants.Operation.CREATE;
     }
 
     /**
@@ -174,7 +181,7 @@ public class EntryController extends BaseController {
      * @return
      * @throws RecordNotFoundException
      */
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = ProcConstants.Operation.STORE, method = RequestMethod.POST)
     public String register(@ModelAttribute("form") EntryRegisterForm form,
             BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
@@ -207,6 +214,6 @@ public class EntryController extends BaseController {
         redirectAttributes.addAttribute("eventNo", eventNo);
         redirectAttributes.addAttribute("userId", userId);
 
-        return super.redirect("/event/entry" + INDEX_VIEW);
+        return super.redirect(ProcConstants.ENTRY + ProcConstants.Operation.CREATE);
     }
 }

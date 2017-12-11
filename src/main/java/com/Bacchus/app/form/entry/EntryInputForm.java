@@ -1,7 +1,6 @@
-package com.Bacchus.app.form.event;
+package com.Bacchus.app.form.entry;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 参加可否登録用Form。
@@ -9,7 +8,7 @@ import java.util.List;
  * @author ishigouoka_k
  * $Id:$
  */
-public class EntryRegisterForm implements Serializable {
+public class EntryInputForm implements Serializable {
 
     /** serialVersionUID */
     private static final long serialVersionUID = 1L;
@@ -19,10 +18,6 @@ public class EntryRegisterForm implements Serializable {
 
     /** ユーザーID */
     private Integer userId;
-
-    /** 参加可否Form
- */
-    private List<EntryForm> entryFormList;
 
     /**
      * イベント管理番号の取得。
@@ -58,28 +53,6 @@ public class EntryRegisterForm implements Serializable {
      */
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    /**
-     * 参加可否Form
-の取得。
-     *
-     * @return 参加可否Form
-
-     */
-    public List<EntryForm> getEntryFormList() {
-        return this.entryFormList;
-    }
-
-    /**
-     * 参加可否Form
-を設定。
-     *
-     * @param entryFormList 参加可否Form
-
-     */
-    public void setEntryFormList(List<EntryForm> entryFormList) {
-        this.entryFormList = entryFormList;
     }
 
 }

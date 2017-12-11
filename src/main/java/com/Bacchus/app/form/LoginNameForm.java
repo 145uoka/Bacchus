@@ -13,28 +13,28 @@ public class LoginNameForm implements Serializable {
     /** serialVersionUID */
     private static final long serialVersionUID = 1L;
 
-    /** ユーザー名 */
-    private String userName;
+    /** ログインID */
+    private String loginId;
 
     /** パスワード */
     private String password;
 
     /**
-     * ユーザー名の取得。
+     * ログインIDの取得。
      *
-     * @return ユーザー名
+     * @return ログインID
      */
-    public String getUserName() {
-        return this.userName;
+    public String getLoginId() {
+        return this.loginId;
     }
 
     /**
-     * ユーザー名を設定。
+     * ログインIDを設定。
      *
-     * @param userName ユーザー名
+     * @param loginId ログインID
      */
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
     }
 
     /**

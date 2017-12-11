@@ -26,7 +26,7 @@ import com.Bacchus.dbflute.cbean.*;
  *     user_id
  *
  * [column]
- *     user_id, user_name, email, password, auth_level, user_type_id
+ *     user_id, login_id, line_id, user_name, line_flg, last_name, first_name, email, password, auth_level, user_type_id
  *
  * [sequence]
  *     user_t_user_id_seq
@@ -182,6 +182,31 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
     protected UserTCB xprepareCBAsPK(Integer userId) {
         assertObjectNotNull("userId", userId);
         return newConditionBean().acceptPK(userId);
+    }
+
+    /**
+     * Select the entity by the unique-key value.
+     * @param loginId : UQ, text(2147483647). (NotNull)
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<UserT> selectByUniqueOf(String loginId) {
+        return facadeSelectByUniqueOf(loginId);
+    }
+
+    protected OptionalEntity<UserT> facadeSelectByUniqueOf(String loginId) {
+        return doSelectByUniqueOf(loginId, typeOfSelectedEntity());
+    }
+
+    protected <ENTITY extends UserT> OptionalEntity<ENTITY> doSelectByUniqueOf(String loginId, Class<? extends ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(loginId), tp), loginId);
+    }
+
+    protected UserTCB xprepareCBAsUniqueOf(String loginId) {
+        assertObjectNotNull("loginId", loginId);
+        return newConditionBean().acceptUniqueOf(loginId);
     }
 
     // ===================================================================================
@@ -525,6 +550,14 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      */
     public List<Integer> extractUserIdList(List<UserT> userTList)
     { return helpExtractListInternally(userTList, "userId"); }
+
+    /**
+     * Extract the value list of (single) unique key loginId.
+     * @param userTList The list of userT. (NotNull, EmptyAllowed)
+     * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<String> extractLoginIdList(List<UserT> userTList)
+    { return helpExtractListInternally(userTList, "loginId"); }
 
     // ===================================================================================
     //                                                                       Entity Update

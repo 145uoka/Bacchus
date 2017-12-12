@@ -53,7 +53,7 @@
 								<td class="text-center table_col_1"><c:out
 										value="${list.userId}"></c:out></td>
 
-								<td class="text-center table_col_2"><a href="${pageContext.request.contextPath}/user/userEditing?userId=${list.userId}"
+								<td class="text-center table_col_2"><a href="${pageContext.request.contextPath}/user/edit?userId=${list.userId}"
 								 type="button" class="btn btn-warning" id="update">修正</a></td>
 
 								<td class="text-center table_col_2"><a href="${pageContext.request.contextPath}/user/delete?userId=${list.userId}"

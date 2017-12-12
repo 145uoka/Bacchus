@@ -23,6 +23,7 @@ import com.Bacchus.dbflute.exbhv.UserTypeMBhv;
 import com.Bacchus.webbase.appbase.BaseController;
 import com.Bacchus.webbase.common.constants.DisplayIdConstants;
 import com.Bacchus.webbase.common.constants.MessageKeyConstants;
+import com.Bacchus.webbase.common.constants.ProcConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.MessageType;
 
 /**
@@ -31,7 +32,7 @@ import com.Bacchus.webbase.common.constants.SystemCodeConstants.MessageType;
  * @author sagawa_k
  */
 @Controller
-@RequestMapping(value = "/user")
+@RequestMapping(value = ProcConstants.USER)
 public class UserIndexController extends BaseController {
 
 	/** ロガーロジック */
@@ -61,7 +62,7 @@ public class UserIndexController extends BaseController {
 	 * @return /user/userIndex
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/userIndex", method = RequestMethod.GET)
+	@RequestMapping(value = ProcConstants.Operation.INDEX, method = RequestMethod.GET)
 	public String index(@ModelAttribute("form") UserIndexForm form, Model model) throws Exception {
 		model.addAttribute("form", form);
 		super.setDisplayTitle(model, DisplayIdConstants.User.BACCHUS_0101);
@@ -69,7 +70,7 @@ public class UserIndexController extends BaseController {
 		//ユーザー一覧項目の取得
 		model.addAttribute("UserTUserTypeMDtoList", userIndexService.selectList());
 
-		return "/user/userIndex";
+		return ProcConstants.USER + ProcConstants.Operation.INDEX;
 	}
 
 	/**
@@ -80,7 +81,7 @@ public class UserIndexController extends BaseController {
 	 * @return /user/userIndex
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	@RequestMapping(value = ProcConstants.Operation.DELETE, method = RequestMethod.GET)
 	public String delete(@ModelAttribute("form") UserIndexForm form, Model model) throws Exception {
 
 		model.addAttribute("form", form);
@@ -99,7 +100,7 @@ public class UserIndexController extends BaseController {
 		// ユーザー一覧項目の取得
 		model.addAttribute("UserTUserTypeMDtoList", userIndexService.selectList());
 
-		return "/user/userIndex";
+		return ProcConstants.USER + ProcConstants.Operation.INDEX;
 
 	}
 }

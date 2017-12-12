@@ -18,8 +18,8 @@
           <c:if test="${userInfo.adminFlg}">
             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">アカウント管理<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="${pageContext.request.contextPath}/">一覧表示</a></li>
-                <li><a href="${pageContext.request.contextPath}/user/userCreate">新規登録</a></li>
+                <li><a href="${pageContext.request.contextPath}/user/index">一覧表示</a></li>
+                <li><a href="${pageContext.request.contextPath}/user/create">新規登録</a></li>
               </ul></li>
           </c:if>
         </ul>

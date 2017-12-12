@@ -1,6 +1,7 @@
 package com.Bacchus.webbase.common.constants;
 
 public class ProcConstants {
+    public static final String USER = "/user";
     public static final String EVENT = "/event";
     public static final String ENTRY = "/entry";
     public static final String PROFILE = "/profile";

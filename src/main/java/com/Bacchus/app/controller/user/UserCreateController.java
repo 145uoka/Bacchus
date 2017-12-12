@@ -32,6 +32,7 @@ import com.Bacchus.webbase.appbase.BaseController;
 import com.Bacchus.webbase.common.constants.DisplayIdConstants;
 import com.Bacchus.webbase.common.constants.LogMessageKeyConstants;
 import com.Bacchus.webbase.common.constants.MessageKeyConstants;
+import com.Bacchus.webbase.common.constants.ProcConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.MessageType;
 
 /**
@@ -40,7 +41,7 @@ import com.Bacchus.webbase.common.constants.SystemCodeConstants.MessageType;
  * @author sagawa_k
  */
 @Controller
-@RequestMapping(value = "/user")
+@RequestMapping(value = ProcConstants.USER)
 public class UserCreateController extends BaseController {
 
 	/** ロガーロジック */
@@ -72,7 +73,7 @@ public class UserCreateController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/userCreate", method = RequestMethod.GET)
+	@RequestMapping(value = ProcConstants.Operation.CREATE, method = RequestMethod.GET)
 	public String index(@ModelAttribute("form") UserCreateForm form, BindingResult bindingResult, Model model)
 			throws Exception {
 		model.addAttribute("form", form);
@@ -84,11 +85,11 @@ public class UserCreateController extends BaseController {
 		// ユーザー区分のプルダウン項目の取得
 		model.addAttribute("userTypeSelectList", userCreateService.userTypePullDown());
 
-		return "/user/userCreate";
+		return ProcConstants.USER + ProcConstants.Operation.CREATE;
 
 	}
 
-	@RequestMapping(value = "/store", method = RequestMethod.POST)
+	@RequestMapping(value = ProcConstants.Operation.STORE, method = RequestMethod.POST)
 	public String store(@Validated @ModelAttribute("form") UserCreateForm form, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model) throws Exception {
 
@@ -98,14 +99,14 @@ public class UserCreateController extends BaseController {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute(MODEL_KEY_FORM, form);
 			model.addAttribute("errors", bindingResult);
-			return "/user/userCreate";
+			return ProcConstants.USER + ProcConstants.Operation.CREATE;
 		}
 
 		// password確認
 		if (!StringUtils.equals(form.getPassword(), form.getConfirmPassword())) {
 			model.addAttribute(MODEL_KEY_FORM, form);
 			model.addAttribute("errors", bindingResult);
-			return "/user/userCreate";
+			return ProcConstants.USER + ProcConstants.Operation.CREATE;
 		}
 
 		// emailのユニークチェック
@@ -116,7 +117,7 @@ public class UserCreateController extends BaseController {
 		if (!CollectionUtils.isEmpty(emailList)) {
 			model.addAttribute(MODEL_KEY_FORM, form);
 			model.addAttribute("errors", bindingResult);
-			return "/user/userCreate";
+			return ProcConstants.USER + ProcConstants.Operation.CREATE;
 		}
 
 		// userNameのユニークチェック
@@ -135,7 +136,7 @@ public class UserCreateController extends BaseController {
 			// return super.redirect("/user/userCreate");
 			model.addAttribute(MODEL_KEY_FORM, form);
 			model.addAttribute("errors", bindingResult);
-			return "/user/userCreate";
+			return ProcConstants.USER + ProcConstants.Operation.CREATE;
 		}
 
 		// DB登録
@@ -159,6 +160,6 @@ public class UserCreateController extends BaseController {
 					userTList.get(0).getUserName(), userTList.get(0).getEmail() });
 		}
 
-		return "/user/userCreate";
+		return ProcConstants.USER + ProcConstants.Operation.CREATE;
 	}
 }

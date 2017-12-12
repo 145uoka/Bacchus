@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -95,7 +98,7 @@ public class LoginController extends BaseController {
 
     @RequestMapping(value = "/callback", method = RequestMethod.GET)
     public String callback(@RequestParam("code") String code,
-            @RequestParam("state") String state) throws Exception {
+            @RequestParam("state") String state, HttpSession ses) throws Exception {
 
         HttpPost httpPost = new HttpPost("https://api.line.me/oauth2/v2.1/token");
 
@@ -148,6 +151,11 @@ public class LoginController extends BaseController {
         Set<SystemCodeConstants.Permissions> permissionsSet = new HashSet<SystemCodeConstants.Permissions>();
         permissionsSet.add(permissions);
         userInfo.setPermissions(permissionsSet);
+
+        String nextPage = (String)ses.getAttribute("nextPage");
+        if (!StringUtils.isEmpty(nextPage)) {
+            return nextPage;
+        }
 
         return redirect("/");
     }

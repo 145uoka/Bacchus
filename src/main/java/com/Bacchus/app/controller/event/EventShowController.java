@@ -3,6 +3,8 @@ package com.Bacchus.app.controller.event;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,10 +24,9 @@ import com.Bacchus.dbflute.exbhv.EntryTBhv;
 import com.Bacchus.dbflute.exbhv.EventTBhv;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.webbase.appbase.BaseController;
-import com.Bacchus.webbase.appbase.Permission;
+import com.Bacchus.webbase.appbase.BeforeLogin;
 import com.Bacchus.webbase.common.constants.DisplayIdConstants.Event;
 import com.Bacchus.webbase.common.constants.ProcConstants;
-import com.Bacchus.webbase.common.constants.SystemCodeConstants;
 
 /**
  * イベント参加可否登録コントローラ。
@@ -34,7 +35,7 @@ import com.Bacchus.webbase.common.constants.SystemCodeConstants;
  * $Id:$
  */
 @Controller
-@Permission({ SystemCodeConstants.Permissions.ADMIN, SystemCodeConstants.Permissions.GENERAL })
+@BeforeLogin
 @RequestMapping(value = ProcConstants.EVENT)
 public class EventShowController extends BaseController {
 
@@ -69,8 +70,16 @@ public class EventShowController extends BaseController {
      * @throws RecordNotFoundException
      */
     @RequestMapping(value = ProcConstants.Operation.SHOW, method = RequestMethod.GET)
-    public String create(@ModelAttribute("form") ShowForm form,
-            BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) throws RecordNotFoundException {
+    public String show(@ModelAttribute("form") ShowForm form,
+            BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model, HttpSession ses) throws RecordNotFoundException {
+
+        if (!super.userInfo.isLogined()) {
+            String nextPage = ProcConstants.EVENT + ProcConstants.Operation.SHOW + "?eventNo="+form.getEventNo();
+            ses.setAttribute("nextPage", nextPage);
+            return super.redirect("/login/lineLogin");
+        } else {
+            ses.setAttribute("nextPage", null);
+        }
 
         // 画面名の設定
         super.setDisplayTitle(model, Event.BACCHUS_0204);
@@ -147,50 +156,4 @@ public class EventShowController extends BaseController {
 
         return ProcConstants.EVENT + ProcConstants.Operation.SHOW;
     }
-
-    /**
-     * 参加可否登録。
-     *
-     * @param form
-     * @param bindingResult
-     * @param redirectAttributes
-     * @param model
-     * @return
-     * @throws RecordNotFoundException
-     */
-//    @RequestMapping(value = "/" + ProcConstants.STORE, method = RequestMethod.POST)
-//    public String register(@ModelAttribute("form") EntryRegisterForm form,
-//            BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
-//
-//        Integer eventNo = form.getEventNo();
-//        Integer userId = form.getUserId();
-//
-//        entryService.registerEntry(form, eventNo, userId);
-//
-//        // ログ出力
-//        OptionalEntity<EventT> eventTEntity =eventTBhv.selectByPK(eventNo);
-//        OptionalEntity<UserT> userTEntity = userTBhv.selectByPK(userId);
-//
-//        loggerService.outLog(LogMessageKeyConstants.Info.I_02_0501,
-//                new String[] {
-//                        eventTEntity.get().getEventNo().toString(),
-//                        eventTEntity.get().getEventName(),
-//                        userTEntity.get().getUserId().toString(),
-//                        userTEntity.get().getUserName()
-//        });
-//
-//        // 完了メッセージを設定
-//        String message = messageSource.getMessage(MessageKeyUtil.encloseStringDelete(MessageKeyConstants.Success.CREATE), null, Locale.getDefault());
-//        List<String> successMessageList = new ArrayList<>(Arrays.asList(message));
-//        redirectAttributes.addFlashAttribute(MessageType.SUCCESS, successMessageList);
-//
-//        EntryInputForm inputForm = new EntryInputForm();
-//        inputForm.setEventNo(eventNo);
-//        inputForm.setUserId(userId);
-//
-//        redirectAttributes.addAttribute("eventNo", eventNo);
-//        redirectAttributes.addAttribute("userId", userId);
-//
-//        return super.redirect("/entry/" + ProcConstants.CREATE);
-//    }
 }

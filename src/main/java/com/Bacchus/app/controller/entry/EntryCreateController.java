@@ -212,8 +212,7 @@ public class EntryCreateController extends BaseController {
         inputForm.setUserId(userId);
 
         redirectAttributes.addAttribute("eventNo", eventNo);
-        redirectAttributes.addAttribute("userId", userId);
 
-        return super.redirect(ProcConstants.ENTRY + ProcConstants.Operation.CREATE);
+        return super.redirect(ProcConstants.EVENT + ProcConstants.Operation.SHOW);
     }
 }

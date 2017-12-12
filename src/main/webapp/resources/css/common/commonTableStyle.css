@@ -13,11 +13,14 @@ tbody#scrollBody {
   height: 600px;
 }
 
+.link_table .hover_tr td,
 .check_table .hover_tr td,
 .radio_table .hover_tr td {
   background-color: #fff1a5;
   color: #333;
 }
+
+.link_table .hover_tr td,
 .check_table .checked_tr td,
 .radio_table .checked_tr td {
   background-color: #fff1a5;

@@ -154,7 +154,7 @@ public class LoginController extends BaseController {
 
         String nextPage = (String)ses.getAttribute("nextPage");
         if (!StringUtils.isEmpty(nextPage)) {
-            return nextPage;
+            return redirect(nextPage);
         }
 
         return redirect("/");

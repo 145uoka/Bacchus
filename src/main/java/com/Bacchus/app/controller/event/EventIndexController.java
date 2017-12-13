@@ -62,14 +62,16 @@ public class EventIndexController extends BaseController {
 		return ProcConstants.EVENT + ProcConstants.Operation.INDEX;
 	}
 
-//	/**
-//	 * 削除ボタン押下時の処理。
-//	 *
-//	 * @param form
-//	 * @param model
-//	 * @return /user/userIndex
-//	 * @throws Exception
-//	 */
+	/**
+	 * 削除ボタン押下時の処理。
+	 *
+	 * @param form
+	 * @param model
+	 * @return /user/userIndex
+	 * @throws Exception
+	 *
+	 *
+	 */
 //	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 //	public String delete(@ModelAttribute("form") UserIndexForm form, Model model) throws Exception {
 //

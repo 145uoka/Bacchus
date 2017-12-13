@@ -71,6 +71,7 @@ public class EventIndexController extends BaseController {
 	 * @throws Exception
 	 *
 	 *
+	 *
 	 */
 //	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 //	public String delete(@ModelAttribute("form") UserIndexForm form, Model model) throws Exception {

@@ -84,6 +84,20 @@ public class EntryService extends AbstractService {
         return entryTList;
     }
 
+    public ListResultBean<EntryT> findEntryByCandidateNoList(List<Integer> candidateNoList) {
+
+        EntryTCB entryTCB = new EntryTCB();
+        entryTCB.setupSelect_UserT();
+        entryTCB.setupSelect_CandidateT();
+        entryTCB.query().queryCandidateT().innerJoin();
+        entryTCB.query().queryUserT().innerJoin();
+        entryTCB.query().setCandidateNo_InScope(candidateNoList);
+        entryTCB.query().addOrderBy_UserId_Asc();
+        entryTCB.query().queryCandidateT().addOrderBy_EventEndDatetime_Asc();
+        ListResultBean<EntryT> entryTList = entryTBhv.readList(entryTCB);
+        return entryTList;
+    }
+
     public ListResultBean<CandidateT> findRegisterCandidateTList(Integer eventNo) {
         CandidateTCB candidateTCB = new CandidateTCB();
         candidateTCB.query().setEventNo_Equal(eventNo);

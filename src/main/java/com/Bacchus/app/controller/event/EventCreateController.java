@@ -73,7 +73,7 @@ public class EventCreateController extends BaseController {
 
 		super.setDisplayTitle(model, DisplayIdConstants.Event.BACCHUS_0202);
 
-//		// validation確認
+		// validation確認
 //		if (bindingResult.hasErrors()) {
 //			model.addAttribute(MODEL_KEY_FORM, form);
 //			model.addAttribute("errors", bindingResult);

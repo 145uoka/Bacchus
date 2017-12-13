@@ -40,7 +40,6 @@
             <thead class="main-background-color">
               <tr>
                 <th class="text-center">No</th>
-                <th class="text-center">選択</th>
                 <th class="text-center">イベント名</th>
                 <th class="text-center">イベント区分</th>
                 <th class="text-center">開催日</th>
@@ -51,7 +50,6 @@
               <c:forEach var="list" items="${eventDtoList}" varStatus="status">
                 <tr data-href="${pageContext.request.contextPath}/event/show?eventNo=${list.eventNo}">
                   <td class="text-center"><c:out value="${status.count}" /></td>
-                  <td><c:out value="" /></td>
                   <td><c:out value="${list.eventName}" /></td>
                   <td><c:out value="" /></td>
                   <td><c:out value="" /></td>
@@ -85,7 +83,6 @@
             </div>
           </div>
         </div>
-        <div></div>
       </div>
     </div>
   </form:form>

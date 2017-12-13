@@ -1,10 +1,14 @@
 package com.Bacchus.app.controller.event;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.StringUtils;
+import org.dbflute.cbean.result.ListResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Bacchus.app.Exception.RecordNotFoundException;
+import com.Bacchus.app.components.CandidateDto;
+import com.Bacchus.app.components.EntryDispListDto;
+import com.Bacchus.app.components.EntryDto;
 import com.Bacchus.app.components.EventDto;
+import com.Bacchus.app.components.GeneralCodeDto;
 import com.Bacchus.app.form.event.ShowForm;
 import com.Bacchus.app.service.CommonService;
 import com.Bacchus.app.service.LoggerService;
@@ -23,10 +31,13 @@ import com.Bacchus.app.service.entry.EntryService;
 import com.Bacchus.dbflute.exbhv.EntryTBhv;
 import com.Bacchus.dbflute.exbhv.EventTBhv;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
+import com.Bacchus.dbflute.exentity.CandidateT;
+import com.Bacchus.dbflute.exentity.EntryT;
 import com.Bacchus.webbase.appbase.BaseController;
 import com.Bacchus.webbase.appbase.BeforeLogin;
 import com.Bacchus.webbase.common.constants.DisplayIdConstants.Event;
 import com.Bacchus.webbase.common.constants.ProcConstants;
+import com.Bacchus.webbase.common.constants.SystemCodeConstants;
 
 /**
  * イベント参加可否登録コントローラ。
@@ -99,8 +110,8 @@ public class EventShowController extends BaseController {
         model.addAttribute("form", form);
 
 //        // 選択したイベント管理番号から、候補日_Tを取得
-//        ListResultBean<CandidateT> candidateTList =
-//                entryService.findRegisterCandidateTList(inputForm.getEventNo());
+        ListResultBean<CandidateT> candidateTList =
+                entryService.findRegisterCandidateTList(form.getEventNo());
 //
 //        // record無し処理
 //        if (CollectionUtils.isEmpty(candidateTList)) {
@@ -109,50 +120,64 @@ public class EventShowController extends BaseController {
 //            throw new RecordNotFoundException("candidate_t", RecordNotFoundException.createKeyInfoMessage(conditionMap));
 //        }
 //
-//        List<Integer> candidateNoList = new ArrayList<Integer>();
-//        for (CandidateT candidateT : candidateTList) {
-//            candidateNoList.add(candidateT.getCandidateNo());
-//        }
-//
-//        ListResultBean<EntryT> entryTList = entryService.findRegisterEntryTList(inputForm.getUserId(), candidateNoList);
-//
-//        List<EntryForm> entryFormList = new ArrayList<EntryForm>();
-//
-//        for(CandidateT candidateT : candidateTList) {
-//
-//            EntryForm entryForm = new EntryForm();
-//            entryForm.setCandidateNo(candidateT.getCandidateNo());
-//
-//            entryForm.setStartDate(DateUtil.formatStrToYmd(candidateT.getStartDate()));
-//            entryForm.setStartTime(DateUtil.formatStrToMmdd(candidateT.getStartTime()));
-//
-//            String entryDiv = null;
-//            for(EntryT entryT : entryTList) {
-//                if (candidateT.getCandidateNo().intValue() == entryT.getCandidateNo().intValue()) {
-//                    entryDiv = entryT.getEntryDiv().toString();
-//                }
-//            }
-//
-//            entryForm.setEntryDiv(entryDiv);
-//            entryFormList.add(entryForm);
-//        }
-//
-//        EntryRegisterForm form = new EntryRegisterForm();
-//
-//        form.setEntryFormList(entryFormList);
-//        form.setEventNo(inputForm.getEventNo());
-//        form.setUserId(inputForm.getUserId());
-//
-//        model.addAttribute("form", form);
-//
-//        List<LabelValueDto> entrySelectList =
-//                commonService.creatOptionalLabelValueList(
-//                        SystemCodeConstants.GeneralCodeKbn.ENTRY_DIV,
-//                        SystemCodeConstants.PLEASE_SELECT_MSG);
-//
-//        model.addAttribute("entrySelectList", entrySelectList);
+        List<Integer> candidateNoList = new ArrayList<Integer>();
+        List<CandidateDto> candidateDtoList = new ArrayList<CandidateDto>();
+
+        for (CandidateT candidateT : candidateTList) {
+            candidateNoList.add(candidateT.getCandidateNo());
+
+            CandidateDto candidateDto = new CandidateDto();
+            candidateDto.setCandidateNo(candidateT.getCandidateNo());
+            candidateDto.setEventEndDatetime(candidateT.getEventEndDatetime());
+            candidateDto.setEventNo(candidateT.getEventNo());
+            candidateDto.setEventStartDatetime(candidateT.getEventStartDatetime());
+            candidateDto.setStartDate(candidateT.getStartDate());
+            candidateDto.setStartTime(candidateT.getStartTime());
+            candidateDtoList.add(candidateDto);
+        }
+
+        model.addAttribute("candidateDtoList", candidateDtoList);
+
+        List<GeneralCodeDto> generalCodeDtoList =
+                commonService.getGeneralCodeListByCodeKbn(SystemCodeConstants.GeneralCodeKbn.ENTRY_DIV);
+
+        Map<Integer, EntryDispListDto> entryDispMap = new HashMap<Integer, EntryDispListDto>();
+        ListResultBean<EntryT> entryTList = entryService.findEntryByCandidateNoList(candidateNoList);
+
+        for (EntryT entry : entryTList) {
+            EntryDispListDto entryDispListDto =  entryDispMap.get(entry.getUserId());
+            EntryDto entryDto = new EntryDto();
+
+            if (entryDispListDto == null) {
+                entryDispListDto = new EntryDispListDto();
+                entryDispListDto.setUserId(entry.getUserT().get().getUserId());
+                entryDispListDto.setUserName(entry.getUserT().get().getUserName());
+            }
 
 
+            entryDto.setEntryId(entry.getEntryId());
+            entryDto.setCandidateNo(entry.getCandidateNo());
+            entryDto.setEntryDiv(entry.getEntryDiv());
+            entryDto.setUserId(entry.getUserId());
+
+            for (GeneralCodeDto generalCodeDto : generalCodeDtoList) {
+                if (StringUtils.equals(generalCodeDto.getCode(), entryDto.getEntryDiv().toString())) {
+                    entryDto.setEntryDivDisp(generalCodeDto.getName());
+                    break;
+                }
+            }
+
+            entryDispListDto.getEntryDtoList().add(entryDto);
+            entryDispMap.put(entry.getUserId(), entryDispListDto);
+        }
+
+        List<EntryDispListDto> entryDispListDtoList = new ArrayList<EntryDispListDto>();
+        for(Map.Entry<Integer, EntryDispListDto> e : entryDispMap.entrySet()) {
+            EntryDispListDto entryDispListDto = e.getValue();
+            entryDispListDtoList.add(entryDispListDto);
+        }
+
+        model.addAttribute("entryDispListDtoList", entryDispListDtoList);
 
         return ProcConstants.EVENT + ProcConstants.Operation.SHOW;
     }

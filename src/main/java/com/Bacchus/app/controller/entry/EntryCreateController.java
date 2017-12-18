@@ -29,6 +29,7 @@ import com.Bacchus.app.form.entry.EntryRegisterForm;
 import com.Bacchus.app.service.CommonService;
 import com.Bacchus.app.service.LoggerService;
 import com.Bacchus.app.service.entry.EntryService;
+import com.Bacchus.app.service.event.EventService;
 import com.Bacchus.app.util.DateUtil;
 import com.Bacchus.app.util.MessageKeyUtil;
 import com.Bacchus.dbflute.exbhv.EntryTBhv;
@@ -77,6 +78,9 @@ public class EntryCreateController extends BaseController {
 
     @Autowired
     EntryService entryService;
+
+    @Autowired
+    EventService eventService;
 
     /**
      * 参加可否入力。
@@ -157,7 +161,7 @@ public class EntryCreateController extends BaseController {
 
         model.addAttribute("entrySelectList", entrySelectList);
 
-        EventDto eventDto = entryService.findEventByPK(inputForm.getEventNo());
+        EventDto eventDto = eventService.findEventByPK(inputForm.getEventNo());
 
         // record無し処理
         if (eventDto == null) {

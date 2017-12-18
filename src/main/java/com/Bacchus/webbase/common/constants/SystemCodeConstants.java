@@ -133,6 +133,8 @@ public class SystemCodeConstants {
         public static final String USER_AUTH_TYPE = "0001";
         /** 参加区分 */
         public static final String ENTRY_DIV = "0002";
+        /** 経費補助有無 */
+        public static final String AUXILIARY_DIV = "0003";
     }
 
     /**
@@ -144,6 +146,16 @@ public class SystemCodeConstants {
     public static class UriString {
         /** api以下のURI */
         public static final String API = "/api/.*";
+    }
+
+    /**
+     * 参加可否区分
+     */
+    public static class EntryDiv {
+        /** 参加 */
+        public static final int ENTRY = 1;
+        /** 不参加 */
+        public static final int UN_ENTRY = 2;
     }
 
 }

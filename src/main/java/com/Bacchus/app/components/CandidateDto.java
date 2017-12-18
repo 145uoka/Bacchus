@@ -32,6 +32,12 @@ public class CandidateDto implements Serializable {
     /** 開始時分 */
     private String startTime;
 
+    /** 表示用開始日時 */
+    private String eventStartDatetimeDisplay;
+
+    /** 表示用終了日時 */
+    private String eventEndDatetimeDisplay;
+
     /**
      * 候補日管理番号の取得。
      *
@@ -138,6 +144,42 @@ public class CandidateDto implements Serializable {
      */
     public void setStartTime(String startTime) {
         this.startTime = startTime;
+    }
+
+    /**
+     * 表示用開始日時の取得。
+     *
+     * @return 表示用開始日時
+     */
+    public String getEventStartDatetimeDisplay() {
+        return this.eventStartDatetimeDisplay;
+    }
+
+    /**
+     * 表示用開始日時を設定。
+     *
+     * @param eventStartDatetimeDisplay 表示用開始日時
+     */
+    public void setEventStartDatetimeDisplay(String eventStartDatetimeDisplay) {
+        this.eventStartDatetimeDisplay = eventStartDatetimeDisplay;
+    }
+
+    /**
+     * 表示用終了日時の取得。
+     *
+     * @return 表示用終了日時
+     */
+    public String getEventEndDatetimeDisplay() {
+        return this.eventEndDatetimeDisplay;
+    }
+
+    /**
+     * 表示用終了日時を設定。
+     *
+     * @param eventEndDatetimeDisplay 表示用終了日時
+     */
+    public void setEventEndDatetimeDisplay(String eventEndDatetimeDisplay) {
+        this.eventEndDatetimeDisplay = eventEndDatetimeDisplay;
     }
 
 }

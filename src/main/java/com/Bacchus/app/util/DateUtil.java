@@ -3,6 +3,7 @@ package com.Bacchus.app.util;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -19,6 +20,12 @@ import com.Bacchus.webbase.common.constants.SystemCodeConstants;
  * 日付操作の共通処理
  */
 public class DateUtil {
+
+    /** 日時フォーマット文字列  yyy/MM/dd HH:mm*/
+    public static final String DATE_TIME_FORMAT_YYYYMMDDHHMM = "yyyy/MM/dd HH:mm";
+
+    /** 日時フォーマット文字列  yyy/MM/dd(E) HH:mm*/
+    public static final String DATE_TIME_FORMAT_YYYYMMDDEHHMM = "yyyy/MM/dd(E) HH:mm";
 
     /** 日時フォーマット文字列  yyyy/MM/dd*/
     public static final String DATE_TIME_FORMAT_YYYYMMDD = "yyyy/MM/dd";
@@ -243,6 +250,24 @@ public class DateUtil {
 
         return dateToString(date, format);
     }
+
+    /**
+     * LocalDateを文字列に変換
+     * @param localDateTime
+     * @param format
+     * @return 文字列
+     */
+    public static String localDateTime2String(final LocalDateTime localDateTime, String format) {
+
+        if (localDateTime == null) {
+            return null;
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+
+        return localDateTime.format(formatter);
+    }
+
 
     /**
      * LocalDateをyyyy/MM/dd形式に変換する。（nullの場合は非該当文字になる）

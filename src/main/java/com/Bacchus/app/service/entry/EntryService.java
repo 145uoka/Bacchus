@@ -5,24 +5,21 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.dbflute.cbean.result.ListResultBean;
-import org.dbflute.optional.OptionalEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.Bacchus.app.components.EventDto;
 import com.Bacchus.app.form.entry.EntryForm;
 import com.Bacchus.app.form.entry.EntryRegisterForm;
 import com.Bacchus.app.service.AbstractService;
+import com.Bacchus.app.service.CommonService;
 import com.Bacchus.dbflute.cbean.CandidateTCB;
 import com.Bacchus.dbflute.cbean.EntryTCB;
 import com.Bacchus.dbflute.exbhv.CandidateTBhv;
 import com.Bacchus.dbflute.exbhv.EntryTBhv;
-import com.Bacchus.dbflute.exbhv.EventTBhv;
 import com.Bacchus.dbflute.exentity.CandidateT;
 import com.Bacchus.dbflute.exentity.EntryT;
-import com.Bacchus.dbflute.exentity.EventT;
 
 /**
  * 参加可否登録のサービスクラス。
@@ -35,13 +32,13 @@ import com.Bacchus.dbflute.exentity.EventT;
 public class EntryService extends AbstractService {
 
     @Autowired
-    EventTBhv eventTBhv;
-
-    @Autowired
     CandidateTBhv candidateTBhv;
 
     @Autowired
     EntryTBhv entryTBhv;
+
+    @Autowired
+    CommonService commonService;
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public void registerEntry(EntryRegisterForm form, Integer eventNo, Integer userId) {
@@ -98,43 +95,26 @@ public class EntryService extends AbstractService {
         return entryTList;
     }
 
+    public int selectCountByEntryDiv(Integer candidateNo, int entryDiv) {
+
+        EntryTCB entryTCB = new EntryTCB();
+        entryTCB.query().setCandidateNo_Equal(candidateNo);
+        int resultCount = entryTBhv.selectCount(cb -> {
+            cb.query().setCandidateNo_Equal(candidateNo);
+            cb.query().setEntryDiv_Equal(entryDiv);
+            });
+        return resultCount;
+    }
+
     public ListResultBean<CandidateT> findRegisterCandidateTList(Integer eventNo) {
         CandidateTCB candidateTCB = new CandidateTCB();
         candidateTCB.query().setEventNo_Equal(eventNo);
         candidateTCB.setupSelect_EventT();
         candidateTCB.query().queryEventT().innerJoin();
-        candidateTCB.query().addOrderBy_StartDate_Asc();
-        candidateTCB.query().addOrderBy_StartTime_Asc();
+        candidateTCB.query().addOrderBy_EventStartDatetime_Asc();
 
         ListResultBean<CandidateT> candidateTList = candidateTBhv.readList(candidateTCB);
         return candidateTList;
-    }
-
-    public EventDto findEventByPK(int eventNo) {
-
-        EventDto result = null;
-
-        OptionalEntity<EventT> eventT = eventTBhv.selectByPK(eventNo);
-
-        if (eventT.isPresent() && eventT != null) {
-            result = new EventDto();
-            result.setAuxiliaryFlg(eventT.get().getAuxiliaryFlg());
-            result.setCandidateNo(eventT.get().getCandidateNo());
-            result.setEntryPeople(eventT.get().getEntryPeople());
-            result.setEventDetail(eventT.get().getEventDetail());
-            result.setEventDiv(eventT.get().getEventDiv());
-            result.setEventEntryFee(eventT.get().getEventEntryFee());
-            result.setEventName(eventT.get().getEventName());
-            result.setEventNo(eventT.get().getEventNo());
-            result.setEventPlace(eventT.get().getEventPlace());
-            result.setEventUrl(eventT.get().getEventUrl());
-            result.setFixFlg(eventT.get().getFixFlg());
-            result.setStoreName(eventT.get().getStoreName());
-            result.setTell(eventT.get().getTell());
-            result.setUserId(eventT.get().getUserId());
-        }
-
-        return result;
     }
 
 }

@@ -42,6 +42,7 @@ import com.Bacchus.webbase.appbase.BeforeLogin;
 import com.Bacchus.webbase.common.constants.LogMessageKeyConstants;
 import com.Bacchus.webbase.common.constants.MessageKeyConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants;
+import com.Bacchus.webbase.common.constants.SystemCodeConstants.Flag;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.MessageType;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.Permissions;
 import com.auth0.jwt.JWT;
@@ -139,6 +140,7 @@ public class LoginController extends BaseController {
         userInfo.setAuthLevel(userT.getAuthLevel());
         userInfo.setUserId(userT.getUserId());
         userInfo.setUserName(userT.getUserName());
+        userInfo.setLineUserFlg(Flag.getFlagByIntegerValue(userT.getLineFlg()).isBoolValue());
 
         Permissions permissions = Permissions.getPermissions(userT.getAuthLevel());
 
@@ -201,6 +203,8 @@ public class LoginController extends BaseController {
             userInfo.setUserTypeId(userT.getUserTypeId());
             userInfo.setUserName(userT.getUserName());
             userInfo.setEmail(userT.getEmail());
+            boolean lineUserFlg = Flag.getFlagByIntegerValue(userT.getLineFlg()).isBoolValue();
+            userInfo.setLineUserFlg(lineUserFlg);
 
             Permissions permissions = Permissions.getPermissions(userT.getAuthLevel());
 

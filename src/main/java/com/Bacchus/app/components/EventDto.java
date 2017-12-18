@@ -14,7 +14,7 @@ public class EventDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** イベント管理番号 */
-    private Integer eventNo;
+    private int eventNo;
 
     /** イベント名 */
     private String eventName;
@@ -37,6 +37,9 @@ public class EventDto implements Serializable {
     /** 補助フラグ */
     private Integer auxiliaryFlg ;
 
+    /** 補助フラグ表示名称 */
+    private String auxiliaryFlgDisplay;
+
     /** 確定フラグ */
     private Integer fixFlg;
 
@@ -55,12 +58,18 @@ public class EventDto implements Serializable {
     /** 幹事ユーザID */
     private Integer userId;
 
+    /** 幹事氏名（氏） */
+    private String plannerLastName;
+
+    /** 幹事氏名（名） */
+    private String plannerFirstName;
+
     /**
      * イベント管理番号の取得。
      *
      * @return イベント管理番号
      */
-    public Integer getEventNo() {
+    public int getEventNo() {
         return this.eventNo;
     }
 
@@ -69,7 +78,7 @@ public class EventDto implements Serializable {
      *
      * @param eventNo イベント管理番号
      */
-    public void setEventNo(Integer eventNo) {
+    public void setEventNo(int eventNo) {
         this.eventNo = eventNo;
     }
 
@@ -200,6 +209,24 @@ public class EventDto implements Serializable {
     }
 
     /**
+     * 補助フラグ表示名称の取得。
+     *
+     * @return 補助フラグ表示名称
+     */
+    public String getAuxiliaryFlgDisplay() {
+        return this.auxiliaryFlgDisplay;
+    }
+
+    /**
+     * 補助フラグ表示名称を設定。
+     *
+     * @param auxiliaryFlgDisplay 補助フラグ表示名称
+     */
+    public void setAuxiliaryFlgDisplay(String auxiliaryFlgDisplay) {
+        this.auxiliaryFlgDisplay = auxiliaryFlgDisplay;
+    }
+
+    /**
      * 確定フラグの取得。
      *
      * @return 確定フラグ
@@ -305,6 +332,42 @@ public class EventDto implements Serializable {
      */
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    /**
+     * 幹事氏名（氏）の取得。
+     *
+     * @return 幹事氏名（氏）
+     */
+    public String getPlannerLastName() {
+        return this.plannerLastName;
+    }
+
+    /**
+     * 幹事氏名（氏）を設定。
+     *
+     * @param plannerLastName 幹事氏名（氏）
+     */
+    public void setPlannerLastName(String plannerLastName) {
+        this.plannerLastName = plannerLastName;
+    }
+
+    /**
+     * 幹事氏名（名）の取得。
+     *
+     * @return 幹事氏名（名）
+     */
+    public String getPlannerFirstName() {
+        return this.plannerFirstName;
+    }
+
+    /**
+     * 幹事氏名（名）を設定。
+     *
+     * @param plannerFirstName 幹事氏名（名）
+     */
+    public void setPlannerFirstName(String plannerFirstName) {
+        this.plannerFirstName = plannerFirstName;
     }
 
 }

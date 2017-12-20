@@ -54,6 +54,10 @@
               <td style="vertical-align: middle;">
                 <button type="button" class="btn btn-info" id="delete">通知</button>
               </td>
+              <td><label class="space" style="width: 30px;"></label></td>
+              <td style="vertical-align: middle;">
+                <button type="button" class="btn btn-danger" id="delete">削除</button>
+              </td>
             </tr>
           </table>
         </div>

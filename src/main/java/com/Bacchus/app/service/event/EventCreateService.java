@@ -43,7 +43,7 @@ public class EventCreateService {
 	CommonService commonService;
 
 	/**
-	 * イベント新規登録するメソッド.
+	 * イベント新規登録をするメソッド.
 	 *
 	 * @param form form
 	 */
@@ -127,13 +127,12 @@ public class EventCreateService {
 			// 登録
 			eventTBhv.update(event);
 		}
-
 	}
 
 	/**
-	 * 幹事の項目名のセット。
 	 *
-	 * @param form
+	 * 幹事の項目名のセット.
+	 *
 	 * @return 幹事の項目名
 	 */
 	public List<LabelValueDto> userNamePullDown() {

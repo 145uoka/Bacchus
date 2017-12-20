@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.Bacchus.app.components.LabelValueDto;
 import com.Bacchus.app.form.event.EventCreateForm;
 import com.Bacchus.app.service.CommonService;
 import com.Bacchus.app.service.LoggerService;
@@ -59,7 +60,7 @@ public class EventCreateController extends BaseController {
 	CommonService commonService;
 
 	/**
-	 * ログイン後TOP処理
+	 * イベント登録画面初期表示.
 	 *
 	 * @param model
 	 * @return "/event/eventCreate"
@@ -71,7 +72,9 @@ public class EventCreateController extends BaseController {
 		model.addAttribute("form", form);
 		super.setDisplayTitle(model, DisplayIdConstants.Event.BACCHUS_0202);
 
-		model.addAttribute("userNameSelectList",eventCreateService.userNamePullDown());
+		//ユーザー名のプルダウン取得.
+		List<LabelValueDto> userNameSelectList = eventCreateService.userNamePullDown();
+		model.addAttribute("userNameSelectList",userNameSelectList);
 
 		return ProcConstants.EVENT + ProcConstants.Operation.CREATE;
 

@@ -73,7 +73,7 @@ public class EventCreateController extends BaseController {
 
 		model.addAttribute("userNameSelectList",eventCreateService.userNamePullDown());
 
-		return "/event/eventCreate";
+		return ProcConstants.EVENT + ProcConstants.Operation.CREATE;
 
 	}
 
@@ -97,28 +97,8 @@ public class EventCreateController extends BaseController {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute(MODEL_KEY_FORM, form);
 			model.addAttribute("errors", bindingResult);
-			return "/event/eventCreate";
+			return ProcConstants.EVENT + ProcConstants.Operation.CREATE;
 		}
-
-//
-//		// userNameのユニークチェック
-//		userTcb = new UserTCB();
-//		userTcb.query().setUserName_Equal(form.getUserName());
-//		List<UserT> userNameList = userTBhv.readList(userTcb);
-//
-//		if (!CollectionUtils.isEmpty(userNameList)) {
-//
-//			bindingResult.rejectValue("userName",
-//					MessageKeyUtil.encloseStringDelete(MessageKeyConstants.Error.ALREADY_USED),
-//					new Object[] { "ユーザー名" }, null);
-//
-//			// redirectAttributes.addFlashAttribute(MODEL_KEY_FORM, form);
-//			// redirectAttributes.addFlashAttribute("errors",bindingResult);
-//			// return super.redirect("/user/userCreate");
-//			model.addAttribute(MODEL_KEY_FORM, form);
-//			model.addAttribute("errors", bindingResult);
-//			return "/user/userCreate";
-//		}
 
 		// DB登録
 		eventCreateService.store(form);
@@ -131,6 +111,6 @@ public class EventCreateController extends BaseController {
 		model.addAttribute(MessageType.SUCCESS, successMessageList);
 
 
-		return "/event/eventCreate";
+		return ProcConstants.EVENT + ProcConstants.Operation.CREATE;
 	}
 }

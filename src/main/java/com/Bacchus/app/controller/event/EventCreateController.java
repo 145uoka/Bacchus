@@ -26,6 +26,8 @@ import com.Bacchus.dbflute.exbhv.UserTypeMBhv;
 import com.Bacchus.webbase.appbase.BaseController;
 import com.Bacchus.webbase.common.constants.DisplayIdConstants;
 import com.Bacchus.webbase.common.constants.MessageKeyConstants;
+import com.Bacchus.webbase.common.constants.ProcConstants;
+import com.Bacchus.webbase.common.constants.ProcConstants.Operation;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.MessageType;
 
 /**
@@ -34,7 +36,7 @@ import com.Bacchus.webbase.common.constants.SystemCodeConstants.MessageType;
  * @author sagawa_k
  */
 @Controller
-@RequestMapping(value = "/event")
+@RequestMapping(value = ProcConstants.EVENT)
 public class EventCreateController extends BaseController {
 
 	/** ロガーロジック */
@@ -60,10 +62,10 @@ public class EventCreateController extends BaseController {
 	 * ログイン後TOP処理
 	 *
 	 * @param model
-	 * @return
+	 * @return "/event/eventCreate"
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/eventCreate", method = RequestMethod.GET)
+	@RequestMapping(value = Operation.CREATE, method = RequestMethod.GET)
 	public String create(@ModelAttribute("form") EventCreateForm form,Model model)
 			throws Exception {
 		model.addAttribute("form", form);
@@ -75,7 +77,17 @@ public class EventCreateController extends BaseController {
 
 	}
 
-	@RequestMapping(value = "/store", method = RequestMethod.POST)
+	/**
+	 * イベント登録処理のコントローラー.
+	 *
+	 * @param form
+	 * @param bindingResult
+	 * @param redirectAttributes
+	 * @param model
+	 * @return  "/event/eventCreate"
+	 * @throws Exception
+	 */
+	@RequestMapping(value = Operation.STORE, method = RequestMethod.POST)
 	public String store(@Validated @ModelAttribute("form") EventCreateForm form, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model) throws Exception {
 

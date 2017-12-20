@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.Bacchus.webbase.common.beanvalidation.Email;
-
 /**
  * ログインフォーム。
  *
@@ -17,48 +15,51 @@ public class EventCreateForm implements Serializable {
 	/** serialVersionUID */
 	private static final long serialVersionUID = 1L;
 
-	@NotEmpty
+
 	private Integer eventNo;
 
 	@NotEmpty
 	private String eventName;
 
-	@NotEmpty
+
 	private String eventDetail;
 
-	@NotEmpty
-	@Email
+
+
 	private String eventPlace;
 
-	@NotEmpty
+
 	private String eventUrl;
 
-	@NotEmpty
+
 	private String tell;
 
-	@NotEmpty
+
 	private Integer eventEntryFee;
 
-	@NotEmpty
+
 	private Integer auxiliaryFlg ;
 
-	@NotEmpty
+
 	private Integer fixFlg ;
 
-	@NotEmpty
+
 	private Integer candidateNo ;
 
-	@NotEmpty
+
 	private String storeName ;
 
-	@NotEmpty
+
 	private Integer entryPeople ;
 
-	@NotEmpty
+
 	private String eventDiv ;
 
-	@NotEmpty
+
 	private Integer userId ;
+
+
+	private String[] StartDate;
 
 	public Integer getEventNo() {
 		return eventNo;
@@ -170,6 +171,14 @@ public class EventCreateForm implements Serializable {
 
 	public void setUserId(Integer userId) {
 		this.userId = userId;
+	}
+
+	public String[] getStartDate() {
+		return StartDate;
+	}
+
+	public void setStartDate(String[] startDate) {
+		StartDate = startDate;
 	}
 
 	public static long getSerialversionuid() {

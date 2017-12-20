@@ -1,5 +1,10 @@
 package com.Bacchus.app.controller.event;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +20,13 @@ import com.Bacchus.app.service.CommonService;
 import com.Bacchus.app.service.LoggerService;
 import com.Bacchus.app.service.SystemPropertyService;
 import com.Bacchus.app.service.event.EventCreateService;
+import com.Bacchus.app.util.MessageKeyUtil;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.dbflute.exbhv.UserTypeMBhv;
 import com.Bacchus.webbase.appbase.BaseController;
 import com.Bacchus.webbase.common.constants.DisplayIdConstants;
+import com.Bacchus.webbase.common.constants.MessageKeyConstants;
+import com.Bacchus.webbase.common.constants.SystemCodeConstants.MessageType;
 
 /**
  * イベント登録用コントローラ。
@@ -73,30 +81,13 @@ public class EventCreateController extends BaseController {
 
 		super.setDisplayTitle(model, DisplayIdConstants.Event.BACCHUS_0202);
 
-		// validation確認
-//		if (bindingResult.hasErrors()) {
-//			model.addAttribute(MODEL_KEY_FORM, form);
-//			model.addAttribute("errors", bindingResult);
-//			return "/user/userCreate";
-//		}
-//
-//		// password確認
-//		if (!StringUtils.equals(form.getPassword(), form.getConfirmPassword())) {
-//			model.addAttribute(MODEL_KEY_FORM, form);
-//			model.addAttribute("errors", bindingResult);
-//			return "/user/userCreate";
-//		}
-//
-//		// emailのユニークチェック
-//		UserTCB userTcb = new UserTCB();
-//		userTcb.query().setEmail_Equal(form.getEmail());
-//		List<UserT> emailList = userTBhv.readList(userTcb);
-//
-//		if (!CollectionUtils.isEmpty(emailList)) {
-//			model.addAttribute(MODEL_KEY_FORM, form);
-//			model.addAttribute("errors", bindingResult);
-//			return "/user/userCreate";
-//		}
+		 //validation確認
+		if (bindingResult.hasErrors()) {
+			model.addAttribute(MODEL_KEY_FORM, form);
+			model.addAttribute("errors", bindingResult);
+			return "/event/eventCreate";
+		}
+
 //
 //		// userNameのユニークチェック
 //		userTcb = new UserTCB();
@@ -120,24 +111,14 @@ public class EventCreateController extends BaseController {
 		// DB登録
 		eventCreateService.store(form);
 
-//		// 完了メッセージを設定
-//		String message = messageSource.getMessage(
-//				MessageKeyUtil.encloseStringDelete(MessageKeyConstants.Success.CREATE), null, Locale.getDefault());
-//
-//		List<String> successMessageList = new ArrayList<String>(Arrays.asList(message));
-//		model.addAttribute(MessageType.SUCCESS, successMessageList);
-//
-//		// ログ出力
-//		UserTCB cb = new UserTCB();
-//		cb.query().setUserName_Equal(form.getUserName());
-//		List<UserT> userTList = userTBhv.readList(cb);
-//		if (CollectionUtils.isEmpty(userTList)) {
-//			throw new RecordNotFoundException("USER_T", form.getUserName());
-//		} else {
-//			loggerService.outLog(LogMessageKeyConstants.Info.I_01_0001, new Object[] { userTList.get(0).getUserId(),
-//					userTList.get(0).getUserName(), userTList.get(0).getEmail() });
-//		}
+		// 完了メッセージを設定
+		String message = messageSource.getMessage(
+				MessageKeyUtil.encloseStringDelete(MessageKeyConstants.Success.CREATE), null, Locale.getDefault());
 
-		return "/user/userCreate";
+		List<String> successMessageList = new ArrayList<String>(Arrays.asList(message));
+		model.addAttribute(MessageType.SUCCESS, successMessageList);
+
+
+		return "/event/eventCreate";
 	}
 }

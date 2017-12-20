@@ -47,14 +47,13 @@
             <table style="margin-bottom: 20px">
               <tr>
                 <td style="vertical-align: middle;">
-                <a class="btn btn-warning"
-                  href="${pageContext.request.contextPath}/entry/create?eventNo=${form.eventNo}&userId=${userInfo.userId}"
-                  role="button">参加可否更新</a></td>
+                  <button type="submit" class="btn btn-warning">参加可否更新</button>
+                </td>
+                <td><label class="space" style="width: 30px;"></label></td>
+                <td style="vertical-align: middle;"><a class="btn btn-info" href="${pageContext.request.contextPath}/event/notify?eventNo=${form.eventNo}" role="button">通知</a></td>
                 <td><label class="space" style="width: 30px;"></label></td>
                 <td style="vertical-align: middle;">
-                  <a class="btn btn-info"
-                  href="${pageContext.request.contextPath}/event/notify?eventNo=${form.eventNo}"
-                  role="button">通知</a></td>
+                  <button type="button" class="btn btn-danger" id="delete">削除</button>
                 </td>
               </tr>
             </table>
@@ -93,11 +92,9 @@
                   <c:choose>
                     <c:when test="${userInfo.adminFlg}">
                       <tr data-href="${pageContext.request.contextPath}/entry/create?eventNo=${form.eventNo}&userId=${list.userId}">
-
                   </c:when>
                     <c:otherwise>
                       <tr>
-
                   </c:otherwise>
                   </c:choose>
 

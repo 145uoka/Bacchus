@@ -60,28 +60,7 @@
           </table>
 
 
-          <div class="row">
-            <div class="col-md-offset-1 col-md-10" align="center">
-              <div style="margin-bottom: 20px"></div>
-              <table>
-                <tr>
-                  <td style="vertical-align: middle;"><a href="./add.html" type="button" class="btn btn-success" id="register">登録</a></td>
-                  <td><label class="space" style="width: 30px;"></label></td>
-                  <td style="vertical-align: middle;"><a href="./add.html" type="button" class="btn btn-primary" id="register">編集</a></td>
-                  <td><label class="space" style="width: 30px;"></label></td>
-                  <td style="vertical-align: middle;"><a href="./add.html" type="button" class="btn btn-danger" id="register">削除</a></td>
-                  <td><label class="space" style="width: 30px;"></label></td>
-                  <td style="vertical-align: middle;">
-                    <button type="button" class="btn btn-warning" id="modify">詳細</button>
-                  </td>
-                  <td><label class="space" style="width: 30px;"></label></td>
-                  <td style="vertical-align: middle;">
-                    <button type="button" class="btn btn-info" id="delete">参加可否</button>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
+
         </div>
       </div>
     </div>

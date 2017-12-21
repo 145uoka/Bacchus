@@ -34,6 +34,7 @@ import com.Bacchus.app.service.CommonService;
 import com.Bacchus.app.service.LoggerService;
 import com.Bacchus.app.service.entry.EntryService;
 import com.Bacchus.app.service.event.EventService;
+import com.Bacchus.app.service.event.EventShowService;
 import com.Bacchus.app.service.user.UserService;
 import com.Bacchus.app.util.DateUtil;
 import com.Bacchus.dbflute.exentity.CandidateT;
@@ -79,6 +80,13 @@ public class EventShowController extends BaseController {
      */
     @Autowired
     EntryService entryService;
+
+    /**
+     * イベント詳細画面サービス
+     */
+    @Autowired
+    EventShowService eventShowService;
+
 
     /**
      * イベント詳細。
@@ -265,4 +273,13 @@ public class EventShowController extends BaseController {
 
         return candidateDto;
     }
+
+    @RequestMapping(value = ProcConstants.Operation.DELETE, method = RequestMethod.GET)
+    public String delete(@ModelAttribute("form") ShowForm form, Model model){
+
+    	eventShowService.delete(form);
+
+    	return ProcConstants.EVENT + ProcConstants.Operation.SHOW;
+    }
+
 }

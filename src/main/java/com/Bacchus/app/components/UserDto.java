@@ -46,6 +46,8 @@ public class UserDto implements Serializable {
     /** ユーザ区分ID */
     private Integer userTypeId;
 
+
+    private String userTypeName;
     /**
      * 権限レベルの取得。
      *
@@ -243,5 +245,13 @@ public class UserDto implements Serializable {
     public void setUserTypeId(Integer userTypeId) {
         this.userTypeId = userTypeId;
     }
+
+	public String getUserTypeName() {
+		return userTypeName;
+	}
+
+	public void setUserTypeName(String userTypeName) {
+		this.userTypeName = userTypeName;
+	}
 
 }

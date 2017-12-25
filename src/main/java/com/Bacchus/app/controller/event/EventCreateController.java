@@ -67,14 +67,17 @@ public class EventCreateController extends BaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = Operation.CREATE, method = RequestMethod.GET)
-	public String create(@ModelAttribute("form") EventCreateForm form,Model model)
-			throws Exception {
+	public String create(@ModelAttribute("form") EventCreateForm form, Model model) throws Exception {
 		model.addAttribute("form", form);
 		super.setDisplayTitle(model, DisplayIdConstants.Event.BACCHUS_0202);
 
-		//ユーザー名のプルダウン取得.
+		// ユーザー名のプルダウン取得.
 		List<LabelValueDto> userNameSelectList = eventCreateService.userNamePullDown();
-		model.addAttribute("userNameSelectList",userNameSelectList);
+		model.addAttribute("userNameSelectList", userNameSelectList);
+
+		// 経費補助の有無のセット
+		List<LabelValueDto> auxiliaryFlgSelectList = eventCreateService.AuxiliaryFlgPullDown();
+		model.addAttribute("auxiliaryFlgSelectList", auxiliaryFlgSelectList);
 
 		return ProcConstants.EVENT + ProcConstants.Operation.CREATE;
 
@@ -85,9 +88,12 @@ public class EventCreateController extends BaseController {
 	 *
 	 * @param form
 	 * @param bindingResult
+	 *            BindingResult
 	 * @param redirectAttributes
+	 *            RedirectAttributes
 	 * @param model
-	 * @return  "/event/eventCreate"
+	 *            Model
+	 * @return "/event/eventCreate"
 	 * @throws Exception
 	 */
 	@RequestMapping(value = Operation.STORE, method = RequestMethod.POST)
@@ -96,7 +102,7 @@ public class EventCreateController extends BaseController {
 
 		super.setDisplayTitle(model, DisplayIdConstants.Event.BACCHUS_0202);
 
-		 //validation確認
+		// validation確認
 		if (bindingResult.hasErrors()) {
 			model.addAttribute(MODEL_KEY_FORM, form);
 			model.addAttribute("errors", bindingResult);
@@ -113,6 +119,7 @@ public class EventCreateController extends BaseController {
 		List<String> successMessageList = new ArrayList<String>(Arrays.asList(message));
 		model.addAttribute(MessageType.SUCCESS, successMessageList);
 
+		model.addAttribute("num", 1);
 
 		return ProcConstants.EVENT + ProcConstants.Operation.CREATE;
 	}

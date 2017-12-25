@@ -6,29 +6,42 @@
 <head>
 <meta charset="utf-8">
 <jsp:include page="../common/common.jsp" />
+<%-- <script type="text/javascript" src="<c:url value="/resources/js/common/alert.js"/>"></script> --%>
 
 
+
+<link href='<c:url value="/resources/css/common/alert.css"/>'
+	rel="stylesheet">
 
 <script type="text/javascript">
+	var startDateCnt = 0;
 
-var startDateCnt = 0;
-
- function addCandidate(){
-	 ++startDateCnt;
- 	var $input = '<tr><td><div class="form-group"><div class="col-md-6"><div class="input-group date date-ymd"style="width: 180px;">';
- 	$input = $input + '<input id="StartDate';
+	function addCandidate() {
+		++startDateCnt;
+		var $input = '<tr><td><div class="form-group"><div class="col-md-6"><div class="input-group date date-ymd"style="width: 180px;">';
+		$input = $input
+				+ '<input id="StartDate';
  	$input = $input + '['+ startDateCnt + ']"';
  	$input = $input + ' name="StartDate';
  	$input = $input + '['+ startDateCnt + ']"';
- 	$input = $input + ' value="YYYY/MM/DD" class="form-control" type="text" value="" maxlength="10"/><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span></div></div></div></td><td><div class="radiobutton"><label class="col-md-4 control-label">確定</label><div class="col-md-6"><div class="radio"><label>';
- 	$input = $input + '<input id="fixFlg" name="fixFlg" type="radio" value="';
+ 	$input = $input + ' value="" class="form-control" type="text" value="" maxlength="10"/><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span></div></div></div></td><td><div class="radiobutton"><label class="col-md-4 control-label"></label><div class="col-md-6"><div class="radio"><label>';
+		$input = $input
+				+ '<input id="fixFlg" name="fixFlg" type="radio" value="';
  	$input = $input + startDateCnt + '"/></label></div></div></div></td></tr>';
- 	$("#table").append($input);
- 	initDatepicker();
+		$("#table").append($input);
+		initDatepicker();
 
-}
-
+	}
 </script>
+
+<script type="text/javascript">
+	if ("${successMessages}".length > 0) {
+		$(document).ready(function() {
+			$('.alert').fadeIn(1500).delay(1000).fadeOut(1000);
+		});
+	}
+</script>
+
 
 </head>
 
@@ -55,9 +68,15 @@ var startDateCnt = 0;
 			<%-- メッセージ領域 --%>
 			<div class="row">
 				<div class="col-md-offset-1 col-md-10">
-					<%@include file="/WEB-INF/fragment/messages.jspf"%>
+					<div class="alert alert-success" role="alert" align="left">
+						<c:forEach var="successMessage" items="${successMessages}">
+							<c:out value="${successMessage}" />
+							<button type="button" class="close" data-dismiss="alert">×</button>
+						</c:forEach>
+					</div>
 				</div>
 			</div>
+
 			<div class="row">
 				<div class="col-md-offset-1 col-md-10">
 					<div class="panel panel-default main-border-color">
@@ -158,11 +177,9 @@ var startDateCnt = 0;
 								<label class="col-md-4 control-label">経費補助有無<span
 									class="label label-danger" style="margin-left: 10px"></span></label>
 								<div class="col-md-6">
-									<select name="auxiliaryFlg" class="form-control">
-										<option value="">－－－選択してください－－－</option>
-										<option value="0">有</option>
-										<option value="1">無</option>
-									</select>
+									<form:select path="auxiliaryFlg" class="form-control"
+										items="${auxiliaryFlgSelectList}" itemLabel="label"
+										itemValue="value" />
 								</div>
 								<div style="clear: both;">
 									<span class="col-md-4"></span>
@@ -172,104 +189,106 @@ var startDateCnt = 0;
 									</div>
 								</div>
 							</div>
-
 							<div class="row">
-								<div class="col-md-offset-1 col-md-10" align="center">
-									<table style="margin-bottom: 20px" id="table"
-										class="table table-bordered">
-										<tr>
-											<th>
-												<div class="form-group">
-													<label class="col-md-4 control-label">日付<span
-														class="label label-danger" style="margin-left: 10px"></span></label>
-													<div class="col-md-6"></div>
-												</div>
+								<div class="col-md-offset-1 col-md-10">
+									<table
+										class="table table-striped table-bordered table-hover table-condensed"
+										id="table">
+										<thead class="main-background-color">
+											<tr>
+												<th>
+													<div class="form-group">
+														<label class="col-md-4 control-label">日付<span
+															class="label label-danger" style="margin-left: 10px"></span></label>
+														<div class="col-md-6"></div>
+													</div>
 
-											</th>
-											<th></th>
-										</tr>
-										<tr>
-											<td>
-												<div class="form-group">
-													<label class="col-md-4 control-label">未確定<span
-														class="label label-danger" style="margin-left: 10px"></span></label>
-												</div>
-											</td>
-											<td>
-												<div class="radiobutton">
-													<label class="col-md-4 control-label"><span
-														class="label label-danger" style="margin-left: 10px"></span></label>
-													<div class="col-md-6">
-														<div class="radio">
-															<label> <form:radiobutton path="fixFlg" value="" checked="checked"/></label>
+												</th>
+												<th>
+													<div class="form-group">
+														<label class="col-md-6 control-label">確定<span
+															class="label label-danger" style="margin-left: 10px"></span></label>
+														<div class="col-md-6"></div>
+													</div>
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>
+													<div class="form-group">
+														<label class="col-md-4 control-label">未確定<span
+															class="label label-danger" style="margin-left: 10px"></span></label>
+													</div>
+												</td>
+												<td>
+													<div class="radiobutton">
+														<label class="col-md-4 control-label"><span
+															class="label label-danger" style="margin-left: 10px"></span></label>
+														<div class="col-md-6">
+															<div class="radio">
+																<label> <form:radiobutton path="fixFlg" value=""
+																		checked="checked" /></label>
+															</div>
 														</div>
 													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<div class="form-group">
-													<div class="col-md-6">
-														<div class="input-group date date-ymd"
-															style="width: 180px;">
-															<input type="text" id="StartDate[0]" name="StartDate[0]" value="YYYY/MM/DD"
-																maxlength="10" class="form-control" />
-															<span class="input-group-addon"><i
-																class="glyphicon glyphicon-calendar"></i></span>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<div class="form-group">
+														<div class="col-md-6">
+															<div class="input-group date date-ymd"
+																style="width: 180px;">
+																<input type="text" id="StartDate[0]" name="StartDate[0]"
+																	value="" maxlength="10" class="form-control" /> <span
+																	class="input-group-addon"><i
+																	class="glyphicon glyphicon-calendar"></i></span>
+															</div>
 														</div>
 													</div>
-												</div>
-											</td>
-											<td>
-												<div class="radiobutton">
-													<label class="col-md-4 control-label">確定</label>
-													<div class="col-md-6">
-														<div class="radio">
-															<label> <form:radiobutton path="fixFlg" value="0" /></label>
+												</td>
+												<td>
+													<div class="radiobutton">
+														<label class="col-md-4 control-label"></label>
+														<div class="col-md-6">
+															<div class="radio">
+																<label> <form:radiobutton path="fixFlg"
+																		value="0" /></label>
+															</div>
 														</div>
 													</div>
-												</div>
-											</td>
-										</tr>
+												</td>
+											</tr>
+										</tbody>
 									</table>
+									<div class="row">
+										<div class="col-md-offset-1 col-md-10" align="center">
+											<table style="margin-bottom: 20px">
+												<tr id="copy">
+													<td><label class="space" style="width: 30px;"></label></td>
+													<td style="vertical-align: middle;">
+														<button type="button" id="candidate"
+															onClick="addCandidate()" class="btn btn-info">候補日追加</button>
+													</td>
+												</tr>
+											</table>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div>
-</div>
-
-			<div class="row">
-				<div class="col-md-offset-1 col-md-10" align="center">
-					<table style="margin-bottom: 20px">
-						<tr id="copy">
-							<td><label class="space" style="width: 30px;"></label></td>
-							<td style="vertical-align: middle;">
-								<button type="button" id="candidate" onClick="addCandidate()"
-									class="btn btn-info">候補日追加</button>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
+			<div></div>
 			<div class="row">
 				<div class="col-md-offset-1 col-md-10" align="center">
 					<table style="margin-bottom: 20px">
 						<tr>
 							<td><label class="space" style="width: 30px;"></label></td>
 							<td style="vertical-align: middle;">
-								<button type="submit" class="btn btn-danger">登録・配信</button>
-							</td>
-							<td><label class="space" style="width: 30px;"></label></td>
-							<td style="vertical-align: middle;">
 								<button type="submit" class="btn btn-success">登録</button>
-							</td>
-							<td><label class="space" style="width: 30px;"></label></td>
-							<td style="vertical-align: middle;">
-								<button type="submit" class="btn btn-warning">配信</button>
 							</td>
 						</tr>
 					</table>

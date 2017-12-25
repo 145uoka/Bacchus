@@ -1,5 +1,7 @@
 package com.Bacchus.app.service.event;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.Bacchus.app.components.LabelValueDto;
 import com.Bacchus.app.form.event.EventCreateForm;
 import com.Bacchus.app.service.CommonService;
+import com.Bacchus.app.service.LoggerService;
+import com.Bacchus.app.util.DateUtil;
 import com.Bacchus.dbflute.cbean.CandidateTCB;
 import com.Bacchus.dbflute.cbean.UserTCB;
 import com.Bacchus.dbflute.exbhv.CandidateTBhv;
@@ -19,7 +23,9 @@ import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.dbflute.exentity.CandidateT;
 import com.Bacchus.dbflute.exentity.EventT;
 import com.Bacchus.dbflute.exentity.UserT;
+import com.Bacchus.webbase.common.constants.LogMessageKeyConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants;
+import com.Bacchus.webbase.common.constants.SystemCodeConstants.Flag;
 
 /**
  * イベント登録画面のサービスクラス。
@@ -42,10 +48,15 @@ public class EventCreateService {
 	@Autowired
 	CommonService commonService;
 
+	/** ロガーロジック */
+	@Autowired
+	LoggerService loggerService;
+
 	/**
 	 * イベント新規登録をするメソッド.
 	 *
-	 * @param form form
+	 * @param form
+	 *            EventCreateForm
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void store(EventCreateForm form) {
@@ -68,28 +79,40 @@ public class EventCreateService {
 		// 登録
 		eventTBhv.insert(eventT);
 
-
-		// 候補日が選択されていた場合true
-		if (!(form.getStartDate()[0].equals("YYYY/MM/DD"))) {
+		// 候補日の数だけDtoリストにセットする
+		for (int i = 0; i < form.getStartDate().length; i++) {
 
 			// 候補日をセットするDtoリストの準備
 			List<CandidateT> candidateList = new ArrayList<CandidateT>();
+			if (!(form.getStartDate()[i].equals(""))) {
 
-			// 候補日の数だけDtoリストにセットする
-			for (int i = 0; i < form.getStartDate().length; i++) {
+				try {
+				//日時フォーマット文字列  yyyy/MM
+				SimpleDateFormat df = new SimpleDateFormat(DateUtil.DATE_TIME_FORMAT_YYYYMMDD);
+
+				//厳密にチェック
+				df.setLenient(false);
+
+				//入力された日付の妥当性チェック
+				String s1 = df.format(df.parse(form.getStartDate()[i]));
 
 				CandidateT candidateT = new CandidateT();
 
-				candidateT.setStartDate(form.getStartDate()[i]);
+				candidateT.setStartDate(s1);
 				candidateT.setCandidateNo(candidateTbhv.selectNextVal());
 				candidateT.setEventNo(eventT.getEventNo());
 				candidateList.add(candidateT);
+
+				//入力された日付の妥当性チェックエラー時の処理
+				} catch (ParseException p) {
+				    p.printStackTrace();
+				    System.out.println("日付が正しくありません");
+				}
 			}
 
 			// 複数件登録処理
 			candidateTbhv.batchInsert(candidateList);
 		}
-
 
 		// 未確定ボタンが選択されていない場合true
 		if (!(form.getFixFlg() == null || form.getFixFlg().equals(""))) {
@@ -97,7 +120,7 @@ public class EventCreateService {
 			EventT event = new EventT();
 
 			event.setEventNo(eventT.getEventNo());
-			event.setFixFlg(1);
+			event.setFixFlg(Flag.ON.getIntegerValue());
 
 			// 候補日テーブルから登録したイベントの候補日を取得
 			CandidateTCB cb = new CandidateTCB();
@@ -110,7 +133,7 @@ public class EventCreateService {
 				// CandidateTのイベント候補日が確定選択した候補日と一致すればtrue
 				if (candidate.getStartDate().equals(form.getStartDate()[form.getFixFlg()])) {
 
-					//確定候補日の候補日番号をセット
+					// 確定候補日の候補日番号をセット
 					event.setCandidateNo(candidate.getCandidateNo());
 				}
 				// 登録
@@ -119,14 +142,19 @@ public class EventCreateService {
 
 		} else {
 
-			//未確定の場合fixFlgに0をセット
+			// 未確定の場合fixFlgに0をセット
 			EventT event = new EventT();
 			event.setEventNo(eventT.getEventNo());
-			event.setFixFlg(0);
+			event.setFixFlg(Flag.OFF.getIntegerValue());
 
 			// 登録
 			eventTBhv.update(event);
 		}
+
+		// ログ出力
+		loggerService.outLog(LogMessageKeyConstants.Info.I_03_0001,
+				new Object[] { eventT.getEventNo(), eventT.getEventName() });
+
 	}
 
 	/**
@@ -157,6 +185,36 @@ public class EventCreateService {
 
 		}
 		return userIdSelectList;
+
+	}
+
+	/**
+	 *
+	 * 経費補助の有無のセット.
+	 *
+	 * @return 経費補助の項目
+	 */
+	public List<LabelValueDto> AuxiliaryFlgPullDown() {
+
+		List<LabelValueDto> AuxiliaryFlgSelectList = new ArrayList<LabelValueDto>();
+
+		LabelValueDto labelValueDto = new LabelValueDto();
+		labelValueDto.setLabel(SystemCodeConstants.PLEASE_SELECT_MSG);
+		labelValueDto.setValue("");
+
+		AuxiliaryFlgSelectList.add(labelValueDto);
+
+		LabelValueDto dto = new LabelValueDto();
+		dto.setValue(0);
+		dto.setLabel(SystemCodeConstants.AUXILIARY_FLG_NO);
+		AuxiliaryFlgSelectList.add(dto);
+
+		LabelValueDto dto2 = new LabelValueDto();
+		dto2.setLabel(SystemCodeConstants.AUXILIARY_FLG_YES);
+		dto2.setValue(1);
+		AuxiliaryFlgSelectList.add(dto2);
+
+		return AuxiliaryFlgSelectList;
 
 	}
 }

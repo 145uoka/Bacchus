@@ -22,7 +22,6 @@ import com.Bacchus.webbase.common.constants.SystemCodeConstants;
 /**
  * 雇用契約設定のサービスクラス。
  *
- * @author majo_k
  */
 @Service
 @Transactional(rollbackFor = Exception.class)

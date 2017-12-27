@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@include file="/WEB-INF/fragment/taglib-includes.jspf"%>
 <!DOCTYPE html>
 <html lang="ja">
@@ -10,21 +11,20 @@
 
 
 
-<link href='<c:url value="/resources/css/common/alert.css"/>'
+<link href='<c:url value="/resources/css/common/effect.css"/>'
 	rel="stylesheet">
-
 <script type="text/javascript">
 	var startDateCnt = 0;
 
 	function addCandidate() {
 		++startDateCnt;
-		var $input = '<tr><td><div class="form-group"><div class="col-md-6"><div class="input-group date date-ymd"style="width: 180px;">';
+		var $input = '<tr><td class="text-center"><div class="input-group date date-ymd"style="width: 180px; ">';
 		$input = $input
-				+ '<input id="StartDate';
+				+ '<input id="startDate';
  	$input = $input + '['+ startDateCnt + ']"';
- 	$input = $input + ' name="StartDate';
+ 	$input = $input + ' name="startDate';
  	$input = $input + '['+ startDateCnt + ']"';
- 	$input = $input + ' value="" class="form-control" type="text" value="" maxlength="10"/><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span></div></div></div></td><td><div class="radiobutton"><label class="col-md-4 control-label"></label><div class="col-md-6"><div class="radio"><label>';
+ 	$input = $input + ' value="" class="form-control" type="text" value="" maxlength="10"/><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span></div></td><td class="text-center">';
 		$input = $input
 				+ '<input id="fixFlg" name="fixFlg" type="radio" value="';
  	$input = $input + startDateCnt + '"/></label></div></div></div></td></tr>';
@@ -33,6 +33,7 @@
 
 	}
 </script>
+
 
 <script type="text/javascript">
 	if ("${successMessages}".length > 0) {
@@ -76,7 +77,6 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="row">
 				<div class="col-md-offset-1 col-md-10">
 					<div class="panel panel-default main-border-color">
@@ -101,7 +101,7 @@
 								<label class="col-md-4 control-label">説明<span
 									class="label label-danger" style="margin-left: 10px"></span></label>
 								<div class="col-md-6">
-									<form:input path="eventDetail" class="form-control" />
+									<form:textarea path="eventDetail" class="form-control" rows="4" />
 								</div>
 								<div style="clear: both;">
 									<span class="col-md-4"></span>
@@ -190,76 +190,78 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-offset-1 col-md-10">
+								<div class="col-md-offset-2 col-md-8">
 									<table
 										class="table table-striped table-bordered table-hover table-condensed"
 										id="table">
 										<thead class="main-background-color">
 											<tr>
-												<th>
-													<div class="form-group">
-														<label class="col-md-4 control-label">日付<span
-															class="label label-danger" style="margin-left: 10px"></span></label>
-														<div class="col-md-6"></div>
-													</div>
-
-												</th>
-												<th>
-													<div class="form-group">
-														<label class="col-md-6 control-label">確定<span
-															class="label label-danger" style="margin-left: 10px"></span></label>
-														<div class="col-md-6"></div>
-													</div>
-												</th>
+												<th class="text-center">日付</th>
+												<th class="text-center">確定</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
-												<td>
-													<div class="form-group">
-														<label class="col-md-4 control-label">未確定<span
-															class="label label-danger" style="margin-left: 10px"></span></label>
-													</div>
-												</td>
-												<td>
-													<div class="radiobutton">
-														<label class="col-md-4 control-label"><span
-															class="label label-danger" style="margin-left: 10px"></span></label>
-														<div class="col-md-6">
-															<div class="radio">
-																<label> <form:radiobutton path="fixFlg" value=""
-																		checked="checked" /></label>
-															</div>
-														</div>
-													</div>
-												</td>
+												<td class="text-center">未確定</td>
+												<td class="text-center"><label> <form:radiobutton
+															path="fixFlg" value="" checked="checked" /></label></td>
 											</tr>
-											<tr>
-												<td>
-													<div class="form-group">
-														<div class="col-md-6">
+											<c:choose>
+												<c:when test="${fn:length(form.startDate) > 0}">
+													<c:forEach var="list" items="${form.startDate}"
+														varStatus="status">
+														<tr>
+															<td class="text-center">
+																<div
+																	class=" <ext:isErrors path='startDate[${status.index}]' value='has-error'/>">
+																	<div class="input-group date date-ymd"
+																		style="width: 180px; <ext:isErrors path='startDate[${status.index}]' value='has-error' />">
+																		<input type="text" id="startDate[${status.index}]"
+																			name="startDate[${status.index}]"
+																			value="${form.startDate[status.index]}"
+																			maxlength="10" class="form-control" /> <span
+																			class="input-group-addon"><i
+																			class="glyphicon glyphicon-calendar"></i></span>
+																	</div>
+																	<div style="clear: both;">
+																		<span class="col-md-4"></span>
+																		<div class="col-md-6">
+																			<form:errors path="startDate[${status.index}]"
+																				element="div" cssClass="text-danger" />
+																		</div>
+																	</div>
+																</div>
+															</td>
+															<td class="text-center"><label><form:radiobutton
+																		path="fixFlg" value="${status.index}" /></label></td>
+														</tr>
+													</c:forEach>
+
+												</c:when>
+												<c:otherwise>
+													<tr>
+														<td class="text-center">
 															<div class="input-group date date-ymd"
-																style="width: 180px;">
-																<input type="text" id="StartDate[0]" name="StartDate[0]"
+																style="width: 180px; <ext:isErrors path='startDate[0]' value='has-error' />">
+																<input type="text" id="startDate[0]" name="startDate[0]"
 																	value="" maxlength="10" class="form-control" /> <span
 																	class="input-group-addon"><i
 																	class="glyphicon glyphicon-calendar"></i></span>
 															</div>
-														</div>
-													</div>
-												</td>
-												<td>
-													<div class="radiobutton">
-														<label class="col-md-4 control-label"></label>
-														<div class="col-md-6">
-															<div class="radio">
-																<label> <form:radiobutton path="fixFlg"
-																		value="0" /></label>
+															<div style="clear: both;">
+																<span class="col-md-4"></span>
+																<div class="col-md-6">
+																	<form:errors path="startDate[0]" element="div"
+																		cssClass="text-danger" />
+																</div>
 															</div>
-														</div>
-													</div>
-												</td>
-											</tr>
+														</td>
+														<td class="text-center"><label><form:radiobutton
+																	path="fixFlg" value="0" /></label></td>
+													</tr>
+												</c:otherwise>
+
+											</c:choose>
 										</tbody>
 									</table>
 									<div class="row">

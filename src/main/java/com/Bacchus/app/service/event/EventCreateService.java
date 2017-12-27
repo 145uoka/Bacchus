@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -36,185 +37,250 @@ import com.Bacchus.webbase.common.constants.SystemCodeConstants.Flag;
 @Transactional(rollbackFor = Exception.class)
 public class EventCreateService {
 
-	@Autowired
-	UserTBhv userTBhv;
+    @Autowired
+    UserTBhv userTBhv;
 
-	@Autowired
-	EventTBhv eventTBhv;
+    @Autowired
+    EventTBhv eventTBhv;
 
-	@Autowired
-	CandidateTBhv candidateTbhv;
+    @Autowired
+    CandidateTBhv candidateTbhv;
 
-	@Autowired
-	CommonService commonService;
+    @Autowired
+    CommonService commonService;
 
-	/** ロガーロジック */
-	@Autowired
-	LoggerService loggerService;
+    /** ロガーロジック */
+    @Autowired
+    LoggerService loggerService;
 
-	/**
-	 * イベント新規登録をするメソッド.
-	 *
-	 * @param form
-	 *            EventCreateForm
-	 */
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void store(EventCreateForm form) {
+    /**
+     * イベント新規登録をするメソッド.
+     *
+     * @param form
+     *            EventCreateForm
+     */
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    public void store(EventCreateForm form) {
 
-		// 登録データの生成
-		EventT eventT = new EventT();
-		eventT.setEventNo(eventTBhv.selectNextVal());
-		eventT.setEventName(form.getEventName());
-		eventT.setEventDetail(form.getEventDetail());
-		eventT.setEventPlace(form.getEventPlace());
-		eventT.setEventUrl(form.getEventUrl());
-		eventT.setTell(form.getTell());
-		eventT.setEventEntryFee(form.getEventEntryFee());
-		eventT.setAuxiliaryFlg(form.getAuxiliaryFlg());
-		eventT.setStoreName(form.getStoreName());
-		eventT.setEntryPeople(form.getEntryPeople());
-		eventT.setEventDiv(form.getEventDiv());
-		eventT.setUserId(form.getUserId());
+        // 登録データの生成
+        EventT eventT = new EventT();
+        eventT.setEventNo(eventTBhv.selectNextVal());
+        eventT.setEventName(form.getEventName());
+        eventT.setEventDetail(form.getEventDetail());
+        eventT.setEventPlace(form.getEventPlace());
+        eventT.setEventUrl(form.getEventUrl());
+        eventT.setTell(form.getTell());
+        eventT.setStoreName(form.getStoreName());
+        eventT.setEventDiv(form.getEventDiv());
 
-		// 登録
-		eventTBhv.insert(eventT);
+        //経費補助の項目が選択されている場合true
+        if (StringUtils.isNotEmpty(form.getAuxiliaryFlg())) {
+            eventT.setAuxiliaryFlg(Integer.parseInt(form.getAuxiliaryFlg()));
+        }
 
-		// 候補日の数だけDtoリストにセットする
-		for (int i = 0; i < form.getStartDate().length; i++) {
+        //幹事項目が選択されている場合true
+        if (StringUtils.isNotEmpty(form.getUserId())) {
+            eventT.setUserId(Integer.parseInt(form.getUserId()));
+        }
 
-			// 候補日をセットするDtoリストの準備
-			List<CandidateT> candidateList = new ArrayList<CandidateT>();
-			if (!(form.getStartDate()[i].equals(""))) {
+        // 登録
+        eventTBhv.insert(eventT);
 
-				try {
-				//日時フォーマット文字列  yyyy/MM
-				SimpleDateFormat df = new SimpleDateFormat(DateUtil.DATE_TIME_FORMAT_YYYYMMDD);
+        // 候補日の数だけDtoリストにセットする
+        for (int i = 0; i < form.getStartDate().length; i++) {
 
-				//厳密にチェック
-				df.setLenient(false);
+            // 候補日をセットするDtoリストの準備
+            List<CandidateT> candidateList = new ArrayList<CandidateT>();
 
-				//入力された日付の妥当性チェック
-				String s1 = df.format(df.parse(form.getStartDate()[i]));
+            //候補日が空白でなければtrue
+            if (!(form.getStartDate()[i].equals(""))) {
 
-				CandidateT candidateT = new CandidateT();
+                try {
+                    //日時フォーマット文字列  yyyy/MM
+                    SimpleDateFormat df = new SimpleDateFormat(DateUtil.DATE_TIME_FORMAT_YYYYMMDD);
 
-				candidateT.setStartDate(s1);
-				candidateT.setCandidateNo(candidateTbhv.selectNextVal());
-				candidateT.setEventNo(eventT.getEventNo());
-				candidateList.add(candidateT);
+                    //厳密にチェック
+                    df.setLenient(false);
 
-				//入力された日付の妥当性チェックエラー時の処理
-				} catch (ParseException p) {
-				    p.printStackTrace();
-				    System.out.println("日付が正しくありません");
-				}
-			}
+                    //入力された日付の妥当性チェック
+                    String s1 = df.format(df.parse(form.getStartDate()[i]));
 
-			// 複数件登録処理
-			candidateTbhv.batchInsert(candidateList);
-		}
+                    CandidateT candidateT = new CandidateT();
 
-		// 未確定ボタンが選択されていない場合true
-		if (!(form.getFixFlg() == null || form.getFixFlg().equals(""))) {
+                    candidateT.setStartDate(s1);
+                    candidateT.setCandidateNo(candidateTbhv.selectNextVal());
+                    candidateT.setEventNo(eventT.getEventNo());
+                    candidateList.add(candidateT);
 
-			EventT event = new EventT();
+                    //入力された日付の妥当性チェックエラー時の処理
+                } catch (ParseException p) {
+                    p.printStackTrace();
+                    System.out.println("日付が正しくありません");
+                }
+            }
 
-			event.setEventNo(eventT.getEventNo());
-			event.setFixFlg(Flag.ON.getIntegerValue());
+            // 複数件登録処理
+            candidateTbhv.batchInsert(candidateList);
+        }
 
-			// 候補日テーブルから登録したイベントの候補日を取得
-			CandidateTCB cb = new CandidateTCB();
-			cb.query().setEventNo_Equal(eventT.getEventNo());
-			List<CandidateT> candidateList = candidateTbhv.readList(cb);
+        // 未確定ボタンが選択されていない場合true
+        if (!(form.getFixFlg() == null || form.getFixFlg().equals(""))) {
 
-			// 確定ラジオボタンを選択した候補日の候補日番号をセット
-			for (CandidateT candidate : candidateList) {
+            EventT event = new EventT();
 
-				// CandidateTのイベント候補日が確定選択した候補日と一致すればtrue
-				if (candidate.getStartDate().equals(form.getStartDate()[form.getFixFlg()])) {
+            event.setEventNo(eventT.getEventNo());
+            event.setFixFlg(Flag.ON.getIntegerValue());
 
-					// 確定候補日の候補日番号をセット
-					event.setCandidateNo(candidate.getCandidateNo());
-				}
-				// 登録
-				eventTBhv.update(event);
-			}
+            // 候補日テーブルから登録したイベントの候補日を取得
+            CandidateTCB cb = new CandidateTCB();
+            cb.query().setEventNo_Equal(eventT.getEventNo());
+            List<CandidateT> candidateList = candidateTbhv.readList(cb);
 
-		} else {
+            // 確定ラジオボタンを選択した候補日の候補日番号をセット
+            for (CandidateT candidate : candidateList) {
 
-			// 未確定の場合fixFlgに0をセット
-			EventT event = new EventT();
-			event.setEventNo(eventT.getEventNo());
-			event.setFixFlg(Flag.OFF.getIntegerValue());
+                // CandidateTのイベント候補日が確定選択した候補日と一致すればtrue
+                if (StringUtils.isNotEmpty(form.getFixFlg()))
+                    if (candidate.getStartDate().equals(form.getStartDate()[Integer.parseInt(form.getFixFlg())])) {
 
-			// 登録
-			eventTBhv.update(event);
-		}
+                        // 確定候補日の候補日番号をセット
+                        event.setCandidateNo(candidate.getCandidateNo());
+                    }
+                // 登録
+                eventTBhv.update(event);
+            }
 
-		// ログ出力
-		loggerService.outLog(LogMessageKeyConstants.Info.I_03_0001,
-				new Object[] { eventT.getEventNo(), eventT.getEventName() });
+        } else {
 
-	}
+            // 未確定の場合fixFlgに0をセット
+            EventT event = new EventT();
+            event.setEventNo(eventT.getEventNo());
+            event.setFixFlg(Flag.OFF.getIntegerValue());
 
-	/**
-	 *
-	 * 幹事の項目名のセット.
-	 *
-	 * @return 幹事の項目名
-	 */
-	public List<LabelValueDto> userNamePullDown() {
-		UserTCB cb = new UserTCB();
-		cb.query().addOrderBy_UserId_Asc();
-		List<UserT> userTList = userTBhv.readList(cb);
+            // 登録
+            eventTBhv.update(event);
+        }
 
-		List<LabelValueDto> userIdSelectList = new ArrayList<LabelValueDto>();
+        // ログ出力
+        loggerService.outLog(LogMessageKeyConstants.Info.I_03_0001,
+                new Object[] { eventT.getEventNo(), eventT.getEventName() });
 
-		LabelValueDto labelValueDto = new LabelValueDto();
-		labelValueDto.setLabel(SystemCodeConstants.PLEASE_SELECT_MSG);
-		labelValueDto.setValue("");
+    }
 
-		userIdSelectList.add(labelValueDto);
+    public List<CandidateT> candidate(EventCreateForm form) {
 
-		for (UserT userT : userTList) {
+        // 候補日をセットするDtoリストの準備
+        List<CandidateT> candidateList = new ArrayList<CandidateT>();
 
-			LabelValueDto dto = new LabelValueDto();
-			dto.setValue(userT.getUserId());
-			dto.setLabel(userT.getLastName() + userT.getFirstName());
-			userIdSelectList.add(dto);
+        // 候補日の数だけDtoリストにセットする
+        for (int i = 0; i < form.getStartDate().length; i++) {
 
-		}
-		return userIdSelectList;
+            if (!(form.getStartDate()[i].equals(""))) {
 
-	}
+                try {
+                    // 日時フォーマット文字列 yyyy/MM
+                    SimpleDateFormat df = new SimpleDateFormat(DateUtil.DATE_TIME_FORMAT_YYYYMMDD);
 
-	/**
-	 *
-	 * 経費補助の有無のセット.
-	 *
-	 * @return 経費補助の項目
-	 */
-	public List<LabelValueDto> AuxiliaryFlgPullDown() {
+                    // 厳密にチェック
+                    df.setLenient(false);
 
-		List<LabelValueDto> AuxiliaryFlgSelectList = new ArrayList<LabelValueDto>();
+                    // 入力された日付の妥当性チェック
+                    String s1 = df.format(df.parse(form.getStartDate()[i]));
 
-		LabelValueDto labelValueDto = new LabelValueDto();
-		labelValueDto.setLabel(SystemCodeConstants.PLEASE_SELECT_MSG);
-		labelValueDto.setValue("");
+                    CandidateT candidateT = new CandidateT();
 
-		AuxiliaryFlgSelectList.add(labelValueDto);
+                    candidateT.setStartDate(s1);
+                    candidateList.add(candidateT);
 
-		LabelValueDto dto = new LabelValueDto();
-		dto.setValue(0);
-		dto.setLabel(SystemCodeConstants.AUXILIARY_FLG_NO);
-		AuxiliaryFlgSelectList.add(dto);
+                    // 入力された日付の妥当性チェックエラー時の処理
+                } catch (ParseException p) {
+                    p.printStackTrace();
+                    System.out.println("日付が正しくありません");
+                }
+            }
+        }
+        return candidateList;
+    }
 
-		LabelValueDto dto2 = new LabelValueDto();
-		dto2.setLabel(SystemCodeConstants.AUXILIARY_FLG_YES);
-		dto2.setValue(1);
-		AuxiliaryFlgSelectList.add(dto2);
+    /**
+    *
+    * 確定ボタンが選択された候補日の未入力判定.
+    *
+     * @param form form
+    *
+    * @return 未入力ならtrue 入力されていたらfalse
+    */
+    public boolean isCheckCandidate(EventCreateForm form) {
 
-		return AuxiliaryFlgSelectList;
+        //未確定ボタンが選択されていない場合true
+        if (StringUtils.isNotEmpty(form.getFixFlg())) {
 
-	}
+            //確定ボタンが選択されている日付が空白の時true
+            if (StringUtils.isEmpty(form.getStartDate()[Integer.parseInt(form.getFixFlg())])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     *
+     * 幹事の項目名のセット.
+     *
+     * @return 幹事の項目名
+     */
+    public List<LabelValueDto> userNamePullDown() {
+        UserTCB cb = new UserTCB();
+        cb.query().addOrderBy_UserId_Asc();
+        List<UserT> userTList = userTBhv.readList(cb);
+
+        List<LabelValueDto> userIdSelectList = new ArrayList<LabelValueDto>();
+
+        LabelValueDto labelValueDto = new LabelValueDto();
+        labelValueDto.setLabel(SystemCodeConstants.PLEASE_SELECT_MSG);
+        labelValueDto.setValue("");
+
+        userIdSelectList.add(labelValueDto);
+
+        for (UserT userT : userTList) {
+
+            LabelValueDto dto = new LabelValueDto();
+            dto.setValue(userT.getUserId());
+            dto.setLabel(userT.getLastName() + userT.getFirstName());
+            userIdSelectList.add(dto);
+
+        }
+        return userIdSelectList;
+
+    }
+
+    /**
+     *
+     * 経費補助の有無のセット.
+     *
+     * @return 経費補助の項目
+     */
+    public List<LabelValueDto> AuxiliaryFlgPullDown() {
+
+        List<LabelValueDto> AuxiliaryFlgSelectList = new ArrayList<LabelValueDto>();
+
+        LabelValueDto labelValueDto = new LabelValueDto();
+        labelValueDto.setLabel(SystemCodeConstants.PLEASE_SELECT_MSG);
+        labelValueDto.setValue("");
+
+        AuxiliaryFlgSelectList.add(labelValueDto);
+
+        LabelValueDto dto = new LabelValueDto();
+        dto.setValue(0);
+        dto.setLabel(SystemCodeConstants.AUXILIARY_FLG_NO);
+        AuxiliaryFlgSelectList.add(dto);
+
+        LabelValueDto dto2 = new LabelValueDto();
+        dto2.setLabel(SystemCodeConstants.AUXILIARY_FLG_YES);
+        dto2.setValue(1);
+        AuxiliaryFlgSelectList.add(dto2);
+
+        return AuxiliaryFlgSelectList;
+
+    }
 }

@@ -70,6 +70,7 @@ public class EventCreateController extends BaseController {
     @RequestMapping(value = Operation.CREATE, method = RequestMethod.GET)
     public String create(@ModelAttribute("form") EventCreateForm form, Model model) throws Exception {
 
+
         model.addAttribute("form", form);
         super.setDisplayTitle(model, DisplayIdConstants.Event.BACCHUS_0202);
 

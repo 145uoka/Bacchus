@@ -6,6 +6,8 @@ public class SystemCodeConstants {
     public static final String CHARACTER_ENCODING = "UTF-8";
 
     public static final String PLEASE_SELECT_MSG = "－－－選択してください－－－";
+    public static final String AUXILIARY_FLG_YES = "有";
+    public static final String AUXILIARY_FLG_NO = "無";
 
     public static class PATTERN {
         public static final String NUMERIC = "0-9";

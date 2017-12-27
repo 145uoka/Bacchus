@@ -60,23 +60,4 @@ public class EventIndexService {
         }
         return eventDtoList;
     }
-
-
-
-
-
-    //	/**
-    //	 * 削除処理をするメソッド。
-    //	 *
-    //	 */
-    //	public void delete(UserIndexForm form){
-    //
-    //		//ユーザー一覧テーブルの一件取得
-    //		OptionalEntity<UserT> optionalEntity = userTBhv.selectByPK(form.getUserId());
-    //		UserT userT = optionalEntity.get();
-    //
-    //		//削除
-    //		userTBhv.delete(userT);
-    //
-    //	}
 }

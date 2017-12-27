@@ -41,6 +41,7 @@
 
       <c:if test="${not empty candidateDtoList}">
 
+<<<<<<< HEAD
         <!-- ボタン -->
         <div class="row">
           <div class="col-md-offset-1 col-md-10" align="center">
@@ -58,6 +59,26 @@
               </tr>
             </table>
           </div>
+=======
+      <!-- ボタン -->
+      <div class="row">
+        <div class="col-md-offset-1col-md-10" align="center">
+          <table style="margin-bottom: 20px">
+            <tr>
+              <td style="vertical-align: middle;">
+                <button type="submit" class="btn btn-warning">参加可否更新</button>
+              </td>
+              <td><label class="space" style="width: 30px;"></label></td>
+              <td style="vertical-align: middle;">
+                <button type="button" class="btn btn-info" id="delete">通知</button>
+              </td>
+              <td><label class="space" style="width: 30px;"></label></td>
+              <td style="vertical-align: middle;">
+                <button type="button" class="btn btn-danger" id="delete">削除</button>
+              </td>
+            </tr>
+          </table>
+>>>>>>> branch 'master' of https://github.com/145uoka/Bacchus.git
         </div>
 
         <!-- テーブル -->

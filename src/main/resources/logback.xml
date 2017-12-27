@@ -6,7 +6,7 @@
     <property name="LoggingDir" value="C:/log/" />
 
     <appender name="FILEOUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LoggingDir}GlueNet_EMP.log</file>
+        <file>${LoggingDir}Bacchus_app.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LoggingDir}appl-sm-manager.%d{yyyy-MM-dd}.zip</fileNamePattern>
             <maxHistory>20</maxHistory>

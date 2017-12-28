@@ -326,20 +326,25 @@ public class BsUserTCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnLoginId() { return doColumn("login_id"); }
         /**
+         * line_flg: {NotNull, int4(10), default=[0]}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnLineFlg() { return doColumn("line_flg"); }
+        /**
          * line_id: {text(2147483647)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnLineId() { return doColumn("line_id"); }
         /**
-         * user_name: {NotNull, text(2147483647)}
+         * line_user_name: {text(2147483647)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnLineUserName() { return doColumn("line_user_name"); }
+        /**
+         * user_name: {text(2147483647)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUserName() { return doColumn("user_name"); }
-        /**
-         * line_flg: {NotNull, int4(10), default=[0]}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnLineFlg() { return doColumn("line_flg"); }
         /**
          * last_name: {text(2147483647)}
          * @return The information object of specified column. (NotNull)

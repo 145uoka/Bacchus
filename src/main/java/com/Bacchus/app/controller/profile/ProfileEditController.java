@@ -21,6 +21,7 @@ import com.Bacchus.app.Exception.RecordNotFoundException;
 import com.Bacchus.app.form.profile.ProfileEditForm;
 import com.Bacchus.app.service.LoggerService;
 import com.Bacchus.app.service.pfofile.ProfileService;
+import com.Bacchus.app.service.user.UserService;
 import com.Bacchus.app.util.EncryptUtil;
 import com.Bacchus.app.util.MessageKeyUtil;
 import com.Bacchus.dbflute.cbean.UserTCB;
@@ -31,6 +32,7 @@ import com.Bacchus.webbase.appbase.Permission;
 import com.Bacchus.webbase.common.constants.DisplayIdConstants;
 import com.Bacchus.webbase.common.constants.LogMessageKeyConstants;
 import com.Bacchus.webbase.common.constants.MessageKeyConstants;
+import com.Bacchus.webbase.common.constants.ProcConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.MessageType;
 
@@ -42,6 +44,7 @@ import com.Bacchus.webbase.common.constants.SystemCodeConstants.MessageType;
  */
 @Controller
 @Permission({ SystemCodeConstants.Permissions.ADMIN, SystemCodeConstants.Permissions.GENERAL })
+@RequestMapping(value = ProcConstants.PROFILE)
 public class ProfileEditController extends BaseController {
 
     /** ロガーロジック */
@@ -54,8 +57,8 @@ public class ProfileEditController extends BaseController {
     @Autowired
     ProfileService profileService;
 
-    /** プロフィール管理:編集 */
-    private final String INDEX_VIEW = "/profile/edit";
+    @Autowired
+    UserService userService;
 
     /**
      * プロフィール管理:編集
@@ -67,7 +70,7 @@ public class ProfileEditController extends BaseController {
      * @return /profile/edit
      * @throws RecordNotFoundException
      */
-    @RequestMapping(value = INDEX_VIEW, method = RequestMethod.GET)
+    @RequestMapping(value = ProcConstants.Operation.EDIT, method = RequestMethod.GET)
     public String index(@ModelAttribute("form") ProfileEditForm form,
             BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) throws RecordNotFoundException {
 
@@ -77,15 +80,19 @@ public class ProfileEditController extends BaseController {
         // ログインユーザーのユーザ情報を取得
         OptionalEntity<UserT> usertT = userTBhv.selectByPK(userInfo.getUserId());
         if (usertT.isPresent() && usertT != null) {
-            form.setUserName(usertT.get().getUserName());
             form.setEmail(usertT.get().getEmail());
+            form.setFirstName(usertT.get().getFirstName());
+            form.setLastName(usertT.get().getLastName());
+            form.setLineFlg(usertT.get().getLineFlg());
+            form.setLineUserName(usertT.get().getLineUserName());
+            form.setUserName(usertT.get().getUserName());
         } else {
             throw new RecordNotFoundException("USER_T", userInfo.getUserId());
         }
 
         model.addAttribute("form", form);
 
-        return INDEX_VIEW;
+        return ProcConstants.PROFILE + ProcConstants.Operation.EDIT;
     }
 
     /**
@@ -97,7 +104,7 @@ public class ProfileEditController extends BaseController {
      * @param model モデル
      * @return /profile/show
      */
-    @RequestMapping(value = INDEX_VIEW + "/update", method = RequestMethod.POST)
+    @RequestMapping(value = ProcConstants.Operation.UPDATE, method = RequestMethod.POST)
     public String update(@Validated @ModelAttribute("form") ProfileEditForm form, BindingResult bindingResult,
             RedirectAttributes redirectAttributes, Model model) {
 
@@ -109,11 +116,14 @@ public class ProfileEditController extends BaseController {
             model.addAttribute("errors", bindingResult);
             super.setDisplayTitle(model, DisplayIdConstants.Profile.BACCHUS_0401);
             model.addAttribute(MessageType.ERROR, messageList);
-            return INDEX_VIEW;
+            return ProcConstants.PROFILE + ProcConstants.Operation.EDIT;
         }
 
         // プロフィール編集
         profileService.updateProfile(form);
+
+        // ログイン情報の更新
+        userService.initUserInfo(this.userInfo.getUserId());
 
         // 完了メッセージを設定
         String message = messageSource.getMessage(MessageKeyUtil.encloseStringDelete(
@@ -130,7 +140,7 @@ public class ProfileEditController extends BaseController {
                 userInfo.getEmail()
                 });
 
-        return super.redirect(INDEX_VIEW);
+        return super.redirect(ProcConstants.PROFILE + ProcConstants.Operation.EDIT);
     }
 
     /**

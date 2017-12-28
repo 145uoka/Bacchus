@@ -14,4 +14,4 @@ data-directory: playsql/data/ut/xls
   event_t (1)
   candidate_t (3)
   entry_t (0)
-  general_code_m (8)
+  general_code_m (15)

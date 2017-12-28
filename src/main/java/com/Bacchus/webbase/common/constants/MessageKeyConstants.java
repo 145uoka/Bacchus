@@ -71,6 +71,8 @@ public class MessageKeyConstants {
         public static final String NOTINPUTINSURANCENUMBER = "{glue-net.validator.NotInputInsuranceNumber}";
         /** 未来日は設定できません。 */
         public static final String NOTFUTURE = "{glue-net.validator.NotFuture}";
+        /** 日付は {0} の形式で入力してください。 */
+        public static final String DATEFORMAT_MESSAGE = "{glue-net.validator.DateFormat.message}";
     }
 
     /**

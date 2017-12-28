@@ -45,9 +45,10 @@ public class UserTDbm extends AbstractDBMeta {
     protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((UserT)et).getUserId(), (et, vl) -> ((UserT)et).setUserId(cti(vl)), "userId");
         setupEpg(_epgMap, et -> ((UserT)et).getLoginId(), (et, vl) -> ((UserT)et).setLoginId((String)vl), "loginId");
-        setupEpg(_epgMap, et -> ((UserT)et).getLineId(), (et, vl) -> ((UserT)et).setLineId((String)vl), "lineId");
-        setupEpg(_epgMap, et -> ((UserT)et).getUserName(), (et, vl) -> ((UserT)et).setUserName((String)vl), "userName");
         setupEpg(_epgMap, et -> ((UserT)et).getLineFlg(), (et, vl) -> ((UserT)et).setLineFlg(cti(vl)), "lineFlg");
+        setupEpg(_epgMap, et -> ((UserT)et).getLineId(), (et, vl) -> ((UserT)et).setLineId((String)vl), "lineId");
+        setupEpg(_epgMap, et -> ((UserT)et).getLineUserName(), (et, vl) -> ((UserT)et).setLineUserName((String)vl), "lineUserName");
+        setupEpg(_epgMap, et -> ((UserT)et).getUserName(), (et, vl) -> ((UserT)et).setUserName((String)vl), "userName");
         setupEpg(_epgMap, et -> ((UserT)et).getLastName(), (et, vl) -> ((UserT)et).setLastName((String)vl), "lastName");
         setupEpg(_epgMap, et -> ((UserT)et).getFirstName(), (et, vl) -> ((UserT)et).setFirstName((String)vl), "firstName");
         setupEpg(_epgMap, et -> ((UserT)et).getEmail(), (et, vl) -> ((UserT)et).setEmail((String)vl), "email");
@@ -88,9 +89,10 @@ public class UserTDbm extends AbstractDBMeta {
     //                                                                         ===========
     protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, true, true, true, "serial", 10, 0, "nextval('user_t_user_id_seq'::regclass)", false, null, null, null, "entryTList,eventTList", null, false);
     protected final ColumnInfo _columnLoginId = cci("login_id", "login_id", null, null, String.class, "loginId", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnLineId = cci("line_id", "line_id", null, null, String.class, "lineId", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnUserName = cci("user_name", "user_name", null, null, String.class, "userName", null, false, false, true, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnLineFlg = cci("line_flg", "line_flg", null, null, Integer.class, "lineFlg", null, false, false, true, "int4", 10, 0, "0", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnLineId = cci("line_id", "line_id", null, null, String.class, "lineId", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnLineUserName = cci("line_user_name", "line_user_name", null, null, String.class, "lineUserName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUserName = cci("user_name", "user_name", null, null, String.class, "userName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnLastName = cci("last_name", "last_name", null, null, String.class, "lastName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnFirstName = cci("first_name", "first_name", null, null, String.class, "firstName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEmail = cci("email", "email", null, null, String.class, "email", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
@@ -109,20 +111,25 @@ public class UserTDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnLoginId() { return _columnLoginId; }
     /**
+     * line_flg: {NotNull, int4(10), default=[0]}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnLineFlg() { return _columnLineFlg; }
+    /**
      * line_id: {text(2147483647)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnLineId() { return _columnLineId; }
     /**
-     * user_name: {NotNull, text(2147483647)}
+     * line_user_name: {text(2147483647)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnLineUserName() { return _columnLineUserName; }
+    /**
+     * user_name: {text(2147483647)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUserName() { return _columnUserName; }
-    /**
-     * line_flg: {NotNull, int4(10), default=[0]}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnLineFlg() { return _columnLineFlg; }
     /**
      * last_name: {text(2147483647)}
      * @return The information object of specified column. (NotNull)
@@ -158,9 +165,10 @@ public class UserTDbm extends AbstractDBMeta {
         List<ColumnInfo> ls = newArrayList();
         ls.add(columnUserId());
         ls.add(columnLoginId());
-        ls.add(columnLineId());
-        ls.add(columnUserName());
         ls.add(columnLineFlg());
+        ls.add(columnLineId());
+        ls.add(columnLineUserName());
+        ls.add(columnUserName());
         ls.add(columnLastName());
         ls.add(columnFirstName());
         ls.add(columnEmail());

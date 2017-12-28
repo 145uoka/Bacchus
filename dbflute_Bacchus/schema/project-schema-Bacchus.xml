@@ -153,12 +153,14 @@
             pkPosition="1" primaryKey="true" required="true" size="10" type="INTEGER"/>
         <column comment="ログインID" dbType="text" javaType="String"
             name="login_id" size="2147483647" type="VARCHAR"/>
-        <column comment="LineID" dbType="text" javaType="String"
-            name="line_id" size="2147483647" type="VARCHAR"/>
-        <column comment="ユーザー名" dbType="text" javaType="String"
-            name="user_name" required="true" size="2147483647" type="VARCHAR"/>
         <column comment="Lineフラグ" dbType="int4" default="0"
             javaType="Integer" name="line_flg" required="true" size="10" type="INTEGER"/>
+        <column comment="LineID" dbType="text" javaType="String"
+            name="line_id" size="2147483647" type="VARCHAR"/>
+        <column comment="LINEユーザ名" dbType="text" javaType="String"
+            name="line_user_name" size="2147483647" type="VARCHAR"/>
+        <column comment="ユーザー名" dbType="text" javaType="String"
+            name="user_name" size="2147483647" type="VARCHAR"/>
         <column comment="苗字(氏)" dbType="text" javaType="String"
             name="last_name" size="2147483647" type="VARCHAR"/>
         <column comment="名前(名)" dbType="text" javaType="String"
@@ -194,6 +196,8 @@
     </table>
     <sequenceGroup>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
+            minimumValue="1" name="candidate_t_candidate_no_seq" schema="postgres.bacchus"/>
+        <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="entry_t_entry_id_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="event_t_event_no_seq" schema="postgres.bacchus"/>
@@ -203,7 +207,5 @@
             minimumValue="1" name="user_t_user_id_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="user_type_m_user_type_id_seq" schema="postgres.bacchus"/>
-        <sequence incrementSize="1" maximumValue="9223372036854775807"
-            minimumValue="1" name="candidate_t_candidate_no_seq" schema="postgres.bacchus"/>
     </sequenceGroup>
 </database>

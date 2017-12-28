@@ -64,7 +64,6 @@ public class UserEditingForm implements Serializable {
 	}
 
 
-
 	public String getLastName() {
 		return lastName;
 	}

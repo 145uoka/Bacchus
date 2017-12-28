@@ -1,0 +1,7 @@
+
+/* メッセージ */
+.alert {
+    display: none; 初期状態は非表示
+    position: absolute;
+}
+

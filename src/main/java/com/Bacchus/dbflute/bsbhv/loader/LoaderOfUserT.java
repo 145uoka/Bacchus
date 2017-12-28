@@ -15,7 +15,7 @@ import com.Bacchus.dbflute.cbean.*;
  *     user_id
  *
  * [column]
- *     user_id, login_id, line_id, user_name, line_flg, last_name, first_name, email, password, auth_level, user_type_id
+ *     user_id, login_id, line_flg, line_id, line_user_name, user_name, last_name, first_name, email, password, auth_level, user_type_id
  *
  * [sequence]
  *     user_t_user_id_seq

@@ -160,12 +160,14 @@ CREATE TABLE Bacchus.user_t
 	user_id serial NOT NULL,
 	-- ログインID
 	login_id text UNIQUE,
-	-- LineID
-	line_id text,
-	-- ユーザー名
-	user_name text NOT NULL,
 	-- Lineフラグ
 	line_flg int DEFAULT 0 NOT NULL,
+	-- LineID
+	line_id text,
+	-- LINEユーザ名
+	line_user_name text,
+	-- ユーザー名
+	user_name text,
 	-- 苗字(氏)
 	last_name text,
 	-- 名前(名)
@@ -301,9 +303,10 @@ COMMENT ON COLUMN Bacchus.system_property_m.UPDATE_USER IS '更新者';
 COMMENT ON TABLE Bacchus.user_t IS 'ユーザー_T';
 COMMENT ON COLUMN Bacchus.user_t.user_id IS 'user_id';
 COMMENT ON COLUMN Bacchus.user_t.login_id IS 'ログインID';
-COMMENT ON COLUMN Bacchus.user_t.line_id IS 'LineID';
-COMMENT ON COLUMN Bacchus.user_t.user_name IS 'ユーザー名';
 COMMENT ON COLUMN Bacchus.user_t.line_flg IS 'Lineフラグ';
+COMMENT ON COLUMN Bacchus.user_t.line_id IS 'LineID';
+COMMENT ON COLUMN Bacchus.user_t.line_user_name IS 'LINEユーザ名';
+COMMENT ON COLUMN Bacchus.user_t.user_name IS 'ユーザー名';
 COMMENT ON COLUMN Bacchus.user_t.last_name IS '苗字(氏)';
 COMMENT ON COLUMN Bacchus.user_t.first_name IS '名前(名)';
 COMMENT ON COLUMN Bacchus.user_t.email IS 'Eメール';

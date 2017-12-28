@@ -135,6 +135,8 @@ public class SystemCodeConstants {
         public static final String ENTRY_DIV = "0002";
         /** 経費補助有無 */
         public static final String AUXILIARY_DIV = "0003";
+        /** イベント種別 */
+        public static final String EVENT_DIV = "0004";
     }
 
     /**

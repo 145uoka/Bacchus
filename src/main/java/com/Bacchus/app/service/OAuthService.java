@@ -14,6 +14,7 @@ import com.Bacchus.dbflute.cbean.UserTCB;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.dbflute.exentity.UserT;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.Flag;
+import com.Bacchus.webbase.common.constants.SystemCodeConstants.Permissions;
 
 /**
  * 共通サービスクラス。
@@ -39,12 +40,13 @@ public class OAuthService {
         UserT userT = new UserT();
 
         if (CollectionUtils.isEmpty(userTList)) {
-            userT.setUserId(userTBhv.selectNextVal());
+            Integer userId = userTBhv.selectNextVal();
+            userT.setUserId(userId);
             userT.setUserTypeId(1);
-            userT.setAuthLevel(2);
+            userT.setAuthLevel(Permissions.GENERAL.getAuthType());
             userT.setLineFlg(Flag.ON.getIntegerValue().intValue());
             userT.setLineId(idToken.sub);
-            userT.setUserName(idToken.name);
+            userT.setLineUserName(idToken.name);
             userTBhv.insert(userT);
         } else {
             userT = userTList.get(0);

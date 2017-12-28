@@ -3,6 +3,11 @@
  */
 $(document).ready(function() {
 	// 表示するカレンダーを日本形式に変更
+	initDatepicker();
+});
+
+function initDatepicker() {
+	// 表示するカレンダーを日本形式に変更
 	$("div.date-ymd").datepicker({
 		format : 'yyyy/mm/dd',
 		language : 'ja',
@@ -21,7 +26,8 @@ $(document).ready(function() {
 	$("div.date").datepicker().on("changeDate", function(ev) {
 		$("div.datepicker.dropdown-menu").hide();
 	});
-});
+}
+
 /**
  * ポップアップ表示
  **/
@@ -69,6 +75,10 @@ $(function() {
 });
 
 $(function() {
+	initRadioTable();
+});
+
+function initRadioTable() {
 	$('.radio_table tr').hover(function() {
 		$(this).addClass('hover_tr');
 	}, function() {
@@ -91,8 +101,7 @@ $(function() {
 			$t.addClass('checked_tr');
 		}
 	});
-});
-
+}
 
 function clickCheckLine(obj) {
 

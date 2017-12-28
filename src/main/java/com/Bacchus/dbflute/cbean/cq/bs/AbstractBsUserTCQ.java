@@ -472,6 +472,123 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
     protected abstract ConditionValue xgetCValueLoginId();
 
     /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * line_flg: {NotNull, int4(10), default=[0]}
+     * @param lineFlg The value of lineFlg as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setLineFlg_Equal(Integer lineFlg) {
+        doSetLineFlg_Equal(lineFlg);
+    }
+
+    protected void doSetLineFlg_Equal(Integer lineFlg) {
+        regLineFlg(CK_EQ, lineFlg);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * line_flg: {NotNull, int4(10), default=[0]}
+     * @param lineFlg The value of lineFlg as notEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setLineFlg_NotEqual(Integer lineFlg) {
+        doSetLineFlg_NotEqual(lineFlg);
+    }
+
+    protected void doSetLineFlg_NotEqual(Integer lineFlg) {
+        regLineFlg(CK_NES, lineFlg);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * line_flg: {NotNull, int4(10), default=[0]}
+     * @param lineFlg The value of lineFlg as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setLineFlg_GreaterThan(Integer lineFlg) {
+        regLineFlg(CK_GT, lineFlg);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * line_flg: {NotNull, int4(10), default=[0]}
+     * @param lineFlg The value of lineFlg as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setLineFlg_LessThan(Integer lineFlg) {
+        regLineFlg(CK_LT, lineFlg);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * line_flg: {NotNull, int4(10), default=[0]}
+     * @param lineFlg The value of lineFlg as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setLineFlg_GreaterEqual(Integer lineFlg) {
+        regLineFlg(CK_GE, lineFlg);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * line_flg: {NotNull, int4(10), default=[0]}
+     * @param lineFlg The value of lineFlg as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setLineFlg_LessEqual(Integer lineFlg) {
+        regLineFlg(CK_LE, lineFlg);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * line_flg: {NotNull, int4(10), default=[0]}
+     * @param minNumber The min number of lineFlg. (NullAllowed: if null, no from-condition)
+     * @param maxNumber The max number of lineFlg. (NullAllowed: if null, no to-condition)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setLineFlg_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setLineFlg_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * line_flg: {NotNull, int4(10), default=[0]}
+     * @param minNumber The min number of lineFlg. (NullAllowed: if null, no from-condition)
+     * @param maxNumber The max number of lineFlg. (NullAllowed: if null, no to-condition)
+     * @param rangeOfOption The option of range-of. (NotNull)
+     */
+    protected void setLineFlg_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValueLineFlg(), "line_flg", rangeOfOption);
+    }
+
+    /**
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * line_flg: {NotNull, int4(10), default=[0]}
+     * @param lineFlgList The collection of lineFlg as inScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setLineFlg_InScope(Collection<Integer> lineFlgList) {
+        doSetLineFlg_InScope(lineFlgList);
+    }
+
+    protected void doSetLineFlg_InScope(Collection<Integer> lineFlgList) {
+        regINS(CK_INS, cTL(lineFlgList), xgetCValueLineFlg(), "line_flg");
+    }
+
+    /**
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * line_flg: {NotNull, int4(10), default=[0]}
+     * @param lineFlgList The collection of lineFlg as notInScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setLineFlg_NotInScope(Collection<Integer> lineFlgList) {
+        doSetLineFlg_NotInScope(lineFlgList);
+    }
+
+    protected void doSetLineFlg_NotInScope(Collection<Integer> lineFlgList) {
+        regINS(CK_NINS, cTL(lineFlgList), xgetCValueLineFlg(), "line_flg");
+    }
+
+    protected void regLineFlg(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueLineFlg(), "line_flg"); }
+    protected abstract ConditionValue xgetCValueLineFlg();
+
+    /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * line_id: {text(2147483647)}
      * @param lineId The value of lineId as equal. (NullAllowed: if null (or empty), no condition)
@@ -626,7 +743,160 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * line_user_name: {text(2147483647)}
+     * @param lineUserName The value of lineUserName as equal. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setLineUserName_Equal(String lineUserName) {
+        doSetLineUserName_Equal(fRES(lineUserName));
+    }
+
+    protected void doSetLineUserName_Equal(String lineUserName) {
+        regLineUserName(CK_EQ, lineUserName);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * line_user_name: {text(2147483647)}
+     * @param lineUserName The value of lineUserName as notEqual. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setLineUserName_NotEqual(String lineUserName) {
+        doSetLineUserName_NotEqual(fRES(lineUserName));
+    }
+
+    protected void doSetLineUserName_NotEqual(String lineUserName) {
+        regLineUserName(CK_NES, lineUserName);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * line_user_name: {text(2147483647)}
+     * @param lineUserName The value of lineUserName as greaterThan. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setLineUserName_GreaterThan(String lineUserName) {
+        regLineUserName(CK_GT, fRES(lineUserName));
+    }
+
+    /**
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * line_user_name: {text(2147483647)}
+     * @param lineUserName The value of lineUserName as lessThan. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setLineUserName_LessThan(String lineUserName) {
+        regLineUserName(CK_LT, fRES(lineUserName));
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * line_user_name: {text(2147483647)}
+     * @param lineUserName The value of lineUserName as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setLineUserName_GreaterEqual(String lineUserName) {
+        regLineUserName(CK_GE, fRES(lineUserName));
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * line_user_name: {text(2147483647)}
+     * @param lineUserName The value of lineUserName as lessEqual. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setLineUserName_LessEqual(String lineUserName) {
+        regLineUserName(CK_LE, fRES(lineUserName));
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * line_user_name: {text(2147483647)}
+     * @param lineUserNameList The collection of lineUserName as inScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setLineUserName_InScope(Collection<String> lineUserNameList) {
+        doSetLineUserName_InScope(lineUserNameList);
+    }
+
+    protected void doSetLineUserName_InScope(Collection<String> lineUserNameList) {
+        regINS(CK_INS, cTL(lineUserNameList), xgetCValueLineUserName(), "line_user_name");
+    }
+
+    /**
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * line_user_name: {text(2147483647)}
+     * @param lineUserNameList The collection of lineUserName as notInScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setLineUserName_NotInScope(Collection<String> lineUserNameList) {
+        doSetLineUserName_NotInScope(lineUserNameList);
+    }
+
+    protected void doSetLineUserName_NotInScope(Collection<String> lineUserNameList) {
+        regINS(CK_NINS, cTL(lineUserNameList), xgetCValueLineUserName(), "line_user_name");
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * line_user_name: {text(2147483647)} <br>
+     * <pre>e.g. setLineUserName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param lineUserName The value of lineUserName as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setLineUserName_LikeSearch(String lineUserName, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setLineUserName_LikeSearch(lineUserName, xcLSOP(opLambda));
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * line_user_name: {text(2147483647)} <br>
+     * <pre>e.g. setLineUserName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param lineUserName The value of lineUserName as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param likeSearchOption The option of like-search. (NotNull)
+     */
+    protected void setLineUserName_LikeSearch(String lineUserName, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(lineUserName), xgetCValueLineUserName(), "line_user_name", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * line_user_name: {text(2147483647)}
+     * @param lineUserName The value of lineUserName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setLineUserName_NotLikeSearch(String lineUserName, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setLineUserName_NotLikeSearch(lineUserName, xcLSOP(opLambda));
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * line_user_name: {text(2147483647)}
+     * @param lineUserName The value of lineUserName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param likeSearchOption The option of not-like-search. (NotNull)
+     */
+    protected void setLineUserName_NotLikeSearch(String lineUserName, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(lineUserName), xgetCValueLineUserName(), "line_user_name", likeSearchOption);
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * line_user_name: {text(2147483647)}
+     */
+    public void setLineUserName_IsNull() { regLineUserName(CK_ISN, DOBJ); }
+
+    /**
+     * IsNullOrEmpty {is null or empty}. And OnlyOnceRegistered. <br>
+     * line_user_name: {text(2147483647)}
+     */
+    public void setLineUserName_IsNullOrEmpty() { regLineUserName(CK_ISNOE, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * line_user_name: {text(2147483647)}
+     */
+    public void setLineUserName_IsNotNull() { regLineUserName(CK_ISNN, DOBJ); }
+
+    protected void regLineUserName(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueLineUserName(), "line_user_name"); }
+    protected abstract ConditionValue xgetCValueLineUserName();
+
+    /**
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * user_name: {text(2147483647)}
      * @param userName The value of userName as equal. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserName_Equal(String userName) {
@@ -639,7 +909,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @param userName The value of userName as notEqual. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserName_NotEqual(String userName) {
@@ -652,7 +922,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @param userName The value of userName as greaterThan. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserName_GreaterThan(String userName) {
@@ -661,7 +931,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @param userName The value of userName as lessThan. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserName_LessThan(String userName) {
@@ -670,7 +940,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @param userName The value of userName as greaterEqual. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserName_GreaterEqual(String userName) {
@@ -679,7 +949,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @param userName The value of userName as lessEqual. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserName_LessEqual(String userName) {
@@ -688,7 +958,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @param userNameList The collection of userName as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserName_InScope(Collection<String> userNameList) {
@@ -701,7 +971,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @param userNameList The collection of userName as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserName_NotInScope(Collection<String> userNameList) {
@@ -714,7 +984,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * user_name: {NotNull, text(2147483647)} <br>
+     * user_name: {text(2147483647)} <br>
      * <pre>e.g. setUserName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
      * @param userName The value of userName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
@@ -725,7 +995,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * user_name: {NotNull, text(2147483647)} <br>
+     * user_name: {text(2147483647)} <br>
      * <pre>e.g. setUserName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
      * @param userName The value of userName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
@@ -737,7 +1007,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @param userName The value of userName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
@@ -748,7 +1018,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @param userName The value of userName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
@@ -756,125 +1026,26 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(userName), xgetCValueUserName(), "user_name", likeSearchOption);
     }
 
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * user_name: {text(2147483647)}
+     */
+    public void setUserName_IsNull() { regUserName(CK_ISN, DOBJ); }
+
+    /**
+     * IsNullOrEmpty {is null or empty}. And OnlyOnceRegistered. <br>
+     * user_name: {text(2147483647)}
+     */
+    public void setUserName_IsNullOrEmpty() { regUserName(CK_ISNOE, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * user_name: {text(2147483647)}
+     */
+    public void setUserName_IsNotNull() { regUserName(CK_ISNN, DOBJ); }
+
     protected void regUserName(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueUserName(), "user_name"); }
     protected abstract ConditionValue xgetCValueUserName();
-
-    /**
-     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * line_flg: {NotNull, int4(10), default=[0]}
-     * @param lineFlg The value of lineFlg as equal. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setLineFlg_Equal(Integer lineFlg) {
-        doSetLineFlg_Equal(lineFlg);
-    }
-
-    protected void doSetLineFlg_Equal(Integer lineFlg) {
-        regLineFlg(CK_EQ, lineFlg);
-    }
-
-    /**
-     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * line_flg: {NotNull, int4(10), default=[0]}
-     * @param lineFlg The value of lineFlg as notEqual. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setLineFlg_NotEqual(Integer lineFlg) {
-        doSetLineFlg_NotEqual(lineFlg);
-    }
-
-    protected void doSetLineFlg_NotEqual(Integer lineFlg) {
-        regLineFlg(CK_NES, lineFlg);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * line_flg: {NotNull, int4(10), default=[0]}
-     * @param lineFlg The value of lineFlg as greaterThan. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setLineFlg_GreaterThan(Integer lineFlg) {
-        regLineFlg(CK_GT, lineFlg);
-    }
-
-    /**
-     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * line_flg: {NotNull, int4(10), default=[0]}
-     * @param lineFlg The value of lineFlg as lessThan. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setLineFlg_LessThan(Integer lineFlg) {
-        regLineFlg(CK_LT, lineFlg);
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * line_flg: {NotNull, int4(10), default=[0]}
-     * @param lineFlg The value of lineFlg as greaterEqual. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setLineFlg_GreaterEqual(Integer lineFlg) {
-        regLineFlg(CK_GE, lineFlg);
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * line_flg: {NotNull, int4(10), default=[0]}
-     * @param lineFlg The value of lineFlg as lessEqual. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setLineFlg_LessEqual(Integer lineFlg) {
-        regLineFlg(CK_LE, lineFlg);
-    }
-
-    /**
-     * RangeOf with various options. (versatile) <br>
-     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
-     * And NullIgnored, OnlyOnceRegistered. <br>
-     * line_flg: {NotNull, int4(10), default=[0]}
-     * @param minNumber The min number of lineFlg. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of lineFlg. (NullAllowed: if null, no to-condition)
-     * @param opLambda The callback for option of range-of. (NotNull)
-     */
-    public void setLineFlg_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
-        setLineFlg_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
-    }
-
-    /**
-     * RangeOf with various options. (versatile) <br>
-     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
-     * And NullIgnored, OnlyOnceRegistered. <br>
-     * line_flg: {NotNull, int4(10), default=[0]}
-     * @param minNumber The min number of lineFlg. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of lineFlg. (NullAllowed: if null, no to-condition)
-     * @param rangeOfOption The option of range-of. (NotNull)
-     */
-    protected void setLineFlg_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
-        regROO(minNumber, maxNumber, xgetCValueLineFlg(), "line_flg", rangeOfOption);
-    }
-
-    /**
-     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * line_flg: {NotNull, int4(10), default=[0]}
-     * @param lineFlgList The collection of lineFlg as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setLineFlg_InScope(Collection<Integer> lineFlgList) {
-        doSetLineFlg_InScope(lineFlgList);
-    }
-
-    protected void doSetLineFlg_InScope(Collection<Integer> lineFlgList) {
-        regINS(CK_INS, cTL(lineFlgList), xgetCValueLineFlg(), "line_flg");
-    }
-
-    /**
-     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * line_flg: {NotNull, int4(10), default=[0]}
-     * @param lineFlgList The collection of lineFlg as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setLineFlg_NotInScope(Collection<Integer> lineFlgList) {
-        doSetLineFlg_NotInScope(lineFlgList);
-    }
-
-    protected void doSetLineFlg_NotInScope(Collection<Integer> lineFlgList) {
-        regINS(CK_NINS, cTL(lineFlgList), xgetCValueLineFlg(), "line_flg");
-    }
-
-    protected void regLineFlg(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueLineFlg(), "line_flg"); }
-    protected abstract ConditionValue xgetCValueLineFlg();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>

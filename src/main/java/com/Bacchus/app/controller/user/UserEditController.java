@@ -94,9 +94,6 @@ public class UserEditController extends BaseController {
         // ユーザー区分のセット
         form.setUserTypeId(userEditService.selectUser(form).getUserTypeId());
 
-        //削除ボタン押下時、確認ダイアログOK選択後の遷移先のパス
-        model.addAttribute("deletePath",ProcConstants.USER + ProcConstants.Operation.DELETE);
-
             return ProcConstants.USER + ProcConstants.Operation.EDIT;
 
     }

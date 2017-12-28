@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -169,9 +170,15 @@ public class LoginController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String loginName(@ModelAttribute("form") LoginNameForm form, BindingResult bindingResult,
+    public String loginName(@Validated @ModelAttribute("form") LoginNameForm form, BindingResult bindingResult,
             RedirectAttributes redirectAttributes, Model model) throws Exception {
 
+        // validation確認
+        if (bindingResult.hasErrors()) {
+            model.addAttribute(MODEL_KEY_FORM, form);
+            model.addAttribute("errors", bindingResult);
+            return "/index";
+        }
         String loginId = form.getLoginId();
         String encPassword = EncryptUtil.saltHash(form.getPassword(), EncryptUtil.EncryptType.MD5);
 

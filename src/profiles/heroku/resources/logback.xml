@@ -12,7 +12,7 @@
   </appender>
 
   <!-- Application Loggers -->
-  <logger name="com.Bacchus" level="info" />
+  <logger name="com.Bacchus" level="debug" />
 
   <!-- 3rdparty Loggers -->
   <logger name="org.springframework.core" level="warn" />

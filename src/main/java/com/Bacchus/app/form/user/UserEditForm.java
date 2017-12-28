@@ -12,7 +12,7 @@ import com.Bacchus.webbase.common.beanvalidation.Email;
  * @author sagawa_k
  * $Id:$
  */
-public class UserEditingForm implements Serializable {
+public class UserEditForm implements Serializable {
 
 	/** serialVersionUID */
 	private static final long serialVersionUID = 1L;

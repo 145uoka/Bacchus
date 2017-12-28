@@ -6,6 +6,20 @@
 <head>
 <meta charset="utf-8">
 <jsp:include page="../common/common.jsp" />
+
+<script type="text/javascript">
+	function deleteConfirmation() {
+
+
+		if (window.confirm('削除しますか？')) {
+
+			document.form.action = "${pageContext.request.contextPath}/user/delete"
+
+			document.form.submit();
+
+		}
+	}
+	</script>
 </head>
 
 <body>
@@ -107,7 +121,7 @@
 								<label class="col-md-4 control-label">パスワード<span
 									class="label label-danger" style="margin-left: 10px">必須</span></label>
 								<div class="col-md-6">
-									<form:input path="password" class="form-control" />
+									<form:password path="password" class="form-control" />
 								</div>
 								<div style="clear: both;">
 									<span class="col-md-4"></span>
@@ -122,7 +136,7 @@
 								<label class="col-md-4 control-label">パスワード確認<span
 									class="label label-danger" style="margin-left: 10px">必須</span></label>
 								<div class="col-md-6">
-									<form:input path="confirmPassword" class="form-control" />
+									<form:password path="confirmPassword" class="form-control" />
 								</div>
 								<div style="clear: both;">
 									<span class="col-md-4"></span>
@@ -175,6 +189,12 @@
 						<tr>
 							<td style="vertical-align: middle;">
 								<button type="submit" class="btn btn-info">更新</button>
+							</td>
+							<td><label class="space" style="width: 30px;"></label></td>
+
+							<td style="vertical-align: middle;">
+								<button type="button" class="btn btn-danger"
+									onClick="deleteConfirmation()">削除</button>
 							</td>
 						</tr>
 					</table>

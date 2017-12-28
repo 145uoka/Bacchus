@@ -13,6 +13,12 @@
   <form:form modelAttribute="form" action="${pageContext.request.contextPath}/login" method="post" class="form-horizontal">
     <div class="container">
       <!-- コンテンツエリア -->
+      <%-- メッセージ領域 --%>
+      <div class="row">
+         <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2">
+          <%@include file="/WEB-INF/fragment/messages.jspf"%>
+        </div>
+      </div>
 
       <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2">

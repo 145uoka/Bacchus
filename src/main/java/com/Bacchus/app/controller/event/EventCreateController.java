@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import com.Bacchus.app.service.CommonService;
 import com.Bacchus.app.service.LoggerService;
 import com.Bacchus.app.service.SystemPropertyService;
 import com.Bacchus.app.service.event.EventCreateService;
+import com.Bacchus.app.util.DateUtil;
 import com.Bacchus.app.util.MessageKeyUtil;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.dbflute.exbhv.UserTypeMBhv;
@@ -30,6 +32,7 @@ import com.Bacchus.webbase.common.constants.MessageKeyConstants;
 import com.Bacchus.webbase.common.constants.MessageKeyConstants.GlueNetValidator;
 import com.Bacchus.webbase.common.constants.ProcConstants;
 import com.Bacchus.webbase.common.constants.ProcConstants.Operation;
+import com.Bacchus.webbase.common.constants.SystemCodeConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.MessageType;
 
 /**
@@ -70,16 +73,10 @@ public class EventCreateController extends BaseController {
     @RequestMapping(value = Operation.CREATE, method = RequestMethod.GET)
     public String create(@ModelAttribute("form") EventCreateForm form, Model model) throws Exception {
 
-        model.addAttribute("form", form);
         super.setDisplayTitle(model, DisplayIdConstants.Event.BACCHUS_0202);
 
-        // ユーザー名のプルダウン取得.
-        List<LabelValueDto> userNameSelectList = eventCreateService.userNamePullDown();
-        model.addAttribute("userNameSelectList", userNameSelectList);
-
-        // 経費補助の有無のセット
-        List<LabelValueDto> auxiliaryFlgSelectList = eventCreateService.AuxiliaryFlgPullDown();
-        model.addAttribute("auxiliaryFlgSelectList", auxiliaryFlgSelectList);
+        model.addAttribute("form", form);
+        setPullDownList(model);
 
         return ProcConstants.EVENT + ProcConstants.Operation.CREATE;
 
@@ -104,12 +101,56 @@ public class EventCreateController extends BaseController {
 
         super.setDisplayTitle(model, DisplayIdConstants.Event.BACCHUS_0202);
 
-        model.addAttribute("form", form);
+        // 幹事のユーザIDの存在チェック
+        if (!bindingResult.hasFieldErrors("userId")) {
+            if (StringUtils.isNotEmpty(form.getUserId())) {
+                if (!isExistsUser(Integer.parseInt(form.getUserId()))) {
+                    bindingResult.rejectValue("userId",
+                            MessageKeyUtil.encloseStringDelete(GlueNetValidator.INVALID), null, "");
+                }
+            }
+        }
 
-        //確定ボタンを選択した候補日が空白でないかの判定 空白ならtrue
-        if (eventCreateService.isCheckCandidate(form)) {
+        // 経費可否の妥当性チェック
+        if (!bindingResult.hasFieldErrors("auxiliaryFlg")) {
+            if (StringUtils.isNotEmpty(form.getAuxiliaryFlg())) {
+                if (!commonService.isExistsGenCode(SystemCodeConstants.GeneralCodeKbn.AUXILIARY_DIV,
+                        form.getAuxiliaryFlg())) {
+                    bindingResult.rejectValue("auxiliaryFlg",
+                            MessageKeyUtil.encloseStringDelete(GlueNetValidator.INVALID), null, "");
+                }
+            }
+        }
 
-            //エラー文のセット
+        // イベント種別の妥当性チェック
+        if (!bindingResult.hasFieldErrors("eventDiv")) {
+            if (StringUtils.isNotEmpty(form.getEventDiv())) {
+                if (!commonService.isExistsGenCode(SystemCodeConstants.GeneralCodeKbn.EVENT_DIV,
+                        form.getEventDiv())) {
+                    bindingResult.rejectValue("eventDiv",
+                            MessageKeyUtil.encloseStringDelete(GlueNetValidator.INVALID), null, "");
+                }
+            }
+        }
+
+        // 候補日の形式チェック
+        for (int i = 0; i < form.getStartDate().length; i++) {
+            String fieldName = "startDate[" + i + "]";
+            if (!bindingResult.hasFieldErrors(fieldName)) {
+                if (StringUtils.isNotEmpty(form.getStartDate()[i])) {
+                    if (!DateUtil.isValidDateFormat(form.getStartDate()[i])) {
+                        bindingResult.rejectValue(fieldName,
+                                MessageKeyUtil.encloseStringDelete(GlueNetValidator.DATEFORMAT_MESSAGE),
+                                new String[]{DateUtil.DATE_TIME_FORMAT_YYYYMMDD}, "");
+                    }
+                }
+            }
+        }
+
+        // 確定ボタンを選択した候補日が空白でないかの判定 空白ならtrue
+        if (eventCreateService.isFixCandidate(form)) {
+
+            // エラー文のセット
             bindingResult.rejectValue("startDate[" + Integer.parseInt(form.getFixFlg()) + "]",
                     MessageKeyUtil.encloseStringDelete(GlueNetValidator.NOTBLANK_WITH_FIELD),
                     new Object[] { "確定対象の日付" }, "");
@@ -117,16 +158,11 @@ public class EventCreateController extends BaseController {
 
         // validation確認
         if (bindingResult.hasErrors()) {
+
             model.addAttribute(MODEL_KEY_FORM, form);
             model.addAttribute("errors", bindingResult);
 
-            // ユーザー名のプルダウン取得
-            List<LabelValueDto> userNameSelectList = eventCreateService.userNamePullDown();
-            model.addAttribute("userNameSelectList", userNameSelectList);
-
-            // 経費補助の有無のセット
-            List<LabelValueDto> auxiliaryFlgSelectList = eventCreateService.AuxiliaryFlgPullDown();
-            model.addAttribute("auxiliaryFlgSelectList", auxiliaryFlgSelectList);
+            setPullDownList(model);
 
             return ProcConstants.EVENT + ProcConstants.Operation.CREATE;
         }
@@ -143,4 +179,39 @@ public class EventCreateController extends BaseController {
 
         return redirect(ProcConstants.EVENT + ProcConstants.Operation.INDEX);
     }
+
+    /**
+     * プルダウン項目の設定
+     * @param model
+     */
+    private void setPullDownList(Model model) {
+        // ユーザー名のプルダウン取得.
+        List<LabelValueDto> userNameSelectList = eventCreateService.userNamePullDown();
+        model.addAttribute("userNameSelectList", userNameSelectList);
+
+        // 経費補助のプルダウン
+        List<LabelValueDto> auxiliaryFlgSelectList = commonService.creatOptionalLabelValueList(
+                SystemCodeConstants.GeneralCodeKbn.AUXILIARY_DIV,
+                SystemCodeConstants.PLEASE_SELECT_MSG);
+        model.addAttribute("auxiliaryFlgSelectList", auxiliaryFlgSelectList);
+
+        // イベント種別のプルダウン
+        List<LabelValueDto> eventDivList = commonService.creatOptionalLabelValueList(
+                SystemCodeConstants.GeneralCodeKbn.EVENT_DIV,
+                SystemCodeConstants.PLEASE_SELECT_MSG);
+        model.addAttribute("eventDivList", eventDivList);
+    }
+
+
+    private boolean isExistsUser(Integer userId) {
+        int resultCount = userTBhv.selectCount(cb -> {
+            cb.query().setUserId_Equal(userId);
+        });
+
+        if (resultCount > 0) {
+            return true;
+        }
+        return false;
+    }
+
 }

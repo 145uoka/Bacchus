@@ -75,6 +75,10 @@ $(function() {
 });
 
 $(function() {
+	initRadioTable();
+});
+
+function initRadioTable() {
 	$('.radio_table tr').hover(function() {
 		$(this).addClass('hover_tr');
 	}, function() {
@@ -97,8 +101,7 @@ $(function() {
 			$t.addClass('checked_tr');
 		}
 	});
-});
-
+}
 
 function clickCheckLine(obj) {
 

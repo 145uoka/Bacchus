@@ -1,8 +1,11 @@
-package  com.Bacchus.app.form.event;
+package com.Bacchus.app.form.event;
 
 import java.io.Serializable;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.Bacchus.webbase.common.beanvalidation.Number;
+import com.Bacchus.webbase.common.constants.MessageKeyConstants.GlueNetValidator;
 
 /**
  * ログインフォーム。
@@ -15,49 +18,33 @@ public class EventCreateForm implements Serializable {
 	/** serialVersionUID */
 	private static final long serialVersionUID = 1L;
 
-
-//	private Integer eventNo;
-
 	@NotEmpty
 	private String eventName;
 
-
 	private String eventDetail;
-
-
 
 	private String eventPlace;
 
-
 	private String eventUrl;
-
 
 	private String tell;
 
+	@Number
+	private String eventEntryFee;
 
-//	private Integer eventEntryFee;
-
-
+	@Number(message=GlueNetValidator.INVALID)
 	private String auxiliaryFlg ;
 
-
+	@Number(message=GlueNetValidator.INVALID)
 	private String fixFlg ;
-
-
-//	private Integer candidateNo ;
-
 
 	private String storeName ;
 
-
-//	private Integer entryPeople ;
-
-
+	@Number(message=GlueNetValidator.INVALID)
 	private String eventDiv ;
 
-
+	@Number(message=GlueNetValidator.INVALID)
 	private String userId ;
-
 
 	private String[] startDate;
 
@@ -172,6 +159,14 @@ public class EventCreateForm implements Serializable {
 	}
 
 
+    public String getEventEntryFee() {
+        return eventEntryFee;
+    }
+
+
+    public void setEventEntryFee(String eventEntryFee) {
+        this.eventEntryFee = eventEntryFee;
+    }
 
 
 }

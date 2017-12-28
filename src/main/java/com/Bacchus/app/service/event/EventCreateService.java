@@ -58,9 +58,10 @@ public class EventCreateService {
      *
      * @param form
      *            EventCreateForm
+     * @throws ParseException
      */
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    public void store(EventCreateForm form) {
+    public void store(EventCreateForm form)throws ParseException {
 
         // 登録データの生成
         EventT eventT = new EventT();
@@ -115,7 +116,6 @@ public class EventCreateService {
                     //入力された日付の妥当性チェックエラー時の処理
                 } catch (ParseException p) {
                     p.printStackTrace();
-                    System.out.println("日付が正しくありません");
                 }
             }
 
@@ -167,40 +167,40 @@ public class EventCreateService {
 
     }
 
-    public List<CandidateT> candidate(EventCreateForm form) {
-
-        // 候補日をセットするDtoリストの準備
-        List<CandidateT> candidateList = new ArrayList<CandidateT>();
-
-        // 候補日の数だけDtoリストにセットする
-        for (int i = 0; i < form.getStartDate().length; i++) {
-
-            if (!(form.getStartDate()[i].equals(""))) {
-
-                try {
-                    // 日時フォーマット文字列 yyyy/MM
-                    SimpleDateFormat df = new SimpleDateFormat(DateUtil.DATE_TIME_FORMAT_YYYYMMDD);
-
-                    // 厳密にチェック
-                    df.setLenient(false);
-
-                    // 入力された日付の妥当性チェック
-                    String s1 = df.format(df.parse(form.getStartDate()[i]));
-
-                    CandidateT candidateT = new CandidateT();
-
-                    candidateT.setStartDate(s1);
-                    candidateList.add(candidateT);
-
-                    // 入力された日付の妥当性チェックエラー時の処理
-                } catch (ParseException p) {
-                    p.printStackTrace();
-                    System.out.println("日付が正しくありません");
-                }
-            }
-        }
-        return candidateList;
-    }
+//    public List<CandidateT> candidate(EventCreateForm form) {
+//
+//        // 候補日をセットするDtoリストの準備
+//        List<CandidateT> candidateList = new ArrayList<CandidateT>();
+//
+//        // 候補日の数だけDtoリストにセットする
+//        for (int i = 0; i < form.getStartDate().length; i++) {
+//
+//            if (!(form.getStartDate()[i].equals(""))) {
+//
+//                try {
+//                    // 日時フォーマット文字列 yyyy/MM
+//                    SimpleDateFormat df = new SimpleDateFormat(DateUtil.DATE_TIME_FORMAT_YYYYMMDD);
+//
+//                    // 厳密にチェック
+//                    df.setLenient(false);
+//
+//                    // 入力された日付の妥当性チェック
+//                    String s1 = df.format(df.parse(form.getStartDate()[i]));
+//
+//                    CandidateT candidateT = new CandidateT();
+//
+//                    candidateT.setStartDate(s1);
+//                    candidateList.add(candidateT);
+//
+//                    // 入力された日付の妥当性チェックエラー時の処理
+//                } catch (ParseException p) {
+//                    p.printStackTrace();
+//                    System.out.println("日付が正しくありません");
+//                }
+//            }
+//        }
+//        return candidateList;
+//    }
 
     /**
     *

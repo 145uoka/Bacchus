@@ -1,6 +1,9 @@
 package com.Bacchus.app.controller.user;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.commons.codec.binary.StringUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -11,20 +14,24 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.Bacchus.app.form.user.UserEditingForm;
+import com.Bacchus.app.form.user.UserEditForm;
 import com.Bacchus.app.service.CommonService;
 import com.Bacchus.app.service.LoggerService;
 import com.Bacchus.app.service.SystemPropertyService;
 import com.Bacchus.app.service.user.UserCreateService;
-import com.Bacchus.app.service.user.UserEditingService;
+import com.Bacchus.app.service.user.UserEditService;
+import com.Bacchus.app.util.MessageKeyUtil;
 import com.Bacchus.dbflute.cbean.UserTCB;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.dbflute.exbhv.UserTypeMBhv;
 import com.Bacchus.dbflute.exentity.UserT;
 import com.Bacchus.webbase.appbase.BaseController;
 import com.Bacchus.webbase.common.constants.DisplayIdConstants;
+import com.Bacchus.webbase.common.constants.MessageKeyConstants;
 import com.Bacchus.webbase.common.constants.ProcConstants;
+import com.Bacchus.webbase.common.constants.SystemCodeConstants.MessageType;
 
 /**
  * ログイン用コントローラ。
@@ -34,10 +41,10 @@ import com.Bacchus.webbase.common.constants.ProcConstants;
  */
 @Controller
 @RequestMapping(value = ProcConstants.USER)
-public class UserEditingController extends BaseController {
+public class UserEditController extends BaseController {
 
     @Autowired
-    UserEditingService userEditingService;
+    UserEditService userEditService;
 
     /** ロガーロジック */
     @Autowired
@@ -68,31 +75,34 @@ public class UserEditingController extends BaseController {
      * @throws Exception
      */
     @RequestMapping(value = ProcConstants.Operation.EDIT, method = RequestMethod.GET)
-    public String index(@ModelAttribute("form") UserEditingForm form, Model model) throws Exception {
+    public String index(@ModelAttribute("form") UserEditForm form, Model model) throws Exception {
         model.addAttribute("form", form);
         super.setDisplayTitle(model, DisplayIdConstants.User.BACCHUS_0103);
 
         // ユーザー区分のプルダウン項目の取得
-        model.addAttribute("userTypeSelectList", userEditingService.userTypePullDown());
+        model.addAttribute("userTypeSelectList", userEditService.userTypePullDown());
 
         // 権限のレベルプルダウン項目の取得
-        model.addAttribute("entrySelectList", userEditingService.authLevelPullDown());
+        model.addAttribute("entrySelectList", userEditService.authLevelPullDown());
 
         // 編集項目の取得
-        model.addAttribute("userTDto", userEditingService.selectUser(form));
+        model.addAttribute("userTDto", userEditService.selectUser(form));
 
         // 権限レベルのセット
-        form.setAuthLevel(userEditingService.selectUser(form).getAuthLevel());
+        form.setAuthLevel(userEditService.selectUser(form).getAuthLevel());
 
         // ユーザー区分のセット
-        form.setUserTypeId(userEditingService.selectUser(form).getUserTypeId());
+        form.setUserTypeId(userEditService.selectUser(form).getUserTypeId());
 
-        return ProcConstants.USER + ProcConstants.Operation.EDIT;
+        //削除ボタン押下時、確認ダイアログOK選択後の遷移先のパス
+        model.addAttribute("deletePath",ProcConstants.USER + ProcConstants.Operation.DELETE);
+
+            return ProcConstants.USER + ProcConstants.Operation.EDIT;
 
     }
 
     @RequestMapping(value = ProcConstants.Operation.UPDATE, method = RequestMethod.POST)
-    public String store(@ModelAttribute("form") UserEditingForm form, BindingResult bindingResult, Model model)
+    public String store(@ModelAttribute("form") UserEditForm form, BindingResult bindingResult, Model model)
             throws Exception {
         model.addAttribute("form", form);
         super.setDisplayTitle(model, DisplayIdConstants.User.BACCHUS_0103);
@@ -105,7 +115,7 @@ public class UserEditingController extends BaseController {
         }
 
         // ユニークチェックのためのユーザーデータ取得
-        UserT userT = userEditingService.validation(form);
+        UserT userT = userEditService.validation(form);
 
         // emailが更新されていた場合true
         if (!(userT.getEmail().equals(form.getEmail()))) {
@@ -140,7 +150,28 @@ public class UserEditingController extends BaseController {
         }
 
         // 更新処理
-        userEditingService.update(form);
+        userEditService.update(form);
+
+        // 一覧画面へリダイレクトする
+        return super.redirect(ProcConstants.USER + ProcConstants.Operation.INDEX);
+
+    }
+
+    @RequestMapping(value = ProcConstants.Operation.DELETE, method = RequestMethod.POST)
+    public String delete(@ModelAttribute("form") UserEditForm form, BindingResult bindingResult,RedirectAttributes redirectAttributes, Model model)
+            throws Exception {
+        model.addAttribute("form", form);
+        super.setDisplayTitle(model, DisplayIdConstants.User.BACCHUS_0103);
+
+        // ユーザー削除
+        userEditService.delete(form);
+
+     // 完了メッセージを設定
+        String message = messageSource.getMessage(
+        MessageKeyUtil.encloseStringDelete(MessageKeyConstants.Success.DELETE), null, Locale.getDefault());
+
+        List<String> successMessageList = new ArrayList<String>(Arrays.asList(message));
+        redirectAttributes.addFlashAttribute(MessageType.SUCCESS, successMessageList);
 
         // 一覧画面へリダイレクトする
         return super.redirect(ProcConstants.USER + ProcConstants.Operation.INDEX);

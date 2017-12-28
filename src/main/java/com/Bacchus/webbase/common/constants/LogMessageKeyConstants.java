@@ -22,6 +22,8 @@ public class LogMessageKeyConstants {
         public static final String I_02_0501 = "I_02_0501";
         /** イベントを新規登録しました。ID = [{0}], イベント名[{1}] */
         public static final String I_03_0001 = "I_03_0001";
+        /** ユーザーを削除しました。ID = [{0}], ユーザー名[{1}] */
+        public static final String I_04_0002 = "I_04_0002";
     }
 
     /**

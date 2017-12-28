@@ -68,9 +68,6 @@
                   <div class="col-md-3">
                     <form:errors path="lastName" element="div" cssClass="text-danger" />
                   </div>
-                </div>
-                <div style="clear: both;">
-                  <span class="col-md-7"></span>
                   <div class="col-md-3">
                     <form:errors path="firstName" element="div" cssClass="text-danger" />
                   </div>

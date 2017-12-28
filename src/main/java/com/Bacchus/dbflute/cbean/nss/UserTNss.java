@@ -20,6 +20,13 @@ public class UserTNss {
     //                                                                     ===============
     /**
      * With nested relation columns to select clause. <br>
+     * auth_m by my auth_level, named 'authM'.
+     */
+    public void withAuthM() {
+        _query.xdoNss(() -> _query.queryAuthM());
+    }
+    /**
+     * With nested relation columns to select clause. <br>
      * user_type_m by my user_type_id, named 'userTypeM'.
      */
     public void withUserTypeM() {

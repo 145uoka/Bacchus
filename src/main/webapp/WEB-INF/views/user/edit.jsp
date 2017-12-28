@@ -169,7 +169,7 @@
 									class="label label-danger" style="margin-left: 10px">必須</span></label>
 								<div class="col-md-6">
 									<form:select path="authLevel" class="form-control"
-										items="${entrySelectList}" itemLabel="label" itemValue="value" />
+										items="${authList}" itemLabel="label" itemValue="value" />
 								</div>
 								<div style="clear: both;">
 									<span class="col-md-4"></span>

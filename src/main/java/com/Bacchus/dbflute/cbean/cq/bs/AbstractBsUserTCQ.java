@@ -1661,123 +1661,6 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * auth_level: {NotNull, int4(10), default=[0]}
-     * @param authLevel The value of authLevel as equal. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setAuthLevel_Equal(Integer authLevel) {
-        doSetAuthLevel_Equal(authLevel);
-    }
-
-    protected void doSetAuthLevel_Equal(Integer authLevel) {
-        regAuthLevel(CK_EQ, authLevel);
-    }
-
-    /**
-     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * auth_level: {NotNull, int4(10), default=[0]}
-     * @param authLevel The value of authLevel as notEqual. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setAuthLevel_NotEqual(Integer authLevel) {
-        doSetAuthLevel_NotEqual(authLevel);
-    }
-
-    protected void doSetAuthLevel_NotEqual(Integer authLevel) {
-        regAuthLevel(CK_NES, authLevel);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * auth_level: {NotNull, int4(10), default=[0]}
-     * @param authLevel The value of authLevel as greaterThan. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setAuthLevel_GreaterThan(Integer authLevel) {
-        regAuthLevel(CK_GT, authLevel);
-    }
-
-    /**
-     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * auth_level: {NotNull, int4(10), default=[0]}
-     * @param authLevel The value of authLevel as lessThan. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setAuthLevel_LessThan(Integer authLevel) {
-        regAuthLevel(CK_LT, authLevel);
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * auth_level: {NotNull, int4(10), default=[0]}
-     * @param authLevel The value of authLevel as greaterEqual. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setAuthLevel_GreaterEqual(Integer authLevel) {
-        regAuthLevel(CK_GE, authLevel);
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * auth_level: {NotNull, int4(10), default=[0]}
-     * @param authLevel The value of authLevel as lessEqual. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setAuthLevel_LessEqual(Integer authLevel) {
-        regAuthLevel(CK_LE, authLevel);
-    }
-
-    /**
-     * RangeOf with various options. (versatile) <br>
-     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
-     * And NullIgnored, OnlyOnceRegistered. <br>
-     * auth_level: {NotNull, int4(10), default=[0]}
-     * @param minNumber The min number of authLevel. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of authLevel. (NullAllowed: if null, no to-condition)
-     * @param opLambda The callback for option of range-of. (NotNull)
-     */
-    public void setAuthLevel_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
-        setAuthLevel_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
-    }
-
-    /**
-     * RangeOf with various options. (versatile) <br>
-     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
-     * And NullIgnored, OnlyOnceRegistered. <br>
-     * auth_level: {NotNull, int4(10), default=[0]}
-     * @param minNumber The min number of authLevel. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of authLevel. (NullAllowed: if null, no to-condition)
-     * @param rangeOfOption The option of range-of. (NotNull)
-     */
-    protected void setAuthLevel_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
-        regROO(minNumber, maxNumber, xgetCValueAuthLevel(), "auth_level", rangeOfOption);
-    }
-
-    /**
-     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * auth_level: {NotNull, int4(10), default=[0]}
-     * @param authLevelList The collection of authLevel as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setAuthLevel_InScope(Collection<Integer> authLevelList) {
-        doSetAuthLevel_InScope(authLevelList);
-    }
-
-    protected void doSetAuthLevel_InScope(Collection<Integer> authLevelList) {
-        regINS(CK_INS, cTL(authLevelList), xgetCValueAuthLevel(), "auth_level");
-    }
-
-    /**
-     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * auth_level: {NotNull, int4(10), default=[0]}
-     * @param authLevelList The collection of authLevel as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setAuthLevel_NotInScope(Collection<Integer> authLevelList) {
-        doSetAuthLevel_NotInScope(authLevelList);
-    }
-
-    protected void doSetAuthLevel_NotInScope(Collection<Integer> authLevelList) {
-        regINS(CK_NINS, cTL(authLevelList), xgetCValueAuthLevel(), "auth_level");
-    }
-
-    protected void regAuthLevel(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueAuthLevel(), "auth_level"); }
-    protected abstract ConditionValue xgetCValueAuthLevel();
-
-    /**
-     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * user_type_id: {NotNull, int4(10), FK to user_type_m}
      * @param userTypeId The value of userTypeId as equal. (basically NotNull: error as default, or no condition as option)
      */
@@ -1892,6 +1775,123 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     protected void regUserTypeId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueUserTypeId(), "user_type_id"); }
     protected abstract ConditionValue xgetCValueUserTypeId();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * auth_level: {NotNull, int4(10), FK to auth_m}
+     * @param authLevel The value of authLevel as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setAuthLevel_Equal(Integer authLevel) {
+        doSetAuthLevel_Equal(authLevel);
+    }
+
+    protected void doSetAuthLevel_Equal(Integer authLevel) {
+        regAuthLevel(CK_EQ, authLevel);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * auth_level: {NotNull, int4(10), FK to auth_m}
+     * @param authLevel The value of authLevel as notEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setAuthLevel_NotEqual(Integer authLevel) {
+        doSetAuthLevel_NotEqual(authLevel);
+    }
+
+    protected void doSetAuthLevel_NotEqual(Integer authLevel) {
+        regAuthLevel(CK_NES, authLevel);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * auth_level: {NotNull, int4(10), FK to auth_m}
+     * @param authLevel The value of authLevel as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setAuthLevel_GreaterThan(Integer authLevel) {
+        regAuthLevel(CK_GT, authLevel);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * auth_level: {NotNull, int4(10), FK to auth_m}
+     * @param authLevel The value of authLevel as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setAuthLevel_LessThan(Integer authLevel) {
+        regAuthLevel(CK_LT, authLevel);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * auth_level: {NotNull, int4(10), FK to auth_m}
+     * @param authLevel The value of authLevel as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setAuthLevel_GreaterEqual(Integer authLevel) {
+        regAuthLevel(CK_GE, authLevel);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * auth_level: {NotNull, int4(10), FK to auth_m}
+     * @param authLevel The value of authLevel as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setAuthLevel_LessEqual(Integer authLevel) {
+        regAuthLevel(CK_LE, authLevel);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * auth_level: {NotNull, int4(10), FK to auth_m}
+     * @param minNumber The min number of authLevel. (NullAllowed: if null, no from-condition)
+     * @param maxNumber The max number of authLevel. (NullAllowed: if null, no to-condition)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setAuthLevel_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setAuthLevel_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * auth_level: {NotNull, int4(10), FK to auth_m}
+     * @param minNumber The min number of authLevel. (NullAllowed: if null, no from-condition)
+     * @param maxNumber The max number of authLevel. (NullAllowed: if null, no to-condition)
+     * @param rangeOfOption The option of range-of. (NotNull)
+     */
+    protected void setAuthLevel_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValueAuthLevel(), "auth_level", rangeOfOption);
+    }
+
+    /**
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * auth_level: {NotNull, int4(10), FK to auth_m}
+     * @param authLevelList The collection of authLevel as inScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setAuthLevel_InScope(Collection<Integer> authLevelList) {
+        doSetAuthLevel_InScope(authLevelList);
+    }
+
+    protected void doSetAuthLevel_InScope(Collection<Integer> authLevelList) {
+        regINS(CK_INS, cTL(authLevelList), xgetCValueAuthLevel(), "auth_level");
+    }
+
+    /**
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * auth_level: {NotNull, int4(10), FK to auth_m}
+     * @param authLevelList The collection of authLevel as notInScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setAuthLevel_NotInScope(Collection<Integer> authLevelList) {
+        doSetAuthLevel_NotInScope(authLevelList);
+    }
+
+    protected void doSetAuthLevel_NotInScope(Collection<Integer> authLevelList) {
+        regINS(CK_NINS, cTL(authLevelList), xgetCValueAuthLevel(), "auth_level");
+    }
+
+    protected void regAuthLevel(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueAuthLevel(), "auth_level"); }
+    protected abstract ConditionValue xgetCValueAuthLevel();
 
     // ===================================================================================
     //                                                                     ScalarCondition

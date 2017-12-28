@@ -34,10 +34,10 @@ public class ProfileEditForm implements Serializable {
     /** LINEフラグ */
     private Integer lineFlg;
 
-    /** 氏 */
+    /** 名 */
     private String firstName;
 
-    /** 名 */
+    /** 氏 */
     private String lastName;
 
     /** ログインID */

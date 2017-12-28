@@ -301,26 +301,6 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
      */
     public BsUserTCQ addOrderBy_Password_Desc() { regOBD("password"); return this; }
 
-    protected ConditionValue _authLevel;
-    public ConditionValue xdfgetAuthLevel()
-    { if (_authLevel == null) { _authLevel = nCV(); }
-      return _authLevel; }
-    protected ConditionValue xgetCValueAuthLevel() { return xdfgetAuthLevel(); }
-
-    /** 
-     * Add order-by as ascend. <br>
-     * auth_level: {NotNull, int4(10), default=[0]}
-     * @return this. (NotNull)
-     */
-    public BsUserTCQ addOrderBy_AuthLevel_Asc() { regOBA("auth_level"); return this; }
-
-    /**
-     * Add order-by as descend. <br>
-     * auth_level: {NotNull, int4(10), default=[0]}
-     * @return this. (NotNull)
-     */
-    public BsUserTCQ addOrderBy_AuthLevel_Desc() { regOBD("auth_level"); return this; }
-
     protected ConditionValue _userTypeId;
     public ConditionValue xdfgetUserTypeId()
     { if (_userTypeId == null) { _userTypeId = nCV(); }
@@ -340,6 +320,26 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
      * @return this. (NotNull)
      */
     public BsUserTCQ addOrderBy_UserTypeId_Desc() { regOBD("user_type_id"); return this; }
+
+    protected ConditionValue _authLevel;
+    public ConditionValue xdfgetAuthLevel()
+    { if (_authLevel == null) { _authLevel = nCV(); }
+      return _authLevel; }
+    protected ConditionValue xgetCValueAuthLevel() { return xdfgetAuthLevel(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * auth_level: {NotNull, int4(10), FK to auth_m}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_AuthLevel_Asc() { regOBA("auth_level"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * auth_level: {NotNull, int4(10), FK to auth_m}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_AuthLevel_Desc() { regOBD("auth_level"); return this; }
 
     // ===================================================================================
     //                                                             SpecifiedDerivedOrderBy
@@ -382,6 +382,9 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         UserTCQ bq = (UserTCQ)bqs;
         UserTCQ uq = (UserTCQ)uqs;
+        if (bq.hasConditionQueryAuthM()) {
+            uq.queryAuthM().reflectRelationOnUnionQuery(bq.queryAuthM(), uq.queryAuthM());
+        }
         if (bq.hasConditionQueryUserTypeM()) {
             uq.queryUserTypeM().reflectRelationOnUnionQuery(bq.queryUserTypeM(), uq.queryUserTypeM());
         }
@@ -390,6 +393,26 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * auth_m by my auth_level, named 'authM'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public AuthMCQ queryAuthM() {
+        return xdfgetConditionQueryAuthM();
+    }
+    public AuthMCQ xdfgetConditionQueryAuthM() {
+        String prop = "authM";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryAuthM()); xsetupOuterJoinAuthM(); }
+        return xgetQueRlMap(prop);
+    }
+    protected AuthMCQ xcreateQueryAuthM() {
+        String nrp = xresolveNRP("user_t", "authM"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new AuthMCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "authM", nrp);
+    }
+    protected void xsetupOuterJoinAuthM() { xregOutJo("authM"); }
+    public boolean hasConditionQueryAuthM() { return xhasQueRlMap("authM"); }
+
     /**
      * Get the condition-query for relation table. <br>
      * user_type_m by my user_type_id, named 'userTypeM'.

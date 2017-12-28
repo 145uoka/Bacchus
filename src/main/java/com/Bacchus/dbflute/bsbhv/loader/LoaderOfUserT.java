@@ -15,7 +15,7 @@ import com.Bacchus.dbflute.cbean.*;
  *     user_id
  *
  * [column]
- *     user_id, login_id, line_flg, line_id, line_user_name, user_name, last_name, first_name, email, password, auth_level, user_type_id
+ *     user_id, login_id, line_flg, line_id, line_user_name, user_name, last_name, first_name, email, password, user_type_id, auth_level
  *
  * [sequence]
  *     user_t_user_id_seq
@@ -27,13 +27,13 @@ import com.Bacchus.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     user_type_m
+ *     auth_m, user_type_m
  *
  * [referrer table]
  *     entry_t, event_t
  *
  * [foreign property]
- *     userTypeM
+ *     authM, userTypeM
  *
  * [referrer property]
  *     entryTList, eventTList
@@ -132,6 +132,13 @@ public class LoaderOfUserT {
     // ===================================================================================
     //                                                                    Pull out Foreign
     //                                                                    ================
+    protected LoaderOfAuthM _foreignAuthMLoader;
+    public LoaderOfAuthM pulloutAuthM() {
+        if (_foreignAuthMLoader == null)
+        { _foreignAuthMLoader = new LoaderOfAuthM().ready(myBhv().pulloutAuthM(_selectedList), _selector); }
+        return _foreignAuthMLoader;
+    }
+
     protected LoaderOfUserTypeM _foreignUserTypeMLoader;
     public LoaderOfUserTypeM pulloutUserTypeM() {
         if (_foreignUserTypeMLoader == null)

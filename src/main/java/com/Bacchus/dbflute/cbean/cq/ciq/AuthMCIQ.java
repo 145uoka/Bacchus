@@ -12,21 +12,21 @@ import com.Bacchus.dbflute.cbean.cq.bs.*;
 import com.Bacchus.dbflute.cbean.cq.*;
 
 /**
- * The condition-query for in-line of user_t.
+ * The condition-query for in-line of auth_m.
  * @author DBFlute(AutoGenerator)
  */
-public class UserTCIQ extends AbstractBsUserTCQ {
+public class AuthMCIQ extends AbstractBsAuthMCQ {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected BsUserTCQ _myCQ;
+    protected BsAuthMCQ _myCQ;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public UserTCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
-                        , String aliasName, int nestLevel, BsUserTCQ myCQ) {
+    public AuthMCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
+                        , String aliasName, int nestLevel, BsAuthMCQ myCQ) {
         super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
@@ -61,48 +61,28 @@ public class UserTCIQ extends AbstractBsUserTCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
-    public String keepUserId_ExistsReferrer_EntryTList(EntryTCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepUserId_ExistsReferrer_EventTList(EventTCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepUserId_NotExistsReferrer_EntryTList(EntryTCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepUserId_NotExistsReferrer_EventTList(EventTCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepUserId_SpecifyDerivedReferrer_EntryTList(EntryTCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepUserId_SpecifyDerivedReferrer_EventTList(EventTCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepUserId_QueryDerivedReferrer_EntryTList(EntryTCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepUserId_QueryDerivedReferrer_EntryTListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepUserId_QueryDerivedReferrer_EventTList(EventTCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepUserId_QueryDerivedReferrer_EventTListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    protected ConditionValue xgetCValueLoginId() { return _myCQ.xdfgetLoginId(); }
-    protected ConditionValue xgetCValueLineFlg() { return _myCQ.xdfgetLineFlg(); }
-    protected ConditionValue xgetCValueLineId() { return _myCQ.xdfgetLineId(); }
-    protected ConditionValue xgetCValueLineUserName() { return _myCQ.xdfgetLineUserName(); }
-    protected ConditionValue xgetCValueUserName() { return _myCQ.xdfgetUserName(); }
-    protected ConditionValue xgetCValueLastName() { return _myCQ.xdfgetLastName(); }
-    protected ConditionValue xgetCValueFirstName() { return _myCQ.xdfgetFirstName(); }
-    protected ConditionValue xgetCValueEmail() { return _myCQ.xdfgetEmail(); }
-    protected ConditionValue xgetCValuePassword() { return _myCQ.xdfgetPassword(); }
-    protected ConditionValue xgetCValueUserTypeId() { return _myCQ.xdfgetUserTypeId(); }
     protected ConditionValue xgetCValueAuthLevel() { return _myCQ.xdfgetAuthLevel(); }
+    public String keepAuthLevel_ExistsReferrer_UserTList(UserTCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepAuthLevel_NotExistsReferrer_UserTList(UserTCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepAuthLevel_SpecifyDerivedReferrer_UserTList(UserTCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepAuthLevel_QueryDerivedReferrer_UserTList(UserTCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepAuthLevel_QueryDerivedReferrer_UserTListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    protected ConditionValue xgetCValueAuthName() { return _myCQ.xdfgetAuthName(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
-    public String keepScalarCondition(UserTCQ sq)
+    public String keepScalarCondition(AuthMCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(UserTCQ sq)
+    public String keepSpecifyMyselfDerived(AuthMCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(UserTCQ sq)
+    public String keepQueryMyselfDerived(AuthMCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(UserTCQ sq)
+    public String keepMyselfExists(AuthMCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
 
     protected void throwIICBOE(String name)
@@ -112,6 +92,6 @@ public class UserTCIQ extends AbstractBsUserTCQ {
     //                                                                       Very Internal
     //                                                                       =============
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xinCB() { return UserTCB.class.getName(); }
-    protected String xinCQ() { return UserTCQ.class.getName(); }
+    protected String xinCB() { return AuthMCB.class.getName(); }
+    protected String xinCQ() { return AuthMCQ.class.getName(); }
 }

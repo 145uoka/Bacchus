@@ -19,6 +19,11 @@
     </bean>
 
     <!-- The components of Behavior. -->
+	<bean id="authMBhv" class="com.Bacchus.dbflute.exbhv.AuthMBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
 	<bean id="candidateTBhv" class="com.Bacchus.dbflute.exbhv.CandidateTBhv" autowire="byType">
         <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
         <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>

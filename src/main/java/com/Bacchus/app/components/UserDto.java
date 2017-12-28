@@ -48,6 +48,12 @@ public class UserDto implements Serializable {
     /** LINEユーザ名 */
     private String lineUserName;
 
+    /** ユーザ区分DTO */
+    private UserTypeDto userTypeDto;
+
+    /** 権限管理DTO */
+    private AuthDto authDto;
+
     /**
      * 権限レベルの取得。
      *
@@ -85,36 +91,36 @@ public class UserDto implements Serializable {
     }
 
     /**
-     * 氏の取得。
+     * 名の取得。
      *
-     * @return 氏
+     * @return 名
      */
     public String getFirstName() {
         return this.firstName;
     }
 
     /**
-     * 氏を設定。
+     * 名を設定。
      *
-     * @param firstName 氏
+     * @param firstName 名
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
     /**
-     * 名の取得。
+     * 氏の取得。
      *
-     * @return 名
+     * @return 氏
      */
     public String getLastName() {
         return this.lastName;
     }
 
     /**
-     * 名を設定。
+     * 氏を設定。
      *
-     * @param lastName 名
+     * @param lastName 氏
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
@@ -262,6 +268,42 @@ public class UserDto implements Serializable {
      */
     public void setLineUserName(String lineUserName) {
         this.lineUserName = lineUserName;
+    }
+
+    /**
+     * ユーザ区分DTOの取得。
+     *
+     * @return ユーザ区分DTO
+     */
+    public UserTypeDto getUserTypeDto() {
+        return this.userTypeDto;
+    }
+
+    /**
+     * ユーザ区分DTOを設定。
+     *
+     * @param userTypeDto ユーザ区分DTO
+     */
+    public void setUserTypeDto(UserTypeDto userTypeDto) {
+        this.userTypeDto = userTypeDto;
+    }
+
+    /**
+     * 権限管理DTOの取得。
+     *
+     * @return 権限管理DTO
+     */
+    public AuthDto getAuthDto() {
+        return this.authDto;
+    }
+
+    /**
+     * 権限管理DTOを設定。
+     *
+     * @param authDto 権限管理DTO
+     */
+    public void setAuthDto(AuthDto authDto) {
+        this.authDto = authDto;
     }
 
 }

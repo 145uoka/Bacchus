@@ -896,7 +896,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @param userName The value of userName as equal. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserName_Equal(String userName) {
@@ -909,7 +909,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @param userName The value of userName as notEqual. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserName_NotEqual(String userName) {
@@ -922,7 +922,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @param userName The value of userName as greaterThan. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserName_GreaterThan(String userName) {
@@ -931,7 +931,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @param userName The value of userName as lessThan. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserName_LessThan(String userName) {
@@ -940,7 +940,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @param userName The value of userName as greaterEqual. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserName_GreaterEqual(String userName) {
@@ -949,7 +949,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @param userName The value of userName as lessEqual. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserName_LessEqual(String userName) {
@@ -958,7 +958,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @param userNameList The collection of userName as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserName_InScope(Collection<String> userNameList) {
@@ -971,7 +971,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @param userNameList The collection of userName as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setUserName_NotInScope(Collection<String> userNameList) {
@@ -984,7 +984,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * user_name: {NotNull, text(2147483647)} <br>
+     * user_name: {text(2147483647)} <br>
      * <pre>e.g. setUserName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
      * @param userName The value of userName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
@@ -995,7 +995,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * user_name: {NotNull, text(2147483647)} <br>
+     * user_name: {text(2147483647)} <br>
      * <pre>e.g. setUserName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
      * @param userName The value of userName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
@@ -1007,7 +1007,7 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @param userName The value of userName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
@@ -1018,13 +1018,31 @@ public abstract class AbstractBsUserTCQ extends AbstractConditionQuery {
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @param userName The value of userName as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
     protected void setUserName_NotLikeSearch(String userName, LikeSearchOption likeSearchOption) {
         regLSQ(CK_NLS, fRES(userName), xgetCValueUserName(), "user_name", likeSearchOption);
     }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * user_name: {text(2147483647)}
+     */
+    public void setUserName_IsNull() { regUserName(CK_ISN, DOBJ); }
+
+    /**
+     * IsNullOrEmpty {is null or empty}. And OnlyOnceRegistered. <br>
+     * user_name: {text(2147483647)}
+     */
+    public void setUserName_IsNullOrEmpty() { regUserName(CK_ISNOE, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * user_name: {text(2147483647)}
+     */
+    public void setUserName_IsNotNull() { regUserName(CK_ISNN, DOBJ); }
 
     protected void regUserName(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueUserName(), "user_name"); }
     protected abstract ConditionValue xgetCValueUserName();

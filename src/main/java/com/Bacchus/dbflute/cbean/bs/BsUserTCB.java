@@ -341,7 +341,7 @@ public class BsUserTCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnLineUserName() { return doColumn("line_user_name"); }
         /**
-         * user_name: {NotNull, text(2147483647)}
+         * user_name: {text(2147483647)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUserName() { return doColumn("user_name"); }

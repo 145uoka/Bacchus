@@ -153,12 +153,14 @@
             pkPosition="1" primaryKey="true" required="true" size="10" type="INTEGER"/>
         <column comment="ログインID" dbType="text" javaType="String"
             name="login_id" size="2147483647" type="VARCHAR"/>
-        <column comment="LineID" dbType="text" javaType="String"
-            name="line_id" size="2147483647" type="VARCHAR"/>
-        <column comment="ユーザー名" dbType="text" javaType="String"
-            name="user_name" required="true" size="2147483647" type="VARCHAR"/>
         <column comment="Lineフラグ" dbType="int4" default="0"
             javaType="Integer" name="line_flg" required="true" size="10" type="INTEGER"/>
+        <column comment="LineID" dbType="text" javaType="String"
+            name="line_id" size="2147483647" type="VARCHAR"/>
+        <column comment="LINEユーザ名" dbType="text" javaType="String"
+            name="line_user_name" size="2147483647" type="VARCHAR"/>
+        <column comment="ユーザー名" dbType="text" javaType="String"
+            name="user_name" required="true" size="2147483647" type="VARCHAR"/>
         <column comment="苗字(氏)" dbType="text" javaType="String"
             name="last_name" size="2147483647" type="VARCHAR"/>
         <column comment="名前(名)" dbType="text" javaType="String"

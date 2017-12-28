@@ -27,7 +27,7 @@
         <div class="navbar-right">
           <c:if test="${userInfo.logined}">
             <ul class="nav navbar-nav">
-              <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-user"> <c:out value="${userInfo.userName}" />
+              <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-user"> <c:out value="${userInfo.lastName} ${userInfo.firstName}" />
                 </span><span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="${pageContext.request.contextPath}/profile/edit"><span class="glyphicon glyphicon-edit">&nbsp;</span>プロフィール編集</a></li>

@@ -2,8 +2,6 @@ package  com.Bacchus.app.form.profile;
 
 import java.io.Serializable;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 /**
  * プロフィール編集用Form。
  *
@@ -16,11 +14,9 @@ public class ProfileEditForm implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** ユーザー名 */
-    @NotEmpty
     private String userName;
 
     /** Eメール */
-    @NotEmpty
     private String email;
 
     /** 現在のPWD */
@@ -31,6 +27,21 @@ public class ProfileEditForm implements Serializable {
 
     /** 確認用PWD */
     private String confirmPassword;
+
+    /** LINEユーザ名 */
+    private String lineUserName;
+
+    /** LINEフラグ */
+    private Integer lineFlg;
+
+    /** 氏 */
+    private String firstName;
+
+    /** 名 */
+    private String lastName;
+
+    /** ログインID */
+    private String loginId;
 
     /**
      * ユーザー名の取得。
@@ -121,5 +132,46 @@ public class ProfileEditForm implements Serializable {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
+
+    public String getLineUserName() {
+        return lineUserName;
+    }
+
+    public void setLineUserName(String lineUserName) {
+        this.lineUserName = lineUserName;
+    }
+
+    public Integer getLineFlg() {
+        return lineFlg;
+    }
+
+    public void setLineFlg(Integer lineFlg) {
+        this.lineFlg = lineFlg;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getLoginId() {
+        return loginId;
+    }
+
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
+
 
 }

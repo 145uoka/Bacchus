@@ -1,4 +1,4 @@
-package  com.Bacchus.app.components;
+package com.Bacchus.app.components;
 
 import java.io.Serializable;
 
@@ -6,7 +6,6 @@ import java.io.Serializable;
  * ユーザ情報。
  *
  * @author ishigouoka_k
- * $Id:$
  */
 public class UserDto implements Serializable {
 
@@ -19,16 +18,16 @@ public class UserDto implements Serializable {
     /** Eメール */
     private String email;
 
-    /** 氏 */
+    /** 名 */
     private String firstName;
 
-    /** 名 */
+    /** 氏 */
     private String lastName;
 
-    /** Lineフラグ */
+    /** LINEフラグ */
     private Integer lineFlg;
 
-    /** LineID */
+    /** LINE ID */
     private String lineId;
 
     /** ログインID */
@@ -45,6 +44,9 @@ public class UserDto implements Serializable {
 
     /** ユーザ区分ID */
     private Integer userTypeId;
+
+    /** LINEユーザ名 */
+    private String lineUserName;
 
     /**
      * 権限レベルの取得。
@@ -119,36 +121,36 @@ public class UserDto implements Serializable {
     }
 
     /**
-     * Lineフラグの取得。
+     * LINEフラグの取得。
      *
-     * @return Lineフラグ
+     * @return LINEフラグ
      */
     public Integer getLineFlg() {
         return this.lineFlg;
     }
 
     /**
-     * Lineフラグを設定。
+     * LINEフラグを設定。
      *
-     * @param lineFlg Lineフラグ
+     * @param lineFlg LINEフラグ
      */
     public void setLineFlg(Integer lineFlg) {
         this.lineFlg = lineFlg;
     }
 
     /**
-     * LineIDの取得。
+     * LINE IDの取得。
      *
-     * @return LineID
+     * @return LINE ID
      */
     public String getLineId() {
         return this.lineId;
     }
 
     /**
-     * LineIDを設定。
+     * LINE IDを設定。
      *
-     * @param lineId LineID
+     * @param lineId LINE ID
      */
     public void setLineId(String lineId) {
         this.lineId = lineId;
@@ -242,6 +244,24 @@ public class UserDto implements Serializable {
      */
     public void setUserTypeId(Integer userTypeId) {
         this.userTypeId = userTypeId;
+    }
+
+    /**
+     * LINEユーザ名の取得。
+     *
+     * @return LINEユーザ名
+     */
+    public String getLineUserName() {
+        return this.lineUserName;
+    }
+
+    /**
+     * LINEユーザ名を設定。
+     *
+     * @param lineUserName LINEユーザ名
+     */
+    public void setLineUserName(String lineUserName) {
+        this.lineUserName = lineUserName;
     }
 
 }

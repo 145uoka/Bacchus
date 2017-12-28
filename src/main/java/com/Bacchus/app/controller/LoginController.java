@@ -33,6 +33,7 @@ import com.Bacchus.app.components.IdToken;
 import com.Bacchus.app.form.LoginNameForm;
 import com.Bacchus.app.service.LoggerService;
 import com.Bacchus.app.service.OAuthService;
+import com.Bacchus.app.service.user.UserService;
 import com.Bacchus.app.util.EncryptUtil;
 import com.Bacchus.app.util.MessageKeyUtil;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
@@ -69,6 +70,9 @@ public class LoginController extends BaseController {
 
     @Autowired
     UserTBhv userTBhv;
+
+    @Autowired
+    UserService userService;
 
     @RequestMapping(value = "/lineLogin", method = RequestMethod.GET)
     public String lineLogin() throws Exception {
@@ -136,23 +140,8 @@ public class LoginController extends BaseController {
 
         UserT userT = oAuthService.loginByLine(idToken);
 
-        userInfo.setLogined(true);
-        userInfo.setAuthLevel(userT.getAuthLevel());
-        userInfo.setUserId(userT.getUserId());
-        userInfo.setUserName(userT.getUserName());
-        userInfo.setLineUserFlg(Flag.getFlagByIntegerValue(userT.getLineFlg()).isBoolValue());
-
-        Permissions permissions = Permissions.getPermissions(userT.getAuthLevel());
-
-        if (permissions == SystemCodeConstants.Permissions.ADMIN){
-            userInfo.setAdminFlg(true);
-        } else {
-            userInfo.setGeneralFlg(true);
-        }
-
-        Set<SystemCodeConstants.Permissions> permissionsSet = new HashSet<SystemCodeConstants.Permissions>();
-        permissionsSet.add(permissions);
-        userInfo.setPermissions(permissionsSet);
+        userService.initUserInfo(userT.getUserId());
+        initLoginInfo();
 
         String nextPage = (String)ses.getAttribute("nextPage");
         if (!StringUtils.isEmpty(nextPage)) {
@@ -191,32 +180,8 @@ public class LoginController extends BaseController {
             cb.query().setPassword_Equal(encPassword);
         }).ifPresent(userT -> {
             // called if present
-            userInfo.setLogined(true);
-            userInfo.setUserId(userT.getUserId());
-            userInfo.setAuthLevel(userT.getAuthLevel());
-            userInfo.setFirstName(userT.getFirstName());
-            userInfo.setLastName(userT.getLastName());
-            userInfo.setLineFlg(userT.getLineFlg());
-            userInfo.setLineId(userT.getLineId());
-            userInfo.setLoginId(userT.getLoginId());
-            userInfo.setPassword(userT.getPassword());
-            userInfo.setUserTypeId(userT.getUserTypeId());
-            userInfo.setUserName(userT.getUserName());
-            userInfo.setEmail(userT.getEmail());
-            boolean lineUserFlg = Flag.getFlagByIntegerValue(userT.getLineFlg()).isBoolValue();
-            userInfo.setLineUserFlg(lineUserFlg);
-
-            Permissions permissions = Permissions.getPermissions(userT.getAuthLevel());
-
-            if (permissions == SystemCodeConstants.Permissions.ADMIN){
-                userInfo.setAdminFlg(true);
-            } else {
-                userInfo.setGeneralFlg(true);
-            }
-
-            Set<SystemCodeConstants.Permissions> permissionsSet = new HashSet<SystemCodeConstants.Permissions>();
-            permissionsSet.add(permissions);
-            userInfo.setPermissions(permissionsSet);
+            userService.initUserInfo(userT.getUserId());
+            initLoginInfo();
 
             loggerService.outLog(LogMessageKeyConstants.Info.I_00_0001, new Object[] {
                     userInfo.getUserId(),
@@ -239,5 +204,26 @@ public class LoginController extends BaseController {
 
 
         return redirect("/");
+    }
+
+    /**
+     *
+     */
+    private void initLoginInfo() {
+        userInfo.setLogined(true);
+        boolean lineUserFlg = Flag.getFlagByIntegerValue(userInfo.getLineFlg()).isBoolValue();
+        userInfo.setLineUserFlg(lineUserFlg);
+
+        Permissions permissions = Permissions.getPermissions(userInfo.getAuthLevel());
+
+        if (permissions == SystemCodeConstants.Permissions.ADMIN){
+            userInfo.setAdminFlg(true);
+        } else {
+            userInfo.setGeneralFlg(true);
+        }
+
+        Set<SystemCodeConstants.Permissions> permissionsSet = new HashSet<SystemCodeConstants.Permissions>();
+        permissionsSet.add(permissions);
+        userInfo.setPermissions(permissionsSet);
     }
 }

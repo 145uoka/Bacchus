@@ -25,3 +25,17 @@ tbody#scrollBody {
 .radio_table .checked_tr td {
   background-color: #fff1a5;
 }
+
+.table .p-details{
+    height: 1.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table .radio_col{
+    height: 1.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    vertical-align: middle;
+}

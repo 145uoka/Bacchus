@@ -128,6 +128,22 @@ public class DateUtil {
 
     /**
      * 文字列日付からLocalDate型に変換します
+     * 文字列日付は、日付として正しいことを前提に処理を行っています
+     * 文字列がnullの場合はnullを返却します
+     *
+     * @param sDate
+     * @return
+     */
+    public static LocalDateTime convertToLocalDateTimeOrNull(String sDate){
+        if(StringUtils.isEmpty(sDate)){
+            return null;
+        } else {
+            return convertToLocalDateTime(sDate, DATE_TIME_FORMAT_YYYYMMDDEHHMM);
+        }
+    }
+
+    /**
+     * 文字列日付からLocalDate型に変換します
      * 文字列日付(年月日特定)は、日付として正しいことを前提に処理を行っています
      * 日付フォーマット指定あり
      *
@@ -137,6 +153,19 @@ public class DateUtil {
      */
     public static LocalDate convertToLocalDate(String sDate, String format) {
         return LocalDate.parse(sDate, DateTimeFormatter.ofPattern(format));
+    }
+
+    /**
+     * 文字列日付からLocalDate型に変換します
+     * 文字列日付(年月日特定)は、日付として正しいことを前提に処理を行っています
+     * 日付フォーマット指定あり
+     *
+     * @param sDate 文字列日付
+     * @param format 日付フォーマット
+     * @return LocalDate型日付
+     */
+    public static LocalDateTime convertToLocalDateTime(String sDate, String format) {
+        return LocalDateTime.parse(sDate, DateTimeFormatter.ofPattern(format));
     }
 
     /**

@@ -12,7 +12,9 @@
 <meta http-equiv="content-style-type" content="text/css" />
 <meta http-equiv="content-script-type" content="text/javascript" />
 
-<title><c:out value="Sample" /></title>
+<title><c:out value="Bacchus" /></title>
+
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/static/favicon.ico" />
 
 <!-- CSS vendor -->
 <link href='<c:url value="/resources/css/vendor/bootstrap/bootstrap.css"/>' rel="stylesheet">

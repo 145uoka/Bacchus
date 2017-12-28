@@ -150,6 +150,20 @@ public class CommonService {
         return dtoList;
     }
 
+    public boolean isExistsGenCode(String codeDiv, String code) {
+        int resultCount = generalCodeMBhv.selectCount(cb -> {
+            cb.query().setCodeDiv_Equal(codeDiv);
+            cb.query().setCode_Equal(code);
+
+        });
+
+        if (resultCount > 0 ) {
+            return true;
+        }
+
+        return false;
+    }
+
 
 
 }

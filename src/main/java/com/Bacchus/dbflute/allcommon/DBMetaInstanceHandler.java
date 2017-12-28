@@ -31,6 +31,7 @@ public class DBMetaInstanceHandler implements DBMetaProvider {
     protected static final Map<String, String> _tableDbNameClassNameMap;
     static {
         final Map<String, String> tmpMap = newHashMap();
+        tmpMap.put("auth_m", "com.Bacchus.dbflute.bsentity.dbmeta.AuthMDbm");
         tmpMap.put("candidate_t", "com.Bacchus.dbflute.bsentity.dbmeta.CandidateTDbm");
         tmpMap.put("display_def_m", "com.Bacchus.dbflute.bsentity.dbmeta.DisplayDefMDbm");
         tmpMap.put("entry_t", "com.Bacchus.dbflute.bsentity.dbmeta.EntryTDbm");

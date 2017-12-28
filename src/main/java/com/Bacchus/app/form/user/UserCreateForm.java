@@ -1,115 +1,220 @@
-package  com.Bacchus.app.form.user;
+package com.Bacchus.app.form.user;
 
 import java.io.Serializable;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.Bacchus.webbase.common.beanvalidation.Email;
+import com.Bacchus.webbase.common.beanvalidation.Number;
+import com.Bacchus.webbase.common.constants.MessageKeyConstants.GlueNetValidator;
 
 /**
- * ログインフォーム。
+ * ユーザー登録Form。
  *
- * @author sagawa_k
- * $Id:$
+ * @author ishigouoka_k
  */
 public class UserCreateForm implements Serializable {
 
-	/** serialVersionUID */
-	private static final long serialVersionUID = 1L;
+    /** serialVersionUID */
+    private static final long serialVersionUID = 1L;
 
-	@NotEmpty
-	private String userName;
+    /** ログインID */
+    @NotEmpty
+    private String loginId;
 
-	@NotEmpty
-	private String lastName;
+    /** ユーザー名 */
+    private String userName;
 
-	@NotEmpty
-	private String firstName;
+    /** 苗字(氏) */
+    @NotEmpty
+    private String lastName;
 
-	@NotEmpty
-	@Email
-	private String email;
+    /** 名前(名) */
+    @NotEmpty
+    private String firstName;
 
-	@NotEmpty
-	private String password;
+    /** Eメール */
+    @Email
+    private String email;
 
-	@NotEmpty
-	private String confirmPassword;
+    /** パスワード */
+    @NotEmpty
+    private String password;
 
-	@NotEmpty
-	private String authLevel;
+    /** パスワード確認 */
+    @NotEmpty
+    private String confirmPassword;
 
-	@NotEmpty
-	private String userTypeId;
+    /** ユーザー区分ID */
+    @NotEmpty
+    @Number(message=GlueNetValidator.INVALID)
+    private String userTypeId;
 
-	public String getUserName() {
-		return userName;
-	}
+    /** 権限レベル */
+    @NotEmpty
+    @Number(message=GlueNetValidator.INVALID)
+    private String authLevel;
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    /**
+     * ログインIDの取得。
+     *
+     * @return ログインID
+     */
+    public String getLoginId() {
+        return this.loginId;
+    }
 
+    /**
+     * ログインIDを設定。
+     *
+     * @param loginId ログインID
+     */
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
 
+    /**
+     * ユーザー名の取得。
+     *
+     * @return ユーザー名
+     */
+    public String getUserName() {
+        return this.userName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    /**
+     * ユーザー名を設定。
+     *
+     * @param userName ユーザー名
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    /**
+     * 苗字(氏)の取得。
+     *
+     * @return 苗字(氏)
+     */
+    public String getLastName() {
+        return this.lastName;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    /**
+     * 苗字(氏)を設定。
+     *
+     * @param lastName 苗字(氏)
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    /**
+     * 名前(名)の取得。
+     *
+     * @return 名前(名)
+     */
+    public String getFirstName() {
+        return this.firstName;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    /**
+     * 名前(名)を設定。
+     *
+     * @param firstName 名前(名)
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    /**
+     * Eメールの取得。
+     *
+     * @return Eメール
+     */
+    public String getEmail() {
+        return this.email;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    /**
+     * Eメールを設定。
+     *
+     * @param email Eメール
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    /**
+     * パスワードの取得。
+     *
+     * @return パスワード
+     */
+    public String getPassword() {
+        return this.password;
+    }
 
+    /**
+     * パスワードを設定。
+     *
+     * @param password パスワード
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
+    /**
+     * パスワード確認の取得。
+     *
+     * @return パスワード確認
+     */
+    public String getConfirmPassword() {
+        return this.confirmPassword;
+    }
 
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
+    /**
+     * パスワード確認を設定。
+     *
+     * @param confirmPassword パスワード確認
+     */
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
+    /**
+     * ユーザー区分IDの取得。
+     *
+     * @return ユーザー区分ID
+     */
+    public String getUserTypeId() {
+        return this.userTypeId;
+    }
 
-	public String getAuthLevel() {
-		return authLevel;
-	}
+    /**
+     * ユーザー区分IDを設定。
+     *
+     * @param userTypeId ユーザー区分ID
+     */
+    public void setUserTypeId(String userTypeId) {
+        this.userTypeId = userTypeId;
+    }
 
-	public void setAuthLevel(String authLevel) {
-		this.authLevel = authLevel;
-	}
+    /**
+     * 権限レベルの取得。
+     *
+     * @return 権限レベル
+     */
+    public String getAuthLevel() {
+        return this.authLevel;
+    }
 
-	public String getUserTypeId() {
-		return userTypeId;
-	}
-
-	public void setUserTypeId(String userTypeId) {
-		this.userTypeId = userTypeId;
-	}
-
-
+    /**
+     * 権限レベルを設定。
+     *
+     * @param authLevel 権限レベル
+     */
+    public void setAuthLevel(String authLevel) {
+        this.authLevel = authLevel;
+    }
 
 }

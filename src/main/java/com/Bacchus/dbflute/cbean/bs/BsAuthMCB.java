@@ -20,20 +20,20 @@ import com.Bacchus.dbflute.cbean.*;
 import com.Bacchus.dbflute.cbean.cq.*;
 
 /**
- * The base condition-bean of user_t.
+ * The base condition-bean of auth_m.
  * @author DBFlute(AutoGenerator)
  */
-public class BsUserTCB extends AbstractConditionBean {
+public class BsAuthMCB extends AbstractConditionBean {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected UserTCQ _conditionQuery;
+    protected AuthMCQ _conditionQuery;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public BsUserTCB() {
+    public BsAuthMCB() {
         if (DBFluteConfig.getInstance().isPagingCountLater()) {
             enablePagingCountLater();
         }
@@ -72,7 +72,7 @@ public class BsUserTCB extends AbstractConditionBean {
     }
 
     public String asTableDbName() {
-        return "user_t";
+        return "auth_m";
     }
 
     // ===================================================================================
@@ -80,35 +80,23 @@ public class BsUserTCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param userId : PK, ID, NotNull, serial(10). (NotNull)
+     * @param authLevel : PK, NotNull, int4(10). (NotNull)
      * @return this. (NotNull)
      */
-    public UserTCB acceptPK(Integer userId) {
-        assertObjectNotNull("userId", userId);
-        BsUserTCB cb = this;
-        cb.query().setUserId_Equal(userId);
-        return (UserTCB)this;
-    }
-
-    /**
-     * Accept the query condition of unique key as equal.
-     * @param loginId : UQ, text(2147483647). (NotNull)
-     * @return this. (NotNull)
-     */
-    public UserTCB acceptUniqueOf(String loginId) {
-        assertObjectNotNull("loginId", loginId);
-        BsUserTCB cb = this;
-        cb.query().setLoginId_Equal(loginId);
-        return (UserTCB)this;
+    public AuthMCB acceptPK(Integer authLevel) {
+        assertObjectNotNull("authLevel", authLevel);
+        BsAuthMCB cb = this;
+        cb.query().setAuthLevel_Equal(authLevel);
+        return (AuthMCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
-        query().addOrderBy_UserId_Asc();
+        query().addOrderBy_AuthLevel_Asc();
         return this;
     }
 
     public ConditionBean addOrderBy_PK_Desc() {
-        query().addOrderBy_UserId_Desc();
+        query().addOrderBy_AuthLevel_Desc();
         return this;
     }
 
@@ -172,34 +160,34 @@ public class BsUserTCB extends AbstractConditionBean {
      * </pre>
      * @return The instance of condition-query for base-point table to set up query. (NotNull)
      */
-    public UserTCQ query() {
+    public AuthMCQ query() {
         assertQueryPurpose(); // assert only when user-public query 
         return doGetConditionQuery();
     }
 
-    public UserTCQ xdfgetConditionQuery() { // public for parameter comment and internal
+    public AuthMCQ xdfgetConditionQuery() { // public for parameter comment and internal
         return doGetConditionQuery();
     }
 
-    protected UserTCQ doGetConditionQuery() {
+    protected AuthMCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
         return _conditionQuery;
     }
 
-    protected UserTCQ createLocalCQ() {
+    protected AuthMCQ createLocalCQ() {
         return xcreateCQ(null, getSqlClause(), getSqlClause().getBasePointAliasName(), 0);
     }
 
-    protected UserTCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        UserTCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected AuthMCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        AuthMCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
         cq.xsetBaseCB(this);
         return cq;
     }
 
-    protected UserTCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        return new UserTCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected AuthMCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        return new AuthMCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
     /**
@@ -223,10 +211,10 @@ public class BsUserTCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union'. (NotNull)
      */
-    public void union(UnionQuery<UserTCB> unionCBLambda) {
-        final UserTCB cb = new UserTCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+    public void union(UnionQuery<AuthMCB> unionCBLambda) {
+        final AuthMCB cb = new AuthMCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final UserTCQ cq = cb.query(); query().xsetUnionQuery(cq);
+        final AuthMCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
     /**
@@ -240,55 +228,15 @@ public class BsUserTCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union all'. (NotNull)
      */
-    public void unionAll(UnionQuery<UserTCB> unionCBLambda) {
-        final UserTCB cb = new UserTCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+    public void unionAll(UnionQuery<AuthMCB> unionCBLambda) {
+        final AuthMCB cb = new AuthMCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final UserTCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
+        final AuthMCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
-    /**
-     * Set up relation columns to select clause. <br>
-     * auth_m by my auth_level, named 'authM'.
-     * <pre>
-     * <span style="color: #0000C0">userTBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_AuthM()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
-     *     <span style="color: #553000">cb</span>.query().set...
-     * }).alwaysPresent(<span style="color: #553000">userT</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     ... = <span style="color: #553000">userT</span>.<span style="color: #CC4747">getAuthM()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
-     * });
-     * </pre>
-     */
-    public void setupSelect_AuthM() {
-        assertSetupSelectPurpose("authM");
-        if (hasSpecifiedLocalColumn()) {
-            specify().columnAuthLevel();
-        }
-        doSetupSelect(() -> query().queryAuthM());
-    }
-
-    /**
-     * Set up relation columns to select clause. <br>
-     * user_type_m by my user_type_id, named 'userTypeM'.
-     * <pre>
-     * <span style="color: #0000C0">userTBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_UserTypeM()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
-     *     <span style="color: #553000">cb</span>.query().set...
-     * }).alwaysPresent(<span style="color: #553000">userT</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     ... = <span style="color: #553000">userT</span>.<span style="color: #CC4747">getUserTypeM()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
-     * });
-     * </pre>
-     */
-    public void setupSelect_UserTypeM() {
-        assertSetupSelectPurpose("userTypeM");
-        if (hasSpecifiedLocalColumn()) {
-            specify().columnUserTypeId();
-        }
-        doSetupSelect(() -> query().queryUserTypeM());
-    }
-
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -329,170 +277,53 @@ public class BsUserTCB extends AbstractConditionBean {
         return _specification != null && _specification.hasSpecifiedColumn();
     }
 
-    public static class HpSpecification extends HpAbstractSpecification<UserTCQ> {
-        protected AuthMCB.HpSpecification _authM;
-        protected UserTypeMCB.HpSpecification _userTypeM;
-        public HpSpecification(ConditionBean baseCB, HpSpQyCall<UserTCQ> qyCall
+    public static class HpSpecification extends HpAbstractSpecification<AuthMCQ> {
+        public HpSpecification(ConditionBean baseCB, HpSpQyCall<AuthMCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * user_id: {PK, ID, NotNull, serial(10)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnUserId() { return doColumn("user_id"); }
-        /**
-         * login_id: {UQ, text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnLoginId() { return doColumn("login_id"); }
-        /**
-         * line_flg: {NotNull, int4(10), default=[0]}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnLineFlg() { return doColumn("line_flg"); }
-        /**
-         * line_id: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnLineId() { return doColumn("line_id"); }
-        /**
-         * line_user_name: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnLineUserName() { return doColumn("line_user_name"); }
-        /**
-         * user_name: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnUserName() { return doColumn("user_name"); }
-        /**
-         * last_name: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnLastName() { return doColumn("last_name"); }
-        /**
-         * first_name: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnFirstName() { return doColumn("first_name"); }
-        /**
-         * email: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnEmail() { return doColumn("email"); }
-        /**
-         * password: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnPassword() { return doColumn("password"); }
-        /**
-         * user_type_id: {NotNull, int4(10), FK to user_type_m}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnUserTypeId() { return doColumn("user_type_id"); }
-        /**
-         * auth_level: {NotNull, int4(10), FK to auth_m}
+         * auth_level: {PK, NotNull, int4(10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnAuthLevel() { return doColumn("auth_level"); }
+        /**
+         * auth_name: {NotNull, text(2147483647)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnAuthName() { return doColumn("auth_name"); }
         public void everyColumn() { doEveryColumn(); }
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override
         protected void doSpecifyRequiredColumn() {
-            columnUserId(); // PK
-            if (qyCall().qy().hasConditionQueryAuthM()
-                    || qyCall().qy().xgetReferrerQuery() instanceof AuthMCQ) {
-                columnAuthLevel(); // FK or one-to-one referrer
-            }
-            if (qyCall().qy().hasConditionQueryUserTypeM()
-                    || qyCall().qy().xgetReferrerQuery() instanceof UserTypeMCQ) {
-                columnUserTypeId(); // FK or one-to-one referrer
-            }
+            columnAuthLevel(); // PK
         }
         @Override
-        protected String getTableDbName() { return "user_t"; }
-        /**
-         * Prepare to specify functions about relation table. <br>
-         * auth_m by my auth_level, named 'authM'.
-         * @return The instance for specification for relation table to specify. (NotNull)
-         */
-        public AuthMCB.HpSpecification specifyAuthM() {
-            assertRelation("authM");
-            if (_authM == null) {
-                _authM = new AuthMCB.HpSpecification(_baseCB
-                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryAuthM()
-                                    , () -> _qyCall.qy().queryAuthM())
-                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
-                if (xhasSyncQyCall()) { // inherits it
-                    _authM.xsetSyncQyCall(xcreateSpQyCall(
-                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryAuthM()
-                      , () -> xsyncQyCall().qy().queryAuthM()));
-                }
-            }
-            return _authM;
-        }
-        /**
-         * Prepare to specify functions about relation table. <br>
-         * user_type_m by my user_type_id, named 'userTypeM'.
-         * @return The instance for specification for relation table to specify. (NotNull)
-         */
-        public UserTypeMCB.HpSpecification specifyUserTypeM() {
-            assertRelation("userTypeM");
-            if (_userTypeM == null) {
-                _userTypeM = new UserTypeMCB.HpSpecification(_baseCB
-                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryUserTypeM()
-                                    , () -> _qyCall.qy().queryUserTypeM())
-                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
-                if (xhasSyncQyCall()) { // inherits it
-                    _userTypeM.xsetSyncQyCall(xcreateSpQyCall(
-                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryUserTypeM()
-                      , () -> xsyncQyCall().qy().queryUserTypeM()));
-                }
-            }
-            return _userTypeM;
-        }
+        protected String getTableDbName() { return "auth_m"; }
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from entry_t where ...) as FOO_MAX} <br>
-         * entry_t by user_id, named 'entryTList'.
+         * {select max(FOO) from user_t where ...) as FOO_MAX} <br>
+         * user_t by auth_level, named 'userTList'.
          * <pre>
          * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
          *     tCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
          *     tCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, EntryT.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * }, UserT.<span style="color: #CC4747">ALIAS_foo...</span>);
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
-        public HpSDRFunction<EntryTCB, UserTCQ> derivedEntryT() {
-            assertDerived("entryTList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<EntryTCB> sq, UserTCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveEntryTList(fn, sq, al, op), _dbmetaProvider);
-        }
-        /**
-         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from event_t where ...) as FOO_MAX} <br>
-         * event_t by user_id, named 'eventTList'.
-         * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     tCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     tCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, EventT.<span style="color: #CC4747">ALIAS_foo...</span>);
-         * </pre>
-         * @return The object to set up a function for referrer table. (NotNull)
-         */
-        public HpSDRFunction<EventTCB, UserTCQ> derivedEventT() {
-            assertDerived("eventTList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<EventTCB> sq, UserTCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveEventTList(fn, sq, al, op), _dbmetaProvider);
+        public HpSDRFunction<UserTCB, AuthMCQ> derivedUserT() {
+            assertDerived("userTList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<UserTCB> sq, AuthMCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveUserTList(fn, sq, al, op), _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)
          */
-        public HpSDRFunction<UserTCB, UserTCQ> myselfDerived() {
+        public HpSDRFunction<AuthMCB, AuthMCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<UserTCB> sq, UserTCQ cq, String al, DerivedReferrerOption op)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<AuthMCB> sq, AuthMCQ cq, String al, DerivedReferrerOption op)
                     -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
@@ -505,9 +336,9 @@ public class BsUserTCB extends AbstractConditionBean {
      * This is very specialty so you can get the frontier spirit. Bon voyage!
      * @return The condition-bean for dream cruise, which is linked to main condition-bean.
      */
-    public UserTCB dreamCruiseCB() {
-        UserTCB cb = new UserTCB();
-        cb.xsetupForDreamCruise((UserTCB) this);
+    public AuthMCB dreamCruiseCB() {
+        AuthMCB cb = new AuthMCB();
+        cb.xsetupForDreamCruise((AuthMCB) this);
         return cb;
     }
 
@@ -532,15 +363,15 @@ public class BsUserTCB extends AbstractConditionBean {
      * @param colCBLambda The callback for specify-query of left column. (NotNull)
      * @return The object for setting up operand and right column. (NotNull)
      */
-    public HpColQyOperand<UserTCB> columnQuery(final SpecifyQuery<UserTCB> colCBLambda) {
+    public HpColQyOperand<AuthMCB> columnQuery(final SpecifyQuery<AuthMCB> colCBLambda) {
         return xcreateColQyOperand((rightSp, operand) -> {
             return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
         });
     }
 
-    protected UserTCB xcreateColumnQueryCB() {
-        UserTCB cb = new UserTCB();
-        cb.xsetupForColumnQuery((UserTCB)this);
+    protected AuthMCB xcreateColumnQueryCB() {
+        AuthMCB cb = new AuthMCB();
+        cb.xsetupForColumnQuery((AuthMCB)this);
         return cb;
     }
 
@@ -560,8 +391,8 @@ public class BsUserTCB extends AbstractConditionBean {
      * </pre>
      * @param orCBLambda The callback for query of or-condition. (NotNull)
      */
-    public void orScopeQuery(OrQuery<UserTCB> orCBLambda) {
-        xorSQ((UserTCB)this, orCBLambda);
+    public void orScopeQuery(OrQuery<AuthMCB> orCBLambda) {
+        xorSQ((AuthMCB)this, orCBLambda);
     }
 
     /**
@@ -579,8 +410,8 @@ public class BsUserTCB extends AbstractConditionBean {
      * </pre>
      * @param andCBLambda The callback for query of and-condition. (NotNull)
      */
-    public void orScopeQueryAndPart(AndQuery<UserTCB> andCBLambda) {
-        xorSQAP((UserTCB)this, andCBLambda);
+    public void orScopeQueryAndPart(AndQuery<AuthMCB> andCBLambda) {
+        xorSQAP((AuthMCB)this, andCBLambda);
     }
 
     // ===================================================================================
@@ -610,11 +441,11 @@ public class BsUserTCB extends AbstractConditionBean {
     //                                                                        ============
     @Override
     protected void xprepareSyncQyCall(ConditionBean mainCB) {
-        final UserTCB cb;
+        final AuthMCB cb;
         if (mainCB != null) {
-            cb = (UserTCB)mainCB;
+            cb = (AuthMCB)mainCB;
         } else {
-            cb = new UserTCB();
+            cb = new AuthMCB();
         }
         specify().xsetSyncQyCall(xcreateSpQyCall(() -> true, () -> cb.query()));
     }
@@ -623,8 +454,8 @@ public class BsUserTCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xgetConditionBeanClassNameInternally() { return UserTCB.class.getName(); }
-    protected String xgetConditionQueryClassNameInternally() { return UserTCQ.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return AuthMCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return AuthMCQ.class.getName(); }
     protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
     protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

@@ -3,17 +3,29 @@
 
 DROP TABLE IF EXISTS Bacchus.entry_t;
 DROP TABLE IF EXISTS Bacchus.candidate_t;
-DROP TABLE IF EXISTS Bacchus.display_def_m;
 DROP TABLE IF EXISTS Bacchus.event_t;
+DROP TABLE IF EXISTS Bacchus.user_t;
+DROP TABLE IF EXISTS Bacchus.auth_M;
+DROP TABLE IF EXISTS Bacchus.display_def_m;
 DROP TABLE IF EXISTS Bacchus.general_code_m;
 DROP TABLE IF EXISTS Bacchus.system_property_m;
-DROP TABLE IF EXISTS Bacchus.user_t;
 DROP TABLE IF EXISTS Bacchus.user_type_m;
 
 
 
 
 /* Create Tables */
+
+-- 権限_M
+CREATE TABLE Bacchus.auth_M
+(
+	-- 権限レベル
+	auth_level int NOT NULL,
+	-- 権限名称
+	auth_name text NOT NULL,
+	PRIMARY KEY (auth_level)
+) WITHOUT OIDS;
+
 
 -- 候補日_T
 CREATE TABLE Bacchus.candidate_t
@@ -176,10 +188,10 @@ CREATE TABLE Bacchus.user_t
 	email text,
 	-- 暗号化PWD
 	password text,
-	-- 権限レベル
-	auth_level int DEFAULT 0 NOT NULL,
 	-- ユーザー区分ID
 	user_type_id int NOT NULL,
+	-- 権限レベル
+	auth_level int NOT NULL,
 	PRIMARY KEY (user_id)
 ) WITHOUT OIDS;
 
@@ -202,6 +214,14 @@ CREATE TABLE Bacchus.user_type_m
 
 
 /* Create Foreign Keys */
+
+ALTER TABLE Bacchus.user_t
+	ADD FOREIGN KEY (auth_level)
+	REFERENCES Bacchus.auth_M (auth_level)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
 
 ALTER TABLE Bacchus.entry_t
 	ADD FOREIGN KEY (candidate_no)
@@ -246,6 +266,9 @@ ALTER TABLE Bacchus.user_t
 
 /* Comments */
 
+COMMENT ON TABLE Bacchus.auth_M IS '権限_M';
+COMMENT ON COLUMN Bacchus.auth_M.auth_level IS '権限レベル';
+COMMENT ON COLUMN Bacchus.auth_M.auth_name IS '権限名称';
 COMMENT ON TABLE Bacchus.candidate_t IS '候補日_T';
 COMMENT ON COLUMN Bacchus.candidate_t.candidate_no IS '候補日管理番号';
 COMMENT ON COLUMN Bacchus.candidate_t.event_no IS 'イベント管理番号';
@@ -311,8 +334,8 @@ COMMENT ON COLUMN Bacchus.user_t.last_name IS '苗字(氏)';
 COMMENT ON COLUMN Bacchus.user_t.first_name IS '名前(名)';
 COMMENT ON COLUMN Bacchus.user_t.email IS 'Eメール';
 COMMENT ON COLUMN Bacchus.user_t.password IS '暗号化PWD';
-COMMENT ON COLUMN Bacchus.user_t.auth_level IS '権限レベル';
 COMMENT ON COLUMN Bacchus.user_t.user_type_id IS 'ユーザー区分ID';
+COMMENT ON COLUMN Bacchus.user_t.auth_level IS '権限レベル';
 COMMENT ON TABLE Bacchus.user_type_m IS 'ユーザー区分_M';
 COMMENT ON COLUMN Bacchus.user_type_m.user_type_id IS 'ユーザー区分ID';
 COMMENT ON COLUMN Bacchus.user_type_m.user_type_name IS 'ユーザー区分名称';

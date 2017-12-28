@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.Bacchus.app.Exception.RecordNotFoundException;
 import com.Bacchus.app.form.user.UserEditForm;
 import com.Bacchus.app.service.CommonService;
 import com.Bacchus.app.service.LoggerService;
 import com.Bacchus.app.service.SystemPropertyService;
-import com.Bacchus.app.service.user.UserCreateService;
 import com.Bacchus.app.service.user.UserEditService;
+import com.Bacchus.app.service.user.UserService;
 import com.Bacchus.app.util.MessageKeyUtil;
 import com.Bacchus.dbflute.cbean.UserTCB;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
@@ -31,6 +32,7 @@ import com.Bacchus.webbase.appbase.BaseController;
 import com.Bacchus.webbase.common.constants.DisplayIdConstants;
 import com.Bacchus.webbase.common.constants.MessageKeyConstants;
 import com.Bacchus.webbase.common.constants.ProcConstants;
+import com.Bacchus.webbase.common.constants.SystemCodeConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.MessageType;
 
 /**
@@ -54,10 +56,7 @@ public class UserEditController extends BaseController {
     SystemPropertyService systemPropertyService;
 
     @Autowired
-    UserCreateService userCreateService;
-
-    @Autowired
-    UserCreateService userService;
+    UserService userService;
 
     @Autowired
     UserTBhv userTBhv;
@@ -69,7 +68,7 @@ public class UserEditController extends BaseController {
     CommonService commonService;
 
     /**
-     * ログイン後TOP処理
+     * ユーザ編集画面表示。
      *
      * @param model
      * @throws Exception
@@ -80,10 +79,10 @@ public class UserEditController extends BaseController {
         super.setDisplayTitle(model, DisplayIdConstants.User.BACCHUS_0103);
 
         // ユーザー区分のプルダウン項目の取得
-        model.addAttribute("userTypeSelectList", userEditService.userTypePullDown());
+        model.addAttribute("userTypeSelectList", userService.createUserTypePullDown());
 
         // 権限のレベルプルダウン項目の取得
-        model.addAttribute("entrySelectList", userEditService.authLevelPullDown());
+        model.addAttribute("authList", userService.createAuthLevelPullDown(SystemCodeConstants.PLEASE_SELECT_MSG));
 
         // 編集項目の取得
         model.addAttribute("userTDto", userEditService.selectUser(form));
@@ -98,6 +97,14 @@ public class UserEditController extends BaseController {
 
     }
 
+    /**
+     * ユーザ情報更新処理。
+     * @param form
+     * @param bindingResult
+     * @param model
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = ProcConstants.Operation.UPDATE, method = RequestMethod.POST)
     public String store(@ModelAttribute("form") UserEditForm form, BindingResult bindingResult, Model model)
             throws Exception {
@@ -154,18 +161,29 @@ public class UserEditController extends BaseController {
 
     }
 
+    /**
+     * 削除ボタン押下時の処理
+     *
+     * @param form
+     * @param bindingResult
+     * @param redirectAttributes
+     * @param model
+     * @return
+     * @throws RecordNotFoundException
+     * @throws Exception
+     */
     @RequestMapping(value = ProcConstants.Operation.DELETE, method = RequestMethod.POST)
-    public String delete(@ModelAttribute("form") UserEditForm form, BindingResult bindingResult,RedirectAttributes redirectAttributes, Model model)
-            throws Exception {
-        model.addAttribute("form", form);
+    public String delete(@ModelAttribute("form") UserEditForm form, BindingResult bindingResult,
+            RedirectAttributes redirectAttributes, Model model) throws RecordNotFoundException {
+
         super.setDisplayTitle(model, DisplayIdConstants.User.BACCHUS_0103);
 
         // ユーザー削除
-        userEditService.delete(form);
+        userService.delete(form.getUserId());
 
-     // 完了メッセージを設定
+        // 完了メッセージを設定
         String message = messageSource.getMessage(
-        MessageKeyUtil.encloseStringDelete(MessageKeyConstants.Success.DELETE), null, Locale.getDefault());
+                MessageKeyUtil.encloseStringDelete(MessageKeyConstants.Success.DELETE), null, Locale.getDefault());
 
         List<String> successMessageList = new ArrayList<String>(Arrays.asList(message));
         redirectAttributes.addFlashAttribute(MessageType.SUCCESS, successMessageList);

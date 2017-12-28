@@ -20,16 +20,16 @@ import com.Bacchus.dbflute.bsentity.dbmeta.*;
 import com.Bacchus.dbflute.cbean.*;
 
 /**
- * The behavior of user_t as TABLE. <br>
+ * The behavior of auth_m as TABLE. <br>
  * <pre>
  * [primary key]
- *     user_id
+ *     auth_level
  *
  * [column]
- *     user_id, login_id, line_flg, line_id, line_user_name, user_name, last_name, first_name, email, password, user_type_id, auth_level
+ *     auth_level, auth_name
  *
  * [sequence]
- *     user_t_user_id_seq
+ *     
  *
  * [identity]
  *     
@@ -38,20 +38,20 @@ import com.Bacchus.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     auth_m, user_type_m
+ *     
  *
  * [referrer table]
- *     entry_t, event_t
+ *     user_t
  *
  * [foreign property]
- *     authM, userTypeM
+ *     
  *
  * [referrer property]
- *     entryTList, eventTList
+ *     userTList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB> {
+public abstract class BsAuthMBhv extends AbstractBehaviorWritable<AuthM, AuthMCB> {
 
     // ===================================================================================
     //                                                                          Definition
@@ -63,15 +63,15 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
     //                                                                             DB Meta
     //                                                                             =======
     /** {@inheritDoc} */
-    public UserTDbm asDBMeta() { return UserTDbm.getInstance(); }
+    public AuthMDbm asDBMeta() { return AuthMDbm.getInstance(); }
     /** {@inheritDoc} */
-    public String asTableDbName() { return "user_t"; }
+    public String asTableDbName() { return "auth_m"; }
 
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
-    public UserTCB newConditionBean() { return new UserTCB(); }
+    public AuthMCB newConditionBean() { return new AuthMCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -80,14 +80,14 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * Select the count of uniquely-selected records by the condition-bean. {IgnorePagingCondition, IgnoreSpecifyColumn}<br>
      * SpecifyColumn is ignored but you can use it only to remove text type column for union's distinct.
      * <pre>
-     * <span style="color: #70226C">int</span> count = <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">selectCount</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #70226C">int</span> count = <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">selectCount</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
      * });
      * </pre>
-     * @param cbLambda The callback for condition-bean of UserT. (NotNull)
+     * @param cbLambda The callback for condition-bean of AuthM. (NotNull)
      * @return The count for the condition. (NotMinus)
      */
-    public int selectCount(CBCall<UserTCB> cbLambda) {
+    public int selectCount(CBCall<AuthMCB> cbLambda) {
         return facadeSelectCount(createCB(cbLambda));
     }
 
@@ -101,38 +101,38 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * <span style="color: #AD4747; font-size: 120%">If it might be no data, isPresent() and orElse(), ...</span>
      * <pre>
      * <span style="color: #3F7E5E">// if the data always exists as your business rule</span>
-     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
-     * }).<span style="color: #CC4747">alwaysPresent</span>(<span style="color: #553000">userT</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * }).<span style="color: #CC4747">alwaysPresent</span>(<span style="color: #553000">authM</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #3F7E5E">// called if present, or exception</span>
-     *     ... = <span style="color: #553000">userT</span>.get...
+     *     ... = <span style="color: #553000">authM</span>.get...
      * });
      * 
      * <span style="color: #3F7E5E">// if it might be no data, ...</span>
-     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
-     * }).<span style="color: #CC4747">ifPresent</span>(<span style="color: #553000">userT</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * }).<span style="color: #CC4747">ifPresent</span>(<span style="color: #553000">authM</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #3F7E5E">// called if present</span>
-     *     ... = <span style="color: #553000">userT</span>.get...
+     *     ... = <span style="color: #553000">authM</span>.get...
      * }).<span style="color: #994747">orElse</span>(() <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #3F7E5E">// called if not present</span>
      * });
      * </pre>
-     * @param cbLambda The callback for condition-bean of UserT. (NotNull)
+     * @param cbLambda The callback for condition-bean of AuthM. (NotNull)
      * @return The optional entity selected by the condition. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public OptionalEntity<UserT> selectEntity(CBCall<UserTCB> cbLambda) {
+    public OptionalEntity<AuthM> selectEntity(CBCall<AuthMCB> cbLambda) {
         return facadeSelectEntity(createCB(cbLambda));
     }
 
-    protected OptionalEntity<UserT> facadeSelectEntity(UserTCB cb) {
+    protected OptionalEntity<AuthM> facadeSelectEntity(AuthMCB cb) {
         return doSelectOptionalEntity(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends UserT> OptionalEntity<ENTITY> doSelectOptionalEntity(UserTCB cb, Class<? extends ENTITY> tp) {
+    protected <ENTITY extends AuthM> OptionalEntity<ENTITY> doSelectOptionalEntity(AuthMCB cb, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
@@ -142,71 +142,46 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * Select the entity by the condition-bean with deleted check. <br>
      * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, this method is good.</span>
      * <pre>
-     * UserT <span style="color: #553000">userT</span> = <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">selectEntityWithDeletedCheck</span>(cb <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> cb.acceptPK(1));
-     * ... = <span style="color: #553000">userT</span>.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
+     * AuthM <span style="color: #553000">authM</span> = <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">selectEntityWithDeletedCheck</span>(cb <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> cb.acceptPK(1));
+     * ... = <span style="color: #553000">authM</span>.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
-     * @param cbLambda The callback for condition-bean of UserT. (NotNull)
+     * @param cbLambda The callback for condition-bean of AuthM. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public UserT selectEntityWithDeletedCheck(CBCall<UserTCB> cbLambda) {
+    public AuthM selectEntityWithDeletedCheck(CBCall<AuthMCB> cbLambda) {
         return facadeSelectEntityWithDeletedCheck(createCB(cbLambda));
     }
 
     /**
      * Select the entity by the primary-key value.
-     * @param userId : PK, ID, NotNull, serial(10). (NotNull)
+     * @param authLevel : PK, NotNull, int4(10). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public OptionalEntity<UserT> selectByPK(Integer userId) {
-        return facadeSelectByPK(userId);
+    public OptionalEntity<AuthM> selectByPK(Integer authLevel) {
+        return facadeSelectByPK(authLevel);
     }
 
-    protected OptionalEntity<UserT> facadeSelectByPK(Integer userId) {
-        return doSelectOptionalByPK(userId, typeOfSelectedEntity());
+    protected OptionalEntity<AuthM> facadeSelectByPK(Integer authLevel) {
+        return doSelectOptionalByPK(authLevel, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends UserT> ENTITY doSelectByPK(Integer userId, Class<? extends ENTITY> tp) {
-        return doSelectEntity(xprepareCBAsPK(userId), tp);
+    protected <ENTITY extends AuthM> ENTITY doSelectByPK(Integer authLevel, Class<? extends ENTITY> tp) {
+        return doSelectEntity(xprepareCBAsPK(authLevel), tp);
     }
 
-    protected <ENTITY extends UserT> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer userId, Class<? extends ENTITY> tp) {
-        return createOptionalEntity(doSelectByPK(userId, tp), userId);
+    protected <ENTITY extends AuthM> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer authLevel, Class<? extends ENTITY> tp) {
+        return createOptionalEntity(doSelectByPK(authLevel, tp), authLevel);
     }
 
-    protected UserTCB xprepareCBAsPK(Integer userId) {
-        assertObjectNotNull("userId", userId);
-        return newConditionBean().acceptPK(userId);
-    }
-
-    /**
-     * Select the entity by the unique-key value.
-     * @param loginId : UQ, text(2147483647). (NotNull)
-     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
-     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @throws EntityDuplicatedException When the entity has been duplicated.
-     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public OptionalEntity<UserT> selectByUniqueOf(String loginId) {
-        return facadeSelectByUniqueOf(loginId);
-    }
-
-    protected OptionalEntity<UserT> facadeSelectByUniqueOf(String loginId) {
-        return doSelectByUniqueOf(loginId, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends UserT> OptionalEntity<ENTITY> doSelectByUniqueOf(String loginId, Class<? extends ENTITY> tp) {
-        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(loginId), tp), loginId);
-    }
-
-    protected UserTCB xprepareCBAsUniqueOf(String loginId) {
-        assertObjectNotNull("loginId", loginId);
-        return newConditionBean().acceptUniqueOf(loginId);
+    protected AuthMCB xprepareCBAsPK(Integer authLevel) {
+        assertObjectNotNull("authLevel", authLevel);
+        return newConditionBean().acceptPK(authLevel);
     }
 
     // ===================================================================================
@@ -215,19 +190,19 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
     /**
      * Select the list as result bean.
      * <pre>
-     * ListResultBean&lt;UserT&gt; <span style="color: #553000">userTList</span> = <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">selectList</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * ListResultBean&lt;AuthM&gt; <span style="color: #553000">authMList</span> = <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">selectList</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...;
      *     <span style="color: #553000">cb</span>.query().addOrderBy...;
      * });
-     * <span style="color: #70226C">for</span> (UserT <span style="color: #553000">userT</span> : <span style="color: #553000">userTList</span>) {
-     *     ... = <span style="color: #553000">userT</span>.get...;
+     * <span style="color: #70226C">for</span> (AuthM <span style="color: #553000">authM</span> : <span style="color: #553000">authMList</span>) {
+     *     ... = <span style="color: #553000">authM</span>.get...;
      * }
      * </pre>
-     * @param cbLambda The callback for condition-bean of UserT. (NotNull)
+     * @param cbLambda The callback for condition-bean of AuthM. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
      * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public ListResultBean<UserT> selectList(CBCall<UserTCB> cbLambda) {
+    public ListResultBean<AuthM> selectList(CBCall<AuthMCB> cbLambda) {
         return facadeSelectList(createCB(cbLambda));
     }
 
@@ -241,7 +216,7 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * Select the page as result bean. <br>
      * (both count-select and paging-select are executed)
      * <pre>
-     * PagingResultBean&lt;UserT&gt; <span style="color: #553000">page</span> = <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">selectPage</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * PagingResultBean&lt;AuthM&gt; <span style="color: #553000">page</span> = <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">selectPage</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
      *     <span style="color: #553000">cb</span>.query().addOrderBy...
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
@@ -251,15 +226,15 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * <span style="color: #70226C">boolean</span> isExistPrePage = <span style="color: #553000">page</span>.isExistPrePage();
      * <span style="color: #70226C">boolean</span> isExistNextPage = <span style="color: #553000">page</span>.isExistNextPage();
      * ...
-     * <span style="color: #70226C">for</span> (UserT userT : <span style="color: #553000">page</span>) {
-     *     ... = userT.get...;
+     * <span style="color: #70226C">for</span> (AuthM authM : <span style="color: #553000">page</span>) {
+     *     ... = authM.get...;
      * }
      * </pre>
-     * @param cbLambda The callback for condition-bean of UserT. (NotNull)
+     * @param cbLambda The callback for condition-bean of AuthM. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
      * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public PagingResultBean<UserT> selectPage(CBCall<UserTCB> cbLambda) {
+    public PagingResultBean<AuthM> selectPage(CBCall<AuthMCB> cbLambda) {
         return facadeSelectPage(createCB(cbLambda));
     }
 
@@ -269,16 +244,16 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
     /**
      * Select the cursor by the condition-bean.
      * <pre>
-     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">selectCursor</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">selectCursor</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
      * }, <span style="color: #553000">member</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     ... = <span style="color: #553000">member</span>.getMemberName();
      * });
      * </pre>
-     * @param cbLambda The callback for condition-bean of UserT. (NotNull)
-     * @param entityLambda The handler of entity row of UserT. (NotNull)
+     * @param cbLambda The callback for condition-bean of AuthM. (NotNull)
+     * @param entityLambda The handler of entity row of AuthM. (NotNull)
      */
-    public void selectCursor(CBCall<UserTCB> cbLambda, EntityRowHandler<UserT> entityLambda) {
+    public void selectCursor(CBCall<AuthMCB> cbLambda, EntityRowHandler<AuthM> entityLambda) {
         facadeSelectCursor(createCB(cbLambda), entityLambda);
     }
 
@@ -289,7 +264,7 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * Select the scalar value derived by a function from uniquely-selected records. <br>
      * You should call a function method after this method called like as follows:
      * <pre>
-     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">selectScalar</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">selectScalar</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">column...</span>; <span style="color: #3F7E5E">// required for the function</span>
      *     <span style="color: #553000">cb</span>.query().set...
      * });
@@ -298,34 +273,17 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * @param resultType The type of result. (NotNull)
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
-    public <RESULT> HpSLSFunction<UserTCB, RESULT> selectScalar(Class<RESULT> resultType) {
+    public <RESULT> HpSLSFunction<AuthMCB, RESULT> selectScalar(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
 
     // ===================================================================================
     //                                                                            Sequence
     //                                                                            ========
-    /**
-     * Select the next value as sequence. <br>
-     * This method is called when insert() and set to primary-key automatically.
-     * So you don't need to call this as long as you need to get next value before insert().
-     * @return The next value. (NotNull)
-     */
-    public Integer selectNextVal() {
-        return facadeSelectNextVal();
-    }
-
-    protected Integer facadeSelectNextVal() {
-        return doSelectNextVal(Integer.class);
-    }
-
-    protected <RESULT> RESULT doSelectNextVal(Class<RESULT> tp) {
-        return delegateSelectNextVal(tp);
-    }
-
     @Override
     protected Number doReadNextVal() {
-        return facadeSelectNextVal();
+        String msg = "This table is NOT related to sequence: " + asTableDbName();
+        throw new UnsupportedOperationException(msg);
     }
 
     // ===================================================================================
@@ -360,12 +318,12 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * </pre>
      * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
      * The condition-bean, which the set-upper provides, has order by FK before callback.
-     * @param userTList The entity list of userT. (NotNull)
+     * @param authMList The entity list of authM. (NotNull)
      * @param loaderLambda The callback to handle the referrer loader for actually loading referrer. (NotNull)
      */
-    public void load(List<UserT> userTList, ReferrerLoaderHandler<LoaderOfUserT> loaderLambda) {
-        xassLRArg(userTList, loaderLambda);
-        loaderLambda.handle(new LoaderOfUserT().ready(userTList, _behaviorSelector));
+    public void load(List<AuthM> authMList, ReferrerLoaderHandler<LoaderOfAuthM> loaderLambda) {
+        xassLRArg(authMList, loaderLambda);
+        loaderLambda.handle(new LoaderOfAuthM().ready(authMList, _behaviorSelector));
     }
 
     /**
@@ -393,19 +351,19 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * </pre>
      * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
      * The condition-bean, which the set-upper provides, has order by FK before callback.
-     * @param userT The entity of userT. (NotNull)
+     * @param authM The entity of authM. (NotNull)
      * @param loaderLambda The callback to handle the referrer loader for actually loading referrer. (NotNull)
      */
-    public void load(UserT userT, ReferrerLoaderHandler<LoaderOfUserT> loaderLambda) {
-        xassLRArg(userT, loaderLambda);
-        loaderLambda.handle(new LoaderOfUserT().ready(xnewLRAryLs(userT), _behaviorSelector));
+    public void load(AuthM authM, ReferrerLoaderHandler<LoaderOfAuthM> loaderLambda) {
+        xassLRArg(authM, loaderLambda);
+        loaderLambda.handle(new LoaderOfAuthM().ready(xnewLRAryLs(authM), _behaviorSelector));
     }
 
     /**
-     * Load referrer of entryTList by the set-upper of referrer. <br>
-     * entry_t by user_id, named 'entryTList'.
+     * Load referrer of userTList by the set-upper of referrer. <br>
+     * user_t by auth_level, named 'userTList'.
      * <pre>
-     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">loadEntryT</span>(<span style="color: #553000">userTList</span>, <span style="color: #553000">tCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">loadUserT</span>(<span style="color: #553000">authMList</span>, <span style="color: #553000">tCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">tCB</span>.setupSelect...
      *     <span style="color: #553000">tCB</span>.query().set...
      *     <span style="color: #553000">tCB</span>.query().addOrderBy...
@@ -413,30 +371,30 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
      * <span style="color: #3F7E5E">//    ...</span>
      * <span style="color: #3F7E5E">//});</span>
-     * <span style="color: #70226C">for</span> (UserT userT : <span style="color: #553000">userTList</span>) {
-     *     ... = userT.<span style="color: #CC4747">getEntryTList()</span>;
+     * <span style="color: #70226C">for</span> (AuthM authM : <span style="color: #553000">authMList</span>) {
+     *     ... = authM.<span style="color: #CC4747">getUserTList()</span>;
      * }
      * </pre>
      * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
      * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
-     * cb.query().setUserId_InScope(pkList);
-     * cb.query().addOrderBy_UserId_Asc();
+     * cb.query().setAuthLevel_InScope(pkList);
+     * cb.query().addOrderBy_AuthLevel_Asc();
      * </pre>
-     * @param userTList The entity list of userT. (NotNull)
+     * @param authMList The entity list of authM. (NotNull)
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<EntryT> loadEntryT(List<UserT> userTList, ReferrerConditionSetupper<EntryTCB> refCBLambda) {
-        xassLRArg(userTList, refCBLambda);
-        return doLoadEntryT(userTList, new LoadReferrerOption<EntryTCB, EntryT>().xinit(refCBLambda));
+    public NestedReferrerListGateway<UserT> loadUserT(List<AuthM> authMList, ReferrerConditionSetupper<UserTCB> refCBLambda) {
+        xassLRArg(authMList, refCBLambda);
+        return doLoadUserT(authMList, new LoadReferrerOption<UserTCB, UserT>().xinit(refCBLambda));
     }
 
     /**
-     * Load referrer of entryTList by the set-upper of referrer. <br>
-     * entry_t by user_id, named 'entryTList'.
+     * Load referrer of userTList by the set-upper of referrer. <br>
+     * user_t by auth_level, named 'userTList'.
      * <pre>
-     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">loadEntryT</span>(<span style="color: #553000">userT</span>, <span style="color: #553000">tCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">loadUserT</span>(<span style="color: #553000">authM</span>, <span style="color: #553000">tCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">tCB</span>.setupSelect...
      *     <span style="color: #553000">tCB</span>.query().set...
      *     <span style="color: #553000">tCB</span>.query().addOrderBy...
@@ -444,128 +402,40 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
      * <span style="color: #3F7E5E">//    ...</span>
      * <span style="color: #3F7E5E">//});</span>
-     * ... = <span style="color: #553000">userT</span>.<span style="color: #CC4747">getEntryTList()</span>;
+     * ... = <span style="color: #553000">authM</span>.<span style="color: #CC4747">getUserTList()</span>;
      * </pre>
      * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
      * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
-     * cb.query().setUserId_InScope(pkList);
-     * cb.query().addOrderBy_UserId_Asc();
+     * cb.query().setAuthLevel_InScope(pkList);
+     * cb.query().addOrderBy_AuthLevel_Asc();
      * </pre>
-     * @param userT The entity of userT. (NotNull)
+     * @param authM The entity of authM. (NotNull)
      * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerListGateway<EntryT> loadEntryT(UserT userT, ReferrerConditionSetupper<EntryTCB> refCBLambda) {
-        xassLRArg(userT, refCBLambda);
-        return doLoadEntryT(xnewLRLs(userT), new LoadReferrerOption<EntryTCB, EntryT>().xinit(refCBLambda));
+    public NestedReferrerListGateway<UserT> loadUserT(AuthM authM, ReferrerConditionSetupper<UserTCB> refCBLambda) {
+        xassLRArg(authM, refCBLambda);
+        return doLoadUserT(xnewLRLs(authM), new LoadReferrerOption<UserTCB, UserT>().xinit(refCBLambda));
     }
 
-    protected NestedReferrerListGateway<EntryT> doLoadEntryT(List<UserT> userTList, LoadReferrerOption<EntryTCB, EntryT> option) {
-        return helpLoadReferrerInternally(userTList, option, "entryTList");
-    }
-
-    /**
-     * Load referrer of eventTList by the set-upper of referrer. <br>
-     * event_t by user_id, named 'eventTList'.
-     * <pre>
-     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">loadEventT</span>(<span style="color: #553000">userTList</span>, <span style="color: #553000">tCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">tCB</span>.setupSelect...
-     *     <span style="color: #553000">tCB</span>.query().set...
-     *     <span style="color: #553000">tCB</span>.query().addOrderBy...
-     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
-     * <span style="color: #3F7E5E">//    ...</span>
-     * <span style="color: #3F7E5E">//});</span>
-     * <span style="color: #70226C">for</span> (UserT userT : <span style="color: #553000">userTList</span>) {
-     *     ... = userT.<span style="color: #CC4747">getEventTList()</span>;
-     * }
-     * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
-     * The condition-bean, which the set-upper provides, has settings before callback as follows:
-     * <pre>
-     * cb.query().setUserId_InScope(pkList);
-     * cb.query().addOrderBy_UserId_Asc();
-     * </pre>
-     * @param userTList The entity list of userT. (NotNull)
-     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    public NestedReferrerListGateway<EventT> loadEventT(List<UserT> userTList, ReferrerConditionSetupper<EventTCB> refCBLambda) {
-        xassLRArg(userTList, refCBLambda);
-        return doLoadEventT(userTList, new LoadReferrerOption<EventTCB, EventT>().xinit(refCBLambda));
-    }
-
-    /**
-     * Load referrer of eventTList by the set-upper of referrer. <br>
-     * event_t by user_id, named 'eventTList'.
-     * <pre>
-     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">loadEventT</span>(<span style="color: #553000">userT</span>, <span style="color: #553000">tCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">tCB</span>.setupSelect...
-     *     <span style="color: #553000">tCB</span>.query().set...
-     *     <span style="color: #553000">tCB</span>.query().addOrderBy...
-     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
-     * <span style="color: #3F7E5E">//    ...</span>
-     * <span style="color: #3F7E5E">//});</span>
-     * ... = <span style="color: #553000">userT</span>.<span style="color: #CC4747">getEventTList()</span>;
-     * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
-     * The condition-bean, which the set-upper provides, has settings before callback as follows:
-     * <pre>
-     * cb.query().setUserId_InScope(pkList);
-     * cb.query().addOrderBy_UserId_Asc();
-     * </pre>
-     * @param userT The entity of userT. (NotNull)
-     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    public NestedReferrerListGateway<EventT> loadEventT(UserT userT, ReferrerConditionSetupper<EventTCB> refCBLambda) {
-        xassLRArg(userT, refCBLambda);
-        return doLoadEventT(xnewLRLs(userT), new LoadReferrerOption<EventTCB, EventT>().xinit(refCBLambda));
-    }
-
-    protected NestedReferrerListGateway<EventT> doLoadEventT(List<UserT> userTList, LoadReferrerOption<EventTCB, EventT> option) {
-        return helpLoadReferrerInternally(userTList, option, "eventTList");
+    protected NestedReferrerListGateway<UserT> doLoadUserT(List<AuthM> authMList, LoadReferrerOption<UserTCB, UserT> option) {
+        return helpLoadReferrerInternally(authMList, option, "userTList");
     }
 
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
-    /**
-     * Pull out the list of foreign table 'AuthM'.
-     * @param userTList The list of userT. (NotNull, EmptyAllowed)
-     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
-     */
-    public List<AuthM> pulloutAuthM(List<UserT> userTList)
-    { return helpPulloutInternally(userTList, "authM"); }
-
-    /**
-     * Pull out the list of foreign table 'UserTypeM'.
-     * @param userTList The list of userT. (NotNull, EmptyAllowed)
-     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
-     */
-    public List<UserTypeM> pulloutUserTypeM(List<UserT> userTList)
-    { return helpPulloutInternally(userTList, "userTypeM"); }
-
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============
     /**
-     * Extract the value list of (single) primary key userId.
-     * @param userTList The list of userT. (NotNull, EmptyAllowed)
+     * Extract the value list of (single) primary key authLevel.
+     * @param authMList The list of authM. (NotNull, EmptyAllowed)
      * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<Integer> extractUserIdList(List<UserT> userTList)
-    { return helpExtractListInternally(userTList, "userId"); }
-
-    /**
-     * Extract the value list of (single) unique key loginId.
-     * @param userTList The list of userT. (NotNull, EmptyAllowed)
-     * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
-     */
-    public List<String> extractLoginIdList(List<UserT> userTList)
-    { return helpExtractListInternally(userTList, "loginId"); }
+    public List<Integer> extractAuthLevelList(List<AuthM> authMList)
+    { return helpExtractListInternally(authMList, "authLevel"); }
 
     // ===================================================================================
     //                                                                       Entity Update
@@ -573,80 +443,80 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
     /**
      * Insert the entity modified-only. (DefaultConstraintsEnabled)
      * <pre>
-     * UserT userT = <span style="color: #70226C">new</span> UserT();
+     * AuthM authM = <span style="color: #70226C">new</span> AuthM();
      * <span style="color: #3F7E5E">// if auto-increment, you don't need to set the PK value</span>
-     * userT.setFoo...(value);
-     * userT.setBar...(value);
+     * authM.setFoo...(value);
+     * authM.setBar...(value);
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
-     * <span style="color: #3F7E5E">//userT.setRegisterUser(value);</span>
-     * <span style="color: #3F7E5E">//userT.set...;</span>
-     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">insert</span>(userT);
-     * ... = userT.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
+     * <span style="color: #3F7E5E">//authM.setRegisterUser(value);</span>
+     * <span style="color: #3F7E5E">//authM.set...;</span>
+     * <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">insert</span>(authM);
+     * ... = authM.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
-     * @param userT The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param authM The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void insert(UserT userT) {
-        doInsert(userT, null);
+    public void insert(AuthM authM) {
+        doInsert(authM, null);
     }
 
     /**
      * Update the entity modified-only. (ZeroUpdateException, NonExclusiveControl) <br>
      * By PK as default, and also you can update by unique keys using entity's uniqueOf().
      * <pre>
-     * UserT userT = <span style="color: #70226C">new</span> UserT();
-     * userT.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * userT.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * AuthM authM = <span style="color: #70226C">new</span> AuthM();
+     * authM.setPK...(value); <span style="color: #3F7E5E">// required</span>
+     * authM.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
-     * <span style="color: #3F7E5E">//userT.setRegisterUser(value);</span>
-     * <span style="color: #3F7E5E">//userT.set...;</span>
+     * <span style="color: #3F7E5E">//authM.setRegisterUser(value);</span>
+     * <span style="color: #3F7E5E">//authM.set...;</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
-     * userT.<span style="color: #CC4747">setVersionNo</span>(value);
-     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">update</span>(userT);
+     * authM.<span style="color: #CC4747">setVersionNo</span>(value);
+     * <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">update</span>(authM);
      * </pre>
-     * @param userT The entity of update. (NotNull, PrimaryKeyNotNull)
+     * @param authM The entity of update. (NotNull, PrimaryKeyNotNull)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void update(UserT userT) {
-        doUpdate(userT, null);
+    public void update(AuthM authM) {
+        doUpdate(authM, null);
     }
 
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br>
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br>
      * <p><span style="color: #994747; font-size: 120%">Also you can update by unique keys using entity's uniqueOf().</span></p>
-     * @param userT The entity of insert or update. (NotNull, ...depends on insert or update)
+     * @param authM The entity of insert or update. (NotNull, ...depends on insert or update)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void insertOrUpdate(UserT userT) {
-        doInsertOrUpdate(userT, null, null);
+    public void insertOrUpdate(AuthM authM) {
+        doInsertOrUpdate(authM, null, null);
     }
 
     /**
      * Delete the entity. (ZeroUpdateException, NonExclusiveControl) <br>
      * By PK as default, and also you can delete by unique keys using entity's uniqueOf().
      * <pre>
-     * UserT userT = <span style="color: #70226C">new</span> UserT();
-     * userT.setPK...(value); <span style="color: #3F7E5E">// required</span>
+     * AuthM authM = <span style="color: #70226C">new</span> AuthM();
+     * authM.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
-     * userT.<span style="color: #CC4747">setVersionNo</span>(value);
+     * authM.<span style="color: #CC4747">setVersionNo</span>(value);
      * <span style="color: #70226C">try</span> {
-     *     <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">delete</span>(userT);
+     *     <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">delete</span>(authM);
      * } <span style="color: #70226C">catch</span> (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
-     * @param userT The entity of delete. (NotNull, PrimaryKeyNotNull)
+     * @param authM The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      */
-    public void delete(UserT userT) {
-        doDelete(userT, null);
+    public void delete(AuthM authM) {
+        doDelete(authM, null);
     }
 
     // ===================================================================================
@@ -658,26 +528,26 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * <p><span style="color: #CC4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
      * <pre>
      * <span style="color: #70226C">for</span> (... : ...) {
-     *     UserT userT = <span style="color: #70226C">new</span> UserT();
-     *     userT.setFooName("foo");
+     *     AuthM authM = <span style="color: #70226C">new</span> AuthM();
+     *     authM.setFooName("foo");
      *     <span style="color: #70226C">if</span> (...) {
-     *         userT.setFooPrice(123);
+     *         authM.setFooPrice(123);
      *     }
      *     <span style="color: #3F7E5E">// FOO_NAME and FOO_PRICE (and record meta columns) are registered</span>
      *     <span style="color: #3F7E5E">// FOO_PRICE not-called in any entities are registered as null without default value</span>
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
-     *     userTList.add(userT);
+     *     authMList.add(authM);
      * }
-     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">batchInsert</span>(userTList);
+     * <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">batchInsert</span>(authMList);
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
      * (When you use the (normal) insert(), you can get the incremented value from your entity)</p>
-     * @param userTList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNullAllowed: when auto-increment)
+     * @param authMList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNullAllowed: when auto-increment)
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
-    public int[] batchInsert(List<UserT> userTList) {
-        return doBatchInsert(userTList, null);
+    public int[] batchInsert(List<AuthM> authMList) {
+        return doBatchInsert(authMList, null);
     }
 
     /**
@@ -686,37 +556,37 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * <span style="color: #CC4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
-     *     UserT userT = <span style="color: #70226C">new</span> UserT();
-     *     userT.setFooName("foo");
+     *     AuthM authM = <span style="color: #70226C">new</span> AuthM();
+     *     authM.setFooName("foo");
      *     <span style="color: #70226C">if</span> (...) {
-     *         userT.setFooPrice(123);
+     *         authM.setFooPrice(123);
      *     } <span style="color: #70226C">else</span> {
-     *         userT.setFooPrice(null); <span style="color: #3F7E5E">// updated as null</span>
-     *         <span style="color: #3F7E5E">//userT.setFooDate(...); // *not allowed, fragmented</span>
+     *         authM.setFooPrice(null); <span style="color: #3F7E5E">// updated as null</span>
+     *         <span style="color: #3F7E5E">//authM.setFooDate(...); // *not allowed, fragmented</span>
      *     }
      *     <span style="color: #3F7E5E">// FOO_NAME and FOO_PRICE (and record meta columns) are updated</span>
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
-     *     userTList.add(userT);
+     *     authMList.add(authM);
      * }
-     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">batchUpdate</span>(userTList);
+     * <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">batchUpdate</span>(authMList);
      * </pre>
-     * @param userTList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param authMList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
-    public int[] batchUpdate(List<UserT> userTList) {
-        return doBatchUpdate(userTList, null);
+    public int[] batchUpdate(List<AuthM> authMList) {
+        return doBatchUpdate(authMList, null);
     }
 
     /**
      * Batch-delete the entity list. (NonExclusiveControl) <br>
      * This method uses executeBatch() of java.sql.PreparedStatement.
-     * @param userTList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param authMList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
-    public int[] batchDelete(List<UserT> userTList) {
-        return doBatchDelete(userTList, null);
+    public int[] batchDelete(List<AuthM> authMList) {
+        return doBatchDelete(authMList, null);
     }
 
     // ===================================================================================
@@ -725,8 +595,8 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">queryInsert</span>(new QueryInsertSetupper&lt;UserT, UserTCB&gt;() {
-     *     public ConditionBean setup(UserT entity, UserTCB intoCB) {
+     * <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">queryInsert</span>(new QueryInsertSetupper&lt;AuthM, AuthMCB&gt;() {
+     *     public ConditionBean setup(AuthM entity, AuthMCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
      *
@@ -748,48 +618,48 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * @param manyArgLambda The callback to set up query-insert. (NotNull)
      * @return The inserted count.
      */
-    public int queryInsert(QueryInsertSetupper<UserT, UserTCB> manyArgLambda) {
+    public int queryInsert(QueryInsertSetupper<AuthM, AuthMCB> manyArgLambda) {
         return doQueryInsert(manyArgLambda, null);
     }
 
     /**
      * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
      * <pre>
-     * UserT userT = <span style="color: #70226C">new</span> UserT();
+     * AuthM authM = <span style="color: #70226C">new</span> AuthM();
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
-     * <span style="color: #3F7E5E">//userT.setPK...(value);</span>
-     * userT.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * <span style="color: #3F7E5E">//authM.setPK...(value);</span>
+     * authM.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
-     * <span style="color: #3F7E5E">//userT.setRegisterUser(value);</span>
-     * <span style="color: #3F7E5E">//userT.set...;</span>
+     * <span style="color: #3F7E5E">//authM.setRegisterUser(value);</span>
+     * <span style="color: #3F7E5E">//authM.set...;</span>
      * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
-     * <span style="color: #3F7E5E">//userT.setVersionNo(value);</span>
-     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">queryUpdate</span>(userT, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #3F7E5E">//authM.setVersionNo(value);</span>
+     * <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">queryUpdate</span>(authM, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().setFoo...
      * });
      * </pre>
-     * @param userT The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
-     * @param cbLambda The callback for condition-bean of UserT. (NotNull)
+     * @param authM The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
+     * @param cbLambda The callback for condition-bean of AuthM. (NotNull)
      * @return The updated count.
      * @throws NonQueryUpdateNotAllowedException When the query has no condition.
      */
-    public int queryUpdate(UserT userT, CBCall<UserTCB> cbLambda) {
-        return doQueryUpdate(userT, createCB(cbLambda), null);
+    public int queryUpdate(AuthM authM, CBCall<AuthMCB> cbLambda) {
+        return doQueryUpdate(authM, createCB(cbLambda), null);
     }
 
     /**
      * Delete the several entities by query. (NonExclusiveControl)
      * <pre>
-     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">queryDelete</span>(userT, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">queryDelete</span>(authM, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().setFoo...
      * });
      * </pre>
-     * @param cbLambda The callback for condition-bean of UserT. (NotNull)
+     * @param cbLambda The callback for condition-bean of AuthM. (NotNull)
      * @return The deleted count.
      * @throws NonQueryDeleteNotAllowedException When the query has no condition.
      */
-    public int queryDelete(CBCall<UserTCB> cbLambda) {
+    public int queryDelete(CBCall<AuthMCB> cbLambda) {
         return doQueryDelete(createCB(cbLambda), null);
     }
 
@@ -804,22 +674,22 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br>
      * Other specifications are same as insert(entity).
      * <pre>
-     * UserT userT = <span style="color: #70226C">new</span> UserT();
+     * AuthM authM = <span style="color: #70226C">new</span> AuthM();
      * <span style="color: #3F7E5E">// if auto-increment, you don't need to set the PK value</span>
-     * userT.setFoo...(value);
-     * userT.setBar...(value);
-     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">varyingInsert</span>(userT, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * authM.setFoo...(value);
+     * authM.setBar...(value);
+     * <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">varyingInsert</span>(authM, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      *     <span style="color: #553000">op</span>.disableCommonColumnAutoSetup();
      * });
-     * ... = userT.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
+     * ... = authM.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
-     * @param userT The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param authM The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
      * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void varyingInsert(UserT userT, WritableOptionCall<UserTCB, InsertOption<UserTCB>> opLambda) {
-        doInsert(userT, createInsertOption(opLambda));
+    public void varyingInsert(AuthM authM, WritableOptionCall<AuthMCB, InsertOption<AuthMCB>> opLambda) {
+        doInsert(authM, createInsertOption(opLambda));
     }
 
     /**
@@ -827,53 +697,53 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * For example, self(selfCalculationSpecification), specify(updateColumnSpecification), disableCommonColumnAutoSetup(). <br>
      * Other specifications are same as update(entity).
      * <pre>
-     * UserT userT = <span style="color: #70226C">new</span> UserT();
-     * userT.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * userT.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * AuthM authM = <span style="color: #70226C">new</span> AuthM();
+     * authM.setPK...(value); <span style="color: #3F7E5E">// required</span>
+     * authM.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
-     * userT.<span style="color: #CC4747">setVersionNo</span>(value);
+     * authM.<span style="color: #CC4747">setVersionNo</span>(value);
      * <span style="color: #3F7E5E">// you can update by self calculation values</span>
-     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">varyingUpdate</span>(userT, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">varyingUpdate</span>(authM, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">op</span>.self(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *         <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">columnXxxCount()</span>;
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
      * });
      * </pre>
-     * @param userT The entity of update. (NotNull, PrimaryKeyNotNull)
+     * @param authM The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void varyingUpdate(UserT userT, WritableOptionCall<UserTCB, UpdateOption<UserTCB>> opLambda) {
-        doUpdate(userT, createUpdateOption(opLambda));
+    public void varyingUpdate(AuthM authM, WritableOptionCall<AuthMCB, UpdateOption<AuthMCB>> opLambda) {
+        doUpdate(authM, createUpdateOption(opLambda));
     }
 
     /**
      * Insert or update the entity with varying requests. (ExclusiveControl: when update) <br>
      * Other specifications are same as insertOrUpdate(entity).
-     * @param userT The entity of insert or update. (NotNull)
+     * @param authM The entity of insert or update. (NotNull)
      * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
      * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void varyingInsertOrUpdate(UserT userT, WritableOptionCall<UserTCB, InsertOption<UserTCB>> insertOpLambda, WritableOptionCall<UserTCB, UpdateOption<UserTCB>> updateOpLambda) {
-        doInsertOrUpdate(userT, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
+    public void varyingInsertOrUpdate(AuthM authM, WritableOptionCall<AuthMCB, InsertOption<AuthMCB>> insertOpLambda, WritableOptionCall<AuthMCB, UpdateOption<AuthMCB>> updateOpLambda) {
+        doInsertOrUpdate(authM, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
     }
 
     /**
      * Delete the entity with varying requests. (ZeroUpdateException, NonExclusiveControl) <br>
      * Now a valid option does not exist. <br>
      * Other specifications are same as delete(entity).
-     * @param userT The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
+     * @param authM The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      */
-    public void varyingDelete(UserT userT, WritableOptionCall<UserTCB, DeleteOption<UserTCB>> opLambda) {
-        doDelete(userT, createDeleteOption(opLambda));
+    public void varyingDelete(AuthM authM, WritableOptionCall<AuthMCB, DeleteOption<AuthMCB>> opLambda) {
+        doDelete(authM, createDeleteOption(opLambda));
     }
 
     // -----------------------------------------------------
@@ -884,12 +754,12 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * For example, disableCommonColumnAutoSetup()
      * , disablePrimaryKeyIdentity(), limitBatchInsertLogging(). <br>
      * Other specifications are same as batchInsert(entityList).
-     * @param userTList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param authMList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      */
-    public int[] varyingBatchInsert(List<UserT> userTList, WritableOptionCall<UserTCB, InsertOption<UserTCB>> opLambda) {
-        return doBatchInsert(userTList, createInsertOption(opLambda));
+    public int[] varyingBatchInsert(List<AuthM> authMList, WritableOptionCall<AuthMCB, InsertOption<AuthMCB>> opLambda) {
+        return doBatchInsert(authMList, createInsertOption(opLambda));
     }
 
     /**
@@ -897,24 +767,24 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * For example, self(selfCalculationSpecification), specify(updateColumnSpecification)
      * , disableCommonColumnAutoSetup(), limitBatchUpdateLogging(). <br>
      * Other specifications are same as batchUpdate(entityList).
-     * @param userTList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param authMList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      */
-    public int[] varyingBatchUpdate(List<UserT> userTList, WritableOptionCall<UserTCB, UpdateOption<UserTCB>> opLambda) {
-        return doBatchUpdate(userTList, createUpdateOption(opLambda));
+    public int[] varyingBatchUpdate(List<AuthM> authMList, WritableOptionCall<AuthMCB, UpdateOption<AuthMCB>> opLambda) {
+        return doBatchUpdate(authMList, createUpdateOption(opLambda));
     }
 
     /**
      * Batch-delete the list with varying requests. <br>
      * For example, limitBatchDeleteLogging(). <br>
      * Other specifications are same as batchDelete(entityList).
-     * @param userTList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param authMList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
      */
-    public int[] varyingBatchDelete(List<UserT> userTList, WritableOptionCall<UserTCB, DeleteOption<UserTCB>> opLambda) {
-        return doBatchDelete(userTList, createDeleteOption(opLambda));
+    public int[] varyingBatchDelete(List<AuthM> authMList, WritableOptionCall<AuthMCB, DeleteOption<AuthMCB>> opLambda) {
+        return doBatchDelete(authMList, createDeleteOption(opLambda));
     }
 
     // -----------------------------------------------------
@@ -928,7 +798,7 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
      * @return The inserted count.
      */
-    public int varyingQueryInsert(QueryInsertSetupper<UserT, UserTCB> manyArgLambda, WritableOptionCall<UserTCB, InsertOption<UserTCB>> opLambda) {
+    public int varyingQueryInsert(QueryInsertSetupper<AuthM, AuthMCB> manyArgLambda, WritableOptionCall<AuthMCB, InsertOption<AuthMCB>> opLambda) {
         return doQueryInsert(manyArgLambda, createInsertOption(opLambda));
     }
 
@@ -939,14 +809,14 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * Other specifications are same as queryUpdate(entity, cb).
      * <pre>
      * <span style="color: #3F7E5E">// ex) you can update by self calculation values</span>
-     * UserT userT = <span style="color: #70226C">new</span> UserT();
+     * AuthM authM = <span style="color: #70226C">new</span> AuthM();
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
-     * <span style="color: #3F7E5E">//userT.setPK...(value);</span>
-     * userT.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * <span style="color: #3F7E5E">//authM.setPK...(value);</span>
+     * authM.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
-     * <span style="color: #3F7E5E">//userT.setVersionNo(value);</span>
-     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">varyingQueryUpdate</span>(userT, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #3F7E5E">//authM.setVersionNo(value);</span>
+     * <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">varyingQueryUpdate</span>(authM, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().setFoo...
      * }, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">op</span>.self(<span style="color: #553000">colCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -954,14 +824,14 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      *     }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
      * });
      * </pre>
-     * @param userT The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
-     * @param cbLambda The callback for condition-bean of UserT. (NotNull)
+     * @param authM The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
+     * @param cbLambda The callback for condition-bean of AuthM. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
      * @throws NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryUpdate(UserT userT, CBCall<UserTCB> cbLambda, WritableOptionCall<UserTCB, UpdateOption<UserTCB>> opLambda) {
-        return doQueryUpdate(userT, createCB(cbLambda), createUpdateOption(opLambda));
+    public int varyingQueryUpdate(AuthM authM, CBCall<AuthMCB> cbLambda, WritableOptionCall<AuthMCB, UpdateOption<AuthMCB>> opLambda) {
+        return doQueryUpdate(authM, createCB(cbLambda), createUpdateOption(opLambda));
     }
 
     /**
@@ -969,18 +839,18 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * For example, allowNonQueryDelete(). <br>
      * Other specifications are same as queryDelete(cb).
      * <pre>
-     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #CC4747">queryDelete</span>(userT, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">authMBhv</span>.<span style="color: #CC4747">queryDelete</span>(authM, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().setFoo...
      * }, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">op</span>...
      * });
      * </pre>
-     * @param cbLambda The callback for condition-bean of UserT. (NotNull)
+     * @param cbLambda The callback for condition-bean of AuthM. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
      * @throws NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryDelete(CBCall<UserTCB> cbLambda, WritableOptionCall<UserTCB, DeleteOption<UserTCB>> opLambda) {
+    public int varyingQueryDelete(CBCall<AuthMCB> cbLambda, WritableOptionCall<AuthMCB, DeleteOption<AuthMCB>> opLambda) {
         return doQueryDelete(createCB(cbLambda), createDeleteOption(opLambda));
     }
 
@@ -991,38 +861,38 @@ public abstract class BsUserTBhv extends AbstractBehaviorWritable<UserT, UserTCB
      * Prepare the all facade executor of outside-SQL to execute it.
      * <pre>
      * <span style="color: #3F7E5E">// main style</span> 
-     * userTBhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span> 
-     * userTBhv.outideSql().selectList(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
-     * userTBhv.outideSql().selectPage(pmb); <span style="color: #3F7E5E">// PagingResultBean</span>
-     * userTBhv.outideSql().selectPagedListOnly(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
-     * userTBhv.outideSql().selectCursor(pmb, handler); <span style="color: #3F7E5E">// (by handler)</span>
-     * userTBhv.outideSql().execute(pmb); <span style="color: #3F7E5E">// int (updated count)</span>
-     * userTBhv.outideSql().call(pmb); <span style="color: #3F7E5E">// void (pmb has OUT parameters)</span>
+     * authMBhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span> 
+     * authMBhv.outideSql().selectList(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
+     * authMBhv.outideSql().selectPage(pmb); <span style="color: #3F7E5E">// PagingResultBean</span>
+     * authMBhv.outideSql().selectPagedListOnly(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
+     * authMBhv.outideSql().selectCursor(pmb, handler); <span style="color: #3F7E5E">// (by handler)</span>
+     * authMBhv.outideSql().execute(pmb); <span style="color: #3F7E5E">// int (updated count)</span>
+     * authMBhv.outideSql().call(pmb); <span style="color: #3F7E5E">// void (pmb has OUT parameters)</span>
      *
      * <span style="color: #3F7E5E">// traditional style</span> 
-     * userTBhv.outideSql().traditionalStyle().selectEntity(path, pmb, entityType);
-     * userTBhv.outideSql().traditionalStyle().selectList(path, pmb, entityType);
-     * userTBhv.outideSql().traditionalStyle().selectPage(path, pmb, entityType);
-     * userTBhv.outideSql().traditionalStyle().selectPagedListOnly(path, pmb, entityType);
-     * userTBhv.outideSql().traditionalStyle().selectCursor(path, pmb, handler);
-     * userTBhv.outideSql().traditionalStyle().execute(path, pmb);
+     * authMBhv.outideSql().traditionalStyle().selectEntity(path, pmb, entityType);
+     * authMBhv.outideSql().traditionalStyle().selectList(path, pmb, entityType);
+     * authMBhv.outideSql().traditionalStyle().selectPage(path, pmb, entityType);
+     * authMBhv.outideSql().traditionalStyle().selectPagedListOnly(path, pmb, entityType);
+     * authMBhv.outideSql().traditionalStyle().selectCursor(path, pmb, handler);
+     * authMBhv.outideSql().traditionalStyle().execute(path, pmb);
      *
      * <span style="color: #3F7E5E">// options</span> 
-     * userTBhv.outideSql().removeBlockComment().selectList()
-     * userTBhv.outideSql().removeLineComment().selectList()
-     * userTBhv.outideSql().formatSql().selectList()
+     * authMBhv.outideSql().removeBlockComment().selectList()
+     * authMBhv.outideSql().removeLineComment().selectList()
+     * authMBhv.outideSql().formatSql().selectList()
      * </pre>
      * <p>The invoker of behavior command should be not null when you call this method.</p>
      * @return The new-created all facade executor of outside-SQL. (NotNull)
      */
-    public OutsideSqlAllFacadeExecutor<UserTBhv> outsideSql() {
+    public OutsideSqlAllFacadeExecutor<AuthMBhv> outsideSql() {
         return doOutsideSql();
     }
 
     // ===================================================================================
     //                                                                         Type Helper
     //                                                                         ===========
-    protected Class<? extends UserT> typeOfSelectedEntity() { return UserT.class; }
-    protected Class<UserT> typeOfHandlingEntity() { return UserT.class; }
-    protected Class<UserTCB> typeOfHandlingConditionBean() { return UserTCB.class; }
+    protected Class<? extends AuthM> typeOfSelectedEntity() { return AuthM.class; }
+    protected Class<AuthM> typeOfHandlingEntity() { return AuthM.class; }
+    protected Class<AuthMCB> typeOfHandlingConditionBean() { return AuthMCB.class; }
 }

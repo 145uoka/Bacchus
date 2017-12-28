@@ -53,8 +53,8 @@ public class UserTDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((UserT)et).getFirstName(), (et, vl) -> ((UserT)et).setFirstName((String)vl), "firstName");
         setupEpg(_epgMap, et -> ((UserT)et).getEmail(), (et, vl) -> ((UserT)et).setEmail((String)vl), "email");
         setupEpg(_epgMap, et -> ((UserT)et).getPassword(), (et, vl) -> ((UserT)et).setPassword((String)vl), "password");
-        setupEpg(_epgMap, et -> ((UserT)et).getAuthLevel(), (et, vl) -> ((UserT)et).setAuthLevel(cti(vl)), "authLevel");
         setupEpg(_epgMap, et -> ((UserT)et).getUserTypeId(), (et, vl) -> ((UserT)et).setUserTypeId(cti(vl)), "userTypeId");
+        setupEpg(_epgMap, et -> ((UserT)et).getAuthLevel(), (et, vl) -> ((UserT)et).setAuthLevel(cti(vl)), "authLevel");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -66,6 +66,7 @@ public class UserTDbm extends AbstractDBMeta {
     { xsetupEfpg(); }
     @SuppressWarnings("unchecked")
     protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((UserT)et).getAuthM(), (et, vl) -> ((UserT)et).setAuthM((OptionalEntity<AuthM>)vl), "authM");
         setupEfpg(_efpgMap, et -> ((UserT)et).getUserTypeM(), (et, vl) -> ((UserT)et).setUserTypeM((OptionalEntity<UserTypeM>)vl), "userTypeM");
     }
     public PropertyGateway findForeignPropertyGateway(String prop)
@@ -97,8 +98,8 @@ public class UserTDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnFirstName = cci("first_name", "first_name", null, null, String.class, "firstName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEmail = cci("email", "email", null, null, String.class, "email", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnPassword = cci("password", "password", null, null, String.class, "password", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnAuthLevel = cci("auth_level", "auth_level", null, null, Integer.class, "authLevel", null, false, false, true, "int4", 10, 0, "0", false, null, null, null, null, null, false);
     protected final ColumnInfo _columnUserTypeId = cci("user_type_id", "user_type_id", null, null, Integer.class, "userTypeId", null, false, false, true, "int4", 10, 0, null, false, null, null, "userTypeM", null, null, false);
+    protected final ColumnInfo _columnAuthLevel = cci("auth_level", "auth_level", null, null, Integer.class, "authLevel", null, false, false, true, "int4", 10, 0, null, false, null, null, "authM", null, null, false);
 
     /**
      * user_id: {PK, ID, NotNull, serial(10)}
@@ -151,15 +152,15 @@ public class UserTDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnPassword() { return _columnPassword; }
     /**
-     * auth_level: {NotNull, int4(10), default=[0]}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnAuthLevel() { return _columnAuthLevel; }
-    /**
      * user_type_id: {NotNull, int4(10), FK to user_type_m}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUserTypeId() { return _columnUserTypeId; }
+    /**
+     * auth_level: {NotNull, int4(10), FK to auth_m}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnAuthLevel() { return _columnAuthLevel; }
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
@@ -173,8 +174,8 @@ public class UserTDbm extends AbstractDBMeta {
         ls.add(columnFirstName());
         ls.add(columnEmail());
         ls.add(columnPassword());
-        ls.add(columnAuthLevel());
         ls.add(columnUserTypeId());
+        ls.add(columnAuthLevel());
         return ls;
     }
 
@@ -204,12 +205,20 @@ public class UserTDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     /**
+     * auth_m by my auth_level, named 'authM'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignAuthM() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnAuthLevel(), AuthMDbm.getInstance().columnAuthLevel());
+        return cfi("user_t_auth_level_fkey", "authM", this, AuthMDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "userTList", false);
+    }
+    /**
      * user_type_m by my user_type_id, named 'userTypeM'.
      * @return The information object of foreign property. (NotNull)
      */
     public ForeignInfo foreignUserTypeM() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserTypeId(), UserTypeMDbm.getInstance().columnUserTypeId());
-        return cfi("user_t_user_type_id_fkey", "userTypeM", this, UserTypeMDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "userTList", false);
+        return cfi("user_t_user_type_id_fkey", "userTypeM", this, UserTypeMDbm.getInstance(), mp, 1, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "userTList", false);
     }
 
     // -----------------------------------------------------

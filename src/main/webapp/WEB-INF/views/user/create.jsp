@@ -10,173 +10,152 @@
 
 <body>
 
-	<jsp:include page="../common/header.jsp" />
-	<form:form modelAttribute="form" method="post" name="form"
-		action="${pageContext.request.contextPath}/user/store"
-		class="form-horizontal">
+  <jsp:include page="../common/header.jsp" />
+  <form:form modelAttribute="form" method="post" name="form" action="${pageContext.request.contextPath}/user/store" class="form-horizontal">
 
+    <div class="container">
 
-		<div class="container">
+      <%-- 画面タイトル --%>
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+          <h3>
+            <c:out value="${displayTitle}" />
+          </h3>
+        </div>
+      </div>
 
+      <%-- メッセージ領域 --%>
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+          <%@include file="/WEB-INF/fragment/messages.jspf"%>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+          <div class="panel panel-default main-border-color">
+            <div class="panel-body sub-background-color">
+            <div class="form-group <ext:isErrors path='firstName' value='has-error'/> <ext:isErrors path='lastName' value='has-error'/>">
+                <label class="col-md-4 control-label">氏名<span class="label label-danger" style="margin-left: 10px">必須</span></label>
+                <div class="col-md-3">
+                  <form:input path="lastName" class="form-control" maxlength="${ext:getMaxLen('CNT0001') }" placeholder="氏"/>
+                </div>
+                <div class="col-md-3">
+                  <form:input path="firstName" class="form-control" maxlength="${ext:getMaxLen('CNT0001') }" placeholder="名"/>
+                </div>
+                <div style="clear: both;">
+                  <span class="col-md-4"></span>
+                  <div class="col-md-3">
+                    <form:errors path="lastName" element="div" cssClass="text-danger" />
+                  </div>
+                  <div class="col-md-3">
+                    <form:errors path="firstName" element="div" cssClass="text-danger" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group <ext:isErrors path='authLevel' value='has-error' />">
+                <label class="col-md-4 control-label">権限レベル<span class="label label-danger" style="margin-left: 10px">必須</span></label>
+                <div class="col-md-6">
+                  <form:select path="authLevel" class="form-control" items="${authList}" itemLabel="label" itemValue="value" />
+                </div>
+                <div style="clear: both;">
+                  <span class="col-md-4"></span>
+                  <div class="col-md-6">
+                    <form:errors path="authLevel" element="div" cssClass="text-danger" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group <ext:isErrors path='userTypeId' value='has-error'/>">
+                <label class="col-md-4 control-label">ユーザー区分<span class="label label-danger" style="margin-left: 10px">必須</span></label>
+                <div class="col-md-6">
+                  <form:select path="userTypeId" class="form-control" items="${userTypeSelectList}" itemLabel="label" itemValue="value" />
+                </div>
+                <div style="clear: both;">
+                  <span class="col-md-4"></span>
+                  <div class="col-md-6">
+                    <form:errors path="userTypeId" element="div" cssClass="text-danger" />
+                  </div>
+                </div>
+              </div>
+            <%--
+              <div class="form-group <ext:isErrors path='userName' value='has-error'/>">
+                <label class="col-md-4 control-label">ユーザー名<span class="label label-danger" style="margin-left: 10px">必須</span></label>
+                <div class="col-md-6">
+                  <form:input path="userName" class="form-control" />
+                </div>
+                <div style="clear: both;">
+                  <span class="col-md-4"></span>
+                  <div class="col-md-6">
+                    <form:errors path="userName" element="div" cssClass="text-danger" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group <ext:isErrors path='email' value='has-error'/>">
+                <label class="col-md-4 control-label">メールアドレス<span class="label label-danger" style="margin-left: 10px">必須</span></label>
+                <div class="col-md-6">
+                  <form:input path="email" class="form-control" />
+                </div>
+                <div style="clear: both;">
+                  <span class="col-md-4"></span>
+                  <div class="col-md-6">
+                    <form:errors path="email" element="div" cssClass="text-danger" />
+                  </div>
+                </div>
+              </div>
+              --%>
+              <div class="form-group <ext:isErrors path='loginId' value='has-error'/>">
+                <label class="col-md-4 control-label">ログインID<span class="label label-danger" style="margin-left: 10px">必須</span></label>
+                <div class="col-md-6">
+                  <form:input path="loginId" class="form-control" maxlength="${ext:getMaxLen('CNT0001') }" />
+                </div>
+                <div style="clear: both;">
+                  <span class="col-md-4"></span>
+                  <div class="col-md-6">
+                    <form:errors path="loginId" element="div" cssClass="text-danger" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group <ext:isErrors path='password' value='has-error'/>">
+                <label class="col-md-4 control-label">パスワード<span class="label label-danger" style="margin-left: 10px">必須</span></label>
+                <div class="col-md-6">
+                  <form:password path="password" class="form-control" />
+                </div>
+                <div style="clear: both;">
+                  <span class="col-md-4"></span>
+                  <div class="col-md-6">
+                    <form:errors path="password" element="div" cssClass="text-danger" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group <ext:isErrors path='confirmPassword' value='has-error'/>">
+                <label class="col-md-4 control-label">パスワード確認<span class="label label-danger" style="margin-left: 10px">必須</span></label>
+                <div class="col-md-6">
+                  <form:password path="confirmPassword" class="form-control" />
+                </div>
+                <div style="clear: both;">
+                  <span class="col-md-4"></span>
+                  <div class="col-md-6">
+                    <form:errors path="confirmPassword" element="div" cssClass="text-danger" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10" align="center">
+          <table style="margin-bottom: 20px">
+            <tr>
+              <td style="vertical-align: middle;">
+                <button type="submit" class="btn btn-info">登録</button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </form:form>
 
-			<%-- 画面タイトル --%>
-			<div class="row">
-				<div class="col-md-offset-1 col-md-10">
-					<h3>
-						<c:out value="${displayTitle}" />
-					</h3>
-				</div>
-			</div>
-
-			<%-- メッセージ領域 --%>
-			<div class="row">
-				<div class="col-md-offset-1 col-md-10">
-					<%@include file="/WEB-INF/fragment/messages.jspf"%>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-offset-1 col-md-10">
-					<div class="panel panel-default main-border-color">
-						<div class="panel-body sub-background-color">
-							<div
-								class="form-group <ext:isErrors path='userName' value='has-error'/>">
-								<label class="col-md-4 control-label">ユーザー名<span
-									class="label label-danger" style="margin-left: 10px">必須</span></label>
-								<div class="col-md-6">
-									<form:input path="userName" class="form-control" />
-								</div>
-								<div style="clear: both;">
-									<span class="col-md-4"></span>
-									<div class="col-md-6">
-										<form:errors path="userName" element="div"
-											cssClass="text-danger" />
-									</div>
-								</div>
-							</div>
-							<div
-								class="form-group <ext:isErrors path='lastName' value='has-error'/>">
-								<label class="col-md-4 control-label">苗字(氏)<span
-									class="label label-danger" style="margin-left: 10px">必須</span></label>
-								<div class="col-md-6">
-									<form:input path="lastName" class="form-control" />
-								</div>
-								<div style="clear: both;">
-									<span class="col-md-4"></span>
-									<div class="col-md-6">
-										<form:errors path="lastName" element="div" cssClass="text-danger" />
-									</div>
-								</div>
-							</div>
-							<div
-								class="form-group <ext:isErrors path='firstName' value='has-error'/>">
-								<label class="col-md-4 control-label">名前(名)<span
-									class="label label-danger" style="margin-left: 10px">必須</span></label>
-								<div class="col-md-6">
-									<form:input path="firstName" class="form-control" />
-								</div>
-								<div style="clear: both;">
-									<span class="col-md-4"></span>
-									<div class="col-md-6">
-										<form:errors path="firstName" element="div" cssClass="text-danger" />
-									</div>
-								</div>
-							</div>
-							<div
-								class="form-group <ext:isErrors path='email' value='has-error'/>">
-								<label class="col-md-4 control-label">メールアドレス<span
-									class="label label-danger" style="margin-left: 10px">必須</span></label>
-								<div class="col-md-6">
-									<form:input path="email" class="form-control" />
-								</div>
-								<div style="clear: both;">
-									<span class="col-md-4"></span>
-									<div class="col-md-6">
-										<form:errors path="email" element="div" cssClass="text-danger" />
-									</div>
-								</div>
-							</div>
-							<div
-								class="form-group <ext:isErrors path='password' value='has-error'/>">
-								<label class="col-md-4 control-label">パスワード<span
-									class="label label-danger" style="margin-left: 10px">必須</span></label>
-								<div class="col-md-6">
-									<form:input path="password" class="form-control" />
-								</div>
-								<div style="clear: both;">
-									<span class="col-md-4"></span>
-									<div class="col-md-6">
-										<form:errors path="password" element="div"
-											cssClass="text-danger" />
-									</div>
-								</div>
-							</div>
-								<div
-								class="form-group <ext:isErrors path='confirmPassword' value='has-error'/>">
-								<label class="col-md-4 control-label">パスワード確認<span
-									class="label label-danger" style="margin-left: 10px">必須</span></label>
-								<div class="col-md-6">
-									<form:input path="confirmPassword" class="form-control" />
-								</div>
-								<div style="clear: both;">
-									<span class="col-md-4"></span>
-									<div class="col-md-6">
-										<form:errors path="confirmPassword" element="div"
-											cssClass="text-danger" />
-									</div>
-								</div>
-							</div>
-							<div
-								class="form-group <ext:isErrors path='userTypeId' value='has-error'/>">
-								<label class="col-md-4 control-label">ユーザー区分<span
-									class="label label-danger" style="margin-left: 10px">必須</span></label>
-								<div class="col-md-6">
-									<form:select path="userTypeId" class="form-control"
-										items="${userTypeSelectList}" itemLabel="label"
-										itemValue="value" />
-								</div>
-								<div style="clear: both;">
-									<span class="col-md-4"></span>
-									<div class="col-md-6">
-										<form:errors path="userTypeId" element="div"
-											cssClass="text-danger" />
-									</div>
-								</div>
-							</div>
-							<div
-								class="form-group <ext:isErrors path='authLevel' value='has-error' />">
-								<label class="col-md-4 control-label">権限レベル<span
-									class="label label-danger" style="margin-left: 10px">必須</span></label>
-								<div class="col-md-6">
-									<form:select path="authLevel" class="form-control"
-										items="${entrySelectList}" itemLabel="label" itemValue="value" />
-								</div>
-								<div style="clear: both;">
-									<span class="col-md-4"></span>
-									<div class="col-md-6">
-										<form:errors path="authLevel" element="div"
-											cssClass="text-danger" />
-									</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-offset-1 col-md-10" align="center">
-					<table style="margin-bottom: 20px">
-						<tr>
-							<td style="vertical-align: middle;">
-								<button type="submit" class="btn btn-info">登録</button>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
-	</form:form>
-
-	<jsp:include page="../common/footer.jsp" />
+  <jsp:include page="../common/footer.jsp" />
 </body>
 </html>

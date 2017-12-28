@@ -19,7 +19,7 @@ import com.Bacchus.dbflute.exentity.*;
  *     user_id
  *
  * [column]
- *     user_id, login_id, line_flg, line_id, line_user_name, user_name, last_name, first_name, email, password, auth_level, user_type_id
+ *     user_id, login_id, line_flg, line_id, line_user_name, user_name, last_name, first_name, email, password, user_type_id, auth_level
  *
  * [sequence]
  *     user_t_user_id_seq
@@ -31,13 +31,13 @@ import com.Bacchus.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     user_type_m
+ *     auth_m, user_type_m
  *
  * [referrer table]
  *     entry_t, event_t
  *
  * [foreign property]
- *     userTypeM
+ *     authM, userTypeM
  *
  * [referrer property]
  *     entryTList, eventTList
@@ -54,8 +54,8 @@ import com.Bacchus.dbflute.exentity.*;
  * String firstName = entity.getFirstName();
  * String email = entity.getEmail();
  * String password = entity.getPassword();
- * Integer authLevel = entity.getAuthLevel();
  * Integer userTypeId = entity.getUserTypeId();
+ * Integer authLevel = entity.getAuthLevel();
  * entity.setUserId(userId);
  * entity.setLoginId(loginId);
  * entity.setLineFlg(lineFlg);
@@ -66,8 +66,8 @@ import com.Bacchus.dbflute.exentity.*;
  * entity.setFirstName(firstName);
  * entity.setEmail(email);
  * entity.setPassword(password);
- * entity.setAuthLevel(authLevel);
  * entity.setUserTypeId(userTypeId);
+ * entity.setAuthLevel(authLevel);
  * = = = = = = = = = =/
  * </pre>
  * @author DBFlute(AutoGenerator)
@@ -113,11 +113,11 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     /** password: {text(2147483647)} */
     protected String _password;
 
-    /** auth_level: {NotNull, int4(10), default=[0]} */
-    protected Integer _authLevel;
-
     /** user_type_id: {NotNull, int4(10), FK to user_type_m} */
     protected Integer _userTypeId;
+
+    /** auth_level: {NotNull, int4(10), FK to auth_m} */
+    protected Integer _authLevel;
 
     // ===================================================================================
     //                                                                             DB Meta
@@ -155,6 +155,27 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
+    /** auth_m by my auth_level, named 'authM'. */
+    protected OptionalEntity<AuthM> _authM;
+
+    /**
+     * [get] auth_m by my auth_level, named 'authM'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'authM'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<AuthM> getAuthM() {
+        if (_authM == null) { _authM = OptionalEntity.relationEmpty(this, "authM"); }
+        return _authM;
+    }
+
+    /**
+     * [set] auth_m by my auth_level, named 'authM'.
+     * @param authM The entity of foreign property 'authM'. (NullAllowed)
+     */
+    public void setAuthM(OptionalEntity<AuthM> authM) {
+        _authM = authM;
+    }
+
     /** user_type_m by my user_type_id, named 'userTypeM'. */
     protected OptionalEntity<UserTypeM> _userTypeM;
 
@@ -248,6 +269,8 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
+        if (_authM != null && _authM.isPresent())
+        { sb.append(li).append(xbRDS(_authM, "authM")); }
         if (_userTypeM != null && _userTypeM.isPresent())
         { sb.append(li).append(xbRDS(_userTypeM, "userTypeM")); }
         if (_entryTList != null) { for (EntryT et : _entryTList)
@@ -273,8 +296,8 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
         sb.append(dm).append(xfND(_firstName));
         sb.append(dm).append(xfND(_email));
         sb.append(dm).append(xfND(_password));
-        sb.append(dm).append(xfND(_authLevel));
         sb.append(dm).append(xfND(_userTypeId));
+        sb.append(dm).append(xfND(_authLevel));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
@@ -285,6 +308,8 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
+        if (_authM != null && _authM.isPresent())
+        { sb.append(dm).append("authM"); }
         if (_userTypeM != null && _userTypeM.isPresent())
         { sb.append(dm).append("userTypeM"); }
         if (_entryTList != null && !_entryTList.isEmpty())
@@ -506,26 +531,6 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] auth_level: {NotNull, int4(10), default=[0]} <br>
-     * 権限レベル
-     * @return The value of the column 'auth_level'. (basically NotNull if selected: for the constraint)
-     */
-    public Integer getAuthLevel() {
-        checkSpecifiedProperty("authLevel");
-        return _authLevel;
-    }
-
-    /**
-     * [set] auth_level: {NotNull, int4(10), default=[0]} <br>
-     * 権限レベル
-     * @param authLevel The value of the column 'auth_level'. (basically NotNull if update: for the constraint)
-     */
-    public void setAuthLevel(Integer authLevel) {
-        registerModifiedProperty("authLevel");
-        _authLevel = authLevel;
-    }
-
-    /**
      * [get] user_type_id: {NotNull, int4(10), FK to user_type_m} <br>
      * ユーザー区分ID
      * @return The value of the column 'user_type_id'. (basically NotNull if selected: for the constraint)
@@ -543,5 +548,25 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     public void setUserTypeId(Integer userTypeId) {
         registerModifiedProperty("userTypeId");
         _userTypeId = userTypeId;
+    }
+
+    /**
+     * [get] auth_level: {NotNull, int4(10), FK to auth_m} <br>
+     * 権限レベル
+     * @return The value of the column 'auth_level'. (basically NotNull if selected: for the constraint)
+     */
+    public Integer getAuthLevel() {
+        checkSpecifiedProperty("authLevel");
+        return _authLevel;
+    }
+
+    /**
+     * [set] auth_level: {NotNull, int4(10), FK to auth_m} <br>
+     * 権限レベル
+     * @param authLevel The value of the column 'auth_level'. (basically NotNull if update: for the constraint)
+     */
+    public void setAuthLevel(Integer authLevel) {
+        registerModifiedProperty("authLevel");
+        _authLevel = authLevel;
     }
 }

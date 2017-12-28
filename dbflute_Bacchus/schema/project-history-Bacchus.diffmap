@@ -1,4 +1,37 @@
 map:{
+    ; 2017/12/28 22:51:29 = map:{
+        ; diffDate = 2017/12/28 22:51:29
+        ; tableCount = map:{
+            ; next = 9
+            ; previous = 8
+        }
+        ; tableDiff = map:{
+            ; auth_m = map:{
+                ; tableName = auth_m
+                ; diffType = ADD
+            }
+            ; user_t = map:{
+                ; tableName = user_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; auth_level = map:{
+                        ; columnName = auth_level
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = null
+                            ; previous = "0"
+                        }
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; user_t_auth_level_fkey = map:{
+                        ; constraintName = user_t_auth_level_fkey
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
     ; 2017/12/28 20:50:19 = map:{
         ; diffDate = 2017/12/28 20:50:19
         ; tableDiff = map:{

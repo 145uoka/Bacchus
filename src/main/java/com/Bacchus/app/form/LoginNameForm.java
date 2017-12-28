@@ -2,6 +2,8 @@ package  com.Bacchus.app.form;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * ログインフォーム。
  *
@@ -14,9 +16,11 @@ public class LoginNameForm implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** ログインID */
+    @NotEmpty
     private String loginId;
 
     /** パスワード */
+    @NotEmpty
     private String password;
 
     /**

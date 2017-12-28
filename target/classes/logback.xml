@@ -21,7 +21,7 @@
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
       <pattern>
-        %d{yyyy-MM-dd HH:mm:ss.SSS} %-5level 操作者Email=[%X{loginEmail}], 操作者名=[%X{loginName}], \(%file:%line\) - %msg%n
+        %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %X{loginId} %X{sessionId}\(%file:%line\) - %X{remoteAddr} %msg%n
       </pattern>
     </encoder>
   </appender>

@@ -7,25 +7,20 @@
 <head>
 <meta charset="utf-8">
 <jsp:include page="../common/common.jsp" />
+
 <script type="text/javascript">
-	function choice() {
-		if (window.confirm('削除しますか？')) {
+function deleteConfirmation() {
 
-			location.href = "${pageContext.request.contextPath}/event/delete?eventNo=${form.eventNo}"
-
-		}
 		// 「OK」時の処理終了
-
-		// 「キャンセル」時の処理開始
-		else {
-
-			window.alert('キャンセルされました'); // 警告ダイアログを表示
+		if (window.confirm('削除しますか？')) {
+			document.form.action = "${pageContext.request.contextPath}/event/delete";
+			document.form.submit();
 
 		}
-		// 「キャンセル」時の処理終了
+
 
 	}
-</script>
+	</script>
 </head>
 
 <body>
@@ -59,14 +54,13 @@
 					<%@include file="/WEB-INF/views/common/eventDetailTable.jsp"%>
 				</div>
 			</div>
-
 			<!-- 削除ボタン -->
 			<div class="row">
-				<div class="col-md-offset-1 col-md-10" align="center">
+				<div class="col-md-offset-9 col-md-3" align="center">
 					<table style="margin-bottom: 20px">
 						<tr>
 							<td style="vertical-align: middle;"><a type="button"
-								class="btn btn-danger" onClick="choice()">削除</a></td>
+								class="btn btn-danger" onClick="deleteConfirmation()">削除</a></td>
 							<td><label class="space" style="width: 30px;"></label></td>
 						</tr>
 					</table>
@@ -88,9 +82,6 @@
 									href="${pageContext.request.contextPath}/event/notify?eventNo=${form.eventNo}"
 									role="button">通知</a></td>
 								<td><label class="space" style="width: 30px;"></label></td>
-
-
-
 							</tr>
 						</table>
 					</div>
@@ -103,12 +94,12 @@
 							<c:when test="${userInfo.adminFlg}">
 								<table
 									class="link_table table table-striped table-bordered table-hover table-condensed">
-							</c:when>
+									</c:when>
 									<c:otherwise>
 										<table
 											class="table table-striped table-bordered table-hover table-condensed">
-									</c:otherwise>
-						</c:choose>
+											</c:otherwise>
+											</c:choose>
 											<thead class="main-background-color">
 												<tr>
 													<th class="text-center">No</th>
@@ -141,7 +132,6 @@
 															<tr>
 														</c:otherwise>
 													</c:choose>
-
 													<td class="text-center"><c:out value="${status.count}" /></td>
 													<td><c:out value="${list.userName}" /></td>
 													<c:forEach var="entryDtoList" items="${list.entryDtoList}"
@@ -175,6 +165,7 @@
 					</div>
 				</div>
 			</c:if>
+
 
 		</div>
 	</form:form>

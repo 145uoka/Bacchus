@@ -59,40 +59,9 @@ public class EventIndexController extends BaseController {
 		//ユーザー一覧項目の取得
 		model.addAttribute("eventDtoList", eventIndexService.selectList());
 
+
+
 		return ProcConstants.EVENT + ProcConstants.Operation.INDEX;
 	}
 
-	/**
-	 * 削除ボタン押下時の処理。
-	 *
-	 * @param form
-	 * @param model
-	 * @return /user/userIndex
-	 * @throws Exception
-	 *
-	 *
-	 *
-	 */
-//	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-//	public String delete(@ModelAttribute("form") UserIndexForm form, Model model) throws Exception {
-//
-//		model.addAttribute("form", form);
-//		super.setDisplayTitle(model, DisplayIdConstants.EventIndex.BACCHUS_0201);
-//
-//		// 削除
-//		userIndexService.delete(form);
-//
-//		// 完了メッセージを設定
-//		String message = messageSource.getMessage(
-//				MessageKeyUtil.encloseStringDelete(MessageKeyConstants.Success.DELETE), null, Locale.getDefault());
-//
-//		List<String> successMessageList = new ArrayList<String>(Arrays.asList(message));
-//		model.addAttribute(MessageType.SUCCESS, successMessageList);
-//
-//		// ユーザー一覧項目の取得
-//		model.addAttribute("UserTUserTypeMDtoList", userIndexService.selectList());
-//
-//		return "/user/userIndex";
-//
-//	}
 }

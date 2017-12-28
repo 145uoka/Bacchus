@@ -275,11 +275,13 @@ public class EventShowController extends BaseController {
     }
 
     @RequestMapping(value = ProcConstants.Operation.DELETE, method = RequestMethod.GET)
-    public String delete(@ModelAttribute("form") ShowForm form, Model model){
+    public String delete(@ModelAttribute("form") ShowForm form,RedirectAttributes redirectAttributes, Model model){
 
+    	//削除
     	eventShowService.delete(form);
 
-    	return ProcConstants.EVENT + ProcConstants.Operation.SHOW;
+
+    	return redirect( ProcConstants.EVENT + ProcConstants.Operation.INDEX);
     }
 
 }

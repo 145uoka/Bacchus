@@ -167,7 +167,7 @@ CREATE TABLE Bacchus.user_t
 	-- LINEユーザ名
 	line_user_name text,
 	-- ユーザー名
-	user_name text NOT NULL,
+	user_name text,
 	-- 苗字(氏)
 	last_name text,
 	-- 名前(名)

@@ -98,7 +98,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     /** line_user_name: {text(2147483647)} */
     protected String _lineUserName;
 
-    /** user_name: {NotNull, text(2147483647)} */
+    /** user_name: {text(2147483647)} */
     protected String _userName;
 
     /** last_name: {text(2147483647)} */
@@ -406,9 +406,9 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] user_name: {NotNull, text(2147483647)} <br>
+     * [get] user_name: {text(2147483647)} <br>
      * ユーザー名
-     * @return The value of the column 'user_name'. (basically NotNull if selected: for the constraint)
+     * @return The value of the column 'user_name'. (NullAllowed even if selected: for no constraint)
      */
     public String getUserName() {
         checkSpecifiedProperty("userName");
@@ -416,9 +416,9 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] user_name: {NotNull, text(2147483647)} <br>
+     * [set] user_name: {text(2147483647)} <br>
      * ユーザー名
-     * @param userName The value of the column 'user_name'. (basically NotNull if update: for the constraint)
+     * @param userName The value of the column 'user_name'. (NullAllowed: null update allowed for no constraint)
      */
     public void setUserName(String userName) {
         registerModifiedProperty("userName");

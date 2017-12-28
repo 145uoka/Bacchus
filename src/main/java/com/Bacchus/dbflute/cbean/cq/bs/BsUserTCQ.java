@@ -209,14 +209,14 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @return this. (NotNull)
      */
     public BsUserTCQ addOrderBy_UserName_Asc() { regOBA("user_name"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @return this. (NotNull)
      */
     public BsUserTCQ addOrderBy_UserName_Desc() { regOBD("user_name"); return this; }

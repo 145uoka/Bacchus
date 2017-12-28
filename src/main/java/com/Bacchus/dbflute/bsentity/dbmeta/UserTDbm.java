@@ -92,7 +92,7 @@ public class UserTDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnLineFlg = cci("line_flg", "line_flg", null, null, Integer.class, "lineFlg", null, false, false, true, "int4", 10, 0, "0", false, null, null, null, null, null, false);
     protected final ColumnInfo _columnLineId = cci("line_id", "line_id", null, null, String.class, "lineId", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnLineUserName = cci("line_user_name", "line_user_name", null, null, String.class, "lineUserName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnUserName = cci("user_name", "user_name", null, null, String.class, "userName", null, false, false, true, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUserName = cci("user_name", "user_name", null, null, String.class, "userName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnLastName = cci("last_name", "last_name", null, null, String.class, "lastName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnFirstName = cci("first_name", "first_name", null, null, String.class, "firstName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEmail = cci("email", "email", null, null, String.class, "email", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
@@ -126,7 +126,7 @@ public class UserTDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnLineUserName() { return _columnLineUserName; }
     /**
-     * user_name: {NotNull, text(2147483647)}
+     * user_name: {text(2147483647)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUserName() { return _columnUserName; }

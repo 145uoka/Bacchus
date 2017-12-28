@@ -141,6 +141,26 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
      */
     public BsUserTCQ addOrderBy_LoginId_Desc() { regOBD("login_id"); return this; }
 
+    protected ConditionValue _lineFlg;
+    public ConditionValue xdfgetLineFlg()
+    { if (_lineFlg == null) { _lineFlg = nCV(); }
+      return _lineFlg; }
+    protected ConditionValue xgetCValueLineFlg() { return xdfgetLineFlg(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * line_flg: {NotNull, int4(10), default=[0]}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_LineFlg_Asc() { regOBA("line_flg"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * line_flg: {NotNull, int4(10), default=[0]}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_LineFlg_Desc() { regOBD("line_flg"); return this; }
+
     protected ConditionValue _lineId;
     public ConditionValue xdfgetLineId()
     { if (_lineId == null) { _lineId = nCV(); }
@@ -161,6 +181,26 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
      */
     public BsUserTCQ addOrderBy_LineId_Desc() { regOBD("line_id"); return this; }
 
+    protected ConditionValue _lineUserName;
+    public ConditionValue xdfgetLineUserName()
+    { if (_lineUserName == null) { _lineUserName = nCV(); }
+      return _lineUserName; }
+    protected ConditionValue xgetCValueLineUserName() { return xdfgetLineUserName(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * line_user_name: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_LineUserName_Asc() { regOBA("line_user_name"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * line_user_name: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsUserTCQ addOrderBy_LineUserName_Desc() { regOBD("line_user_name"); return this; }
+
     protected ConditionValue _userName;
     public ConditionValue xdfgetUserName()
     { if (_userName == null) { _userName = nCV(); }
@@ -180,26 +220,6 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
      * @return this. (NotNull)
      */
     public BsUserTCQ addOrderBy_UserName_Desc() { regOBD("user_name"); return this; }
-
-    protected ConditionValue _lineFlg;
-    public ConditionValue xdfgetLineFlg()
-    { if (_lineFlg == null) { _lineFlg = nCV(); }
-      return _lineFlg; }
-    protected ConditionValue xgetCValueLineFlg() { return xdfgetLineFlg(); }
-
-    /** 
-     * Add order-by as ascend. <br>
-     * line_flg: {NotNull, int4(10), default=[0]}
-     * @return this. (NotNull)
-     */
-    public BsUserTCQ addOrderBy_LineFlg_Asc() { regOBA("line_flg"); return this; }
-
-    /**
-     * Add order-by as descend. <br>
-     * line_flg: {NotNull, int4(10), default=[0]}
-     * @return this. (NotNull)
-     */
-    public BsUserTCQ addOrderBy_LineFlg_Desc() { regOBD("line_flg"); return this; }
 
     protected ConditionValue _lastName;
     public ConditionValue xdfgetLastName()

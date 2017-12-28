@@ -19,7 +19,7 @@ import com.Bacchus.dbflute.exentity.*;
  *     user_id
  *
  * [column]
- *     user_id, login_id, line_id, user_name, line_flg, last_name, first_name, email, password, auth_level, user_type_id
+ *     user_id, login_id, line_flg, line_id, line_user_name, user_name, last_name, first_name, email, password, auth_level, user_type_id
  *
  * [sequence]
  *     user_t_user_id_seq
@@ -46,9 +46,10 @@ import com.Bacchus.dbflute.exentity.*;
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Integer userId = entity.getUserId();
  * String loginId = entity.getLoginId();
- * String lineId = entity.getLineId();
- * String userName = entity.getUserName();
  * Integer lineFlg = entity.getLineFlg();
+ * String lineId = entity.getLineId();
+ * String lineUserName = entity.getLineUserName();
+ * String userName = entity.getUserName();
  * String lastName = entity.getLastName();
  * String firstName = entity.getFirstName();
  * String email = entity.getEmail();
@@ -57,9 +58,10 @@ import com.Bacchus.dbflute.exentity.*;
  * Integer userTypeId = entity.getUserTypeId();
  * entity.setUserId(userId);
  * entity.setLoginId(loginId);
- * entity.setLineId(lineId);
- * entity.setUserName(userName);
  * entity.setLineFlg(lineFlg);
+ * entity.setLineId(lineId);
+ * entity.setLineUserName(lineUserName);
+ * entity.setUserName(userName);
  * entity.setLastName(lastName);
  * entity.setFirstName(firstName);
  * entity.setEmail(email);
@@ -87,14 +89,17 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     /** login_id: {UQ, text(2147483647)} */
     protected String _loginId;
 
+    /** line_flg: {NotNull, int4(10), default=[0]} */
+    protected Integer _lineFlg;
+
     /** line_id: {text(2147483647)} */
     protected String _lineId;
 
+    /** line_user_name: {text(2147483647)} */
+    protected String _lineUserName;
+
     /** user_name: {NotNull, text(2147483647)} */
     protected String _userName;
-
-    /** line_flg: {NotNull, int4(10), default=[0]} */
-    protected Integer _lineFlg;
 
     /** last_name: {text(2147483647)} */
     protected String _lastName;
@@ -260,9 +265,10 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
         StringBuilder sb = new StringBuilder();
         sb.append(dm).append(xfND(_userId));
         sb.append(dm).append(xfND(_loginId));
-        sb.append(dm).append(xfND(_lineId));
-        sb.append(dm).append(xfND(_userName));
         sb.append(dm).append(xfND(_lineFlg));
+        sb.append(dm).append(xfND(_lineId));
+        sb.append(dm).append(xfND(_lineUserName));
+        sb.append(dm).append(xfND(_userName));
         sb.append(dm).append(xfND(_lastName));
         sb.append(dm).append(xfND(_firstName));
         sb.append(dm).append(xfND(_email));
@@ -340,6 +346,26 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
+     * [get] line_flg: {NotNull, int4(10), default=[0]} <br>
+     * Lineフラグ
+     * @return The value of the column 'line_flg'. (basically NotNull if selected: for the constraint)
+     */
+    public Integer getLineFlg() {
+        checkSpecifiedProperty("lineFlg");
+        return _lineFlg;
+    }
+
+    /**
+     * [set] line_flg: {NotNull, int4(10), default=[0]} <br>
+     * Lineフラグ
+     * @param lineFlg The value of the column 'line_flg'. (basically NotNull if update: for the constraint)
+     */
+    public void setLineFlg(Integer lineFlg) {
+        registerModifiedProperty("lineFlg");
+        _lineFlg = lineFlg;
+    }
+
+    /**
      * [get] line_id: {text(2147483647)} <br>
      * LineID
      * @return The value of the column 'line_id'. (NullAllowed even if selected: for no constraint)
@@ -360,6 +386,26 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
+     * [get] line_user_name: {text(2147483647)} <br>
+     * LINEユーザ名
+     * @return The value of the column 'line_user_name'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getLineUserName() {
+        checkSpecifiedProperty("lineUserName");
+        return _lineUserName;
+    }
+
+    /**
+     * [set] line_user_name: {text(2147483647)} <br>
+     * LINEユーザ名
+     * @param lineUserName The value of the column 'line_user_name'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setLineUserName(String lineUserName) {
+        registerModifiedProperty("lineUserName");
+        _lineUserName = lineUserName;
+    }
+
+    /**
      * [get] user_name: {NotNull, text(2147483647)} <br>
      * ユーザー名
      * @return The value of the column 'user_name'. (basically NotNull if selected: for the constraint)
@@ -377,26 +423,6 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     public void setUserName(String userName) {
         registerModifiedProperty("userName");
         _userName = userName;
-    }
-
-    /**
-     * [get] line_flg: {NotNull, int4(10), default=[0]} <br>
-     * Lineフラグ
-     * @return The value of the column 'line_flg'. (basically NotNull if selected: for the constraint)
-     */
-    public Integer getLineFlg() {
-        checkSpecifiedProperty("lineFlg");
-        return _lineFlg;
-    }
-
-    /**
-     * [set] line_flg: {NotNull, int4(10), default=[0]} <br>
-     * Lineフラグ
-     * @param lineFlg The value of the column 'line_flg'. (basically NotNull if update: for the constraint)
-     */
-    public void setLineFlg(Integer lineFlg) {
-        registerModifiedProperty("lineFlg");
-        _lineFlg = lineFlg;
     }
 
     /**

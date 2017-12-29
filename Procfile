@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/dependency/webapp-runner.jar target/*.war --port $PORT --use-body-encoding-for-uri true
+web: java $JAVA_OPTS -jar target/dependency/webapp-runner.jar target/*.war  --use-body-encoding-for-uri true --port $PORT

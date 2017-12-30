@@ -179,7 +179,7 @@ public class LoginController extends BaseController {
             model.addAttribute("errors", bindingResult);
             return "/index";
         }
-        String loginId = new String(form.getLoginId().getBytes("ISO-8859-1"), "UTF-8");
+        String loginId = form.getLoginId();
         String encPassword = EncryptUtil.saltHash(form.getPassword(), EncryptUtil.EncryptType.MD5);
 
         userTBhv.selectEntity(cb -> {

@@ -27,7 +27,7 @@
             <div class="panel-body sub-background-color">
 
               <div class="form-group <ext:isErrors path='loginId' value='has-error'/>">
-                <label class="col-md-5 control-label">イベント名<span class="label label-danger" style="margin-left: 10px">必須</span></label>
+                <label class="col-md-5 control-label">ログインID<span class="label label-danger" style="margin-left: 10px">必須</span></label>
                 <div class="col-md-5">
                   <form:input path="loginId" class="form-control" />
                 </div>

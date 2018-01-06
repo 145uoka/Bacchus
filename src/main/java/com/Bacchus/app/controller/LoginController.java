@@ -143,14 +143,12 @@ public class LoginController extends BaseController {
 
         IdToken idToken = idToken(accessToken.id_token);
 
-        logger.info("◆◆◆id_token:" + accessToken.id_token);
-        logger.info("◆◆◆access_token:" + accessToken.access_token);
-        lineService.pushMessage();
-
         UserT userT = oAuthService.loginByLine(idToken);
 
         userService.initUserInfo(userT.getUserId());
         initLoginInfo();
+
+        lineService.pushMessage(userInfo.getLineId());
 
         String nextPage = (String)ses.getAttribute("nextPage");
         if (!StringUtils.isEmpty(nextPage)) {

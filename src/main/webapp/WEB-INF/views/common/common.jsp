@@ -15,6 +15,7 @@
 <title><c:out value="Bacchus" /></title>
 
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/static/favicon.ico" />
+<link rel="apple-touch-icon" href="${pageContext.request.contextPath}/resources/static/favicon.ico" />
 
 <!-- CSS vendor -->
 <link href='<c:url value="/resources/css/vendor/bootstrap/bootstrap.css"/>' rel="stylesheet">

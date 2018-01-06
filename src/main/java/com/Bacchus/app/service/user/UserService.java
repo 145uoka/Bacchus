@@ -102,15 +102,15 @@ public class UserService extends AbstractService {
         List<UserT> userTList = userTBhv.readList(userTCb);
 
         List<UserDto> resultList = new ArrayList<UserDto>();
-        //一覧表示項目をセットする
+
+        // 一覧表示項目をセットする
         for(UserT userT : userTList){
             UserDto userDto = new UserDto();
-            userDto.setUserId(userT.getUserId());
-            userDto.setUserName(userT.getUserName());
+            BeanUtils.copyProperties(userT, userDto);
             resultList.add(userDto);
         }
-        return resultList;
 
+        return resultList;
     }
 
     public void initUserInfo(Integer userId) {
@@ -118,6 +118,7 @@ public class UserService extends AbstractService {
         OptionalEntity<UserT> userT = userTBhv.selectByPK(userId);
 
         if (userT.isPresent() && userT != null) {
+//            BeanUtils.copyProperties(userT, this.userInfo);
             this.userInfo.setAuthLevel(userT.get().getAuthLevel());
             this.userInfo.setEmail(userT.get().getEmail());
             this.userInfo.setFirstName(userT.get().getFirstName());

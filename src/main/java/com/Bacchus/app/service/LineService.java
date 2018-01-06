@@ -25,7 +25,7 @@ public class LineService {
             BotApiResponse response = lineMessagingClient
                     .pushMessage(
                             new PushMessage(
-                                    "Ub0b37e268b2143fb40b997ca6a5b0820",
+                                    accessToken,
                                     new TemplateMessage(
                                             "Tomorrow is the garbage day for burnables！",
                                             new ConfirmTemplate("Did you take out the garbage?",

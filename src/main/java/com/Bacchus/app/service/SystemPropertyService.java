@@ -64,11 +64,12 @@ public class SystemPropertyService extends AbstractService {
      * @throws RecordNotFoundException
      */
     public String getSystemPropertyValue(String propKey) throws RecordNotFoundException {
+
         String result = null;
 
         OptionalEntity<SystemPropertyM> systemPropertyMList = systemPropertyMBhv.selectByPK(propKey);
         if(!systemPropertyMList.isPresent()){
-            throw new RecordNotFoundException("SystemPropertyM",propKey);
+            throw new RecordNotFoundException("SystemPropertyM", propKey);
         }
 
         result = systemPropertyMList.get().getPropValue();

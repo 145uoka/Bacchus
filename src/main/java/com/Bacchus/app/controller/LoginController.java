@@ -148,7 +148,7 @@ public class LoginController extends BaseController {
         userService.initUserInfo(userT.getUserId());
         initLoginInfo();
 
-        lineService.pushMessage(userInfo.getLineId());
+        lineService.pushMessage(new ArrayList<Integer>(userInfo.getUserId()), "テストです");
 
         String nextPage = (String)ses.getAttribute("nextPage");
         if (!StringUtils.isEmpty(nextPage)) {

@@ -118,7 +118,19 @@ public class UserService extends AbstractService {
         OptionalEntity<UserT> userT = userTBhv.selectByPK(userId);
 
         if (userT.isPresent() && userT != null) {
-            BeanUtils.copyProperties(userT, this.userInfo);
+//            BeanUtils.copyProperties(userT, this.userInfo);
+            this.userInfo.setAuthLevel(userT.get().getAuthLevel());
+            this.userInfo.setEmail(userT.get().getEmail());
+            this.userInfo.setFirstName(userT.get().getFirstName());
+            this.userInfo.setLastName(userT.get().getLastName());
+            this.userInfo.setLineFlg(userT.get().getLineFlg());
+            this.userInfo.setLineId(userT.get().getLineId());
+            this.userInfo.setLineUserName(userT.get().getLineUserName());
+            this.userInfo.setLoginId(userT.get().getLoginId());
+            this.userInfo.setPassword(userT.get().getPassword());
+            this.userInfo.setUserId(userT.get().getUserId());
+            this.userInfo.setUserName(userT.get().getUserName());
+            this.userInfo.setUserTypeId(userT.get().getUserTypeId());
         }
     }
 

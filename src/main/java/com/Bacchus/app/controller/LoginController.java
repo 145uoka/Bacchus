@@ -32,6 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.Bacchus.app.components.AccessToken;
 import com.Bacchus.app.components.IdToken;
 import com.Bacchus.app.form.LoginNameForm;
+import com.Bacchus.app.service.LineService;
 import com.Bacchus.app.service.LoggerService;
 import com.Bacchus.app.service.OAuthService;
 import com.Bacchus.app.service.user.UserService;
@@ -74,6 +75,9 @@ public class LoginController extends BaseController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    LineService lineService;
 
     @RequestMapping(value = "/lineLogin", method = RequestMethod.GET)
     public String lineLogin() throws Exception {
@@ -138,6 +142,9 @@ public class LoginController extends BaseController {
                 );
 
         IdToken idToken = idToken(accessToken.id_token);
+
+        System.out.println("◆◆◆id_token:" + accessToken.id_token);
+        System.out.println("◆◆◆access_token:" + accessToken.access_token);
 
         UserT userT = oAuthService.loginByLine(idToken);
 
@@ -208,6 +215,8 @@ public class LoginController extends BaseController {
             redirectAttributes.addFlashAttribute(MessageType.ERROR, errorMessageList);
 
         });
+
+        lineService.pushMessage();
 
 
         return redirect("/");

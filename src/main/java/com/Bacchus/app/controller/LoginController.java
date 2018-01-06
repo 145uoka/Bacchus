@@ -143,8 +143,8 @@ public class LoginController extends BaseController {
 
         IdToken idToken = idToken(accessToken.id_token);
 
-        System.out.println("◆◆◆id_token:" + accessToken.id_token);
-        System.out.println("◆◆◆access_token:" + accessToken.access_token);
+        logger.info("◆◆◆id_token:" + accessToken.id_token);
+        logger.info("◆◆◆access_token:" + accessToken.access_token);
 
         UserT userT = oAuthService.loginByLine(idToken);
 

@@ -18,7 +18,9 @@ import com.Bacchus.app.components.UserDto;
 import com.Bacchus.app.service.user.UserService;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.dbflute.exentity.UserT;
+import com.Bacchus.webbase.common.constants.LogMessageKeyConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.Flag;
+import com.Bacchus.webbase.common.constants.SystemCodeConstants.LineApiType;
 import com.Bacchus.webbase.common.constants.SystemPropertyKeyConstants;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.LineMessagingClientBuilder;
@@ -50,10 +52,16 @@ public class LineService {
 
             UserT userT = userEntity.get();
 
+            Map<Integer, String> sendUserMap = new TreeMap<Integer, String>();
+
+
             if (userT.getLineFlg().intValue() == Flag.ON.getIntegerValue().intValue()
                     && StringUtils.isNotEmpty(userT.getLineId())) {
 
                 // LINEユーザ
+                sendUserMap.put(userT.getUserId(),
+                        userT.getLastName() + StringUtils.SPACE
+                        + userT.getFirstName() + "(" + userT.getLineUserName() + ")");
 
                 LineMessagingClient lineMessagingClient = buildLineMessagingClient();
 
@@ -62,24 +70,20 @@ public class LineService {
                     BotApiResponse response = lineMessagingClient.pushMessage(
                             new PushMessage(userT.getLineId(), new TextMessage(message))).get();
 
-                    // TODO
-                    loggerService.outLog("", new Object[]{response.getMessage(), response.getDetails().toString()});
-
-                    // TODO
-                    loggerService.outLog("", new Object[]{userT.getUserId(),
-                            userT.getLastName() + StringUtils.SPACE
-                            + userT.getFirstName()
-                            + "(" + userT.getLineUserName() + ")"});
+                    // ログ出力
+                    loggerService.outLog(LogMessageKeyConstants.Info.I_05_0002, new Object[]{LineApiType.PUSH, response.getMessage(), response.getDetails().toString()});
+                    loggerService.outLog(LogMessageKeyConstants.Info.I_05_0001, new Object[]{LineApiType.PUSH, sendUserMap, message});
 
                 } catch (InterruptedException | ExecutionException e) {
                     throw new RuntimeException(e);
                 }
             } else {
                 // 非LINEユーザ
-                // TODO
-                loggerService.outLog("", new Object[]{userT.getUserId(),
-                        userT.getLastName() + StringUtils.SPACE
-                        + userT.getFirstName()});
+                sendUserMap.put(userT.getUserId(),
+                        userT.getLastName() + StringUtils.SPACE + userT.getFirstName());
+
+                // ログ出力
+                loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0001, new Object[]{LineApiType.PUSH, sendUserMap, message});
             }
         }
     }
@@ -126,10 +130,8 @@ public class LineService {
                 BotApiResponse response = lineMessagingClient.multicast(new Multicast(
                         new HashSet<String>(sendUserLineId), new TextMessage(message))).get();
 
-                // TODO
-                loggerService.outLog("", new Object[]{response.getMessage(), response.getDetails().toString()});
-                // TODO
-                loggerService.outLog("", new Object[]{sendUserMap, message});
+                loggerService.outLog(LogMessageKeyConstants.Info.I_05_0002, new Object[]{LineApiType.MULTICAST, response.getMessage(), response.getDetails().toString()});
+                loggerService.outLog(LogMessageKeyConstants.Info.I_05_0001, new Object[]{LineApiType.MULTICAST, sendUserMap, message});
 
             } catch (InterruptedException | ExecutionException e) {
                 throw new RuntimeException(e);
@@ -138,14 +140,14 @@ public class LineService {
 
         if (!notSendUserMap.isEmpty()){
             // 非LINEユーザが存在
-            // TODO
-            loggerService.outLog("", new Object[]{notSendUserMap, message});
+            // ログ出力
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0001, new Object[]{LineApiType.MULTICAST, notSendUserMap, message});
         }
 
         if (CollectionUtils.isNotEmpty(unknownUserIds)) {
             // 存在しないユーザ
-            // TODO
-            loggerService.outLog("", new Object[]{unknownUserIds.toString(), message});
+            // ログ出力
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0002, new Object[]{LineApiType.MULTICAST, unknownUserIds.toString(), message});
         }
 
     }

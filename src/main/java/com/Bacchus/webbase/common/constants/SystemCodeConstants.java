@@ -160,4 +160,12 @@ public class SystemCodeConstants {
         public static final int UN_ENTRY = 2;
     }
 
+    /** LineMessaginApiの種別 */
+    public static class LineApiType {
+        /** PUSH（単一送信） */
+        public static final String PUSH = "PUSH";
+        /** MULTICAST(一斉送信） */
+        public static final String MULTICAST = "MULTICAST";
+    }
+
 }

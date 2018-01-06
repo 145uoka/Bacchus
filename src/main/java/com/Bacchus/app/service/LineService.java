@@ -16,7 +16,7 @@ import com.linecorp.bot.model.response.BotApiResponse;
 public class LineService {
 
 
-    public void pushMessage() {
+    public void pushMessage(String accessToken) {
 
         LineMessagingClient lineMessagingClient = new LineMessagingClientBuilder(
                 "0e994f18b1e437b590bc5d25addcf1f5").build();

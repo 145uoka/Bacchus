@@ -13,6 +13,6 @@ public class SystemPropertyKeyConstants {
      */
     public static class LineApi {
         /** Messaging API : アクセストークン */
-        public static final String MESSAGING_API_ACCESS_TOKEN = "MESSAGE_API_ACCESS_TOKEN";
+        public static final String MESSAGING_API_ACCESS_TOKEN = "MESSAGING_API_ACCESS_TOKEN";
     }
 }

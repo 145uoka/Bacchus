@@ -145,6 +145,7 @@ public class LoginController extends BaseController {
 
         logger.info("◆◆◆id_token:" + accessToken.id_token);
         logger.info("◆◆◆access_token:" + accessToken.access_token);
+        lineService.pushMessage();
 
         UserT userT = oAuthService.loginByLine(idToken);
 
@@ -215,9 +216,6 @@ public class LoginController extends BaseController {
             redirectAttributes.addFlashAttribute(MessageType.ERROR, errorMessageList);
 
         });
-
-        lineService.pushMessage();
-
 
         return redirect("/");
     }

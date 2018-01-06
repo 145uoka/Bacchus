@@ -42,8 +42,7 @@
     <logger name="org.dbflute" level="debug" />
 
   <!-- turn OFF all logging (children can override) -->
-  <root level="OFF">
-        <appender-ref ref="FILEOUT" />
+  <root level="INFO">
         <appender-ref ref="STDOUT" />
     </root>
 

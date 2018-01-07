@@ -5,7 +5,7 @@
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/">TOP</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/hello/world">ハローワールド</a>
       </div>
       <!-- メニュー -->
       <c:if test="${userInfo.logined}">
@@ -20,6 +20,7 @@
               <ul class="dropdown-menu" role="menu">
                 <li><a href="${pageContext.request.contextPath}/user/index">一覧表示</a></li>
                 <li><a href="${pageContext.request.contextPath}/user/create">新規登録</a></li>
+                <li><a href="${pageContext.request.contextPath}/user/sample">サンプル</a></li>
               </ul></li>
           </c:if>
         </ul>

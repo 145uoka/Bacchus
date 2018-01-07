@@ -51,7 +51,7 @@
                 <tr data-href="${pageContext.request.contextPath}/event/show?eventNo=${list.eventNo}">
                   <td class="text-center"><c:out value="${status.count}" /></td>
                   <td><c:out value="${list.eventName}" /></td>
-                  <td><c:out value="" /></td>
+                  <td><c:out value="${list.eventDiv}" /></td>
                   <td><c:out value="" /></td>
                   <td><c:out value="${list.entryPeople}" /></td>
                 </tr>

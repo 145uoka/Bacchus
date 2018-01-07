@@ -16,7 +16,7 @@
   </tr>
   <tr>
     <th class="main-background-color col-md-3 text-center">URL</th>
-    <td class="text-center"><c:out value="${eventDto.eventUrl}" /></td>
+    <td class="text-center"><a href="${eventDto.eventUrl}"><c:out value="${eventDto.eventUrl}" /></a></td>
   </tr>
   <tr>
     <th class="main-background-color col-md-3 text-center">電話番号</th>

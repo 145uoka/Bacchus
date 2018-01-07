@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.Bacchus.app.components.EventDto;
 import com.Bacchus.dbflute.cbean.EventTCB;
+import com.Bacchus.dbflute.exbhv.CandidateTBhv;
 import com.Bacchus.dbflute.exbhv.EventTBhv;
 import com.Bacchus.dbflute.exentity.EventT;
 
@@ -24,6 +25,9 @@ public class EventIndexService {
     @Autowired
     EventTBhv eventTBhv;
 
+    @Autowired
+    CandidateTBhv candidateTBhv;
+
     /**
      * イベント一覧リスト取得。
      *
@@ -31,7 +35,7 @@ public class EventIndexService {
      */
     public List<EventDto> selectList() {
 
-        //UserTの一覧取得
+        //EventTの一覧取得
         EventTCB eventTcb = new EventTCB();
         eventTcb.query().addOrderBy_EventNo_Asc();
         List<EventT> eventTList = eventTBhv.readList(eventTcb);
@@ -56,6 +60,7 @@ public class EventIndexService {
             eventDto.setStoreName(eventT.getStoreName());
             eventDto.setTell(eventT.getTell());
             eventDto.setUserId(eventT.getUserId());
+
             eventDtoList.add(eventDto);
         }
         return eventDtoList;

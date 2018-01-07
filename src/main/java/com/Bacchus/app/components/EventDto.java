@@ -370,4 +370,5 @@ public class EventDto implements Serializable {
         this.plannerFirstName = plannerFirstName;
     }
 
+
 }

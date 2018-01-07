@@ -86,6 +86,7 @@
                         <tr>
                           <th class="text-center">No</th>
                           <th class="text-center">名前</th>
+                          <th class="text-center">LINEアカウント</th>
                           <c:forEach var="list" items="${candidateDtoList}" varStatus="status">
                             <th class="text-center"><c:out value="${list.eventStartDatetimeDisplay}" /></th>
                           </c:forEach>
@@ -109,7 +110,8 @@
                             </c:otherwise>
                           </c:choose>
                           <td class="text-center"><c:out value="${status.count}" /></td>
-                          <td><c:out value="${list.userName}" /></td>
+                          <td class="text-center"><c:out value="${list.lastName}${list.firstName}" /></td>
+                          <td class="text-center"><c:out value="LINE" /></td>
                           <c:forEach var="entryDtoList" items="${list.entryDtoList}" varStatus="status">
                             <td class="text-center"><c:choose>
                                 <c:when test="${entryDtoList.entryDiv == 1}">

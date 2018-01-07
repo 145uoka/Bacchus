@@ -47,9 +47,10 @@ public class UserEditService {
         // 初期表示画面の項目をセット
         UserDto userTDto = new UserDto();
         userTDto.setUserId(userT.getUserId());
-        userTDto.setUserName(userT.getUserName());
+//        userTDto.setUserName(userT.getUserName());
         userTDto.setFirstName(userT.getFirstName());
         userTDto.setLastName(userT.getLastName());
+        userTDto.setLoginId(userT.getLoginId());
         userTDto.setAuthLevel(userT.getAuthLevel());
         userTDto.setUserTypeId(userT.getUserTypeId());
         userTDto.setEmail(userT.getEmail());
@@ -64,8 +65,8 @@ public class UserEditService {
      * @param form
      */
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    public void update(UserEditForm form) {
-        OptionalEntity<UserT> optionalEntity = userTBhv.selectByPK(form.getUserId());
+    public void update(UserDto userDto) {
+        OptionalEntity<UserT> optionalEntity = userTBhv.selectByPK(userDto.getUserId());
 
         if (optionalEntity == null || optionalEntity.isPresent()) {
 
@@ -74,14 +75,14 @@ public class UserEditService {
         UserT userT = optionalEntity.get();
 
         // 更新データのセット
-        userT.setUserId(form.getUserId());
-        userT.setUserName(form.getUserName());
-        userT.setFirstName(form.getFirstName());
-        userT.setLastName(form.getLastName());
-        userT.setAuthLevel(form.getAuthLevel());
-        userT.setUserTypeId(form.getUserTypeId());
-        userT.setEmail(form.getEmail());
-        String encPassword = EncryptUtil.saltHash(form.getPassword(), EncryptUtil.EncryptType.MD5);
+//        userT.setUserId(userDto.getUserId());
+//        userT.setUserName(userDto.getUserName());
+        userT.setFirstName(userDto.getFirstName());
+        userT.setLastName(userDto.getLastName());
+        userT.setAuthLevel(userDto.getAuthLevel());
+        userT.setUserTypeId(userDto.getUserTypeId());
+//        userT.setEmail(userDto.getEmail());
+        String encPassword = EncryptUtil.saltHash(userDto.getPassword(), EncryptUtil.EncryptType.MD5);
         userT.setPassword(encPassword);
 
         // 更新

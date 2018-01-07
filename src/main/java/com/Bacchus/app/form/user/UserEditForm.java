@@ -2,6 +2,8 @@ package  com.Bacchus.app.form.user;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.Bacchus.webbase.common.beanvalidation.Email;
@@ -18,10 +20,14 @@ public class UserEditForm implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@NotEmpty
+	private String userName;
+
+	@NotNull
 	private Integer userId;
 
-	@NotEmpty
-	private String userName;
+    /** ログインID */
+    @NotEmpty
+    private String loginId;
 
 	@NotEmpty
 	private String lastName;
@@ -40,10 +46,10 @@ public class UserEditForm implements Serializable {
 	private String confirmPassword;
 
 	@NotEmpty
-	private Integer authLevel;
+	private String authLevel;
 
 	@NotEmpty
-	private Integer userTypeId;
+	private String userTypeId;
 
 
 
@@ -54,6 +60,24 @@ public class UserEditForm implements Serializable {
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
+
+    /**
+     * ログインIDの取得。
+     *
+     * @return ログインID
+     */
+    public String getLoginId() {
+        return this.loginId;
+    }
+
+    /**
+     * ログインIDを設定。
+     *
+     * @param loginId ログインID
+     */
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
 
 	public String getUserName() {
 		return userName;
@@ -106,19 +130,19 @@ public class UserEditForm implements Serializable {
 		this.confirmPassword = confirmPassword;
 	}
 
-	public Integer getAuthLevel() {
+	public String getAuthLevel() {
 		return authLevel;
 	}
 
-	public void setAuthLevel(Integer authLevel) {
+	public void setAuthLevel(String authLevel) {
 		this.authLevel = authLevel;
 	}
 
-	public Integer getUserTypeId() {
+	public String getUserTypeId() {
 		return userTypeId;
 	}
 
-	public void setUserTypeId(Integer userTypeId) {
+	public void setUserTypeId(String userTypeId) {
 		this.userTypeId = userTypeId;
 	}
 

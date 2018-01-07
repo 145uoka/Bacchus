@@ -36,7 +36,7 @@ import com.Bacchus.webbase.common.constants.SystemCodeConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.MessageType;
 
 /**
- * ログイン用コントローラ。
+ * ユーザー新規登録画面コントローラー
  *
  * @author sagawa_k
  */

@@ -12,9 +12,9 @@ import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.dbflute.exentity.UserT;
 
 /**
- * 雇用契約設定のサービスクラス。
+ * ユーザー登録画面のサービスクラス
  *
- * @author majo_k
+ * @author kanai_y
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -37,6 +37,7 @@ public class UserCreateService{
         UserT userT = new UserT();
         userDto.setUserId(userTBhv.selectNextVal());
         userT.setUserId(userDto.getUserId());
+        userT.setLoginId(userDto.getLoginId());
         userT.setUserName(userDto.getUserName());
         userT.setFirstName(userDto.getFirstName());
         userT.setLastName(userDto.getLastName());

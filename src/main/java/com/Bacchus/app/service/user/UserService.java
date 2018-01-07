@@ -236,6 +236,7 @@ public class UserService extends AbstractService {
         return false;
     }
 
+
     /**
      * 指定したユーザ種別がマスタに存在するかを判定。
      *
@@ -252,4 +253,43 @@ public class UserService extends AbstractService {
         }
         return false;
     }
+
+
+
+//    /**
+//     * 指定したメールアドレスがマスタに存在するかを判定。
+//     *
+//     * @param email メールアドレス
+//     * @return true レコード存在
+//     */
+//    public boolean isExistsEmail(String email){
+//        int resultCount = userTBhv.selectCount(cb -> {
+//            cb.query().setEmail_Equal(email);
+//        });
+//
+//        if (resultCount > 0) {
+//            return true;
+//        }
+//
+//    	return false;
+//    }
+
+//    /**
+//     * 指定したユーザー名がマスタに存在するかを判定。
+//     *
+//     * @param username ユーザー名
+//     * @return true レコード存在
+//     */
+//    public boolean isExistsUserName(String username){
+//        int resultCount = userTBhv.selectCount(cb -> {
+//            cb.query().setUserName_Equal(username);
+//        });
+//
+//        if (resultCount > 0) {
+//            return true;
+//        }
+//
+//    	return false;
+//    }
+
 }

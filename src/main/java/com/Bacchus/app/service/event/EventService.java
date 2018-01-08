@@ -1,20 +1,25 @@
 package com.Bacchus.app.service.event;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.dbflute.optional.OptionalEntity;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.Bacchus.app.components.EventDto;
-import com.Bacchus.app.components.GeneralCodeDto;
+import com.Bacchus.app.components.EventIndexDto;
+import com.Bacchus.app.components.UserDto;
 import com.Bacchus.app.service.CommonService;
+import com.Bacchus.app.util.DateUtil;
 import com.Bacchus.dbflute.exbhv.EventTBhv;
-import com.Bacchus.dbflute.exbhv.UserTBhv;
+import com.Bacchus.dbflute.exbhv.pmbean.EventIndexPmb;
 import com.Bacchus.dbflute.exentity.EventT;
-import com.Bacchus.dbflute.exentity.UserT;
+import com.Bacchus.dbflute.exentity.customize.EventIndex;
+import com.Bacchus.webbase.common.constants.SystemCodeConstants.Flag;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.GeneralCodeKbn;
 
 /**
@@ -40,60 +45,75 @@ public class EventService {
     CommonService commonService;
 
     /**
-     * ユーザー_TのDAO
-     */
-    @Autowired
-    UserTBhv userTBhv;
-
-    /**
-     * イベント管理番号（PK）をもとにイベント_Tを取得。
+     * イベント管理番号（PK）をもとにイベントDtoを取得。
      *
      * @param eventNo イベント管理番号
-     * @return EventDto
+     * @return EventDto イベントDto
      */
     public EventDto findEventByPK(int eventNo) {
 
-        List<GeneralCodeDto> generalCodeDtoList = commonService.getGeneralCodeListByCodeKbn(GeneralCodeKbn.AUXILIARY_DIV);
+        // 経費補助有無の文言取得
+        Map<String, String> generalCodeDtoMap = commonService.getGeneralCodeMapByCodeKbn(GeneralCodeKbn.AUXILIARY_DIV);
 
-        EventDto result = null;
+        EventDto eventDto = null;
 
-        OptionalEntity<EventT> eventT = eventTBhv.selectByPK(eventNo);
+        // イベント_Tの検索
+        OptionalEntity<EventT> eventT = eventTBhv.selectEntity(cb -> {
+            cb.setupSelect_UserT();
+            cb.query().setEventNo_Equal(eventNo);
+        });
 
         if (eventT != null && eventT.isPresent()) {
-            result = new EventDto();
-            result.setAuxiliaryFlg(eventT.get().getAuxiliaryFlg());
-            result.setCandidateNo(eventT.get().getCandidateNo());
-            result.setEntryPeople(eventT.get().getEntryPeople());
-            result.setEventDetail(eventT.get().getEventDetail());
-            result.setEventDiv(eventT.get().getEventDiv());
-            result.setEventEntryFee(eventT.get().getEventEntryFee());
-            result.setEventName(eventT.get().getEventName());
-            result.setEventNo(eventT.get().getEventNo());
-            result.setEventPlace(eventT.get().getEventPlace());
-            result.setEventUrl(eventT.get().getEventUrl());
-            result.setFixFlg(eventT.get().getFixFlg());
-            result.setStoreName(eventT.get().getStoreName());
-            result.setTell(eventT.get().getTell());
-            result.setUserId(eventT.get().getUserId());
+            // EntityからDtoへ変換（event_T）
+            eventDto = new EventDto();
+            BeanUtils.copyProperties(eventT.get(), eventDto);
 
-            if (eventT.get().getAuxiliaryFlg() != null) {
-                for (GeneralCodeDto generalCodeDto : generalCodeDtoList) {
-                    if (StringUtils.equals(eventT.get().getAuxiliaryFlg().toString(), generalCodeDto.getCode())) {
-                        result.setAuxiliaryFlgDisplay(generalCodeDto.getName());
-                        break;
-                    }
-                }
+            if (eventT.get().getUserT().isPresent()) {
+
+                // EntityからDtoへ変換（user_T）
+                UserDto userDto = new UserDto();
+                BeanUtils.copyProperties(eventT.get().getUserT().get(), userDto);
+                eventDto.setUserDto(userDto);
             }
 
-            if (result.getUserId() != null) {
-                OptionalEntity<UserT> userT = userTBhv.selectByPK(result.getUserId());
-                if (userT != null && userT.isPresent()) {
-                    result.setPlannerLastName(userT.get().getLastName());
-                    result.setPlannerFirstName(userT.get().getFirstName());
-                }
+            if (eventT.get().getAuxiliaryFlg() != null) {
+                // 経費補助有無の別を設定
+                eventDto.setAuxiliaryFlgDisplay(generalCodeDtoMap.get(eventT.get().getAuxiliaryFlg().toString()));
             }
         }
 
-        return result;
+        return eventDto;
+    }
+
+    /**
+     * イベント一覧表示用のDtoリストを取得。
+     *
+     * @return イベント一覧Dtoリスト
+     */
+    public List<EventIndexDto> findEventIndex() {
+
+        EventIndexPmb pmb = new EventIndexPmb();
+        pmb.setEventT_entryDiv(Flag.ON.getIntegerValue());
+        pmb.setEventT_fixFlg(Flag.ON.getIntegerValue());
+        pmb.setGeneralCodeM_codeDiv(GeneralCodeKbn.EVENT_DIV);
+        pmb.setGeneralCodeM_delFlg(Flag.OFF.getIntegerValue());
+
+        // DB - SELECT (外だしSQL - EventTBhv_selectEventIndex.sql)
+        List<EventIndex> eventIndexEntityList = eventTBhv.outsideSql().selectList(pmb);
+        List<EventIndexDto> resultDtoList = new ArrayList<EventIndexDto>();
+
+        for (EventIndex eventIndexEntity : eventIndexEntityList) {
+            // EntityからDtoへ変換（EventIndex）
+            EventIndexDto eventIndexDto = new EventIndexDto();
+            BeanUtils.copyProperties(eventIndexEntity, eventIndexDto);
+
+            String eventStartDatetimeDisplay = DateUtil.localDateTime2String(
+                    eventIndexEntity.getEventStartDatetime(), DateUtil.DATE_TIME_FORMAT_YYYYMMDDE);
+
+            eventIndexDto.setEventStartDatetimeDisplay(eventStartDatetimeDisplay);
+            resultDtoList.add(eventIndexDto);
+        }
+
+        return resultDtoList;
     }
 }

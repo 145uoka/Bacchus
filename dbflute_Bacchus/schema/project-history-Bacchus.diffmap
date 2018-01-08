@@ -1,4 +1,19 @@
 map:{
+    ; 2018/01/08 15:48:21 = map:{
+        ; diffDate = 2018/01/08 15:48:21
+        ; tableDiff = map:{
+            ; event_t = map:{
+                ; tableName = event_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; entry_people = map:{
+                        ; columnName = entry_people
+                        ; diffType = DELETE
+                    }
+                }
+            }
+        }
+    }
     ; 2017/12/28 22:51:29 = map:{
         ; diffDate = 2017/12/28 22:51:29
         ; tableCount = map:{

@@ -19,7 +19,7 @@ import com.Bacchus.dbflute.exentity.*;
  *     event_no
  *
  * [column]
- *     event_no, event_name, event_detail, event_place, event_url, tell, event_entry_fee, auxiliary_flg, fix_flg, candidate_no, store_name, entry_people, event_div, user_id
+ *     event_no, event_name, event_detail, event_place, event_url, tell, event_entry_fee, auxiliary_flg, fix_flg, candidate_no, store_name, event_div, user_id
  *
  * [sequence]
  *     event_t_event_no_seq
@@ -55,7 +55,6 @@ import com.Bacchus.dbflute.exentity.*;
  * Integer fixFlg = entity.getFixFlg();
  * Integer candidateNo = entity.getCandidateNo();
  * String storeName = entity.getStoreName();
- * Integer entryPeople = entity.getEntryPeople();
  * String eventDiv = entity.getEventDiv();
  * Integer userId = entity.getUserId();
  * entity.setEventNo(eventNo);
@@ -69,7 +68,6 @@ import com.Bacchus.dbflute.exentity.*;
  * entity.setFixFlg(fixFlg);
  * entity.setCandidateNo(candidateNo);
  * entity.setStoreName(storeName);
- * entity.setEntryPeople(entryPeople);
  * entity.setEventDiv(eventDiv);
  * entity.setUserId(userId);
  * = = = = = = = = = =/
@@ -119,9 +117,6 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
 
     /** store_name: {text(2147483647)} */
     protected String _storeName;
-
-    /** entry_people: {int4(10)} */
-    protected Integer _entryPeople;
 
     /** event_div: {text(2147483647)} */
     protected String _eventDiv;
@@ -251,7 +246,6 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
         sb.append(dm).append(xfND(_fixFlg));
         sb.append(dm).append(xfND(_candidateNo));
         sb.append(dm).append(xfND(_storeName));
-        sb.append(dm).append(xfND(_entryPeople));
         sb.append(dm).append(xfND(_eventDiv));
         sb.append(dm).append(xfND(_userId));
         if (sb.length() > dm.length()) {
@@ -500,26 +494,6 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
     public void setStoreName(String storeName) {
         registerModifiedProperty("storeName");
         _storeName = storeName;
-    }
-
-    /**
-     * [get] entry_people: {int4(10)} <br>
-     * 参加人数
-     * @return The value of the column 'entry_people'. (NullAllowed even if selected: for no constraint)
-     */
-    public Integer getEntryPeople() {
-        checkSpecifiedProperty("entryPeople");
-        return _entryPeople;
-    }
-
-    /**
-     * [set] entry_people: {int4(10)} <br>
-     * 参加人数
-     * @param entryPeople The value of the column 'entry_people'. (NullAllowed: null update allowed for no constraint)
-     */
-    public void setEntryPeople(Integer entryPeople) {
-        registerModifiedProperty("entryPeople");
-        _entryPeople = entryPeople;
     }
 
     /**

@@ -54,7 +54,6 @@ public class EventTDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((EventT)et).getFixFlg(), (et, vl) -> ((EventT)et).setFixFlg(cti(vl)), "fixFlg");
         setupEpg(_epgMap, et -> ((EventT)et).getCandidateNo(), (et, vl) -> ((EventT)et).setCandidateNo(cti(vl)), "candidateNo");
         setupEpg(_epgMap, et -> ((EventT)et).getStoreName(), (et, vl) -> ((EventT)et).setStoreName((String)vl), "storeName");
-        setupEpg(_epgMap, et -> ((EventT)et).getEntryPeople(), (et, vl) -> ((EventT)et).setEntryPeople(cti(vl)), "entryPeople");
         setupEpg(_epgMap, et -> ((EventT)et).getEventDiv(), (et, vl) -> ((EventT)et).setEventDiv((String)vl), "eventDiv");
         setupEpg(_epgMap, et -> ((EventT)et).getUserId(), (et, vl) -> ((EventT)et).setUserId(cti(vl)), "userId");
     }
@@ -100,7 +99,6 @@ public class EventTDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnFixFlg = cci("fix_flg", "fix_flg", null, null, Integer.class, "fixFlg", null, false, false, false, "int2", 5, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnCandidateNo = cci("candidate_no", "candidate_no", null, null, Integer.class, "candidateNo", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnStoreName = cci("store_name", "store_name", null, null, String.class, "storeName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnEntryPeople = cci("entry_people", "entry_people", null, null, Integer.class, "entryPeople", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEventDiv = cci("event_div", "event_div", null, null, String.class, "eventDiv", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, false, "int4", 10, 0, null, false, null, null, "userT", null, null, false);
 
@@ -160,11 +158,6 @@ public class EventTDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnStoreName() { return _columnStoreName; }
     /**
-     * entry_people: {int4(10)}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnEntryPeople() { return _columnEntryPeople; }
-    /**
      * event_div: {text(2147483647)}
      * @return The information object of specified column. (NotNull)
      */
@@ -188,7 +181,6 @@ public class EventTDbm extends AbstractDBMeta {
         ls.add(columnFixFlg());
         ls.add(columnCandidateNo());
         ls.add(columnStoreName());
-        ls.add(columnEntryPeople());
         ls.add(columnEventDiv());
         ls.add(columnUserId());
         return ls;

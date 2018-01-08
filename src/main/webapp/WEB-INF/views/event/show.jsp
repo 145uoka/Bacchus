@@ -86,6 +86,7 @@
                         <tr>
                           <th class="text-center">No</th>
                           <th class="text-center">名前</th>
+                          <th class="text-center">LINEユーザ名</th>
                           <c:forEach var="list" items="${candidateDtoList}" varStatus="status">
                             <th class="text-center"><c:out value="${list.eventStartDatetimeDisplay}" /></th>
                           </c:forEach>
@@ -93,8 +94,7 @@
                       </thead>
                       <tbody>
                         <tr>
-                          <td class="text-center">-</td>
-                          <td class="text-center">参加者数</td>
+                          <td class="text-center" colspan="3">参加者数</td>
                           <c:forEach var="entrySummary" items="${entrySummaryList}" varStatus="status">
                             <td class="text-center"><c:out value="${entrySummary}" /></td>
                           </c:forEach>
@@ -109,7 +109,15 @@
                             </c:otherwise>
                           </c:choose>
                           <td class="text-center"><c:out value="${status.count}" /></td>
-                          <td><c:out value="${list.userName}" /></td>
+                          <td><c:out value="${list.lastName} ${list.firstName}" /></td>
+                          <c:choose>
+                              <c:when test="${!empty list.lineUserName}">
+                                <td><c:out value="${list.lineUserName}" /></td>
+                              </c:when>
+                              <c:otherwise>
+                                <td class="text-center"><c:out value="-" /></td>
+                              </c:otherwise>
+                            </c:choose>
                           <c:forEach var="entryDtoList" items="${list.entryDtoList}" varStatus="status">
                             <td class="text-center"><c:choose>
                                 <c:when test="${entryDtoList.entryDiv == 1}">

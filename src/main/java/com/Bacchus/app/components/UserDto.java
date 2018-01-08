@@ -305,5 +305,4 @@ public class UserDto implements Serializable {
     public void setAuthDto(AuthDto authDto) {
         this.authDto = authDto;
     }
-
 }

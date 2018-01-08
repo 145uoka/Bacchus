@@ -16,7 +16,11 @@
   </tr>
   <tr>
     <th class="main-background-color col-md-3 text-center">URL</th>
-    <td class="text-center"><c:out value="${eventDto.eventUrl}" /></td>
+    <td class="text-center">
+    <c:if test="${!empty eventDto.eventUrl}">
+      <a href="${eventDto.eventUrl}"><c:out value="${eventDto.eventUrl}" /></a>
+    </c:if>
+    </td>
   </tr>
   <tr>
     <th class="main-background-color col-md-3 text-center">電話番号</th>
@@ -38,6 +42,6 @@
   </tr>
   <tr>
     <th class="main-background-color col-md-3 text-center">幹事</th>
-    <td class="text-center"><c:out value="${eventDto.plannerLastName}" />&nbsp;<c:out value="${eventDto.plannerFirstName}" /></td>
+    <td class="text-center"><c:out value="${eventDto.userDto.lastName}" />&nbsp;<c:out value="${eventDto.userDto.firstName}" /></td>
   </tr>
 </table>

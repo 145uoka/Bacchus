@@ -82,7 +82,6 @@ public class EventTCIQ extends AbstractBsEventTCQ {
     protected ConditionValue xgetCValueFixFlg() { return _myCQ.xdfgetFixFlg(); }
     protected ConditionValue xgetCValueCandidateNo() { return _myCQ.xdfgetCandidateNo(); }
     protected ConditionValue xgetCValueStoreName() { return _myCQ.xdfgetStoreName(); }
-    protected ConditionValue xgetCValueEntryPeople() { return _myCQ.xdfgetEntryPeople(); }
     protected ConditionValue xgetCValueEventDiv() { return _myCQ.xdfgetEventDiv(); }
     protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }

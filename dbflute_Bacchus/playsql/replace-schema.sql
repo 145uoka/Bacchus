@@ -105,8 +105,6 @@ CREATE TABLE Bacchus.event_t
 	candidate_no int,
 	-- 店舗名
 	store_name text,
-	-- 参加人数
-	entry_people int,
 	-- イベント区分
 	event_div text,
 	-- 幹事ユーザID
@@ -300,7 +298,6 @@ COMMENT ON COLUMN Bacchus.event_t.auxiliary_flg  IS '補助フラグ';
 COMMENT ON COLUMN Bacchus.event_t.fix_flg IS '確定フラグ';
 COMMENT ON COLUMN Bacchus.event_t.candidate_no IS '候補日管理番号';
 COMMENT ON COLUMN Bacchus.event_t.store_name IS '店舗名';
-COMMENT ON COLUMN Bacchus.event_t.entry_people IS '参加人数';
 COMMENT ON COLUMN Bacchus.event_t.event_div IS 'イベント区分';
 COMMENT ON COLUMN Bacchus.event_t.user_id IS '幹事ユーザID';
 COMMENT ON TABLE Bacchus.general_code_m IS '汎用コード_M';

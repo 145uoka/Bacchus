@@ -58,11 +58,8 @@ public class EventDto implements Serializable {
     /** 幹事ユーザID */
     private Integer userId;
 
-    /** 幹事氏名（氏） */
-    private String plannerLastName;
-
-    /** 幹事氏名（名） */
-    private String plannerFirstName;
+    /** 幹事ユーザDto */
+    private UserDto userDto;
 
     /**
      * イベント管理番号の取得。
@@ -335,40 +332,21 @@ public class EventDto implements Serializable {
     }
 
     /**
-     * 幹事氏名（氏）の取得。
+     * 幹事ユーザDtoの取得。
      *
-     * @return 幹事氏名（氏）
+     * @return 幹事ユーザDto
      */
-    public String getPlannerLastName() {
-        return this.plannerLastName;
+    public UserDto getUserDto() {
+        return this.userDto;
     }
 
     /**
-     * 幹事氏名（氏）を設定。
+     * 幹事ユーザDtoを設定。
      *
-     * @param plannerLastName 幹事氏名（氏）
+     * @param userDto 幹事ユーザDto
      */
-    public void setPlannerLastName(String plannerLastName) {
-        this.plannerLastName = plannerLastName;
+    public void setUserDto(UserDto userDto) {
+        this.userDto = userDto;
     }
-
-    /**
-     * 幹事氏名（名）の取得。
-     *
-     * @return 幹事氏名（名）
-     */
-    public String getPlannerFirstName() {
-        return this.plannerFirstName;
-    }
-
-    /**
-     * 幹事氏名（名）を設定。
-     *
-     * @param plannerFirstName 幹事氏名（名）
-     */
-    public void setPlannerFirstName(String plannerFirstName) {
-        this.plannerFirstName = plannerFirstName;
-    }
-
 
 }

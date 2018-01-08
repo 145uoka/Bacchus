@@ -1,17 +1,16 @@
 package com.Bacchus.app.controller.event;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.Bacchus.app.service.CommonService;
-import com.Bacchus.app.service.LoggerService;
-import com.Bacchus.app.service.SystemPropertyService;
+import com.Bacchus.app.components.EventIndexDto;
 import com.Bacchus.app.service.event.EventIndexService;
-import com.Bacchus.dbflute.exbhv.UserTBhv;
-import com.Bacchus.dbflute.exbhv.UserTypeMBhv;
+import com.Bacchus.app.service.event.EventService;
 import com.Bacchus.webbase.appbase.BaseController;
 import com.Bacchus.webbase.common.constants.DisplayIdConstants;
 import com.Bacchus.webbase.common.constants.ProcConstants;
@@ -25,43 +24,29 @@ import com.Bacchus.webbase.common.constants.ProcConstants;
 @RequestMapping(value = ProcConstants.EVENT)
 public class EventIndexController extends BaseController {
 
-	/** ロガーロジック */
     @Autowired
-    LoggerService loggerService;
+    EventIndexService eventIndexService;
 
-	@Autowired
-	SystemPropertyService systemPropertyService;
+    @Autowired
+    EventService eventService;
 
-	@Autowired
-	EventIndexService eventIndexService;
+    /**
+     * イベント一覧表示
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = ProcConstants.Operation.INDEX, method = RequestMethod.GET)
+    public String index(Model model) throws Exception {
 
-	@Autowired
-	UserTBhv userTBhv;
+        super.setDisplayTitle(model, DisplayIdConstants.Event.BACCHUS_0201);
 
-	@Autowired
-	UserTypeMBhv userTypeMBhv;
+        List<EventIndexDto> eventIndexDtoList = eventService.findEventIndex();
 
-	 @Autowired
-	 CommonService commonService;
+        //ユーザー一覧項目の取得
+        model.addAttribute("eventIndexDtoList", eventIndexDtoList);
 
-	/**
-	 * ログイン後TOP処理
-	 *
-	 * @param form
-	 * @param model Model
-	 * @return /user/userIndex
-	 * @throws Exception
-	 */
-	@RequestMapping(value = ProcConstants.Operation.INDEX, method = RequestMethod.GET)
-	public String index(Model model) throws Exception {
-		super.setDisplayTitle(model, DisplayIdConstants.Event.BACCHUS_0201);
-
-		//ユーザー一覧項目の取得
-		model.addAttribute("eventDtoList", eventIndexService.selectList());
-
-
-
-		return ProcConstants.EVENT + ProcConstants.Operation.INDEX;
-	}
+        return ProcConstants.EVENT + ProcConstants.Operation.INDEX;
+    }
 
 }

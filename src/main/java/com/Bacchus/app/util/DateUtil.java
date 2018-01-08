@@ -21,16 +21,16 @@ import com.Bacchus.webbase.common.constants.SystemCodeConstants;
  */
 public class DateUtil {
 
-    /** 日時フォーマット文字列  yyy/MM/dd HH:mm*/
+    /** 日時フォーマット文字列  yyy/MM/dd HH:mm */
     public static final String DATE_TIME_FORMAT_YYYYMMDDHHMM = "yyyy/MM/dd HH:mm";
 
-    /** 日時フォーマット文字列  yyy/MM/dd(E) HH:mm*/
-    public static final String DATE_TIME_FORMAT_YYYYMMDDEHHMM = "yyyy/MM/dd(E) HH:mm";
+    /** 日時フォーマット文字列  yyy/MM/dd(E) */
+    public static final String DATE_TIME_FORMAT_YYYYMMDDE = "yyyy/MM/dd(E)";
 
-    /** 日時フォーマット文字列  yyyy/MM/dd*/
+    /** 日時フォーマット文字列  yyyy/MM/dd */
     public static final String DATE_TIME_FORMAT_YYYYMMDD = "yyyy/MM/dd";
 
-    /** 日時フォーマット文字列  yyyy/MM*/
+    /** 日時フォーマット文字列  yyyy/MM */
     public static final String DATE_TIME_FORMAT_YYYYMM = "yyyy/MM";
 
     /**
@@ -138,7 +138,7 @@ public class DateUtil {
         if(StringUtils.isEmpty(sDate)){
             return null;
         } else {
-            return convertToLocalDateTime(sDate, DATE_TIME_FORMAT_YYYYMMDDEHHMM);
+            return convertToLocalDateTime(sDate, DATE_TIME_FORMAT_YYYYMMDDE);
         }
     }
 

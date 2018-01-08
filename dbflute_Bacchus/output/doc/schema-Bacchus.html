@@ -272,6 +272,9 @@ dl.procedurelist dd.column pre {
 <h1>Schema for Bacchus (postgresql)</h1>
 <p class="mainschema">generated from <strong>postgres.bacchus</strong></p>
 <div class="navilinkarea">
+<p class="sublink">
+ <a href="#outsidesql">OutsideSql List</a>
+</p>
 <p class="sisterlink"><a href="./history-Bacchus.html">to HistoryHTML</a></p>
 </div>
 
@@ -332,7 +335,7 @@ dl.procedurelist dd.column pre {
 	</tr>
 	<tr>
 		<td class="rownumcell">5</td>
-		<td><a href="#event_t" title="type=TABLE, primaryKey={event_no}, nameLength=7, columnCount=14">event_t</a></td>
+		<td><a href="#event_t" title="type=TABLE, primaryKey={event_no}, nameLength=7, columnCount=13">event_t</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#user_t" title="event_t_user_id_fkey">user_t</a></td>
 		<td class="relcell"><a href="#candidate_t" title="candidate_t_event_no_fkey">candidate_t</a></td>
@@ -791,8 +794,9 @@ entry_t
 		<td class="subcell">Integer</td>
 	</tr>
 </table>
-<h2 id="event_t" title="type=TABLE, primaryKey={event_no}, nameLength=7, columnCount=14">
+<h2 id="event_t" title="type=TABLE, primaryKey={event_no}, nameLength=7, columnCount=13">
 event_t
+&nbsp;<span class="bqpcount"><a href="#event_t_sql">(outsideSql=1)</a></span>
 </h2>
 <p class="tablecomment">イベント_T</p>
 <table>
@@ -1009,23 +1013,6 @@ event_t
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell"> &nbsp;</td>
-		<td id="event_t_entry_people">entry_people</td>
-		<td class="typecell">int4</td>
-		<td class="sizecell"> 10 </td>
-		<td class="relcell">&nbsp;&nbsp;</td>
-		<td class="relcell">&nbsp;</td>
-		<td class="relcell"> &nbsp;</td>
-		<td class="commentcell"> 参加人数</td>
-		<td class="subcell">entryPeople</td>
-		<td class="subcell">Integer</td>
-	</tr>
-	<tr>
-		<td class="rownumcell">13</td>
-		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell"> &nbsp;</td>
-		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell"> &nbsp;</td>
 		<td id="event_t_event_div">event_div</td>
 		<td class="typecell">text</td>
 		<td class="sizecell"> 2147483647 </td>
@@ -1037,7 +1024,7 @@ event_t
 		<td class="subcell">String</td>
 	</tr>
 	<tr>
-		<td class="rownumcell">14</td>
+		<td class="rownumcell">13</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
@@ -1754,6 +1741,19 @@ user_type_m
 </table>
 
 
+<h2 id="outsidesql">OutsideSql List</h2>
+<h3 id="event_t_sql"><a href="#event_t">event_t</a></h3>
+<dl class="bqplist">
+	<dt>(イベント情報及び、ユーザ情報、候補日、参加人数の取得)selectEventIndex</dt>
+	<dd>
+		<pre class="commentdesc">  イベント情報及び、ユーザ情報、候補日、参加人数の取得</pre>
+	</dd>
+	<dd class="subinfo">
+		<span class="file">EventTBhv_selectEventIndex.sql</span>
+		<span class="ctet">(df:entity)</span>
+		<span class="pmb">(df:pmb)</span>
+	</dd>
+</dl>
 
 <h2 id="thanks">Thanks</h2>
 <p>

@@ -47,13 +47,13 @@
               </tr>
             </thead>
             <tbody>
-              <c:forEach var="list" items="${eventDtoList}" varStatus="status">
+              <c:forEach var="list" items="${eventIndexDtoList}" varStatus="status">
                 <tr data-href="${pageContext.request.contextPath}/event/show?eventNo=${list.eventNo}">
                   <td class="text-center"><c:out value="${status.count}" /></td>
                   <td><c:out value="${list.eventName}" /></td>
-                  <td><c:out value="${list.eventDiv}" /></td>
-                  <td><c:out value="" /></td>
-                  <td><c:out value="${list.entryPeople}" /></td>
+                  <td class="text-center"><c:out value="${list.name}" /></td>
+                  <td class="text-center"><c:out value="${list.eventStartDatetimeDisplay}" /></td>
+                  <td class="text-center"><c:out value="${list.entryCount}" /></td>
                 </tr>
               </c:forEach>
             </tbody>

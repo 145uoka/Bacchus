@@ -107,8 +107,8 @@ public class EventCreateService {
                     SimpleDateFormat df = new SimpleDateFormat(DateUtil.DATE_TIME_FORMAT_YYYYMMDD);
 
                     Date startDate = df.parse(form.getStartDate()[i]);
-                    String str = new SimpleDateFormat(DateUtil.DATE_TIME_FORMAT_YYYYMMDDEHHMM).format(startDate);
-                    candidateT.setEventStartDatetime(DateUtil.convertToLocalDateTime(str, DateUtil.DATE_TIME_FORMAT_YYYYMMDDEHHMM));
+                    String str = new SimpleDateFormat(DateUtil.DATE_TIME_FORMAT_YYYYMMDDE).format(startDate);
+                    candidateT.setEventStartDatetime(DateUtil.convertToLocalDateTime(str, DateUtil.DATE_TIME_FORMAT_YYYYMMDDE));
                 }
                 candidateT.setCandidateNo(candidateTbhv.selectNextVal());                candidateT.setEventNo(eventT.getEventNo());                candidateList.add(candidateT);
 

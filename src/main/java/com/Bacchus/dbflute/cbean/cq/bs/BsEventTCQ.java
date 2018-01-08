@@ -307,26 +307,6 @@ public class BsEventTCQ extends AbstractBsEventTCQ {
      */
     public BsEventTCQ addOrderBy_StoreName_Desc() { regOBD("store_name"); return this; }
 
-    protected ConditionValue _entryPeople;
-    public ConditionValue xdfgetEntryPeople()
-    { if (_entryPeople == null) { _entryPeople = nCV(); }
-      return _entryPeople; }
-    protected ConditionValue xgetCValueEntryPeople() { return xdfgetEntryPeople(); }
-
-    /** 
-     * Add order-by as ascend. <br>
-     * entry_people: {int4(10)}
-     * @return this. (NotNull)
-     */
-    public BsEventTCQ addOrderBy_EntryPeople_Asc() { regOBA("entry_people"); return this; }
-
-    /**
-     * Add order-by as descend. <br>
-     * entry_people: {int4(10)}
-     * @return this. (NotNull)
-     */
-    public BsEventTCQ addOrderBy_EntryPeople_Desc() { regOBD("entry_people"); return this; }
-
     protected ConditionValue _eventDiv;
     public ConditionValue xdfgetEventDiv()
     { if (_eventDiv == null) { _eventDiv = nCV(); }

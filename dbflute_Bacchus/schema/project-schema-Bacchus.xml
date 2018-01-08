@@ -92,8 +92,6 @@
             name="candidate_no" size="10" type="INTEGER"/>
         <column comment="店舗名" dbType="text" javaType="String"
             name="store_name" size="2147483647" type="VARCHAR"/>
-        <column comment="参加人数" dbType="int4" javaType="Integer"
-            name="entry_people" size="10" type="INTEGER"/>
         <column comment="イベント区分" dbType="text" javaType="String"
             name="event_div" size="2147483647" type="VARCHAR"/>
         <column comment="幹事ユーザID" dbType="int4" javaType="Integer"
@@ -205,13 +203,13 @@
     </table>
     <sequenceGroup>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
-            minimumValue="1" name="general_code_m_code_id_seq" schema="postgres.bacchus"/>
-        <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="candidate_t_candidate_no_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="entry_t_entry_id_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="event_t_event_no_seq" schema="postgres.bacchus"/>
+        <sequence incrementSize="1" maximumValue="9223372036854775807"
+            minimumValue="1" name="general_code_m_code_id_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="user_t_user_id_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"

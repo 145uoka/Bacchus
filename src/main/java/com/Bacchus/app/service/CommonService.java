@@ -1,7 +1,9 @@
 package com.Bacchus.app.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,6 +103,25 @@ public class CommonService {
         }
         return resultList;
     }
+
+    /**
+     * 指定したコード区分の汎用コードマスタのコードと名称のMapを取得。
+     * @param codeKbn コード区分
+     * @return Map<コード, 名称>
+     */
+    public Map<String, String> getGeneralCodeMapByCodeKbn(String codeKbn) {
+
+        List<GeneralCodeDto> generalCodeDtoList = this.getGeneralCodeListByCodeKbn(codeKbn);
+
+        Map<String, String> resultMap = new HashMap<String, String>();
+
+        for (GeneralCodeDto generalCodeDto : generalCodeDtoList) {
+            resultMap.put(generalCodeDto.getCode(), generalCodeDto.getName());
+        }
+
+        return resultMap;
+    }
+
     /**
      * 指定したコード区分の汎用コードマスタのリストを取得。
      * @param codeKbn

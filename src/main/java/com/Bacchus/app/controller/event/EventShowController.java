@@ -264,11 +264,11 @@ public class EventShowController extends BaseController {
         candidateDto.setStartTime(candidateT.getStartTime());
 
         String eventStartDatetimeDisplay = DateUtil.localDateTime2String(
-                candidateT.getEventStartDatetime(), DateUtil.DATE_TIME_FORMAT_YYYYMMDDEHHMM);
+                candidateT.getEventStartDatetime(), DateUtil.DATE_TIME_FORMAT_YYYYMMDDE);
         candidateDto.setEventStartDatetimeDisplay(eventStartDatetimeDisplay);
 
         String eventEndDatetimeDisplay = DateUtil.localDateTime2String(
-                candidateT.getEventEndDatetime(), DateUtil.DATE_TIME_FORMAT_YYYYMMDDEHHMM);
+                candidateT.getEventEndDatetime(), DateUtil.DATE_TIME_FORMAT_YYYYMMDDE);
         candidateDto.setEventEndDatetimeDisplay(eventEndDatetimeDisplay);
 
         return candidateDto;

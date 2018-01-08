@@ -15,7 +15,7 @@ import com.Bacchus.dbflute.cbean.*;
  *     event_no
  *
  * [column]
- *     event_no, event_name, event_detail, event_place, event_url, tell, event_entry_fee, auxiliary_flg, fix_flg, candidate_no, store_name, entry_people, event_div, user_id
+ *     event_no, event_name, event_detail, event_place, event_url, tell, event_entry_fee, auxiliary_flg, fix_flg, candidate_no, store_name, event_div, user_id
  *
  * [sequence]
  *     event_t_event_no_seq

@@ -369,11 +369,6 @@ public class BsEventTCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnStoreName() { return doColumn("store_name"); }
         /**
-         * entry_people: {int4(10)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnEntryPeople() { return doColumn("entry_people"); }
-        /**
          * event_div: {text(2147483647)}
          * @return The information object of specified column. (NotNull)
          */

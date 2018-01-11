@@ -19,6 +19,13 @@
 
 		}
 	}
+
+	function accountUpdate(){
+	     console.log('更新押下')
+	     document.form.action = "${pageContext.request.contextPath}/user/update"
+
+	         document.form.submit();
+	}
 	</script>
 </head>
 
@@ -170,7 +177,8 @@
 					<table style="margin-bottom: 20px">
 						<tr>
 							<td style="vertical-align: middle;">
-								<button type="submit" class="btn btn-info">更新</button>
+								<button type="button" class="btn btn-info"
+                onClick="accountUpdate()">更新</button>
 							</td>
 							<td><label class="space" style="width: 30px;"></label></td>
 

@@ -6,8 +6,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.Bacchus.webbase.common.beanvalidation.Email;
-
 /**
  * ログインフォーム。
  *
@@ -19,8 +17,8 @@ public class UserEditForm implements Serializable {
 	/** serialVersionUID */
 	private static final long serialVersionUID = 1L;
 
-	@NotEmpty
-	private String userName;
+//	@NotEmpty
+//	private String userName;
 
 	@NotNull
 	private Integer userId;
@@ -35,9 +33,9 @@ public class UserEditForm implements Serializable {
 	@NotEmpty
 	private String firstName;
 
-	@NotEmpty
-	@Email
-	private String email;
+//	@NotEmpty
+//	@Email
+//	private String email;
 
 	@NotEmpty
 	private String password;
@@ -79,13 +77,13 @@ public class UserEditForm implements Serializable {
         this.loginId = loginId;
     }
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+//	public String getUserName() {
+//		return userName;
+//	}
+//
+//	public void setUserName(String userName) {
+//		this.userName = userName;
+//	}
 
 
 	public String getLastName() {
@@ -104,13 +102,13 @@ public class UserEditForm implements Serializable {
 		this.firstName = firstName;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
+//	public String getEmail() {
+//		return email;
+//	}
+//
+//	public void setEmail(String email) {
+//		this.email = email;
+//	}
 
 	public String getPassword() {
 		return password;

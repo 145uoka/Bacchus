@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -118,14 +117,14 @@ public class UserEditController extends BaseController {
         String message = null;
 
         // password確認
-        if (!StringUtils.equals(form.getPassword(), form.getConfirmPassword())) {
-            bindingResult.rejectValue("password",null, null, "");
-            bindingResult.rejectValue("confirmPassword",null, null, "");
-            message = messageSource.getMessage(MessageKeyUtil.encloseStringDelete(
-                    MessageKeyConstants.Error.EXISTS_NOT_SET_PASSWORD),
-                    new String[]{"パスワード", "新しいパスワード", "確認用パスワード"},
-                    Locale.getDefault());
-        }
+//        if (!StringUtils.equals(form.getPassword(), form.getConfirmPassword())) {
+//            bindingResult.rejectValue("password",null, null, "");
+//            bindingResult.rejectValue("confirmPassword",null, null, "");
+//            message = messageSource.getMessage(MessageKeyUtil.encloseStringDelete(
+//                    MessageKeyConstants.Error.EXISTS_NOT_SET_PASSWORD),
+//                    new String[]{"パスワード", "新しいパスワード", "確認用パスワード"},
+//                    Locale.getDefault());
+//        }
 
         // ユニークチェックのためのユーザーデータ取得
         UserT userT = userEditService.validation(form);
@@ -198,7 +197,7 @@ public class UserEditController extends BaseController {
 //        }
 
         UserDto userDto = new UserDto();
-//        BeanUtils.copyProperties(form, userDto);
+        userDto.setUserId(form.getUserId());
         userDto.setFirstName(form.getFirstName());
         userDto.setLastName(form.getLastName());
         userDto.setAuthLevel(authLevel);

@@ -75,7 +75,7 @@ public class UserEditService {
         UserT userT = optionalEntity.get();
 
         // 更新データのセット
-//        userT.setUserId(userDto.getUserId());
+        userT.setUserId(userDto.getUserId());
 //        userT.setUserName(userDto.getUserName());
         userT.setFirstName(userDto.getFirstName());
         userT.setLastName(userDto.getLastName());
@@ -94,6 +94,7 @@ public class UserEditService {
      * ユーザー情報の更新のユニークチェック項目の取得。
      *
      * @param form
+     * @return
      */
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public UserT validation(UserEditForm form) {

@@ -96,7 +96,7 @@ public class EventNotifyController extends BaseController {
     public String exec(@ModelAttribute("form") NotifyExecForm form, RedirectAttributes redirectAttributes) throws Exception {
 
         List<Integer> userIds = Arrays.asList(form.getUserIds());
-//        lineService.pushMessage(userIds, "testMsg");
+        lineService.pushMessage(userIds, "testMsg");
 
         eventService.notifyEvent(userIds, form.getEventNo());
 

@@ -88,7 +88,7 @@ public class EventTDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnEventNo = cci("event_no", "event_no", null, null, Integer.class, "eventNo", null, true, true, true, "serial", 10, 0, "nextval('event_t_event_no_seq'::regclass)", false, null, null, null, "candidateTList", null, false);
+    protected final ColumnInfo _columnEventNo = cci("event_no", "event_no", null, null, Integer.class, "eventNo", null, true, true, true, "serial", 10, 0, "nextval('event_t_event_no_seq'::regclass)", false, null, null, null, "candidateTList,eventNotifyList", null, false);
     protected final ColumnInfo _columnEventName = cci("event_name", "event_name", null, null, String.class, "eventName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEventDetail = cci("event_detail", "event_detail", null, null, String.class, "eventDetail", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEventPlace = cci("event_place", "event_place", null, null, String.class, "eventPlace", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
@@ -225,6 +225,14 @@ public class EventTDbm extends AbstractDBMeta {
     public ReferrerInfo referrerCandidateTList() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnEventNo(), CandidateTDbm.getInstance().columnEventNo());
         return cri("candidate_t_event_no_fkey", "candidateTList", this, CandidateTDbm.getInstance(), mp, false, "eventT");
+    }
+    /**
+     * event_notify by event_no, named 'eventNotifyList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerEventNotifyList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnEventNo(), EventNotifyDbm.getInstance().columnEventNo());
+        return cri("event_notify_event_no_fkey", "eventNotifyList", this, EventNotifyDbm.getInstance(), mp, false, "eventT");
     }
 
     // ===================================================================================

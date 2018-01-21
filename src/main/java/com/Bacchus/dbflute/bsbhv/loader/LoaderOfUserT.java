@@ -30,13 +30,13 @@ import com.Bacchus.dbflute.cbean.*;
  *     auth_m, user_type_m
  *
  * [referrer table]
- *     entry_t, event_t
+ *     entry_t, event_notify, event_t
  *
  * [foreign property]
  *     authM, userTypeM
  *
  * [referrer property]
- *     entryTList, eventTList
+ *     entryTList, eventNotifyList, eventTList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -93,6 +93,40 @@ public class LoaderOfUserT {
     public NestedReferrerLoaderGateway<LoaderOfEntryT> loadEntryT(ReferrerConditionSetupper<EntryTCB> refCBLambda) {
         myBhv().loadEntryT(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerEntryT = refLs);
         return hd -> hd.handle(new LoaderOfEntryT().ready(_referrerEntryT, _selector));
+    }
+
+    protected List<EventNotify> _referrerEventNotify;
+
+    /**
+     * Load referrer of eventNotifyList by the set-upper of referrer. <br>
+     * event_notify by user_id, named 'eventNotifyList'.
+     * <pre>
+     * <span style="color: #0000C0">userTBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">userTList</span>, <span style="color: #553000">tLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">tLoader</span>.<span style="color: #CC4747">loadEventNotify</span>(<span style="color: #553000">notifyCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">notifyCB</span>.setupSelect...
+     *         <span style="color: #553000">notifyCB</span>.query().set...
+     *         <span style="color: #553000">notifyCB</span>.query().addOrderBy...
+     *     }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">notifyLoader</span> -&gt; {</span>
+     *     <span style="color: #3F7E5E">//    notifyLoader.load...</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     * });
+     * for (UserT userT : <span style="color: #553000">userTList</span>) {
+     *     ... = userT.<span style="color: #CC4747">getEventNotifyList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setUserId_InScope(pkList);
+     * cb.query().addOrderBy_UserId_Asc();
+     * </pre>
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoaderGateway<LoaderOfEventNotify> loadEventNotify(ReferrerConditionSetupper<EventNotifyCB> refCBLambda) {
+        myBhv().loadEventNotify(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerEventNotify = refLs);
+        return hd -> hd.handle(new LoaderOfEventNotify().ready(_referrerEventNotify, _selector));
     }
 
     protected List<EventT> _referrerEventT;

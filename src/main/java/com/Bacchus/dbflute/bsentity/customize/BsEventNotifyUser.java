@@ -1,28 +1,24 @@
-package com.Bacchus.dbflute.bsentity;
+package com.Bacchus.dbflute.bsentity.customize;
 
 import java.util.List;
 import java.util.ArrayList;
 
-import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
-import org.dbflute.dbmeta.accessory.DomainEntity;
-import org.dbflute.optional.OptionalEntity;
-import com.Bacchus.dbflute.allcommon.DBMetaInstanceHandler;
-import com.Bacchus.dbflute.exentity.*;
+import org.dbflute.dbmeta.accessory.CustomizeEntity;
+import com.Bacchus.dbflute.exentity.customize.*;
 
 /**
- * The entity of user_t as TABLE. <br>
- * ユーザー_T
+ * The entity of EventNotifyUser. <br>
  * <pre>
  * [primary-key]
- *     user_id
+ *     
  *
  * [column]
- *     user_id, login_id, line_flg, line_id, line_user_name, user_name, last_name, first_name, email, password, user_type_id, auth_level
+ *     user_id, login_id, line_flg, line_id, line_user_name, user_name, last_name, first_name, email, password, user_type_id, auth_level, user_type_name, subsidy_amount, event_notify_no, event_no, notify_datetime
  *
  * [sequence]
- *     user_t_user_id_seq
+ *     
  *
  * [identity]
  *     
@@ -31,16 +27,16 @@ import com.Bacchus.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     auth_m, user_type_m
+ *     
  *
  * [referrer table]
- *     entry_t, event_notify, event_t
+ *     
  *
  * [foreign property]
- *     authM, userTypeM
+ *     
  *
  * [referrer property]
- *     entryTList, eventNotifyList, eventTList
+ *     
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -56,6 +52,11 @@ import com.Bacchus.dbflute.exentity.*;
  * String password = entity.getPassword();
  * Integer userTypeId = entity.getUserTypeId();
  * Integer authLevel = entity.getAuthLevel();
+ * String userTypeName = entity.getUserTypeName();
+ * Integer subsidyAmount = entity.getSubsidyAmount();
+ * Integer eventNotifyNo = entity.getEventNotifyNo();
+ * Integer eventNo = entity.getEventNo();
+ * java.time.LocalDateTime notifyDatetime = entity.getNotifyDatetime();
  * entity.setUserId(userId);
  * entity.setLoginId(loginId);
  * entity.setLineFlg(lineFlg);
@@ -68,11 +69,16 @@ import com.Bacchus.dbflute.exentity.*;
  * entity.setPassword(password);
  * entity.setUserTypeId(userTypeId);
  * entity.setAuthLevel(authLevel);
+ * entity.setUserTypeName(userTypeName);
+ * entity.setSubsidyAmount(subsidyAmount);
+ * entity.setEventNotifyNo(eventNotifyNo);
+ * entity.setEventNo(eventNo);
+ * entity.setNotifyDatetime(notifyDatetime);
  * = = = = = = = = = =/
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsUserT extends AbstractEntity implements DomainEntity {
+public abstract class BsEventNotifyUser extends AbstractEntity implements CustomizeEntity {
 
     // ===================================================================================
     //                                                                          Definition
@@ -83,53 +89,68 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** user_id: {PK, ID, NotNull, serial(10)} */
+    /** user_id: {serial(10), refers to user_t.user_id} */
     protected Integer _userId;
 
-    /** login_id: {UQ, text(2147483647)} */
+    /** login_id: {text(2147483647), refers to user_t.login_id} */
     protected String _loginId;
 
-    /** line_flg: {NotNull, int4(10), default=[0]} */
+    /** line_flg: {int4(10), refers to user_t.line_flg} */
     protected Integer _lineFlg;
 
-    /** line_id: {text(2147483647)} */
+    /** line_id: {text(2147483647), refers to user_t.line_id} */
     protected String _lineId;
 
-    /** line_user_name: {text(2147483647)} */
+    /** line_user_name: {text(2147483647), refers to user_t.line_user_name} */
     protected String _lineUserName;
 
-    /** user_name: {text(2147483647)} */
+    /** user_name: {text(2147483647), refers to user_t.user_name} */
     protected String _userName;
 
-    /** last_name: {text(2147483647)} */
+    /** last_name: {text(2147483647), refers to user_t.last_name} */
     protected String _lastName;
 
-    /** first_name: {text(2147483647)} */
+    /** first_name: {text(2147483647), refers to user_t.first_name} */
     protected String _firstName;
 
-    /** email: {text(2147483647)} */
+    /** email: {text(2147483647), refers to user_t.email} */
     protected String _email;
 
-    /** password: {text(2147483647)} */
+    /** password: {text(2147483647), refers to user_t.password} */
     protected String _password;
 
-    /** user_type_id: {NotNull, int4(10), FK to user_type_m} */
+    /** user_type_id: {int4(10), refers to user_t.user_type_id} */
     protected Integer _userTypeId;
 
-    /** auth_level: {NotNull, int4(10), FK to auth_m} */
+    /** auth_level: {int4(10), refers to user_t.auth_level} */
     protected Integer _authLevel;
+
+    /** user_type_name: {text(2147483647), refers to user_type_m.user_type_name} */
+    protected String _userTypeName;
+
+    /** subsidy_amount: {int4(10), refers to user_type_m.subsidy_amount} */
+    protected Integer _subsidyAmount;
+
+    /** event_notify_no: {serial(10), refers to event_notify.event_notify_no} */
+    protected Integer _eventNotifyNo;
+
+    /** event_no: {int4(10), refers to event_notify.event_no} */
+    protected Integer _eventNo;
+
+    /** notify_datetime: {timestamp(29, 6), refers to event_notify.notify_datetime} */
+    protected java.time.LocalDateTime _notifyDatetime;
 
     // ===================================================================================
     //                                                                             DB Meta
     //                                                                             =======
     /** {@inheritDoc} */
     public DBMeta asDBMeta() {
-        return DBMetaInstanceHandler.findDBMeta(asTableDbName());
+        return com.Bacchus.dbflute.bsentity.customize.dbmeta.EventNotifyUserDbm.getInstance();
     }
 
     /** {@inheritDoc} */
     public String asTableDbName() {
-        return "user_t";
+        return "EventNotifyUser";
     }
 
     // ===================================================================================
@@ -137,129 +158,15 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
-        if (_userId == null) { return false; }
-        return true;
-    }
-
-    /**
-     * To be unique by the unique column. <br>
-     * You can update the entity by the key when entity update (NOT batch update).
-     * @param loginId : UQ, text(2147483647). (NotNull)
-     */
-    public void uniqueBy(String loginId) {
-        __uniqueDrivenProperties.clear();
-        __uniqueDrivenProperties.addPropertyName("loginId");
-        setLoginId(loginId);
+        return false;
     }
 
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
-    /** auth_m by my auth_level, named 'authM'. */
-    protected OptionalEntity<AuthM> _authM;
-
-    /**
-     * [get] auth_m by my auth_level, named 'authM'. <br>
-     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
-     * @return The entity of foreign property 'authM'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
-     */
-    public OptionalEntity<AuthM> getAuthM() {
-        if (_authM == null) { _authM = OptionalEntity.relationEmpty(this, "authM"); }
-        return _authM;
-    }
-
-    /**
-     * [set] auth_m by my auth_level, named 'authM'.
-     * @param authM The entity of foreign property 'authM'. (NullAllowed)
-     */
-    public void setAuthM(OptionalEntity<AuthM> authM) {
-        _authM = authM;
-    }
-
-    /** user_type_m by my user_type_id, named 'userTypeM'. */
-    protected OptionalEntity<UserTypeM> _userTypeM;
-
-    /**
-     * [get] user_type_m by my user_type_id, named 'userTypeM'. <br>
-     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
-     * @return The entity of foreign property 'userTypeM'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
-     */
-    public OptionalEntity<UserTypeM> getUserTypeM() {
-        if (_userTypeM == null) { _userTypeM = OptionalEntity.relationEmpty(this, "userTypeM"); }
-        return _userTypeM;
-    }
-
-    /**
-     * [set] user_type_m by my user_type_id, named 'userTypeM'.
-     * @param userTypeM The entity of foreign property 'userTypeM'. (NullAllowed)
-     */
-    public void setUserTypeM(OptionalEntity<UserTypeM> userTypeM) {
-        _userTypeM = userTypeM;
-    }
-
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
-    /** entry_t by user_id, named 'entryTList'. */
-    protected List<EntryT> _entryTList;
-
-    /**
-     * [get] entry_t by user_id, named 'entryTList'.
-     * @return The entity list of referrer property 'entryTList'. (NotNull: even if no loading, returns empty list)
-     */
-    public List<EntryT> getEntryTList() {
-        if (_entryTList == null) { _entryTList = newReferrerList(); }
-        return _entryTList;
-    }
-
-    /**
-     * [set] entry_t by user_id, named 'entryTList'.
-     * @param entryTList The entity list of referrer property 'entryTList'. (NullAllowed)
-     */
-    public void setEntryTList(List<EntryT> entryTList) {
-        _entryTList = entryTList;
-    }
-
-    /** event_notify by user_id, named 'eventNotifyList'. */
-    protected List<EventNotify> _eventNotifyList;
-
-    /**
-     * [get] event_notify by user_id, named 'eventNotifyList'.
-     * @return The entity list of referrer property 'eventNotifyList'. (NotNull: even if no loading, returns empty list)
-     */
-    public List<EventNotify> getEventNotifyList() {
-        if (_eventNotifyList == null) { _eventNotifyList = newReferrerList(); }
-        return _eventNotifyList;
-    }
-
-    /**
-     * [set] event_notify by user_id, named 'eventNotifyList'.
-     * @param eventNotifyList The entity list of referrer property 'eventNotifyList'. (NullAllowed)
-     */
-    public void setEventNotifyList(List<EventNotify> eventNotifyList) {
-        _eventNotifyList = eventNotifyList;
-    }
-
-    /** event_t by user_id, named 'eventTList'. */
-    protected List<EventT> _eventTList;
-
-    /**
-     * [get] event_t by user_id, named 'eventTList'.
-     * @return The entity list of referrer property 'eventTList'. (NotNull: even if no loading, returns empty list)
-     */
-    public List<EventT> getEventTList() {
-        if (_eventTList == null) { _eventTList = newReferrerList(); }
-        return _eventTList;
-    }
-
-    /**
-     * [set] event_t by user_id, named 'eventTList'.
-     * @param eventTList The entity list of referrer property 'eventTList'. (NullAllowed)
-     */
-    public void setEventTList(List<EventT> eventTList) {
-        _eventTList = eventTList;
-    }
-
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -269,9 +176,25 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     //                                                                      ==============
     @Override
     protected boolean doEquals(Object obj) {
-        if (obj instanceof BsUserT) {
-            BsUserT other = (BsUserT)obj;
+        if (obj instanceof BsEventNotifyUser) {
+            BsEventNotifyUser other = (BsEventNotifyUser)obj;
             if (!xSV(_userId, other._userId)) { return false; }
+            if (!xSV(_loginId, other._loginId)) { return false; }
+            if (!xSV(_lineFlg, other._lineFlg)) { return false; }
+            if (!xSV(_lineId, other._lineId)) { return false; }
+            if (!xSV(_lineUserName, other._lineUserName)) { return false; }
+            if (!xSV(_userName, other._userName)) { return false; }
+            if (!xSV(_lastName, other._lastName)) { return false; }
+            if (!xSV(_firstName, other._firstName)) { return false; }
+            if (!xSV(_email, other._email)) { return false; }
+            if (!xSV(_password, other._password)) { return false; }
+            if (!xSV(_userTypeId, other._userTypeId)) { return false; }
+            if (!xSV(_authLevel, other._authLevel)) { return false; }
+            if (!xSV(_userTypeName, other._userTypeName)) { return false; }
+            if (!xSV(_subsidyAmount, other._subsidyAmount)) { return false; }
+            if (!xSV(_eventNotifyNo, other._eventNotifyNo)) { return false; }
+            if (!xSV(_eventNo, other._eventNo)) { return false; }
+            if (!xSV(_notifyDatetime, other._notifyDatetime)) { return false; }
             return true;
         } else {
             return false;
@@ -283,26 +206,28 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
         int hs = initial;
         hs = xCH(hs, asTableDbName());
         hs = xCH(hs, _userId);
+        hs = xCH(hs, _loginId);
+        hs = xCH(hs, _lineFlg);
+        hs = xCH(hs, _lineId);
+        hs = xCH(hs, _lineUserName);
+        hs = xCH(hs, _userName);
+        hs = xCH(hs, _lastName);
+        hs = xCH(hs, _firstName);
+        hs = xCH(hs, _email);
+        hs = xCH(hs, _password);
+        hs = xCH(hs, _userTypeId);
+        hs = xCH(hs, _authLevel);
+        hs = xCH(hs, _userTypeName);
+        hs = xCH(hs, _subsidyAmount);
+        hs = xCH(hs, _eventNotifyNo);
+        hs = xCH(hs, _eventNo);
+        hs = xCH(hs, _notifyDatetime);
         return hs;
     }
 
     @Override
     protected String doBuildStringWithRelation(String li) {
-        StringBuilder sb = new StringBuilder();
-        if (_authM != null && _authM.isPresent())
-        { sb.append(li).append(xbRDS(_authM, "authM")); }
-        if (_userTypeM != null && _userTypeM.isPresent())
-        { sb.append(li).append(xbRDS(_userTypeM, "userTypeM")); }
-        if (_entryTList != null) { for (EntryT et : _entryTList)
-        { if (et != null) { sb.append(li).append(xbRDS(et, "entryTList")); } } }
-        if (_eventNotifyList != null) { for (EventNotify et : _eventNotifyList)
-        { if (et != null) { sb.append(li).append(xbRDS(et, "eventNotifyList")); } } }
-        if (_eventTList != null) { for (EventT et : _eventTList)
-        { if (et != null) { sb.append(li).append(xbRDS(et, "eventTList")); } } }
-        return sb.toString();
-    }
-    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
-        return et.get().buildDisplayString(name, true, true);
+        return "";
     }
 
     @Override
@@ -320,6 +245,11 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
         sb.append(dm).append(xfND(_password));
         sb.append(dm).append(xfND(_userTypeId));
         sb.append(dm).append(xfND(_authLevel));
+        sb.append(dm).append(xfND(_userTypeName));
+        sb.append(dm).append(xfND(_subsidyAmount));
+        sb.append(dm).append(xfND(_eventNotifyNo));
+        sb.append(dm).append(xfND(_eventNo));
+        sb.append(dm).append(xfND(_notifyDatetime));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
@@ -329,35 +259,21 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
 
     @Override
     protected String doBuildRelationString(String dm) {
-        StringBuilder sb = new StringBuilder();
-        if (_authM != null && _authM.isPresent())
-        { sb.append(dm).append("authM"); }
-        if (_userTypeM != null && _userTypeM.isPresent())
-        { sb.append(dm).append("userTypeM"); }
-        if (_entryTList != null && !_entryTList.isEmpty())
-        { sb.append(dm).append("entryTList"); }
-        if (_eventNotifyList != null && !_eventNotifyList.isEmpty())
-        { sb.append(dm).append("eventNotifyList"); }
-        if (_eventTList != null && !_eventTList.isEmpty())
-        { sb.append(dm).append("eventTList"); }
-        if (sb.length() > dm.length()) {
-            sb.delete(0, dm.length()).insert(0, "(").append(")");
-        }
-        return sb.toString();
+        return "";
     }
 
     @Override
-    public UserT clone() {
-        return (UserT)super.clone();
+    public EventNotifyUser clone() {
+        return (EventNotifyUser)super.clone();
     }
 
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] user_id: {PK, ID, NotNull, serial(10)} <br>
+     * [get] user_id: {serial(10), refers to user_t.user_id} <br>
      * user_id
-     * @return The value of the column 'user_id'. (basically NotNull if selected: for the constraint)
+     * @return The value of the column 'user_id'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getUserId() {
         checkSpecifiedProperty("userId");
@@ -365,9 +281,9 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] user_id: {PK, ID, NotNull, serial(10)} <br>
+     * [set] user_id: {serial(10), refers to user_t.user_id} <br>
      * user_id
-     * @param userId The value of the column 'user_id'. (basically NotNull if update: for the constraint)
+     * @param userId The value of the column 'user_id'. (NullAllowed: null update allowed for no constraint)
      */
     public void setUserId(Integer userId) {
         registerModifiedProperty("userId");
@@ -375,7 +291,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] login_id: {UQ, text(2147483647)} <br>
+     * [get] login_id: {text(2147483647), refers to user_t.login_id} <br>
      * ログインID
      * @return The value of the column 'login_id'. (NullAllowed even if selected: for no constraint)
      */
@@ -385,7 +301,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] login_id: {UQ, text(2147483647)} <br>
+     * [set] login_id: {text(2147483647), refers to user_t.login_id} <br>
      * ログインID
      * @param loginId The value of the column 'login_id'. (NullAllowed: null update allowed for no constraint)
      */
@@ -395,9 +311,9 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] line_flg: {NotNull, int4(10), default=[0]} <br>
+     * [get] line_flg: {int4(10), refers to user_t.line_flg} <br>
      * Lineフラグ
-     * @return The value of the column 'line_flg'. (basically NotNull if selected: for the constraint)
+     * @return The value of the column 'line_flg'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getLineFlg() {
         checkSpecifiedProperty("lineFlg");
@@ -405,9 +321,9 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] line_flg: {NotNull, int4(10), default=[0]} <br>
+     * [set] line_flg: {int4(10), refers to user_t.line_flg} <br>
      * Lineフラグ
-     * @param lineFlg The value of the column 'line_flg'. (basically NotNull if update: for the constraint)
+     * @param lineFlg The value of the column 'line_flg'. (NullAllowed: null update allowed for no constraint)
      */
     public void setLineFlg(Integer lineFlg) {
         registerModifiedProperty("lineFlg");
@@ -415,7 +331,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] line_id: {text(2147483647)} <br>
+     * [get] line_id: {text(2147483647), refers to user_t.line_id} <br>
      * LineID
      * @return The value of the column 'line_id'. (NullAllowed even if selected: for no constraint)
      */
@@ -425,7 +341,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] line_id: {text(2147483647)} <br>
+     * [set] line_id: {text(2147483647), refers to user_t.line_id} <br>
      * LineID
      * @param lineId The value of the column 'line_id'. (NullAllowed: null update allowed for no constraint)
      */
@@ -435,7 +351,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] line_user_name: {text(2147483647)} <br>
+     * [get] line_user_name: {text(2147483647), refers to user_t.line_user_name} <br>
      * LINEユーザ名
      * @return The value of the column 'line_user_name'. (NullAllowed even if selected: for no constraint)
      */
@@ -445,7 +361,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] line_user_name: {text(2147483647)} <br>
+     * [set] line_user_name: {text(2147483647), refers to user_t.line_user_name} <br>
      * LINEユーザ名
      * @param lineUserName The value of the column 'line_user_name'. (NullAllowed: null update allowed for no constraint)
      */
@@ -455,7 +371,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] user_name: {text(2147483647)} <br>
+     * [get] user_name: {text(2147483647), refers to user_t.user_name} <br>
      * ユーザー名
      * @return The value of the column 'user_name'. (NullAllowed even if selected: for no constraint)
      */
@@ -465,7 +381,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] user_name: {text(2147483647)} <br>
+     * [set] user_name: {text(2147483647), refers to user_t.user_name} <br>
      * ユーザー名
      * @param userName The value of the column 'user_name'. (NullAllowed: null update allowed for no constraint)
      */
@@ -475,7 +391,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] last_name: {text(2147483647)} <br>
+     * [get] last_name: {text(2147483647), refers to user_t.last_name} <br>
      * 苗字(氏)
      * @return The value of the column 'last_name'. (NullAllowed even if selected: for no constraint)
      */
@@ -485,7 +401,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] last_name: {text(2147483647)} <br>
+     * [set] last_name: {text(2147483647), refers to user_t.last_name} <br>
      * 苗字(氏)
      * @param lastName The value of the column 'last_name'. (NullAllowed: null update allowed for no constraint)
      */
@@ -495,7 +411,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] first_name: {text(2147483647)} <br>
+     * [get] first_name: {text(2147483647), refers to user_t.first_name} <br>
      * 名前(名)
      * @return The value of the column 'first_name'. (NullAllowed even if selected: for no constraint)
      */
@@ -505,7 +421,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] first_name: {text(2147483647)} <br>
+     * [set] first_name: {text(2147483647), refers to user_t.first_name} <br>
      * 名前(名)
      * @param firstName The value of the column 'first_name'. (NullAllowed: null update allowed for no constraint)
      */
@@ -515,7 +431,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] email: {text(2147483647)} <br>
+     * [get] email: {text(2147483647), refers to user_t.email} <br>
      * Eメール
      * @return The value of the column 'email'. (NullAllowed even if selected: for no constraint)
      */
@@ -525,7 +441,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] email: {text(2147483647)} <br>
+     * [set] email: {text(2147483647), refers to user_t.email} <br>
      * Eメール
      * @param email The value of the column 'email'. (NullAllowed: null update allowed for no constraint)
      */
@@ -535,7 +451,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] password: {text(2147483647)} <br>
+     * [get] password: {text(2147483647), refers to user_t.password} <br>
      * 暗号化PWD
      * @return The value of the column 'password'. (NullAllowed even if selected: for no constraint)
      */
@@ -545,7 +461,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] password: {text(2147483647)} <br>
+     * [set] password: {text(2147483647), refers to user_t.password} <br>
      * 暗号化PWD
      * @param password The value of the column 'password'. (NullAllowed: null update allowed for no constraint)
      */
@@ -555,9 +471,9 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] user_type_id: {NotNull, int4(10), FK to user_type_m} <br>
+     * [get] user_type_id: {int4(10), refers to user_t.user_type_id} <br>
      * ユーザー区分ID
-     * @return The value of the column 'user_type_id'. (basically NotNull if selected: for the constraint)
+     * @return The value of the column 'user_type_id'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getUserTypeId() {
         checkSpecifiedProperty("userTypeId");
@@ -565,9 +481,9 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] user_type_id: {NotNull, int4(10), FK to user_type_m} <br>
+     * [set] user_type_id: {int4(10), refers to user_t.user_type_id} <br>
      * ユーザー区分ID
-     * @param userTypeId The value of the column 'user_type_id'. (basically NotNull if update: for the constraint)
+     * @param userTypeId The value of the column 'user_type_id'. (NullAllowed: null update allowed for no constraint)
      */
     public void setUserTypeId(Integer userTypeId) {
         registerModifiedProperty("userTypeId");
@@ -575,9 +491,9 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] auth_level: {NotNull, int4(10), FK to auth_m} <br>
+     * [get] auth_level: {int4(10), refers to user_t.auth_level} <br>
      * 権限レベル
-     * @return The value of the column 'auth_level'. (basically NotNull if selected: for the constraint)
+     * @return The value of the column 'auth_level'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getAuthLevel() {
         checkSpecifiedProperty("authLevel");
@@ -585,12 +501,112 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [set] auth_level: {NotNull, int4(10), FK to auth_m} <br>
+     * [set] auth_level: {int4(10), refers to user_t.auth_level} <br>
      * 権限レベル
-     * @param authLevel The value of the column 'auth_level'. (basically NotNull if update: for the constraint)
+     * @param authLevel The value of the column 'auth_level'. (NullAllowed: null update allowed for no constraint)
      */
     public void setAuthLevel(Integer authLevel) {
         registerModifiedProperty("authLevel");
         _authLevel = authLevel;
+    }
+
+    /**
+     * [get] user_type_name: {text(2147483647), refers to user_type_m.user_type_name} <br>
+     * ユーザー区分名称
+     * @return The value of the column 'user_type_name'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getUserTypeName() {
+        checkSpecifiedProperty("userTypeName");
+        return _userTypeName;
+    }
+
+    /**
+     * [set] user_type_name: {text(2147483647), refers to user_type_m.user_type_name} <br>
+     * ユーザー区分名称
+     * @param userTypeName The value of the column 'user_type_name'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setUserTypeName(String userTypeName) {
+        registerModifiedProperty("userTypeName");
+        _userTypeName = userTypeName;
+    }
+
+    /**
+     * [get] subsidy_amount: {int4(10), refers to user_type_m.subsidy_amount} <br>
+     * 補助金額
+     * @return The value of the column 'subsidy_amount'. (NullAllowed even if selected: for no constraint)
+     */
+    public Integer getSubsidyAmount() {
+        checkSpecifiedProperty("subsidyAmount");
+        return _subsidyAmount;
+    }
+
+    /**
+     * [set] subsidy_amount: {int4(10), refers to user_type_m.subsidy_amount} <br>
+     * 補助金額
+     * @param subsidyAmount The value of the column 'subsidy_amount'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setSubsidyAmount(Integer subsidyAmount) {
+        registerModifiedProperty("subsidyAmount");
+        _subsidyAmount = subsidyAmount;
+    }
+
+    /**
+     * [get] event_notify_no: {serial(10), refers to event_notify.event_notify_no} <br>
+     * イベント通知番号
+     * @return The value of the column 'event_notify_no'. (NullAllowed even if selected: for no constraint)
+     */
+    public Integer getEventNotifyNo() {
+        checkSpecifiedProperty("eventNotifyNo");
+        return _eventNotifyNo;
+    }
+
+    /**
+     * [set] event_notify_no: {serial(10), refers to event_notify.event_notify_no} <br>
+     * イベント通知番号
+     * @param eventNotifyNo The value of the column 'event_notify_no'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setEventNotifyNo(Integer eventNotifyNo) {
+        registerModifiedProperty("eventNotifyNo");
+        _eventNotifyNo = eventNotifyNo;
+    }
+
+    /**
+     * [get] event_no: {int4(10), refers to event_notify.event_no} <br>
+     * イベント管理番号
+     * @return The value of the column 'event_no'. (NullAllowed even if selected: for no constraint)
+     */
+    public Integer getEventNo() {
+        checkSpecifiedProperty("eventNo");
+        return _eventNo;
+    }
+
+    /**
+     * [set] event_no: {int4(10), refers to event_notify.event_no} <br>
+     * イベント管理番号
+     * @param eventNo The value of the column 'event_no'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setEventNo(Integer eventNo) {
+        registerModifiedProperty("eventNo");
+        _eventNo = eventNo;
+    }
+
+    /**
+     * [get] notify_datetime: {timestamp(29, 6), refers to event_notify.notify_datetime} <br>
+     * 通知日時
+     * @return The value of the column 'notify_datetime'. (NullAllowed even if selected: for no constraint)
+     */
+    public java.time.LocalDateTime getNotifyDatetime() {
+        checkSpecifiedProperty("notifyDatetime");
+        return _notifyDatetime;
+    }
+
+    /**
+     * [set] notify_datetime: {timestamp(29, 6), refers to event_notify.notify_datetime} <br>
+     * 通知日時
+     * @param notifyDatetime The value of the column 'notify_datetime'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setNotifyDatetime(java.time.LocalDateTime notifyDatetime) {
+        registerModifiedProperty("notifyDatetime");
+        _notifyDatetime = notifyDatetime;
     }
 }

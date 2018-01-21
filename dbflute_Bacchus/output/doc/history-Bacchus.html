@@ -118,11 +118,55 @@ p.tablecount {
 </div>
 
 <div class="section">
+	<h2><span class="dt">Diff Date: </span>2018/01/21 17:15:54</h2>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4><a href="./schema-Bacchus.html#event_notify">event_notify</a></h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>notify_datetime</dt>
+				<dd><span>Type</span>time&nbsp;-&gt;&nbsp;timestamp</dd>
+				<dd><span>Size</span>15,&nbsp;6&nbsp;-&gt;&nbsp;29,&nbsp;6</dd>
+				<dd><span>Not Null</span>true&nbsp;-&gt;&nbsp;false</dd>
+			</dl>
+		</div>
+	</div>
+</div>
+<div class="section">
+	<h2><span class="dt">Diff Date: </span>2018/01/21 15:24:20</h2>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>event_notify</h4>
+		<div class="change-table-content">
+			<h5>Add UQ</h5>
+			<ul class="column-content">
+				<li>event_notify_event_no_user_id_key</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section">
+	<h2><span class="dt">Diff Date: </span>2018/01/21 15:15:46</h2>
+	<p class="tablecount"><span class="dt">table count: </span>9&nbsp;-&gt;&nbsp;10</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>event_notify</li>
+	</ul>
+	<h3>Add Sequence</h3>
+	<ul class="table-content">
+		<li>postgres.bacchus.event_notify_event_notify_no_seq</li>
+	</ul>
+</div>
+<div class="section">
 	<h2><span class="dt">Diff Date: </span>2018/01/08 15:48:21</h2>
 
 	<h3>Change Table</h3>
 	<div class="table-content">
-		<h4><a href="./schema-Bacchus.html#event_t">event_t</a></h4>
+		<h4>event_t</h4>
 		<div class="change-table-content">
 			<h5>Delete Column</h5>
 			<ul class="column-content">

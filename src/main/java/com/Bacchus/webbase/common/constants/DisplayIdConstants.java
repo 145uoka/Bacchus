@@ -35,6 +35,8 @@ public class DisplayIdConstants {
         public static final String BACCHUS_0203 = "BACCHUS_0203";
         /** 詳細 */
         public static final String BACCHUS_0204 = "BACCHUS_0204";
+        /** 通知 */
+        public static final String BACCHUS_0205 = "BACCHUS_0205";
     }
 
     /**

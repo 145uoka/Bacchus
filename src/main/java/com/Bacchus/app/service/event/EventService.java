@@ -1,9 +1,11 @@
 package com.Bacchus.app.service.event;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.dbflute.optional.OptionalEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,10 @@ import com.Bacchus.app.components.EventIndexDto;
 import com.Bacchus.app.components.UserDto;
 import com.Bacchus.app.service.CommonService;
 import com.Bacchus.app.util.DateUtil;
+import com.Bacchus.dbflute.exbhv.EventNotifyBhv;
 import com.Bacchus.dbflute.exbhv.EventTBhv;
 import com.Bacchus.dbflute.exbhv.pmbean.EventIndexPmb;
+import com.Bacchus.dbflute.exentity.EventNotify;
 import com.Bacchus.dbflute.exentity.EventT;
 import com.Bacchus.dbflute.exentity.customize.EventIndex;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.Flag;
@@ -43,6 +47,9 @@ public class EventService {
      */
     @Autowired
     CommonService commonService;
+
+    @Autowired
+    EventNotifyBhv eventNotifyBhv;
 
     /**
      * イベント管理番号（PK）をもとにイベントDtoを取得。
@@ -115,5 +122,45 @@ public class EventService {
         }
 
         return resultDtoList;
+    }
+
+    public void notifyEvent(List<Integer> userIds, Integer eventNo) {
+
+        List<EventNotify> existsEventNotifyList = eventNotifyBhv.selectList(cb ->{
+            cb.query().setEventNo_Equal(eventNo);
+            cb.query().setUserId_InScope(userIds);
+        });
+
+        List<EventNotify> insertEventNotifyList = new ArrayList<EventNotify>();
+        List<EventNotify> updateEventNotifyList = new ArrayList<EventNotify>();
+
+        for (Integer userId : userIds) {
+
+            boolean isExists = false;
+
+            for (EventNotify existsEventNotify : existsEventNotifyList) {
+                if (existsEventNotify.getUserId().intValue() == userId.intValue()) {
+                    existsEventNotify.setNotifyDatetime(LocalDateTime.now());
+                    updateEventNotifyList.add(existsEventNotify);
+                    isExists = true;
+                    break;
+                }
+            }
+
+            if (!isExists) {
+                EventNotify eventNotify = new EventNotify();
+                eventNotify.setEventNo(eventNo);
+                eventNotify.setUserId(userId);
+                eventNotify.setNotifyDatetime(LocalDateTime.now());
+                insertEventNotifyList.add(eventNotify);
+            }
+        }
+
+        if (CollectionUtils.isNotEmpty(insertEventNotifyList)) {
+            eventNotifyBhv.batchInsert(insertEventNotifyList);
+        }
+        if (CollectionUtils.isNotEmpty(updateEventNotifyList)) {
+            eventNotifyBhv.batchUpdate(updateEventNotifyList);
+        }
     }
 }

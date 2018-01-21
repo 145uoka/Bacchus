@@ -34,13 +34,13 @@ import com.Bacchus.dbflute.exentity.*;
  *     user_t
  *
  * [referrer table]
- *     candidate_t
+ *     candidate_t, event_notify
  *
  * [foreign property]
  *     userT
  *
  * [referrer property]
- *     candidateTList
+ *     candidateTList, eventNotifyList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -193,6 +193,26 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
         _candidateTList = candidateTList;
     }
 
+    /** event_notify by event_no, named 'eventNotifyList'. */
+    protected List<EventNotify> _eventNotifyList;
+
+    /**
+     * [get] event_notify by event_no, named 'eventNotifyList'.
+     * @return The entity list of referrer property 'eventNotifyList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<EventNotify> getEventNotifyList() {
+        if (_eventNotifyList == null) { _eventNotifyList = newReferrerList(); }
+        return _eventNotifyList;
+    }
+
+    /**
+     * [set] event_notify by event_no, named 'eventNotifyList'.
+     * @param eventNotifyList The entity list of referrer property 'eventNotifyList'. (NullAllowed)
+     */
+    public void setEventNotifyList(List<EventNotify> eventNotifyList) {
+        _eventNotifyList = eventNotifyList;
+    }
+
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -226,6 +246,8 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
         { sb.append(li).append(xbRDS(_userT, "userT")); }
         if (_candidateTList != null) { for (CandidateT et : _candidateTList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "candidateTList")); } } }
+        if (_eventNotifyList != null) { for (EventNotify et : _eventNotifyList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "eventNotifyList")); } } }
         return sb.toString();
     }
     protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
@@ -262,6 +284,8 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
         { sb.append(dm).append("userT"); }
         if (_candidateTList != null && !_candidateTList.isEmpty())
         { sb.append(dm).append("candidateTList"); }
+        if (_eventNotifyList != null && !_eventNotifyList.isEmpty())
+        { sb.append(dm).append("eventNotifyList"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }

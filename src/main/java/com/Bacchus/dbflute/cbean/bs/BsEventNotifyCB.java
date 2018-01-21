@@ -18,22 +18,23 @@ import com.Bacchus.dbflute.allcommon.ImplementedInvokerAssistant;
 import com.Bacchus.dbflute.allcommon.ImplementedSqlClauseCreator;
 import com.Bacchus.dbflute.cbean.*;
 import com.Bacchus.dbflute.cbean.cq.*;
+import com.Bacchus.dbflute.cbean.nss.*;
 
 /**
- * The base condition-bean of user_t.
+ * The base condition-bean of event_notify.
  * @author DBFlute(AutoGenerator)
  */
-public class BsUserTCB extends AbstractConditionBean {
+public class BsEventNotifyCB extends AbstractConditionBean {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected UserTCQ _conditionQuery;
+    protected EventNotifyCQ _conditionQuery;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public BsUserTCB() {
+    public BsEventNotifyCB() {
         if (DBFluteConfig.getInstance().isPagingCountLater()) {
             enablePagingCountLater();
         }
@@ -72,7 +73,7 @@ public class BsUserTCB extends AbstractConditionBean {
     }
 
     public String asTableDbName() {
-        return "user_t";
+        return "event_notify";
     }
 
     // ===================================================================================
@@ -80,35 +81,36 @@ public class BsUserTCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param userId : PK, ID, NotNull, serial(10). (NotNull)
+     * @param eventNotifyNo : PK, ID, NotNull, serial(10). (NotNull)
      * @return this. (NotNull)
      */
-    public UserTCB acceptPK(Integer userId) {
-        assertObjectNotNull("userId", userId);
-        BsUserTCB cb = this;
-        cb.query().setUserId_Equal(userId);
-        return (UserTCB)this;
+    public EventNotifyCB acceptPK(Integer eventNotifyNo) {
+        assertObjectNotNull("eventNotifyNo", eventNotifyNo);
+        BsEventNotifyCB cb = this;
+        cb.query().setEventNotifyNo_Equal(eventNotifyNo);
+        return (EventNotifyCB)this;
     }
 
     /**
      * Accept the query condition of unique key as equal.
-     * @param loginId : UQ, text(2147483647). (NotNull)
+     * @param eventNo : UQ+, NotNull, int4(10), FK to event_t. (NotNull)
+     * @param userId : +UQ, NotNull, int4(10), FK to user_t. (NotNull)
      * @return this. (NotNull)
      */
-    public UserTCB acceptUniqueOf(String loginId) {
-        assertObjectNotNull("loginId", loginId);
-        BsUserTCB cb = this;
-        cb.query().setLoginId_Equal(loginId);
-        return (UserTCB)this;
+    public EventNotifyCB acceptUniqueOf(Integer eventNo, Integer userId) {
+        assertObjectNotNull("eventNo", eventNo);assertObjectNotNull("userId", userId);
+        BsEventNotifyCB cb = this;
+        cb.query().setEventNo_Equal(eventNo);cb.query().setUserId_Equal(userId);
+        return (EventNotifyCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
-        query().addOrderBy_UserId_Asc();
+        query().addOrderBy_EventNotifyNo_Asc();
         return this;
     }
 
     public ConditionBean addOrderBy_PK_Desc() {
-        query().addOrderBy_UserId_Desc();
+        query().addOrderBy_EventNotifyNo_Desc();
         return this;
     }
 
@@ -172,34 +174,34 @@ public class BsUserTCB extends AbstractConditionBean {
      * </pre>
      * @return The instance of condition-query for base-point table to set up query. (NotNull)
      */
-    public UserTCQ query() {
+    public EventNotifyCQ query() {
         assertQueryPurpose(); // assert only when user-public query 
         return doGetConditionQuery();
     }
 
-    public UserTCQ xdfgetConditionQuery() { // public for parameter comment and internal
+    public EventNotifyCQ xdfgetConditionQuery() { // public for parameter comment and internal
         return doGetConditionQuery();
     }
 
-    protected UserTCQ doGetConditionQuery() {
+    protected EventNotifyCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
         return _conditionQuery;
     }
 
-    protected UserTCQ createLocalCQ() {
+    protected EventNotifyCQ createLocalCQ() {
         return xcreateCQ(null, getSqlClause(), getSqlClause().getBasePointAliasName(), 0);
     }
 
-    protected UserTCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        UserTCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected EventNotifyCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        EventNotifyCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
         cq.xsetBaseCB(this);
         return cq;
     }
 
-    protected UserTCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        return new UserTCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected EventNotifyCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        return new EventNotifyCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
     /**
@@ -223,10 +225,10 @@ public class BsUserTCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union'. (NotNull)
      */
-    public void union(UnionQuery<UserTCB> unionCBLambda) {
-        final UserTCB cb = new UserTCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+    public void union(UnionQuery<EventNotifyCB> unionCBLambda) {
+        final EventNotifyCB cb = new EventNotifyCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final UserTCQ cq = cb.query(); query().xsetUnionQuery(cq);
+        final EventNotifyCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
     /**
@@ -240,53 +242,71 @@ public class BsUserTCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union all'. (NotNull)
      */
-    public void unionAll(UnionQuery<UserTCB> unionCBLambda) {
-        final UserTCB cb = new UserTCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+    public void unionAll(UnionQuery<EventNotifyCB> unionCBLambda) {
+        final EventNotifyCB cb = new EventNotifyCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final UserTCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
+        final EventNotifyCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    protected EventTNss _nssEventT;
+    public EventTNss xdfgetNssEventT() {
+        if (_nssEventT == null) { _nssEventT = new EventTNss(null); }
+        return _nssEventT;
+    }
     /**
      * Set up relation columns to select clause. <br>
-     * auth_m by my auth_level, named 'authM'.
+     * event_t by my event_no, named 'eventT'.
      * <pre>
-     * <span style="color: #0000C0">userTBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_AuthM()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * <span style="color: #0000C0">eventNotifyBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_EventT()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      *     <span style="color: #553000">cb</span>.query().set...
-     * }).alwaysPresent(<span style="color: #553000">userT</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     ... = <span style="color: #553000">userT</span>.<span style="color: #CC4747">getAuthM()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * }).alwaysPresent(<span style="color: #553000">eventNotify</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">eventNotify</span>.<span style="color: #CC4747">getEventT()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * });
      * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public void setupSelect_AuthM() {
-        assertSetupSelectPurpose("authM");
+    public EventTNss setupSelect_EventT() {
+        assertSetupSelectPurpose("eventT");
         if (hasSpecifiedLocalColumn()) {
-            specify().columnAuthLevel();
+            specify().columnEventNo();
         }
-        doSetupSelect(() -> query().queryAuthM());
+        doSetupSelect(() -> query().queryEventT());
+        if (_nssEventT == null || !_nssEventT.hasConditionQuery())
+        { _nssEventT = new EventTNss(query().queryEventT()); }
+        return _nssEventT;
     }
 
+    protected UserTNss _nssUserT;
+    public UserTNss xdfgetNssUserT() {
+        if (_nssUserT == null) { _nssUserT = new UserTNss(null); }
+        return _nssUserT;
+    }
     /**
      * Set up relation columns to select clause. <br>
-     * user_type_m by my user_type_id, named 'userTypeM'.
+     * user_t by my user_id, named 'userT'.
      * <pre>
-     * <span style="color: #0000C0">userTBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_UserTypeM()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * <span style="color: #0000C0">eventNotifyBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_UserT()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      *     <span style="color: #553000">cb</span>.query().set...
-     * }).alwaysPresent(<span style="color: #553000">userT</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     ... = <span style="color: #553000">userT</span>.<span style="color: #CC4747">getUserTypeM()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * }).alwaysPresent(<span style="color: #553000">eventNotify</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">eventNotify</span>.<span style="color: #CC4747">getUserT()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * });
      * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public void setupSelect_UserTypeM() {
-        assertSetupSelectPurpose("userTypeM");
+    public UserTNss setupSelect_UserT() {
+        assertSetupSelectPurpose("userT");
         if (hasSpecifiedLocalColumn()) {
-            specify().columnUserTypeId();
+            specify().columnUserId();
         }
-        doSetupSelect(() -> query().queryUserTypeM());
+        doSetupSelect(() -> query().queryUserT());
+        if (_nssUserT == null || !_nssUserT.hasConditionQuery())
+        { _nssUserT = new UserTNss(query().queryUserT()); }
+        return _nssUserT;
     }
 
     // [DBFlute-0.7.4]
@@ -329,187 +349,96 @@ public class BsUserTCB extends AbstractConditionBean {
         return _specification != null && _specification.hasSpecifiedColumn();
     }
 
-    public static class HpSpecification extends HpAbstractSpecification<UserTCQ> {
-        protected AuthMCB.HpSpecification _authM;
-        protected UserTypeMCB.HpSpecification _userTypeM;
-        public HpSpecification(ConditionBean baseCB, HpSpQyCall<UserTCQ> qyCall
+    public static class HpSpecification extends HpAbstractSpecification<EventNotifyCQ> {
+        protected EventTCB.HpSpecification _eventT;
+        protected UserTCB.HpSpecification _userT;
+        public HpSpecification(ConditionBean baseCB, HpSpQyCall<EventNotifyCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * user_id: {PK, ID, NotNull, serial(10)}
+         * event_notify_no: {PK, ID, NotNull, serial(10)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnEventNotifyNo() { return doColumn("event_notify_no"); }
+        /**
+         * event_no: {UQ+, NotNull, int4(10), FK to event_t}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnEventNo() { return doColumn("event_no"); }
+        /**
+         * user_id: {+UQ, NotNull, int4(10), FK to user_t}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUserId() { return doColumn("user_id"); }
         /**
-         * login_id: {UQ, text(2147483647)}
+         * notify_datetime: {timestamp(29, 6)}
          * @return The information object of specified column. (NotNull)
          */
-        public SpecifiedColumn columnLoginId() { return doColumn("login_id"); }
-        /**
-         * line_flg: {NotNull, int4(10), default=[0]}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnLineFlg() { return doColumn("line_flg"); }
-        /**
-         * line_id: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnLineId() { return doColumn("line_id"); }
-        /**
-         * line_user_name: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnLineUserName() { return doColumn("line_user_name"); }
-        /**
-         * user_name: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnUserName() { return doColumn("user_name"); }
-        /**
-         * last_name: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnLastName() { return doColumn("last_name"); }
-        /**
-         * first_name: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnFirstName() { return doColumn("first_name"); }
-        /**
-         * email: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnEmail() { return doColumn("email"); }
-        /**
-         * password: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnPassword() { return doColumn("password"); }
-        /**
-         * user_type_id: {NotNull, int4(10), FK to user_type_m}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnUserTypeId() { return doColumn("user_type_id"); }
-        /**
-         * auth_level: {NotNull, int4(10), FK to auth_m}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnAuthLevel() { return doColumn("auth_level"); }
+        public SpecifiedColumn columnNotifyDatetime() { return doColumn("notify_datetime"); }
         public void everyColumn() { doEveryColumn(); }
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override
         protected void doSpecifyRequiredColumn() {
-            columnUserId(); // PK
-            if (qyCall().qy().hasConditionQueryAuthM()
-                    || qyCall().qy().xgetReferrerQuery() instanceof AuthMCQ) {
-                columnAuthLevel(); // FK or one-to-one referrer
+            columnEventNotifyNo(); // PK
+            if (qyCall().qy().hasConditionQueryEventT()
+                    || qyCall().qy().xgetReferrerQuery() instanceof EventTCQ) {
+                columnEventNo(); // FK or one-to-one referrer
             }
-            if (qyCall().qy().hasConditionQueryUserTypeM()
-                    || qyCall().qy().xgetReferrerQuery() instanceof UserTypeMCQ) {
-                columnUserTypeId(); // FK or one-to-one referrer
+            if (qyCall().qy().hasConditionQueryUserT()
+                    || qyCall().qy().xgetReferrerQuery() instanceof UserTCQ) {
+                columnUserId(); // FK or one-to-one referrer
             }
         }
         @Override
-        protected String getTableDbName() { return "user_t"; }
+        protected String getTableDbName() { return "event_notify"; }
         /**
          * Prepare to specify functions about relation table. <br>
-         * auth_m by my auth_level, named 'authM'.
+         * event_t by my event_no, named 'eventT'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
-        public AuthMCB.HpSpecification specifyAuthM() {
-            assertRelation("authM");
-            if (_authM == null) {
-                _authM = new AuthMCB.HpSpecification(_baseCB
-                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryAuthM()
-                                    , () -> _qyCall.qy().queryAuthM())
+        public EventTCB.HpSpecification specifyEventT() {
+            assertRelation("eventT");
+            if (_eventT == null) {
+                _eventT = new EventTCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryEventT()
+                                    , () -> _qyCall.qy().queryEventT())
                     , _purpose, _dbmetaProvider, xgetSDRFnFc());
                 if (xhasSyncQyCall()) { // inherits it
-                    _authM.xsetSyncQyCall(xcreateSpQyCall(
-                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryAuthM()
-                      , () -> xsyncQyCall().qy().queryAuthM()));
+                    _eventT.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryEventT()
+                      , () -> xsyncQyCall().qy().queryEventT()));
                 }
             }
-            return _authM;
+            return _eventT;
         }
         /**
          * Prepare to specify functions about relation table. <br>
-         * user_type_m by my user_type_id, named 'userTypeM'.
+         * user_t by my user_id, named 'userT'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
-        public UserTypeMCB.HpSpecification specifyUserTypeM() {
-            assertRelation("userTypeM");
-            if (_userTypeM == null) {
-                _userTypeM = new UserTypeMCB.HpSpecification(_baseCB
-                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryUserTypeM()
-                                    , () -> _qyCall.qy().queryUserTypeM())
+        public UserTCB.HpSpecification specifyUserT() {
+            assertRelation("userT");
+            if (_userT == null) {
+                _userT = new UserTCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryUserT()
+                                    , () -> _qyCall.qy().queryUserT())
                     , _purpose, _dbmetaProvider, xgetSDRFnFc());
                 if (xhasSyncQyCall()) { // inherits it
-                    _userTypeM.xsetSyncQyCall(xcreateSpQyCall(
-                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryUserTypeM()
-                      , () -> xsyncQyCall().qy().queryUserTypeM()));
+                    _userT.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryUserT()
+                      , () -> xsyncQyCall().qy().queryUserT()));
                 }
             }
-            return _userTypeM;
-        }
-        /**
-         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from entry_t where ...) as FOO_MAX} <br>
-         * entry_t by user_id, named 'entryTList'.
-         * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     tCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     tCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, EntryT.<span style="color: #CC4747">ALIAS_foo...</span>);
-         * </pre>
-         * @return The object to set up a function for referrer table. (NotNull)
-         */
-        public HpSDRFunction<EntryTCB, UserTCQ> derivedEntryT() {
-            assertDerived("entryTList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<EntryTCB> sq, UserTCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveEntryTList(fn, sq, al, op), _dbmetaProvider);
-        }
-        /**
-         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from event_notify where ...) as FOO_MAX} <br>
-         * event_notify by user_id, named 'eventNotifyList'.
-         * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(notifyCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     notifyCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     notifyCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, EventNotify.<span style="color: #CC4747">ALIAS_foo...</span>);
-         * </pre>
-         * @return The object to set up a function for referrer table. (NotNull)
-         */
-        public HpSDRFunction<EventNotifyCB, UserTCQ> derivedEventNotify() {
-            assertDerived("eventNotifyList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<EventNotifyCB> sq, UserTCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveEventNotifyList(fn, sq, al, op), _dbmetaProvider);
-        }
-        /**
-         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from event_t where ...) as FOO_MAX} <br>
-         * event_t by user_id, named 'eventTList'.
-         * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     tCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     tCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, EventT.<span style="color: #CC4747">ALIAS_foo...</span>);
-         * </pre>
-         * @return The object to set up a function for referrer table. (NotNull)
-         */
-        public HpSDRFunction<EventTCB, UserTCQ> derivedEventT() {
-            assertDerived("eventTList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<EventTCB> sq, UserTCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveEventTList(fn, sq, al, op), _dbmetaProvider);
+            return _userT;
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)
          */
-        public HpSDRFunction<UserTCB, UserTCQ> myselfDerived() {
+        public HpSDRFunction<EventNotifyCB, EventNotifyCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<UserTCB> sq, UserTCQ cq, String al, DerivedReferrerOption op)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<EventNotifyCB> sq, EventNotifyCQ cq, String al, DerivedReferrerOption op)
                     -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
@@ -522,9 +451,9 @@ public class BsUserTCB extends AbstractConditionBean {
      * This is very specialty so you can get the frontier spirit. Bon voyage!
      * @return The condition-bean for dream cruise, which is linked to main condition-bean.
      */
-    public UserTCB dreamCruiseCB() {
-        UserTCB cb = new UserTCB();
-        cb.xsetupForDreamCruise((UserTCB) this);
+    public EventNotifyCB dreamCruiseCB() {
+        EventNotifyCB cb = new EventNotifyCB();
+        cb.xsetupForDreamCruise((EventNotifyCB) this);
         return cb;
     }
 
@@ -549,15 +478,15 @@ public class BsUserTCB extends AbstractConditionBean {
      * @param colCBLambda The callback for specify-query of left column. (NotNull)
      * @return The object for setting up operand and right column. (NotNull)
      */
-    public HpColQyOperand<UserTCB> columnQuery(final SpecifyQuery<UserTCB> colCBLambda) {
+    public HpColQyOperand<EventNotifyCB> columnQuery(final SpecifyQuery<EventNotifyCB> colCBLambda) {
         return xcreateColQyOperand((rightSp, operand) -> {
             return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
         });
     }
 
-    protected UserTCB xcreateColumnQueryCB() {
-        UserTCB cb = new UserTCB();
-        cb.xsetupForColumnQuery((UserTCB)this);
+    protected EventNotifyCB xcreateColumnQueryCB() {
+        EventNotifyCB cb = new EventNotifyCB();
+        cb.xsetupForColumnQuery((EventNotifyCB)this);
         return cb;
     }
 
@@ -577,8 +506,8 @@ public class BsUserTCB extends AbstractConditionBean {
      * </pre>
      * @param orCBLambda The callback for query of or-condition. (NotNull)
      */
-    public void orScopeQuery(OrQuery<UserTCB> orCBLambda) {
-        xorSQ((UserTCB)this, orCBLambda);
+    public void orScopeQuery(OrQuery<EventNotifyCB> orCBLambda) {
+        xorSQ((EventNotifyCB)this, orCBLambda);
     }
 
     /**
@@ -596,8 +525,8 @@ public class BsUserTCB extends AbstractConditionBean {
      * </pre>
      * @param andCBLambda The callback for query of and-condition. (NotNull)
      */
-    public void orScopeQueryAndPart(AndQuery<UserTCB> andCBLambda) {
-        xorSQAP((UserTCB)this, andCBLambda);
+    public void orScopeQueryAndPart(AndQuery<EventNotifyCB> andCBLambda) {
+        xorSQAP((EventNotifyCB)this, andCBLambda);
     }
 
     // ===================================================================================
@@ -627,11 +556,11 @@ public class BsUserTCB extends AbstractConditionBean {
     //                                                                        ============
     @Override
     protected void xprepareSyncQyCall(ConditionBean mainCB) {
-        final UserTCB cb;
+        final EventNotifyCB cb;
         if (mainCB != null) {
-            cb = (UserTCB)mainCB;
+            cb = (EventNotifyCB)mainCB;
         } else {
-            cb = new UserTCB();
+            cb = new EventNotifyCB();
         }
         specify().xsetSyncQyCall(xcreateSpQyCall(() -> true, () -> cb.query()));
     }
@@ -640,8 +569,8 @@ public class BsUserTCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xgetConditionBeanClassNameInternally() { return UserTCB.class.getName(); }
-    protected String xgetConditionQueryClassNameInternally() { return UserTCQ.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return EventNotifyCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return EventNotifyCQ.class.getName(); }
     protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
     protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

@@ -27,6 +27,9 @@ public class DateUtil {
     /** 日時フォーマット文字列  yyy/MM/dd(E) */
     public static final String DATE_TIME_FORMAT_YYYYMMDDE = "yyyy/MM/dd(E)";
 
+    /** 日時フォーマット文字列  yyyy/MM/dd(E) HH:mm */
+    public static final String DATE_TIME_FORMAT_YYYYMMDDEHHMM = "yyyy/MM/dd(E) HH:mm";
+
     /** 日時フォーマット文字列  yyyy/MM/dd */
     public static final String DATE_TIME_FORMAT_YYYYMMDD = "yyyy/MM/dd";
 

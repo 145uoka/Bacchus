@@ -98,10 +98,10 @@ public class EntryCreateController extends BaseController {
             BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) throws RecordNotFoundException, IllegalRequestParamException {
 
         if(!userInfo.isAdminFlg()) {
-            if (inputForm.getUserId() == null ||
-                    inputForm.getUserId().intValue() != userInfo.getUserId()) {
-                throw new IllegalRequestParamException("userId", inputForm.getUserId());
-            }
+//            if (inputForm.getUserId() == null ||
+//                    inputForm.getUserId().intValue() != userInfo.getUserId()) {
+//                throw new IllegalRequestParamException("userId", inputForm.getUserId());
+//            }
         }
 
         // 画面名の設定
@@ -123,7 +123,7 @@ public class EntryCreateController extends BaseController {
             candidateNoList.add(candidateT.getCandidateNo());
         }
 
-        ListResultBean<EntryT> entryTList = entryService.findRegisterEntryTList(inputForm.getUserId(), candidateNoList);
+        ListResultBean<EntryT> entryTList = entryService.findRegisterEntryTList(this.userInfo.getUserId(), candidateNoList);
 
         List<EntryForm> entryFormList = new ArrayList<EntryForm>();
 
@@ -150,7 +150,7 @@ public class EntryCreateController extends BaseController {
 
         form.setEntryFormList(entryFormList);
         form.setEventNo(inputForm.getEventNo());
-        form.setUserId(inputForm.getUserId());
+//        form.setUserId(inputForm.getUserId());
 
         model.addAttribute("form", form);
 
@@ -190,13 +190,13 @@ public class EntryCreateController extends BaseController {
             BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
         Integer eventNo = form.getEventNo();
-        Integer userId = form.getUserId();
+//        Integer userId = form.getUserId();
 
-        entryService.registerEntry(form, eventNo, userId);
+        entryService.registerEntry(form, eventNo, this.userInfo.getUserId());
 
         // ログ出力
         OptionalEntity<EventT> eventTEntity =eventTBhv.selectByPK(eventNo);
-        OptionalEntity<UserT> userTEntity = userTBhv.selectByPK(userId);
+        OptionalEntity<UserT> userTEntity = userTBhv.selectByPK(this.userInfo.getUserId());
 
         loggerService.outLog(LogMessageKeyConstants.Info.I_02_0501,
                 new String[] {
@@ -213,7 +213,7 @@ public class EntryCreateController extends BaseController {
 
         EntryInputForm inputForm = new EntryInputForm();
         inputForm.setEventNo(eventNo);
-        inputForm.setUserId(userId);
+//        inputForm.setUserId(this.userInfo.getUserId());
 
         redirectAttributes.addAttribute("eventNo", eventNo);
 

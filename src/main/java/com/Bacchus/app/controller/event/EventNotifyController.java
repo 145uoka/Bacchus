@@ -96,8 +96,8 @@ public class EventNotifyController extends BaseController {
     public String exec(@ModelAttribute("form") NotifyExecForm form, RedirectAttributes redirectAttributes) throws Exception {
 
         List<Integer> userIds = Arrays.asList(form.getUserIds());
-        String msg = "https://glue-bacchus.herokuapp.com/entry/create?eventNo=2";
-        lineService.pushMessage(userIds, "testMsg");
+        String msg = "https://glue-bacchus.herokuapp.com/entry/create?eventNo="+form.getEventNo();
+        lineService.pushMessage(userIds, msg);
 
         eventService.notifyEvent(userIds, form.getEventNo());
 

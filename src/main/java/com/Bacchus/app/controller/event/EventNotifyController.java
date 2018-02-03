@@ -29,6 +29,7 @@ import com.Bacchus.webbase.common.constants.DisplayIdConstants;
 import com.Bacchus.webbase.common.constants.MessageKeyConstants;
 import com.Bacchus.webbase.common.constants.ProcConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.MessageType;
+import com.Bacchus.webbase.common.constants.SystemPropertyKeyConstants;
 
 /**
  * イベント通知用コントローラ。
@@ -96,7 +97,9 @@ public class EventNotifyController extends BaseController {
     public String exec(@ModelAttribute("form") NotifyExecForm form, RedirectAttributes redirectAttributes) throws Exception {
 
         List<Integer> userIds = Arrays.asList(form.getUserIds());
-        String msg = "https://glue-bacchus.herokuapp.com/entry/create?eventNo="+form.getEventNo();
+        String url = systemPropertyService.getSystemPropertyValue(SystemPropertyKeyConstants.BACCHUS_URL);
+        String msg = url + ProcConstants.EVENT + ProcConstants.Operation.SHOW + "?eventNo="+form.getEventNo();
+
         lineService.pushMessage(userIds, msg);
 
         eventService.notifyEvent(userIds, form.getEventNo());

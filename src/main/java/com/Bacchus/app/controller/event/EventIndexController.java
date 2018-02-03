@@ -36,7 +36,7 @@ public class EventIndexController extends BaseController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = ProcConstants.Operation.INDEX, method = RequestMethod.GET)
+    @RequestMapping(value = ProcConstants.Operation.INDEX, method = {RequestMethod.GET})
     public String index(Model model) throws Exception {
 
         super.setDisplayTitle(model, DisplayIdConstants.Event.BACCHUS_0201);

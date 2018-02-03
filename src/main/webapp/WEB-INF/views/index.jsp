@@ -21,47 +21,6 @@
       </div>
 
       <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2">
-
-          <div class="panel panel-default main-border-color">
-            <div class="panel-body sub-background-color">
-
-              <div class="form-group <ext:isErrors path='loginId' value='has-error'/>">
-                <label class="col-md-5 control-label">ログインID<span class="label label-danger" style="margin-left: 10px">必須</span></label>
-                <div class="col-md-5">
-                  <form:input path="loginId" class="form-control" />
-                </div>
-                <div style="clear: both;">
-                  <span class="col-md-5"></span>
-                  <div class="col-md-5">
-                    <form:errors path="loginId" element="div" cssClass="text-danger" />
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group <ext:isErrors path='password' value='has-error'/>">
-                <label class="col-md-5 control-label"> パスワード <span class="label label-danger" style="margin-left: 10px">必須</span>
-                </label>
-                <div class="col-md-5">
-                  <form:password path="password" class="form-control" maxlength="${ext:getMaxLen('CNT0002') }" />
-                </div>
-                <div style="clear: both;">
-                  <span class="col-md-5"></span>
-                  <div class="col-md-5">
-                    <form:errors path="password" element="div" cssClass="text-danger" />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" align="center">
-                  <input type="submit" class="btn btn-success form-control" value="ログイン">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
         <div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" align="center">
           <a class="btn-line-login" href="${pageContext.request.contextPath}/login/lineLogin"></a>
         </div>

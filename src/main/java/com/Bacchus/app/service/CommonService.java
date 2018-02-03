@@ -11,12 +11,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.Bacchus.app.Exception.AbnormalRecordsDetection;
+import com.Bacchus.app.Exception.RecordNotFoundException;
 import com.Bacchus.app.components.GeneralCodeDto;
 import com.Bacchus.app.components.LabelValueDto;
 import com.Bacchus.dbflute.cbean.GeneralCodeMCB;
 import com.Bacchus.dbflute.exbhv.GeneralCodeMBhv;
 import com.Bacchus.dbflute.exentity.GeneralCodeM;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants;
+import com.Bacchus.webbase.common.constants.SystemCodeConstants.Flag;
+import com.Bacchus.webbase.common.constants.SystemPropertyKeyConstants;
 
 /**
  * 共通サービスクラス。
@@ -30,6 +33,27 @@ public class CommonService {
 
     @Autowired
     GeneralCodeMBhv generalCodeMBhv;
+
+    @Autowired
+    SystemPropertyService systemPropertyService;
+
+    /**
+     * 開発モードの判定。
+     * <p>
+     * 開発モードの場合、Line等の外部メッセージを使用しない挙動となる。
+     *
+     * @return true:開発モード, false:非開発モード
+     * @throws RecordNotFoundException
+     */
+    public boolean isDevelopMode() throws RecordNotFoundException {
+        String testModeFlg = systemPropertyService.getSystemPropertyValue(
+                SystemPropertyKeyConstants.DEVELOP_MODE_FLG);
+
+        if (StringUtils.equals(testModeFlg, Flag.ON.getStringValue())) {
+            return true;
+        }
+        return false;
+    }
 
 
     /**
@@ -171,6 +195,13 @@ public class CommonService {
         return dtoList;
     }
 
+    /**
+     * 指定して汎用コードが存在するかを確認。
+     *
+     * @param codeDiv コード区分
+     * @param code コード値
+     * @return true:存在, false:存在しない
+     */
     public boolean isExistsGenCode(String codeDiv, String code) {
         int resultCount = generalCodeMBhv.selectCount(cb -> {
             cb.query().setCodeDiv_Equal(codeDiv);
@@ -184,7 +215,5 @@ public class CommonService {
 
         return false;
     }
-
-
 
 }

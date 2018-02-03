@@ -137,14 +137,16 @@ public class EventCreateController extends BaseController {
         }
 
         // 候補日の形式チェック
-        for (int i = 0; i < form.getStartDate().length; i++) {
-            String fieldName = "startDate[" + i + "]";
-            if (!bindingResult.hasFieldErrors(fieldName)) {
-                if (StringUtils.isNotEmpty(form.getStartDate()[i])) {
-                    if (!DateUtil.isValidDateFormat(form.getStartDate()[i])) {
-                        bindingResult.rejectValue(fieldName,
-                                MessageKeyUtil.encloseStringDelete(GlueNetValidator.DATEFORMAT_MESSAGE),
-                                new String[]{DateUtil.DATE_TIME_FORMAT_YYYYMMDD}, "");
+        if (form.getStartDate() != null && form.getStartDate().length > 0) {
+            for (int i = 0; i < form.getStartDate().length; i++) {
+                String fieldName = "startDate[" + i + "]";
+                if (!bindingResult.hasFieldErrors(fieldName)) {
+                    if (StringUtils.isNotEmpty(form.getStartDate()[i])) {
+                        if (!DateUtil.isValidDateFormat(form.getStartDate()[i])) {
+                            bindingResult.rejectValue(fieldName,
+                                    MessageKeyUtil.encloseStringDelete(GlueNetValidator.DATEFORMAT_MESSAGE),
+                                    new String[]{DateUtil.DATE_TIME_FORMAT_YYYYMMDD}, "");
+                        }
                     }
                 }
             }

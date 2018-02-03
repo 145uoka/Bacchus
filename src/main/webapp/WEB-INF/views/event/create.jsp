@@ -13,41 +13,60 @@
 
 <link href='<c:url value="/resources/css/common/effect.css"/>' rel="stylesheet">
 <script type="text/javascript">
+    var startDateCnt = 0;
 
-	var startDateCnt = 0;
+    function addCandidate() {
+        ++startDateCnt;
 
+        var table = document.getElementById('candidateTable');
+        var tr = table.insertRow(-1);
+        var td1 = tr.insertCell(-1), td2 = tr.insertCell(-1), td3 = tr
+                .insertCell(-1);
+        td1.classList.add("p-details");
+        td2.classList.add("p-details");
+        td3.classList.add("p-details");
+        var row_len = table.rows.length;
 
-	function addCandidate() {
-		++startDateCnt;
-
-		var table = document.getElementById('candidateTable');
-		var tr = table.insertRow(-1);
-		var td1 = tr.insertCell(-1), td2 = tr.insertCell(-1);
-		td1.classList.add("p-details");
-		td2.classList.add("p-details");
-		var row_len = table.rows.length;
-
-		var $startDateCol = '<div class="input-group date date-ymd"style="width: 180px; ">';
-		$startDateCol = $startDateCol + '<input id="startDate['+ startDateCnt + ']" name="startDate['+ startDateCnt + ']" ';
+        var $startDateCol = '<div class="input-group date date-ymd"style="width: 180px; ">';
+        $startDateCol = $startDateCol
+                + '<input id="startDate['+ startDateCnt + ']" name="startDate['+ startDateCnt + ']" ';
  		$startDateCol = $startDateCol + 'class="form-control" type="text" maxlength="10" placeholder="yyyy/MM/dd"/><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>';
-		$startDateCol = $startDateCol + '</div>';
+        $startDateCol = $startDateCol + '</div>';
 
-		var $fixFlgCol = '<input id="fixFlg" name="fixFlg" type="radio" value="'+ startDateCnt + '"/>';
+        var $fixFlgCol = '<input id="fixFlg" name="fixFlg" type="radio" value="'+ startDateCnt + '"/>';
+        var $deleteCol = '<td class="p-details"><a type="button" class="btn btn-danger" onClick="deleteRow(startDateCnt)">削除</a></td>';
 
-		td1.innerHTML = $startDateCol;
-	    td2.innerHTML = $fixFlgCol;
-	    initRadioTable();
-		initDatepicker();
-	}
+        td1.innerHTML = $startDateCol;
+        td2.innerHTML = $fixFlgCol;
+        td3.innerHTML = $deleteCol;
+        initRadioTable();
+        initDatepicker();
+
+    }
 </script>
 
 
 <script type="text/javascript">
-	if ("${successMessages}".length > 0) {
-		$(document).ready(function() {
-			$('.alert').fadeIn(1500).delay(1000).fadeOut(1000);
-		});
-	}
+    function deleteRow($index) {
+
+            // テーブルの要素を取得
+            var table = document.getElementById("candidateTable");
+
+            $index = $index + 1 ;
+
+            // テーブル削除
+            var rows = table.deleteRow($index);
+
+    }
+</script>
+
+
+<script type="text/javascript">
+    if ("${successMessages}".length > 0) {
+        $(document).ready(function() {
+            $('.alert').fadeIn(1500).delay(1000).fadeOut(1000);
+        });
+    }
 </script>
 
 
@@ -87,7 +106,10 @@
           <div class="panel panel-default main-border-color">
             <div class="panel-body sub-background-color">
               <div class="form-group <ext:isErrors path='eventName' value='has-error'/>">
-                <label class="col-md-4 control-label">イベント名<span class="label label-danger" style="margin-left: 10px">必須</span></label>
+                <label class="col-md-4 control-label">
+                  イベント名
+                  <span class="label label-danger" style="margin-left: 10px">必須</span>
+                </label>
                 <div class="col-md-6">
                   <form:input path="eventName" class="form-control" />
                 </div>
@@ -99,7 +121,10 @@
                 </div>
               </div>
               <div class="form-group <ext:isErrors path='eventDiv' value='has-error'/>">
-                <label class="col-md-4 control-label">イベント種別<span class="label label-danger" style="margin-left: 10px"></span></label>
+                <label class="col-md-4 control-label">
+                  イベント種別
+                  <span class="label label-danger" style="margin-left: 10px"></span>
+                </label>
                 <div class="col-md-6">
                   <form:select path="eventDiv" class="form-control" items="${eventDivList}" itemLabel="label" itemValue="value" />
                 </div>
@@ -111,7 +136,10 @@
                 </div>
               </div>
               <div class="form-group <ext:isErrors path='eventDetail' value='has-error'/>">
-                <label class="col-md-4 control-label">説明<span class="label label-danger" style="margin-left: 10px"></span></label>
+                <label class="col-md-4 control-label">
+                  説明
+                  <span class="label label-danger" style="margin-left: 10px"></span>
+                </label>
                 <div class="col-md-6">
                   <form:textarea path="eventDetail" class="form-control" rows="4" />
                 </div>
@@ -123,7 +151,10 @@
                 </div>
               </div>
               <div class="form-group <ext:isErrors path='storeName' value='has-error'/>">
-                <label class="col-md-4 control-label">店舗名<span class="label label-danger" style="margin-left: 10px"></span></label>
+                <label class="col-md-4 control-label">
+                  店舗名
+                  <span class="label label-danger" style="margin-left: 10px"></span>
+                </label>
                 <div class="col-md-6">
                   <form:input path="storeName" class="form-control" />
                 </div>
@@ -135,7 +166,10 @@
                 </div>
               </div>
               <div class="form-group <ext:isErrors path='eventPlace' value='has-error'/>">
-                <label class="col-md-4 control-label">場所<span class="label label-danger" style="margin-left: 10px"></span></label>
+                <label class="col-md-4 control-label">
+                  場所
+                  <span class="label label-danger" style="margin-left: 10px"></span>
+                </label>
                 <div class="col-md-6">
                   <form:input path="eventPlace" class="form-control" />
                 </div>
@@ -147,7 +181,10 @@
                 </div>
               </div>
               <div class="form-group <ext:isErrors path='eventUrl' value='has-error'/>">
-                <label class="col-md-4 control-label">URL<span class="label label-danger" style="margin-left: 10px"></span></label>
+                <label class="col-md-4 control-label">
+                  URL
+                  <span class="label label-danger" style="margin-left: 10px"></span>
+                </label>
                 <div class="col-md-6">
                   <form:input path="eventUrl" class="form-control" />
                 </div>
@@ -159,7 +196,10 @@
                 </div>
               </div>
               <div class="form-group <ext:isErrors path='tell' value='has-error'/>">
-                <label class="col-md-4 control-label">TEL<span class="label label-danger" style="margin-left: 10px"></span></label>
+                <label class="col-md-4 control-label">
+                  TEL
+                  <span class="label label-danger" style="margin-left: 10px"></span>
+                </label>
                 <div class="col-md-6">
                   <form:input path="tell" class="form-control" />
                 </div>
@@ -171,7 +211,10 @@
                 </div>
               </div>
               <div class="form-group <ext:isErrors path='userId' value='has-error'/>">
-                <label class="col-md-4 control-label">幹事<span class="label label-danger" style="margin-left: 10px"></span></label>
+                <label class="col-md-4 control-label">
+                  幹事
+                  <span class="label label-danger" style="margin-left: 10px"></span>
+                </label>
                 <div class="col-md-6">
                   <form:select path="userId" class="form-control" items="${userNameSelectList}" itemLabel="label" itemValue="value" />
                 </div>
@@ -183,9 +226,12 @@
                 </div>
               </div>
               <div class="form-group <ext:isErrors path='eventEntryFee' value='has-error'/>">
-                <label class="col-md-4 control-label">参加費<span class="label label-danger" style="margin-left: 10px"></span></label>
+                <label class="col-md-4 control-label">
+                  参加費
+                  <span class="label label-danger" style="margin-left: 10px"></span>
+                </label>
                 <div class="col-md-6">
-                  <form:input path="eventEntryFee" class="form-control" placeholder="半角数値"/>
+                  <form:input path="eventEntryFee" class="form-control" placeholder="半角数値" />
                 </div>
                 <div style="clear: both;">
                   <span class="col-md-4"></span>
@@ -195,7 +241,10 @@
                 </div>
               </div>
               <div class="form-group <ext:isErrors path='auxiliaryFlg' value='has-error' />">
-                <label class="col-md-4 control-label">経費補助有無<span class="label label-danger" style="margin-left: 10px"></span></label>
+                <label class="col-md-4 control-label">
+                  経費補助有無
+                  <span class="label label-danger" style="margin-left: 10px"></span>
+                </label>
                 <div class="col-md-6">
                   <form:select path="auxiliaryFlg" class="form-control" items="${auxiliaryFlgSelectList}" itemLabel="label" itemValue="value" />
                 </div>
@@ -207,19 +256,25 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-4 text-right"><label class="control-label">候補日</label></div>
-                <div class="col-md-6 " >
+                <div class="col-md-4 text-right">
+                  <label class="control-label">候補日</label>
+                </div>
+                <div class="col-md-6 ">
                   <table class="table radio_table table-striped table-bordered table-hover table-condensed panel " id="candidateTable">
                     <thead class="main-background-color">
                       <tr>
                         <th class="text-center">日付</th>
                         <th class="text-center">確定</th>
+                        <th class="text-center">削除</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <td class="p-details">未確定</td>
-                        <td class="radio_col"><form:radiobutton path="fixFlg" value="" checked="checked" /></td>
+                        <td class="radio_col">
+                          <form:radiobutton path="fixFlg" value="" checked="checked" />
+                        </td>
+                        <td class="p-details">-</td>
                       </tr>
                       <c:choose>
                         <c:when test="${fn:length(form.startDate) > 0}">
@@ -228,32 +283,28 @@
                               <td class="p-details">
                                 <div class=" <ext:isErrors path='startDate[${status.index}]' value='has-error'/>">
                                   <div class="input-group date date-ymd" style="width: 180px; <ext:isErrors path='startDate[${status.index}]' value='has-error' />">
-                                    <input type="text" id="startDate[${status.index}]" name="startDate[${status.index}]" value="${form.startDate[status.index]}" maxlength="10" class="form-control" placeholder="yyyy/MM/dd"/>
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    <input type="text" id="startDate[${status.index}]" name="startDate[${status.index}]" value="${form.startDate[status.index]}" maxlength="10" class="form-control" placeholder="yyyy/MM/dd" />
+                                    <span class="input-group-addon">
+                                      <i class="glyphicon glyphicon-calendar"></i>
+                                    </span>
                                   </div>
                                   <div style="clear: both;">
-                                      <form:errors path="startDate[${status.index}]" element="div" cssClass="text-danger" />
+                                    <form:errors path="startDate[${status.index}]" element="div" cssClass="text-danger" />
                                   </div>
                                 </div>
                               </td>
-                              <td class="p-details"><form:radiobutton path="fixFlg" value="${status.index}" /></td>
+                              <td class="p-details">
+                                <form:radiobutton path="fixFlg" value="${status.index}" />
+                              </td>
+                              <td class="p-details">
+                                <a type="button" class="btn btn-danger" onClick="deleteRow()">削除</a>
+                              </td>
                             </tr>
                           </c:forEach>
 
                         </c:when>
                         <c:otherwise>
-                          <tr>
-                            <td class="p-details">
-                              <div class="input-group date date-ymd" style="width: 180px; <ext:isErrors path='startDate[0]' value='has-error' />">
-                                <input type="text" id="startDate[0]" name="startDate[0]" value="" maxlength="10" class="form-control" placeholder="yyyy/MM/dd"/> <span class="input-group-addon"><i
-                                  class="glyphicon glyphicon-calendar"></i></span>
-                              </div>
-                              <div style="clear: both;">
-                                  <form:errors path="startDate[0]" element="div" cssClass="text-danger" />
-                              </div>
-                            </td>
-                            <td class="p-details"><form:radiobutton path="fixFlg" value="0" /></td>
-                          </tr>
+
                         </c:otherwise>
 
                       </c:choose>
@@ -263,7 +314,9 @@
                     <div class="col-md-offset-1 col-md-10" align="center">
                       <table style="margin-bottom: 20px">
                         <tr id="copy">
-                          <td><label class="space" style="width: 30px;"></label></td>
+                          <td>
+                            <label class="space" style="width: 30px;"></label>
+                          </td>
                           <td style="vertical-align: middle;">
                             <button type="button" id="candidate" onClick="addCandidate()" class="btn btn-info">候補日追加</button>
                           </td>
@@ -282,7 +335,9 @@
         <div class="col-md-offset-1 col-md-10" align="center">
           <table style="margin-bottom: 20px">
             <tr>
-              <td><label class="space" style="width: 30px;"></label></td>
+              <td>
+                <label class="space" style="width: 30px;"></label>
+              </td>
               <td style="vertical-align: middle;">
                 <button type="submit" class="btn btn-success">登録</button>
               </td>

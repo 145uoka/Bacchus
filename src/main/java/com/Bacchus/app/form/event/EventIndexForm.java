@@ -50,7 +50,7 @@ public class EventIndexForm implements Serializable {
 	private Integer entryPeople ;
 
 	@NotEmpty
-	private String eventDiv ;
+	private String eventTypeId ;
 
 
 	private Integer userId ;
@@ -157,12 +157,12 @@ public class EventIndexForm implements Serializable {
 		this.entryPeople = entryPeople;
 	}
 
-	public String getEventDiv() {
-		return eventDiv;
+	public String getEventTypeId() {
+		return eventTypeId;
 	}
 
-	public void setEventDiv(String eventDiv) {
-		this.eventDiv = eventDiv;
+	public void setEventTypeId(String eventTypeId) {
+		this.eventTypeId = eventTypeId;
 	}
 
 	public Integer getUserId() {

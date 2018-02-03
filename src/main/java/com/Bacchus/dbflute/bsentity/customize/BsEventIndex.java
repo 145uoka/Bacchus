@@ -15,7 +15,7 @@ import com.Bacchus.dbflute.exentity.customize.*;
  *     
  *
  * [column]
- *     event_no, event_name, event_detail, event_place, event_url, tell, event_entry_fee, auxiliary_flg, fix_flg, candidate_no, store_name, event_div, user_id, login_id, line_flg, line_id, line_user_name, user_name, last_name, first_name, email, password, user_type_id, auth_level, event_start_datetime, event_end_datetime, start_date, start_time, entry_count, code_id, code_div, code, name, order_number, remarks
+ *     event_no, event_name, event_detail, event_place, event_url, tell, event_entry_fee, auxiliary_flg, fix_flg, candidate_no, store_name, event_type_id, user_id, login_id, line_flg, line_id, line_user_name, user_name, last_name, first_name, email, password, user_type_id, auth_level, event_start_datetime, event_end_datetime, start_date, start_time, entry_count, event_type_name, order_num
  *
  * [sequence]
  *     
@@ -51,7 +51,7 @@ import com.Bacchus.dbflute.exentity.customize.*;
  * Integer fixFlg = entity.getFixFlg();
  * Integer candidateNo = entity.getCandidateNo();
  * String storeName = entity.getStoreName();
- * String eventDiv = entity.getEventDiv();
+ * Integer eventTypeId = entity.getEventTypeId();
  * Integer userId = entity.getUserId();
  * String loginId = entity.getLoginId();
  * Integer lineFlg = entity.getLineFlg();
@@ -69,12 +69,8 @@ import com.Bacchus.dbflute.exentity.customize.*;
  * String startDate = entity.getStartDate();
  * String startTime = entity.getStartTime();
  * Long entryCount = entity.getEntryCount();
- * Integer codeId = entity.getCodeId();
- * String codeDiv = entity.getCodeDiv();
- * String code = entity.getCode();
- * String name = entity.getName();
- * Integer orderNumber = entity.getOrderNumber();
- * String remarks = entity.getRemarks();
+ * String eventTypeName = entity.getEventTypeName();
+ * Integer orderNum = entity.getOrderNum();
  * entity.setEventNo(eventNo);
  * entity.setEventName(eventName);
  * entity.setEventDetail(eventDetail);
@@ -86,7 +82,7 @@ import com.Bacchus.dbflute.exentity.customize.*;
  * entity.setFixFlg(fixFlg);
  * entity.setCandidateNo(candidateNo);
  * entity.setStoreName(storeName);
- * entity.setEventDiv(eventDiv);
+ * entity.setEventTypeId(eventTypeId);
  * entity.setUserId(userId);
  * entity.setLoginId(loginId);
  * entity.setLineFlg(lineFlg);
@@ -104,12 +100,8 @@ import com.Bacchus.dbflute.exentity.customize.*;
  * entity.setStartDate(startDate);
  * entity.setStartTime(startTime);
  * entity.setEntryCount(entryCount);
- * entity.setCodeId(codeId);
- * entity.setCodeDiv(codeDiv);
- * entity.setCode(code);
- * entity.setName(name);
- * entity.setOrderNumber(orderNumber);
- * entity.setRemarks(remarks);
+ * entity.setEventTypeName(eventTypeName);
+ * entity.setOrderNum(orderNum);
  * = = = = = = = = = =/
  * </pre>
  * @author DBFlute(AutoGenerator)
@@ -158,8 +150,8 @@ public abstract class BsEventIndex extends AbstractEntity implements CustomizeEn
     /** store_name: {text(2147483647), refers to event_t.store_name} */
     protected String _storeName;
 
-    /** event_div: {text(2147483647), refers to event_t.event_div} */
-    protected String _eventDiv;
+    /** event_type_id: {int4(10), refers to event_t.event_type_id} */
+    protected Integer _eventTypeId;
 
     /** user_id: {int4(10), refers to event_t.user_id} */
     protected Integer _userId;
@@ -212,23 +204,11 @@ public abstract class BsEventIndex extends AbstractEntity implements CustomizeEn
     /** entry_count: {int8(19)} */
     protected Long _entryCount;
 
-    /** code_id: {serial(10), refers to general_code_m.code_id} */
-    protected Integer _codeId;
+    /** event_type_name: {text(2147483647), refers to event_type_m.event_type_name} */
+    protected String _eventTypeName;
 
-    /** code_div: {text(2147483647), refers to general_code_m.code_div} */
-    protected String _codeDiv;
-
-    /** code: {text(2147483647), refers to general_code_m.code} */
-    protected String _code;
-
-    /** name: {text(2147483647), refers to general_code_m.name} */
-    protected String _name;
-
-    /** order_number: {int2(5), refers to general_code_m.order_number} */
-    protected Integer _orderNumber;
-
-    /** remarks: {text(2147483647), refers to general_code_m.remarks} */
-    protected String _remarks;
+    /** order_num: {int4(10), refers to event_type_m.order_num} */
+    protected Integer _orderNum;
 
     // ===================================================================================
     //                                                                             DB Meta
@@ -279,7 +259,7 @@ public abstract class BsEventIndex extends AbstractEntity implements CustomizeEn
             if (!xSV(_fixFlg, other._fixFlg)) { return false; }
             if (!xSV(_candidateNo, other._candidateNo)) { return false; }
             if (!xSV(_storeName, other._storeName)) { return false; }
-            if (!xSV(_eventDiv, other._eventDiv)) { return false; }
+            if (!xSV(_eventTypeId, other._eventTypeId)) { return false; }
             if (!xSV(_userId, other._userId)) { return false; }
             if (!xSV(_loginId, other._loginId)) { return false; }
             if (!xSV(_lineFlg, other._lineFlg)) { return false; }
@@ -297,12 +277,8 @@ public abstract class BsEventIndex extends AbstractEntity implements CustomizeEn
             if (!xSV(_startDate, other._startDate)) { return false; }
             if (!xSV(_startTime, other._startTime)) { return false; }
             if (!xSV(_entryCount, other._entryCount)) { return false; }
-            if (!xSV(_codeId, other._codeId)) { return false; }
-            if (!xSV(_codeDiv, other._codeDiv)) { return false; }
-            if (!xSV(_code, other._code)) { return false; }
-            if (!xSV(_name, other._name)) { return false; }
-            if (!xSV(_orderNumber, other._orderNumber)) { return false; }
-            if (!xSV(_remarks, other._remarks)) { return false; }
+            if (!xSV(_eventTypeName, other._eventTypeName)) { return false; }
+            if (!xSV(_orderNum, other._orderNum)) { return false; }
             return true;
         } else {
             return false;
@@ -324,7 +300,7 @@ public abstract class BsEventIndex extends AbstractEntity implements CustomizeEn
         hs = xCH(hs, _fixFlg);
         hs = xCH(hs, _candidateNo);
         hs = xCH(hs, _storeName);
-        hs = xCH(hs, _eventDiv);
+        hs = xCH(hs, _eventTypeId);
         hs = xCH(hs, _userId);
         hs = xCH(hs, _loginId);
         hs = xCH(hs, _lineFlg);
@@ -342,12 +318,8 @@ public abstract class BsEventIndex extends AbstractEntity implements CustomizeEn
         hs = xCH(hs, _startDate);
         hs = xCH(hs, _startTime);
         hs = xCH(hs, _entryCount);
-        hs = xCH(hs, _codeId);
-        hs = xCH(hs, _codeDiv);
-        hs = xCH(hs, _code);
-        hs = xCH(hs, _name);
-        hs = xCH(hs, _orderNumber);
-        hs = xCH(hs, _remarks);
+        hs = xCH(hs, _eventTypeName);
+        hs = xCH(hs, _orderNum);
         return hs;
     }
 
@@ -370,7 +342,7 @@ public abstract class BsEventIndex extends AbstractEntity implements CustomizeEn
         sb.append(dm).append(xfND(_fixFlg));
         sb.append(dm).append(xfND(_candidateNo));
         sb.append(dm).append(xfND(_storeName));
-        sb.append(dm).append(xfND(_eventDiv));
+        sb.append(dm).append(xfND(_eventTypeId));
         sb.append(dm).append(xfND(_userId));
         sb.append(dm).append(xfND(_loginId));
         sb.append(dm).append(xfND(_lineFlg));
@@ -388,12 +360,8 @@ public abstract class BsEventIndex extends AbstractEntity implements CustomizeEn
         sb.append(dm).append(xfND(_startDate));
         sb.append(dm).append(xfND(_startTime));
         sb.append(dm).append(xfND(_entryCount));
-        sb.append(dm).append(xfND(_codeId));
-        sb.append(dm).append(xfND(_codeDiv));
-        sb.append(dm).append(xfND(_code));
-        sb.append(dm).append(xfND(_name));
-        sb.append(dm).append(xfND(_orderNumber));
-        sb.append(dm).append(xfND(_remarks));
+        sb.append(dm).append(xfND(_eventTypeName));
+        sb.append(dm).append(xfND(_orderNum));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
@@ -635,23 +603,23 @@ public abstract class BsEventIndex extends AbstractEntity implements CustomizeEn
     }
 
     /**
-     * [get] event_div: {text(2147483647), refers to event_t.event_div} <br>
-     * イベント区分
-     * @return The value of the column 'event_div'. (NullAllowed even if selected: for no constraint)
+     * [get] event_type_id: {int4(10), refers to event_t.event_type_id} <br>
+     * イベント区分ID
+     * @return The value of the column 'event_type_id'. (NullAllowed even if selected: for no constraint)
      */
-    public String getEventDiv() {
-        checkSpecifiedProperty("eventDiv");
-        return _eventDiv;
+    public Integer getEventTypeId() {
+        checkSpecifiedProperty("eventTypeId");
+        return _eventTypeId;
     }
 
     /**
-     * [set] event_div: {text(2147483647), refers to event_t.event_div} <br>
-     * イベント区分
-     * @param eventDiv The value of the column 'event_div'. (NullAllowed: null update allowed for no constraint)
+     * [set] event_type_id: {int4(10), refers to event_t.event_type_id} <br>
+     * イベント区分ID
+     * @param eventTypeId The value of the column 'event_type_id'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setEventDiv(String eventDiv) {
-        registerModifiedProperty("eventDiv");
-        _eventDiv = eventDiv;
+    public void setEventTypeId(Integer eventTypeId) {
+        registerModifiedProperty("eventTypeId");
+        _eventTypeId = eventTypeId;
     }
 
     /**
@@ -993,122 +961,42 @@ public abstract class BsEventIndex extends AbstractEntity implements CustomizeEn
     }
 
     /**
-     * [get] code_id: {serial(10), refers to general_code_m.code_id} <br>
-     * コードID
-     * @return The value of the column 'code_id'. (NullAllowed even if selected: for no constraint)
+     * [get] event_type_name: {text(2147483647), refers to event_type_m.event_type_name} <br>
+     * イベント区分名称
+     * @return The value of the column 'event_type_name'. (NullAllowed even if selected: for no constraint)
      */
-    public Integer getCodeId() {
-        checkSpecifiedProperty("codeId");
-        return _codeId;
+    public String getEventTypeName() {
+        checkSpecifiedProperty("eventTypeName");
+        return _eventTypeName;
     }
 
     /**
-     * [set] code_id: {serial(10), refers to general_code_m.code_id} <br>
-     * コードID
-     * @param codeId The value of the column 'code_id'. (NullAllowed: null update allowed for no constraint)
+     * [set] event_type_name: {text(2147483647), refers to event_type_m.event_type_name} <br>
+     * イベント区分名称
+     * @param eventTypeName The value of the column 'event_type_name'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setCodeId(Integer codeId) {
-        registerModifiedProperty("codeId");
-        _codeId = codeId;
+    public void setEventTypeName(String eventTypeName) {
+        registerModifiedProperty("eventTypeName");
+        _eventTypeName = eventTypeName;
     }
 
     /**
-     * [get] code_div: {text(2147483647), refers to general_code_m.code_div} <br>
-     * コード区分
-     * @return The value of the column 'code_div'. (NullAllowed even if selected: for no constraint)
-     */
-    public String getCodeDiv() {
-        checkSpecifiedProperty("codeDiv");
-        return _codeDiv;
-    }
-
-    /**
-     * [set] code_div: {text(2147483647), refers to general_code_m.code_div} <br>
-     * コード区分
-     * @param codeDiv The value of the column 'code_div'. (NullAllowed: null update allowed for no constraint)
-     */
-    public void setCodeDiv(String codeDiv) {
-        registerModifiedProperty("codeDiv");
-        _codeDiv = codeDiv;
-    }
-
-    /**
-     * [get] code: {text(2147483647), refers to general_code_m.code} <br>
-     * コード
-     * @return The value of the column 'code'. (NullAllowed even if selected: for no constraint)
-     */
-    public String getCode() {
-        checkSpecifiedProperty("code");
-        return _code;
-    }
-
-    /**
-     * [set] code: {text(2147483647), refers to general_code_m.code} <br>
-     * コード
-     * @param code The value of the column 'code'. (NullAllowed: null update allowed for no constraint)
-     */
-    public void setCode(String code) {
-        registerModifiedProperty("code");
-        _code = code;
-    }
-
-    /**
-     * [get] name: {text(2147483647), refers to general_code_m.name} <br>
-     * 名称
-     * @return The value of the column 'name'. (NullAllowed even if selected: for no constraint)
-     */
-    public String getName() {
-        checkSpecifiedProperty("name");
-        return _name;
-    }
-
-    /**
-     * [set] name: {text(2147483647), refers to general_code_m.name} <br>
-     * 名称
-     * @param name The value of the column 'name'. (NullAllowed: null update allowed for no constraint)
-     */
-    public void setName(String name) {
-        registerModifiedProperty("name");
-        _name = name;
-    }
-
-    /**
-     * [get] order_number: {int2(5), refers to general_code_m.order_number} <br>
+     * [get] order_num: {int4(10), refers to event_type_m.order_num} <br>
      * 表示順
-     * @return The value of the column 'order_number'. (NullAllowed even if selected: for no constraint)
+     * @return The value of the column 'order_num'. (NullAllowed even if selected: for no constraint)
      */
-    public Integer getOrderNumber() {
-        checkSpecifiedProperty("orderNumber");
-        return _orderNumber;
+    public Integer getOrderNum() {
+        checkSpecifiedProperty("orderNum");
+        return _orderNum;
     }
 
     /**
-     * [set] order_number: {int2(5), refers to general_code_m.order_number} <br>
+     * [set] order_num: {int4(10), refers to event_type_m.order_num} <br>
      * 表示順
-     * @param orderNumber The value of the column 'order_number'. (NullAllowed: null update allowed for no constraint)
+     * @param orderNum The value of the column 'order_num'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setOrderNumber(Integer orderNumber) {
-        registerModifiedProperty("orderNumber");
-        _orderNumber = orderNumber;
-    }
-
-    /**
-     * [get] remarks: {text(2147483647), refers to general_code_m.remarks} <br>
-     * 備考
-     * @return The value of the column 'remarks'. (NullAllowed even if selected: for no constraint)
-     */
-    public String getRemarks() {
-        checkSpecifiedProperty("remarks");
-        return _remarks;
-    }
-
-    /**
-     * [set] remarks: {text(2147483647), refers to general_code_m.remarks} <br>
-     * 備考
-     * @param remarks The value of the column 'remarks'. (NullAllowed: null update allowed for no constraint)
-     */
-    public void setRemarks(String remarks) {
-        registerModifiedProperty("remarks");
-        _remarks = remarks;
+    public void setOrderNum(Integer orderNum) {
+        registerModifiedProperty("orderNum");
+        _orderNum = orderNum;
     }
 }

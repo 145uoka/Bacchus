@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.optional.OptionalEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +15,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.Bacchus.app.components.EventDto;
 import com.Bacchus.app.components.EventIndexDto;
+import com.Bacchus.app.components.EventTypeDto;
+import com.Bacchus.app.components.LabelValueDto;
 import com.Bacchus.app.components.UserDto;
 import com.Bacchus.app.service.CommonService;
 import com.Bacchus.app.util.DateUtil;
 import com.Bacchus.dbflute.exbhv.EventNotifyBhv;
 import com.Bacchus.dbflute.exbhv.EventTBhv;
+import com.Bacchus.dbflute.exbhv.EventTypeMBhv;
 import com.Bacchus.dbflute.exbhv.pmbean.EventIndexPmb;
 import com.Bacchus.dbflute.exentity.EventNotify;
 import com.Bacchus.dbflute.exentity.EventT;
+import com.Bacchus.dbflute.exentity.EventTypeM;
 import com.Bacchus.dbflute.exentity.customize.EventIndex;
+import com.Bacchus.webbase.common.constants.SystemCodeConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.Flag;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.GeneralCodeKbn;
 
 /**
  * イベント関連サービスクラス。
- *
- * @author ishigouoka_k
  *
  */
 @Service
@@ -51,6 +55,9 @@ public class EventService {
     @Autowired
     EventNotifyBhv eventNotifyBhv;
 
+    @Autowired
+    EventTypeMBhv eventTypeMBhv;
+
     /**
      * イベント管理番号（PK）をもとにイベントDtoを取得。
      *
@@ -66,6 +73,7 @@ public class EventService {
 
         // イベント_Tの検索
         OptionalEntity<EventT> eventT = eventTBhv.selectEntity(cb -> {
+            cb.setupSelect_EventTypeM();
             cb.setupSelect_UserT();
             cb.query().setEventNo_Equal(eventNo);
         });
@@ -83,6 +91,14 @@ public class EventService {
                 eventDto.setUserDto(userDto);
             }
 
+            if (eventT.get().getEventTypeM().isPresent()) {
+
+                // EntityからDtoへ変換（event_type_m）
+                EventTypeDto eventTypeDto = new EventTypeDto();
+                BeanUtils.copyProperties(eventT.get().getEventTypeM().get(), eventTypeDto);
+                eventDto.setEventTypeDto(eventTypeDto);
+            }
+
             if (eventT.get().getAuxiliaryFlg() != null) {
                 // 経費補助有無の別を設定
                 eventDto.setAuxiliaryFlgDisplay(generalCodeDtoMap.get(eventT.get().getAuxiliaryFlg().toString()));
@@ -90,6 +106,63 @@ public class EventService {
         }
 
         return eventDto;
+    }
+
+    public List<EventTypeDto> getEventTypeDtoList() {
+
+        ListResultBean<EventTypeM> eventTypeMList = eventTypeMBhv.selectList(cb -> {
+            cb.query().addOrderBy_OrderNum_Asc();
+        });
+
+        List<EventTypeDto> resultDtoList = new ArrayList<EventTypeDto>();
+
+        for (EventTypeM eventTypeM : eventTypeMList) {
+            EventTypeDto eventTypeDto = new EventTypeDto();
+            BeanUtils.copyProperties(eventTypeM, eventTypeDto);
+            resultDtoList.add(eventTypeDto);
+        }
+
+        return resultDtoList;
+    }
+
+    public List<LabelValueDto> creatEventTypeLabelValueList() {
+
+        List<LabelValueDto> resultList = new ArrayList<LabelValueDto>();
+        LabelValueDto labelValueDto = new LabelValueDto();
+        labelValueDto.setValue("");
+        labelValueDto.setLabel(SystemCodeConstants.PLEASE_SELECT_MSG);
+        resultList.add(labelValueDto);
+
+        List<EventTypeDto> eventTypeDtoDtoList = getEventTypeDtoList();
+
+        for (EventTypeDto eventTypeDto :eventTypeDtoDtoList) {
+            labelValueDto = new LabelValueDto();
+            labelValueDto.setValue(eventTypeDto.getEventTypeId());
+            labelValueDto.setLabel(eventTypeDto.getEventTypeName());
+
+            resultList.add(labelValueDto);
+        }
+        return resultList;
+    }
+
+    /**
+     * 指定して汎用コードが存在するかを確認。
+     *
+     * @param codeDiv コード区分
+     * @param code コード値
+     * @return true:存在, false:存在しない
+     */
+    public boolean isExistsEventType(Integer eventTypeId) {
+        int resultCount = eventTypeMBhv.selectCount(cb -> {
+            cb.query().setEventTypeId_Equal(eventTypeId);
+
+        });
+
+        if (resultCount > 0 ) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -102,8 +175,6 @@ public class EventService {
         EventIndexPmb pmb = new EventIndexPmb();
         pmb.setEventT_entryDiv(Flag.ON.getIntegerValue());
         pmb.setEventT_fixFlg(Flag.ON.getIntegerValue());
-        pmb.setGeneralCodeM_codeDiv(GeneralCodeKbn.EVENT_DIV);
-        pmb.setGeneralCodeM_delFlg(Flag.OFF.getIntegerValue());
 
         // DB - SELECT (外だしSQL - EventTBhv_selectEventIndex.sql)
         List<EventIndex> eventIndexEntityList = eventTBhv.outsideSql().selectList(pmb);

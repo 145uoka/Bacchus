@@ -53,7 +53,7 @@ public class EventIndexDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((EventIndex)et).getFixFlg(), (et, vl) -> ((EventIndex)et).setFixFlg(cti(vl)), "fixFlg");
         setupEpg(_epgMap, et -> ((EventIndex)et).getCandidateNo(), (et, vl) -> ((EventIndex)et).setCandidateNo(cti(vl)), "candidateNo");
         setupEpg(_epgMap, et -> ((EventIndex)et).getStoreName(), (et, vl) -> ((EventIndex)et).setStoreName((String)vl), "storeName");
-        setupEpg(_epgMap, et -> ((EventIndex)et).getEventDiv(), (et, vl) -> ((EventIndex)et).setEventDiv((String)vl), "eventDiv");
+        setupEpg(_epgMap, et -> ((EventIndex)et).getEventTypeId(), (et, vl) -> ((EventIndex)et).setEventTypeId(cti(vl)), "eventTypeId");
         setupEpg(_epgMap, et -> ((EventIndex)et).getUserId(), (et, vl) -> ((EventIndex)et).setUserId(cti(vl)), "userId");
         setupEpg(_epgMap, et -> ((EventIndex)et).getLoginId(), (et, vl) -> ((EventIndex)et).setLoginId((String)vl), "loginId");
         setupEpg(_epgMap, et -> ((EventIndex)et).getLineFlg(), (et, vl) -> ((EventIndex)et).setLineFlg(cti(vl)), "lineFlg");
@@ -71,12 +71,8 @@ public class EventIndexDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((EventIndex)et).getStartDate(), (et, vl) -> ((EventIndex)et).setStartDate((String)vl), "startDate");
         setupEpg(_epgMap, et -> ((EventIndex)et).getStartTime(), (et, vl) -> ((EventIndex)et).setStartTime((String)vl), "startTime");
         setupEpg(_epgMap, et -> ((EventIndex)et).getEntryCount(), (et, vl) -> ((EventIndex)et).setEntryCount(ctl(vl)), "entryCount");
-        setupEpg(_epgMap, et -> ((EventIndex)et).getCodeId(), (et, vl) -> ((EventIndex)et).setCodeId(cti(vl)), "codeId");
-        setupEpg(_epgMap, et -> ((EventIndex)et).getCodeDiv(), (et, vl) -> ((EventIndex)et).setCodeDiv((String)vl), "codeDiv");
-        setupEpg(_epgMap, et -> ((EventIndex)et).getCode(), (et, vl) -> ((EventIndex)et).setCode((String)vl), "code");
-        setupEpg(_epgMap, et -> ((EventIndex)et).getName(), (et, vl) -> ((EventIndex)et).setName((String)vl), "name");
-        setupEpg(_epgMap, et -> ((EventIndex)et).getOrderNumber(), (et, vl) -> ((EventIndex)et).setOrderNumber(cti(vl)), "orderNumber");
-        setupEpg(_epgMap, et -> ((EventIndex)et).getRemarks(), (et, vl) -> ((EventIndex)et).setRemarks((String)vl), "remarks");
+        setupEpg(_epgMap, et -> ((EventIndex)et).getEventTypeName(), (et, vl) -> ((EventIndex)et).setEventTypeName((String)vl), "eventTypeName");
+        setupEpg(_epgMap, et -> ((EventIndex)et).getOrderNum(), (et, vl) -> ((EventIndex)et).setOrderNum(cti(vl)), "orderNum");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -108,7 +104,7 @@ public class EventIndexDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnFixFlg = cci("fix_flg", "fix_flg", null, null, Integer.class, "fixFlg", null, false, false, false, "int2", 5, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnCandidateNo = cci("candidate_no", "candidate_no", null, null, Integer.class, "candidateNo", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnStoreName = cci("store_name", "store_name", null, null, String.class, "storeName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnEventDiv = cci("event_div", "event_div", null, null, String.class, "eventDiv", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnEventTypeId = cci("event_type_id", "event_type_id", null, null, Integer.class, "eventTypeId", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnLoginId = cci("login_id", "login_id", null, null, String.class, "loginId", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnLineFlg = cci("line_flg", "line_flg", null, null, Integer.class, "lineFlg", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
@@ -126,12 +122,8 @@ public class EventIndexDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnStartDate = cci("start_date", "start_date", null, null, String.class, "startDate", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnStartTime = cci("start_time", "start_time", null, null, String.class, "startTime", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEntryCount = cci("entry_count", "entry_count", null, null, Long.class, "entryCount", null, false, false, false, "int8", 19, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnCodeId = cci("code_id", "code_id", null, null, Integer.class, "codeId", null, false, false, false, "serial", 10, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnCodeDiv = cci("code_div", "code_div", null, null, String.class, "codeDiv", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnCode = cci("code", "code", null, null, String.class, "code", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnName = cci("name", "name", null, null, String.class, "name", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnOrderNumber = cci("order_number", "order_number", null, null, Integer.class, "orderNumber", null, false, false, false, "int2", 5, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnRemarks = cci("remarks", "remarks", null, null, String.class, "remarks", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnEventTypeName = cci("event_type_name", "event_type_name", null, null, String.class, "eventTypeName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnOrderNum = cci("order_num", "order_num", null, null, Integer.class, "orderNum", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
 
     /**
      * event_no: {serial(10), refers to event_t.event_no}
@@ -189,10 +181,10 @@ public class EventIndexDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnStoreName() { return _columnStoreName; }
     /**
-     * event_div: {text(2147483647), refers to event_t.event_div}
+     * event_type_id: {int4(10), refers to event_t.event_type_id}
      * @return The information object of specified column. (NotNull)
      */
-    public ColumnInfo columnEventDiv() { return _columnEventDiv; }
+    public ColumnInfo columnEventTypeId() { return _columnEventTypeId; }
     /**
      * user_id: {int4(10), refers to event_t.user_id}
      * @return The information object of specified column. (NotNull)
@@ -279,35 +271,15 @@ public class EventIndexDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnEntryCount() { return _columnEntryCount; }
     /**
-     * code_id: {serial(10), refers to general_code_m.code_id}
+     * event_type_name: {text(2147483647), refers to event_type_m.event_type_name}
      * @return The information object of specified column. (NotNull)
      */
-    public ColumnInfo columnCodeId() { return _columnCodeId; }
+    public ColumnInfo columnEventTypeName() { return _columnEventTypeName; }
     /**
-     * code_div: {text(2147483647), refers to general_code_m.code_div}
+     * order_num: {int4(10), refers to event_type_m.order_num}
      * @return The information object of specified column. (NotNull)
      */
-    public ColumnInfo columnCodeDiv() { return _columnCodeDiv; }
-    /**
-     * code: {text(2147483647), refers to general_code_m.code}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnCode() { return _columnCode; }
-    /**
-     * name: {text(2147483647), refers to general_code_m.name}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnName() { return _columnName; }
-    /**
-     * order_number: {int2(5), refers to general_code_m.order_number}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnOrderNumber() { return _columnOrderNumber; }
-    /**
-     * remarks: {text(2147483647), refers to general_code_m.remarks}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnRemarks() { return _columnRemarks; }
+    public ColumnInfo columnOrderNum() { return _columnOrderNum; }
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
@@ -322,7 +294,7 @@ public class EventIndexDbm extends AbstractDBMeta {
         ls.add(columnFixFlg());
         ls.add(columnCandidateNo());
         ls.add(columnStoreName());
-        ls.add(columnEventDiv());
+        ls.add(columnEventTypeId());
         ls.add(columnUserId());
         ls.add(columnLoginId());
         ls.add(columnLineFlg());
@@ -340,12 +312,8 @@ public class EventIndexDbm extends AbstractDBMeta {
         ls.add(columnStartDate());
         ls.add(columnStartTime());
         ls.add(columnEntryCount());
-        ls.add(columnCodeId());
-        ls.add(columnCodeDiv());
-        ls.add(columnCode());
-        ls.add(columnName());
-        ls.add(columnOrderNumber());
-        ls.add(columnRemarks());
+        ls.add(columnEventTypeName());
+        ls.add(columnOrderNum());
         return ls;
     }
 

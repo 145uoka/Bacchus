@@ -2,8 +2,10 @@ package com.Bacchus.app.controller.event;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.Bacchus.app.Exception.RecordNotFoundException;
+import com.Bacchus.app.components.EventDto;
 import com.Bacchus.app.form.event.NotifyExecForm;
 import com.Bacchus.app.form.event.NotifyForm;
 import com.Bacchus.app.service.CommonService;
@@ -77,6 +81,18 @@ public class EventNotifyController extends BaseController {
 
         model.addAttribute("form", form);
         super.setDisplayTitle(model, DisplayIdConstants.Event.BACCHUS_0205);
+
+        // イベント情報の取得
+        EventDto eventDto = eventService.findEventByPK(form.getEventNo());
+
+        // record無し処理
+        if (eventDto == null) {
+            Map<String, Object> conditionMap = new HashMap<String, Object>();
+            conditionMap.put("eventNo", form.getEventNo());
+            throw new RecordNotFoundException("event_t", RecordNotFoundException.createKeyInfoMessage(conditionMap));
+        }
+
+        model.addAttribute("eventDto", eventDto);
 
         // ユーザー一覧項目の取得
         model.addAttribute("userList", userService.findAllJoinEventNotify(form.getEventNo()));

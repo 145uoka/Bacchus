@@ -24,7 +24,7 @@ select
   , t1.fix_flg
   , t1.candidate_no
   , t1.store_name
-  , t1.event_div
+  , t1.event_type_id
   , t1.user_id
   , t2.login_id
   , t2.line_flg
@@ -42,12 +42,8 @@ select
   , t3.start_date
   , t3.start_time
   , t4.entry_count
-  , t5.code_id
-  , t5.code_div
-  , t5.code
-  , t5.name
-  , t5.order_number
-  , t5.remarks
+  , t5.event_type_name
+  , t5.order_num
 from
   event_t t1
   left outer join user_t t2
@@ -70,11 +66,8 @@ from
   ) t4
     on t4.candidate_no = t1.candidate_no
     and t1.fix_flg = /*pmb.eventT_fixFlg*/1
-  left outer join general_code_m t5
-    ON t1.event_div is not null
-    and t5.code_div = /*pmb.generalCodeM_codeDiv*/'0004'
-    and t5.code = t1.event_div
-    and t5.del_flg = /*pmb.generalCodeM_delFlg*/0
+  left outer join event_type_m t5
+    ON t1.event_type_id = t5.event_type_id
 order by
   t3.event_start_datetime asc, t1.event_no
 

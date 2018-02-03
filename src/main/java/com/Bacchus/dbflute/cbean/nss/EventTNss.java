@@ -20,6 +20,13 @@ public class EventTNss {
     //                                                                     ===============
     /**
      * With nested relation columns to select clause. <br>
+     * event_type_m by my event_type_id, named 'eventTypeM'.
+     */
+    public void withEventTypeM() {
+        _query.xdoNss(() -> _query.queryEventTypeM());
+    }
+    /**
+     * With nested relation columns to select clause. <br>
      * user_t by my user_id, named 'userT'.
      * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */

@@ -23,6 +23,9 @@ public class BsEventNotifyUserPmb implements ListHandlingPmb<UserTBhv, EventNoti
     /** The parameter of eventNo. */
     protected Integer _eventNo;
 
+    /** The parameter of lineFlg. */
+    protected Integer _lineFlg;
+
     /** The max size of safety result. */
     protected int _safetyMaxResultSize;
 
@@ -121,6 +124,7 @@ public class BsEventNotifyUserPmb implements ListHandlingPmb<UserTBhv, EventNoti
         final String dm = ", ";
         final StringBuilder sb = new StringBuilder();
         sb.append(dm).append(_eventNo);
+        sb.append(dm).append(_lineFlg);
         if (sb.length() > 0) { sb.delete(0, dm.length()); }
         sb.insert(0, "{").append("}");
         return sb.toString();
@@ -143,5 +147,21 @@ public class BsEventNotifyUserPmb implements ListHandlingPmb<UserTBhv, EventNoti
      */
     public void setEventNo(Integer eventNo) {
         _eventNo = eventNo;
+    }
+
+    /**
+     * [get] lineFlg <br>
+     * @return The value of lineFlg. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
+     */
+    public Integer getLineFlg() {
+        return _lineFlg;
+    }
+
+    /**
+     * [set] lineFlg <br>
+     * @param lineFlg The value of lineFlg. (NullAllowed)
+     */
+    public void setLineFlg(Integer lineFlg) {
+        _lineFlg = lineFlg;
     }
 }

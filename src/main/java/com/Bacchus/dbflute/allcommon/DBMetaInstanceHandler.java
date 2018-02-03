@@ -37,6 +37,7 @@ public class DBMetaInstanceHandler implements DBMetaProvider {
         tmpMap.put("entry_t", "com.Bacchus.dbflute.bsentity.dbmeta.EntryTDbm");
         tmpMap.put("event_notify", "com.Bacchus.dbflute.bsentity.dbmeta.EventNotifyDbm");
         tmpMap.put("event_t", "com.Bacchus.dbflute.bsentity.dbmeta.EventTDbm");
+        tmpMap.put("event_type_m", "com.Bacchus.dbflute.bsentity.dbmeta.EventTypeMDbm");
         tmpMap.put("general_code_m", "com.Bacchus.dbflute.bsentity.dbmeta.GeneralCodeMDbm");
         tmpMap.put("system_property_m", "com.Bacchus.dbflute.bsentity.dbmeta.SystemPropertyMDbm");
         tmpMap.put("user_t", "com.Bacchus.dbflute.bsentity.dbmeta.UserTDbm");

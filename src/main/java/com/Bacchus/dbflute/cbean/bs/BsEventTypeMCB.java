@@ -18,23 +18,22 @@ import com.Bacchus.dbflute.allcommon.ImplementedInvokerAssistant;
 import com.Bacchus.dbflute.allcommon.ImplementedSqlClauseCreator;
 import com.Bacchus.dbflute.cbean.*;
 import com.Bacchus.dbflute.cbean.cq.*;
-import com.Bacchus.dbflute.cbean.nss.*;
 
 /**
- * The base condition-bean of event_t.
+ * The base condition-bean of event_type_m.
  * @author DBFlute(AutoGenerator)
  */
-public class BsEventTCB extends AbstractConditionBean {
+public class BsEventTypeMCB extends AbstractConditionBean {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected EventTCQ _conditionQuery;
+    protected EventTypeMCQ _conditionQuery;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public BsEventTCB() {
+    public BsEventTypeMCB() {
         if (DBFluteConfig.getInstance().isPagingCountLater()) {
             enablePagingCountLater();
         }
@@ -73,7 +72,7 @@ public class BsEventTCB extends AbstractConditionBean {
     }
 
     public String asTableDbName() {
-        return "event_t";
+        return "event_type_m";
     }
 
     // ===================================================================================
@@ -81,23 +80,23 @@ public class BsEventTCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param eventNo : PK, ID, NotNull, serial(10). (NotNull)
+     * @param eventTypeId : PK, ID, NotNull, serial(10). (NotNull)
      * @return this. (NotNull)
      */
-    public EventTCB acceptPK(Integer eventNo) {
-        assertObjectNotNull("eventNo", eventNo);
-        BsEventTCB cb = this;
-        cb.query().setEventNo_Equal(eventNo);
-        return (EventTCB)this;
+    public EventTypeMCB acceptPK(Integer eventTypeId) {
+        assertObjectNotNull("eventTypeId", eventTypeId);
+        BsEventTypeMCB cb = this;
+        cb.query().setEventTypeId_Equal(eventTypeId);
+        return (EventTypeMCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
-        query().addOrderBy_EventNo_Asc();
+        query().addOrderBy_EventTypeId_Asc();
         return this;
     }
 
     public ConditionBean addOrderBy_PK_Desc() {
-        query().addOrderBy_EventNo_Desc();
+        query().addOrderBy_EventTypeId_Desc();
         return this;
     }
 
@@ -161,34 +160,34 @@ public class BsEventTCB extends AbstractConditionBean {
      * </pre>
      * @return The instance of condition-query for base-point table to set up query. (NotNull)
      */
-    public EventTCQ query() {
+    public EventTypeMCQ query() {
         assertQueryPurpose(); // assert only when user-public query 
         return doGetConditionQuery();
     }
 
-    public EventTCQ xdfgetConditionQuery() { // public for parameter comment and internal
+    public EventTypeMCQ xdfgetConditionQuery() { // public for parameter comment and internal
         return doGetConditionQuery();
     }
 
-    protected EventTCQ doGetConditionQuery() {
+    protected EventTypeMCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
         return _conditionQuery;
     }
 
-    protected EventTCQ createLocalCQ() {
+    protected EventTypeMCQ createLocalCQ() {
         return xcreateCQ(null, getSqlClause(), getSqlClause().getBasePointAliasName(), 0);
     }
 
-    protected EventTCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        EventTCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected EventTypeMCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        EventTypeMCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
         cq.xsetBaseCB(this);
         return cq;
     }
 
-    protected EventTCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        return new EventTCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected EventTypeMCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        return new EventTypeMCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
     /**
@@ -212,10 +211,10 @@ public class BsEventTCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union'. (NotNull)
      */
-    public void union(UnionQuery<EventTCB> unionCBLambda) {
-        final EventTCB cb = new EventTCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+    public void union(UnionQuery<EventTypeMCB> unionCBLambda) {
+        final EventTypeMCB cb = new EventTypeMCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final EventTCQ cq = cb.query(); query().xsetUnionQuery(cq);
+        final EventTypeMCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
     /**
@@ -229,64 +228,15 @@ public class BsEventTCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union all'. (NotNull)
      */
-    public void unionAll(UnionQuery<EventTCB> unionCBLambda) {
-        final EventTCB cb = new EventTCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+    public void unionAll(UnionQuery<EventTypeMCB> unionCBLambda) {
+        final EventTypeMCB cb = new EventTypeMCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final EventTCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
+        final EventTypeMCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
-    /**
-     * Set up relation columns to select clause. <br>
-     * event_type_m by my event_type_id, named 'eventTypeM'.
-     * <pre>
-     * <span style="color: #0000C0">eventTBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_EventTypeM()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
-     *     <span style="color: #553000">cb</span>.query().set...
-     * }).alwaysPresent(<span style="color: #553000">eventT</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     ... = <span style="color: #553000">eventT</span>.<span style="color: #CC4747">getEventTypeM()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
-     * });
-     * </pre>
-     */
-    public void setupSelect_EventTypeM() {
-        assertSetupSelectPurpose("eventTypeM");
-        if (hasSpecifiedLocalColumn()) {
-            specify().columnEventTypeId();
-        }
-        doSetupSelect(() -> query().queryEventTypeM());
-    }
-
-    protected UserTNss _nssUserT;
-    public UserTNss xdfgetNssUserT() {
-        if (_nssUserT == null) { _nssUserT = new UserTNss(null); }
-        return _nssUserT;
-    }
-    /**
-     * Set up relation columns to select clause. <br>
-     * user_t by my user_id, named 'userT'.
-     * <pre>
-     * <span style="color: #0000C0">eventTBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_UserT()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
-     *     <span style="color: #553000">cb</span>.query().set...
-     * }).alwaysPresent(<span style="color: #553000">eventT</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     ... = <span style="color: #553000">eventT</span>.<span style="color: #CC4747">getUserT()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
-     * });
-     * </pre>
-     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
-     */
-    public UserTNss setupSelect_UserT() {
-        assertSetupSelectPurpose("userT");
-        if (hasSpecifiedLocalColumn()) {
-            specify().columnUserId();
-        }
-        doSetupSelect(() -> query().queryUserT());
-        if (_nssUserT == null || !_nssUserT.hasConditionQuery())
-        { _nssUserT = new UserTNss(query().queryUserT()); }
-        return _nssUserT;
-    }
-
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -327,175 +277,58 @@ public class BsEventTCB extends AbstractConditionBean {
         return _specification != null && _specification.hasSpecifiedColumn();
     }
 
-    public static class HpSpecification extends HpAbstractSpecification<EventTCQ> {
-        protected EventTypeMCB.HpSpecification _eventTypeM;
-        protected UserTCB.HpSpecification _userT;
-        public HpSpecification(ConditionBean baseCB, HpSpQyCall<EventTCQ> qyCall
+    public static class HpSpecification extends HpAbstractSpecification<EventTypeMCQ> {
+        public HpSpecification(ConditionBean baseCB, HpSpQyCall<EventTypeMCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * event_no: {PK, ID, NotNull, serial(10)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnEventNo() { return doColumn("event_no"); }
-        /**
-         * event_name: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnEventName() { return doColumn("event_name"); }
-        /**
-         * event_detail: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnEventDetail() { return doColumn("event_detail"); }
-        /**
-         * event_place: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnEventPlace() { return doColumn("event_place"); }
-        /**
-         * event_url: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnEventUrl() { return doColumn("event_url"); }
-        /**
-         * tell: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnTell() { return doColumn("tell"); }
-        /**
-         * event_entry_fee: {int4(10)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnEventEntryFee() { return doColumn("event_entry_fee"); }
-        /**
-         * auxiliary_flg: {int2(5)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnAuxiliaryFlg() { return doColumn("auxiliary_flg"); }
-        /**
-         * fix_flg: {int2(5)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnFixFlg() { return doColumn("fix_flg"); }
-        /**
-         * candidate_no: {int4(10)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnCandidateNo() { return doColumn("candidate_no"); }
-        /**
-         * store_name: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnStoreName() { return doColumn("store_name"); }
-        /**
-         * user_id: {int4(10), FK to user_t}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnUserId() { return doColumn("user_id"); }
-        /**
-         * event_type_id: {int4(10), FK to event_type_m}
+         * event_type_id: {PK, ID, NotNull, serial(10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnEventTypeId() { return doColumn("event_type_id"); }
+        /**
+         * event_type_name: {NotNull, text(2147483647)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnEventTypeName() { return doColumn("event_type_name"); }
+        /**
+         * order_num: {int4(10)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnOrderNum() { return doColumn("order_num"); }
         public void everyColumn() { doEveryColumn(); }
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override
         protected void doSpecifyRequiredColumn() {
-            columnEventNo(); // PK
-            if (qyCall().qy().hasConditionQueryEventTypeM()
-                    || qyCall().qy().xgetReferrerQuery() instanceof EventTypeMCQ) {
-                columnEventTypeId(); // FK or one-to-one referrer
-            }
-            if (qyCall().qy().hasConditionQueryUserT()
-                    || qyCall().qy().xgetReferrerQuery() instanceof UserTCQ) {
-                columnUserId(); // FK or one-to-one referrer
-            }
+            columnEventTypeId(); // PK
         }
         @Override
-        protected String getTableDbName() { return "event_t"; }
-        /**
-         * Prepare to specify functions about relation table. <br>
-         * event_type_m by my event_type_id, named 'eventTypeM'.
-         * @return The instance for specification for relation table to specify. (NotNull)
-         */
-        public EventTypeMCB.HpSpecification specifyEventTypeM() {
-            assertRelation("eventTypeM");
-            if (_eventTypeM == null) {
-                _eventTypeM = new EventTypeMCB.HpSpecification(_baseCB
-                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryEventTypeM()
-                                    , () -> _qyCall.qy().queryEventTypeM())
-                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
-                if (xhasSyncQyCall()) { // inherits it
-                    _eventTypeM.xsetSyncQyCall(xcreateSpQyCall(
-                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryEventTypeM()
-                      , () -> xsyncQyCall().qy().queryEventTypeM()));
-                }
-            }
-            return _eventTypeM;
-        }
-        /**
-         * Prepare to specify functions about relation table. <br>
-         * user_t by my user_id, named 'userT'.
-         * @return The instance for specification for relation table to specify. (NotNull)
-         */
-        public UserTCB.HpSpecification specifyUserT() {
-            assertRelation("userT");
-            if (_userT == null) {
-                _userT = new UserTCB.HpSpecification(_baseCB
-                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryUserT()
-                                    , () -> _qyCall.qy().queryUserT())
-                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
-                if (xhasSyncQyCall()) { // inherits it
-                    _userT.xsetSyncQyCall(xcreateSpQyCall(
-                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryUserT()
-                      , () -> xsyncQyCall().qy().queryUserT()));
-                }
-            }
-            return _userT;
-        }
+        protected String getTableDbName() { return "event_type_m"; }
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from candidate_t where ...) as FOO_MAX} <br>
-         * candidate_t by event_no, named 'candidateTList'.
+         * {select max(FOO) from event_t where ...) as FOO_MAX} <br>
+         * event_t by event_type_id, named 'eventTList'.
          * <pre>
          * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(tCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
          *     tCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
          *     tCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, CandidateT.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * }, EventT.<span style="color: #CC4747">ALIAS_foo...</span>);
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
-        public HpSDRFunction<CandidateTCB, EventTCQ> derivedCandidateT() {
-            assertDerived("candidateTList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<CandidateTCB> sq, EventTCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveCandidateTList(fn, sq, al, op), _dbmetaProvider);
-        }
-        /**
-         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from event_notify where ...) as FOO_MAX} <br>
-         * event_notify by event_no, named 'eventNotifyList'.
-         * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(notifyCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     notifyCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     notifyCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, EventNotify.<span style="color: #CC4747">ALIAS_foo...</span>);
-         * </pre>
-         * @return The object to set up a function for referrer table. (NotNull)
-         */
-        public HpSDRFunction<EventNotifyCB, EventTCQ> derivedEventNotify() {
-            assertDerived("eventNotifyList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<EventNotifyCB> sq, EventTCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveEventNotifyList(fn, sq, al, op), _dbmetaProvider);
+        public HpSDRFunction<EventTCB, EventTypeMCQ> derivedEventT() {
+            assertDerived("eventTList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<EventTCB> sq, EventTypeMCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveEventTList(fn, sq, al, op), _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)
          */
-        public HpSDRFunction<EventTCB, EventTCQ> myselfDerived() {
+        public HpSDRFunction<EventTypeMCB, EventTypeMCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<EventTCB> sq, EventTCQ cq, String al, DerivedReferrerOption op)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<EventTypeMCB> sq, EventTypeMCQ cq, String al, DerivedReferrerOption op)
                     -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
@@ -508,9 +341,9 @@ public class BsEventTCB extends AbstractConditionBean {
      * This is very specialty so you can get the frontier spirit. Bon voyage!
      * @return The condition-bean for dream cruise, which is linked to main condition-bean.
      */
-    public EventTCB dreamCruiseCB() {
-        EventTCB cb = new EventTCB();
-        cb.xsetupForDreamCruise((EventTCB) this);
+    public EventTypeMCB dreamCruiseCB() {
+        EventTypeMCB cb = new EventTypeMCB();
+        cb.xsetupForDreamCruise((EventTypeMCB) this);
         return cb;
     }
 
@@ -535,15 +368,15 @@ public class BsEventTCB extends AbstractConditionBean {
      * @param colCBLambda The callback for specify-query of left column. (NotNull)
      * @return The object for setting up operand and right column. (NotNull)
      */
-    public HpColQyOperand<EventTCB> columnQuery(final SpecifyQuery<EventTCB> colCBLambda) {
+    public HpColQyOperand<EventTypeMCB> columnQuery(final SpecifyQuery<EventTypeMCB> colCBLambda) {
         return xcreateColQyOperand((rightSp, operand) -> {
             return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
         });
     }
 
-    protected EventTCB xcreateColumnQueryCB() {
-        EventTCB cb = new EventTCB();
-        cb.xsetupForColumnQuery((EventTCB)this);
+    protected EventTypeMCB xcreateColumnQueryCB() {
+        EventTypeMCB cb = new EventTypeMCB();
+        cb.xsetupForColumnQuery((EventTypeMCB)this);
         return cb;
     }
 
@@ -563,8 +396,8 @@ public class BsEventTCB extends AbstractConditionBean {
      * </pre>
      * @param orCBLambda The callback for query of or-condition. (NotNull)
      */
-    public void orScopeQuery(OrQuery<EventTCB> orCBLambda) {
-        xorSQ((EventTCB)this, orCBLambda);
+    public void orScopeQuery(OrQuery<EventTypeMCB> orCBLambda) {
+        xorSQ((EventTypeMCB)this, orCBLambda);
     }
 
     /**
@@ -582,8 +415,8 @@ public class BsEventTCB extends AbstractConditionBean {
      * </pre>
      * @param andCBLambda The callback for query of and-condition. (NotNull)
      */
-    public void orScopeQueryAndPart(AndQuery<EventTCB> andCBLambda) {
-        xorSQAP((EventTCB)this, andCBLambda);
+    public void orScopeQueryAndPart(AndQuery<EventTypeMCB> andCBLambda) {
+        xorSQAP((EventTypeMCB)this, andCBLambda);
     }
 
     // ===================================================================================
@@ -613,11 +446,11 @@ public class BsEventTCB extends AbstractConditionBean {
     //                                                                        ============
     @Override
     protected void xprepareSyncQyCall(ConditionBean mainCB) {
-        final EventTCB cb;
+        final EventTypeMCB cb;
         if (mainCB != null) {
-            cb = (EventTCB)mainCB;
+            cb = (EventTypeMCB)mainCB;
         } else {
-            cb = new EventTCB();
+            cb = new EventTypeMCB();
         }
         specify().xsetSyncQyCall(xcreateSpQyCall(() -> true, () -> cb.query()));
     }
@@ -626,8 +459,8 @@ public class BsEventTCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xgetConditionBeanClassNameInternally() { return EventTCB.class.getName(); }
-    protected String xgetConditionQueryClassNameInternally() { return EventTCQ.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return EventTypeMCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return EventTypeMCQ.class.getName(); }
     protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
     protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

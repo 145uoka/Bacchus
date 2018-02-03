@@ -37,6 +37,7 @@ from
   left outer join event_notify t2
     on t1.user_id = t2.user_id
     and t2.event_no = /*pmb.eventNo*/1
+  where t1.line_flg = /*pmb.lineFlg*/1
 order by
   t1.user_id
 

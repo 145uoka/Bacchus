@@ -40,8 +40,7 @@ public class EventCreateForm implements Serializable {
 
 	private String storeName ;
 
-	@Number(message=GlueNetValidator.INVALID)
-	private String eventDiv ;
+	private Integer eventTypeId ;
 
 	@Number(message=GlueNetValidator.INVALID)
 	private String userId ;
@@ -128,18 +127,17 @@ public class EventCreateForm implements Serializable {
 		this.storeName = storeName;
 	}
 
-
-	public String getEventDiv() {
-		return eventDiv;
-	}
-
-
-	public void setEventDiv(String eventDiv) {
-		this.eventDiv = eventDiv;
-	}
+	public Integer getEventTypeId() {
+        return eventTypeId;
+    }
 
 
-	public String getUserId() {
+    public void setEventTypeId(Integer eventTypeId) {
+        this.eventTypeId = eventTypeId;
+    }
+
+
+    public String getUserId() {
 		return userId;
 	}
 

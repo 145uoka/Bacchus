@@ -1,4 +1,73 @@
 map:{
+    ; 2018/02/03 17:43:13 = map:{
+        ; diffDate = 2018/02/03 17:43:13
+        ; tableDiff = map:{
+            ; event_t = map:{
+                ; tableName = event_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; event_div = map:{
+                        ; columnName = event_div
+                        ; diffType = DELETE
+                    }
+                }
+            }
+        }
+    }
+    ; 2018/02/03 17:26:55 = map:{
+        ; diffDate = 2018/02/03 17:26:55
+        ; tableDiff = map:{
+            ; event_t = map:{
+                ; tableName = event_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; event_type_id = map:{
+                        ; columnName = event_type_id
+                        ; diffType = CHANGE
+                        ; notNullDiff = map:{
+                            ; next = false
+                            ; previous = true
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ; 2018/02/03 17:23:31 = map:{
+        ; diffDate = 2018/02/03 17:23:31
+        ; tableCount = map:{
+            ; next = 11
+            ; previous = 10
+        }
+        ; tableDiff = map:{
+            ; event_type_m = map:{
+                ; tableName = event_type_m
+                ; diffType = ADD
+            }
+            ; event_t = map:{
+                ; tableName = event_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; event_type_id = map:{
+                        ; columnName = event_type_id
+                        ; diffType = ADD
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; event_t_event_type_id_fkey = map:{
+                        ; constraintName = event_t_event_type_id_fkey
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+        ; sequenceDiff = map:{
+            ; postgres.bacchus.event_type_m_event_type_id_seq = map:{
+                ; sequenceName = postgres.bacchus.event_type_m_event_type_id_seq
+                ; diffType = ADD
+            }
+        }
+    }
     ; 2018/01/21 17:15:54 = map:{
         ; diffDate = 2018/01/21 17:15:54
         ; tableDiff = map:{

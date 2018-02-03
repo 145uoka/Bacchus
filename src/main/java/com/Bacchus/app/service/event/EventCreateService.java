@@ -72,7 +72,7 @@ public class EventCreateService {
         eventT.setEventUrl(form.getEventUrl());
         eventT.setTell(form.getTell());
         eventT.setStoreName(form.getStoreName());
-        eventT.setEventDiv(form.getEventDiv());
+        eventT.setEventTypeId(form.getEventTypeId());
 
         // 経費補助の項目が選択されている場合true
         if (StringUtils.isNotEmpty(form.getAuxiliaryFlg())) {

@@ -12,21 +12,21 @@ import com.Bacchus.dbflute.cbean.cq.bs.*;
 import com.Bacchus.dbflute.cbean.cq.*;
 
 /**
- * The condition-query for in-line of event_t.
+ * The condition-query for in-line of event_type_m.
  * @author DBFlute(AutoGenerator)
  */
-public class EventTCIQ extends AbstractBsEventTCQ {
+public class EventTypeMCIQ extends AbstractBsEventTypeMCQ {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected BsEventTCQ _myCQ;
+    protected BsEventTypeMCQ _myCQ;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public EventTCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
-                        , String aliasName, int nestLevel, BsEventTCQ myCQ) {
+    public EventTypeMCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
+                        , String aliasName, int nestLevel, BsEventTypeMCQ myCQ) {
         super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
@@ -61,49 +61,29 @@ public class EventTCIQ extends AbstractBsEventTCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue xgetCValueEventNo() { return _myCQ.xdfgetEventNo(); }
-    public String keepEventNo_ExistsReferrer_CandidateTList(CandidateTCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepEventNo_ExistsReferrer_EventNotifyList(EventNotifyCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepEventNo_NotExistsReferrer_CandidateTList(CandidateTCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepEventNo_NotExistsReferrer_EventNotifyList(EventNotifyCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepEventNo_SpecifyDerivedReferrer_CandidateTList(CandidateTCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepEventNo_SpecifyDerivedReferrer_EventNotifyList(EventNotifyCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepEventNo_QueryDerivedReferrer_CandidateTList(CandidateTCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepEventNo_QueryDerivedReferrer_CandidateTListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepEventNo_QueryDerivedReferrer_EventNotifyList(EventNotifyCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepEventNo_QueryDerivedReferrer_EventNotifyListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    protected ConditionValue xgetCValueEventName() { return _myCQ.xdfgetEventName(); }
-    protected ConditionValue xgetCValueEventDetail() { return _myCQ.xdfgetEventDetail(); }
-    protected ConditionValue xgetCValueEventPlace() { return _myCQ.xdfgetEventPlace(); }
-    protected ConditionValue xgetCValueEventUrl() { return _myCQ.xdfgetEventUrl(); }
-    protected ConditionValue xgetCValueTell() { return _myCQ.xdfgetTell(); }
-    protected ConditionValue xgetCValueEventEntryFee() { return _myCQ.xdfgetEventEntryFee(); }
-    protected ConditionValue xgetCValueAuxiliaryFlg() { return _myCQ.xdfgetAuxiliaryFlg(); }
-    protected ConditionValue xgetCValueFixFlg() { return _myCQ.xdfgetFixFlg(); }
-    protected ConditionValue xgetCValueCandidateNo() { return _myCQ.xdfgetCandidateNo(); }
-    protected ConditionValue xgetCValueStoreName() { return _myCQ.xdfgetStoreName(); }
-    protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
     protected ConditionValue xgetCValueEventTypeId() { return _myCQ.xdfgetEventTypeId(); }
+    public String keepEventTypeId_ExistsReferrer_EventTList(EventTCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepEventTypeId_NotExistsReferrer_EventTList(EventTCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepEventTypeId_SpecifyDerivedReferrer_EventTList(EventTCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepEventTypeId_QueryDerivedReferrer_EventTList(EventTCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepEventTypeId_QueryDerivedReferrer_EventTListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    protected ConditionValue xgetCValueEventTypeName() { return _myCQ.xdfgetEventTypeName(); }
+    protected ConditionValue xgetCValueOrderNum() { return _myCQ.xdfgetOrderNum(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
-    public String keepScalarCondition(EventTCQ sq)
+    public String keepScalarCondition(EventTypeMCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(EventTCQ sq)
+    public String keepSpecifyMyselfDerived(EventTypeMCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(EventTCQ sq)
+    public String keepQueryMyselfDerived(EventTypeMCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(EventTCQ sq)
+    public String keepMyselfExists(EventTypeMCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
 
     protected void throwIICBOE(String name)
@@ -113,6 +93,6 @@ public class EventTCIQ extends AbstractBsEventTCQ {
     //                                                                       Very Internal
     //                                                                       =============
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xinCB() { return EventTCB.class.getName(); }
-    protected String xinCQ() { return EventTCQ.class.getName(); }
+    protected String xinCB() { return EventTypeMCB.class.getName(); }
+    protected String xinCQ() { return EventTypeMCQ.class.getName(); }
 }

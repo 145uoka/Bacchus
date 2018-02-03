@@ -54,8 +54,8 @@ public class EventTDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((EventT)et).getFixFlg(), (et, vl) -> ((EventT)et).setFixFlg(cti(vl)), "fixFlg");
         setupEpg(_epgMap, et -> ((EventT)et).getCandidateNo(), (et, vl) -> ((EventT)et).setCandidateNo(cti(vl)), "candidateNo");
         setupEpg(_epgMap, et -> ((EventT)et).getStoreName(), (et, vl) -> ((EventT)et).setStoreName((String)vl), "storeName");
-        setupEpg(_epgMap, et -> ((EventT)et).getEventDiv(), (et, vl) -> ((EventT)et).setEventDiv((String)vl), "eventDiv");
         setupEpg(_epgMap, et -> ((EventT)et).getUserId(), (et, vl) -> ((EventT)et).setUserId(cti(vl)), "userId");
+        setupEpg(_epgMap, et -> ((EventT)et).getEventTypeId(), (et, vl) -> ((EventT)et).setEventTypeId(cti(vl)), "eventTypeId");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -67,6 +67,7 @@ public class EventTDbm extends AbstractDBMeta {
     { xsetupEfpg(); }
     @SuppressWarnings("unchecked")
     protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((EventT)et).getEventTypeM(), (et, vl) -> ((EventT)et).setEventTypeM((OptionalEntity<EventTypeM>)vl), "eventTypeM");
         setupEfpg(_efpgMap, et -> ((EventT)et).getUserT(), (et, vl) -> ((EventT)et).setUserT((OptionalEntity<UserT>)vl), "userT");
     }
     public PropertyGateway findForeignPropertyGateway(String prop)
@@ -99,8 +100,8 @@ public class EventTDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnFixFlg = cci("fix_flg", "fix_flg", null, null, Integer.class, "fixFlg", null, false, false, false, "int2", 5, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnCandidateNo = cci("candidate_no", "candidate_no", null, null, Integer.class, "candidateNo", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnStoreName = cci("store_name", "store_name", null, null, String.class, "storeName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnEventDiv = cci("event_div", "event_div", null, null, String.class, "eventDiv", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, false, "int4", 10, 0, null, false, null, null, "userT", null, null, false);
+    protected final ColumnInfo _columnEventTypeId = cci("event_type_id", "event_type_id", null, null, Integer.class, "eventTypeId", null, false, false, false, "int4", 10, 0, null, false, null, null, "eventTypeM", null, null, false);
 
     /**
      * event_no: {PK, ID, NotNull, serial(10)}
@@ -158,15 +159,15 @@ public class EventTDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnStoreName() { return _columnStoreName; }
     /**
-     * event_div: {text(2147483647)}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnEventDiv() { return _columnEventDiv; }
-    /**
      * user_id: {int4(10), FK to user_t}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUserId() { return _columnUserId; }
+    /**
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnEventTypeId() { return _columnEventTypeId; }
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
@@ -181,8 +182,8 @@ public class EventTDbm extends AbstractDBMeta {
         ls.add(columnFixFlg());
         ls.add(columnCandidateNo());
         ls.add(columnStoreName());
-        ls.add(columnEventDiv());
         ls.add(columnUserId());
+        ls.add(columnEventTypeId());
         return ls;
     }
 
@@ -207,12 +208,20 @@ public class EventTDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     /**
+     * event_type_m by my event_type_id, named 'eventTypeM'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignEventTypeM() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnEventTypeId(), EventTypeMDbm.getInstance().columnEventTypeId());
+        return cfi("event_t_event_type_id_fkey", "eventTypeM", this, EventTypeMDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "eventTList", false);
+    }
+    /**
      * user_t by my user_id, named 'userT'.
      * @return The information object of foreign property. (NotNull)
      */
     public ForeignInfo foreignUserT() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), UserTDbm.getInstance().columnUserId());
-        return cfi("event_t_user_id_fkey", "userT", this, UserTDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "eventTList", false);
+        return cfi("event_t_user_id_fkey", "userT", this, UserTDbm.getInstance(), mp, 1, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "eventTList", false);
     }
 
     // -----------------------------------------------------

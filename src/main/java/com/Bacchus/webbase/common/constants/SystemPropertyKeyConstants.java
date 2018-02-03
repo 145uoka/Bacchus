@@ -8,6 +8,9 @@ public class SystemPropertyKeyConstants {
 
     public static final String BACCHUS_URL = "BACCHUS_URL";
 
+    /** 開発モードフラグ */
+    public static final String DEVELOP_MODE_FLG = "DEVELOP_MODE_FLG";
+
     /**
      * Line関連
      */
@@ -15,6 +18,5 @@ public class SystemPropertyKeyConstants {
         /** Messaging API : アクセストークン */
         public static final String MESSAGING_API_ACCESS_TOKEN = "MESSAGING_API_ACCESS_TOKEN";
 
-        public static final String TEST_MODE_FLG = "TEST_MODE_FLG";
     }
 }

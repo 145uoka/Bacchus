@@ -29,6 +29,9 @@ import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 
+/**
+ * LineAPIに関するサービスクラス。
+ */
 @Service
 public class LineService {
 
@@ -42,13 +45,19 @@ public class LineService {
     SystemPropertyService systemPropertyService;
 
     @Autowired
+    CommonService commonService;
+
+    @Autowired
     UserTBhv userTBhv;
 
+    /**
+     * LineAPI:pushメッセージを実行。
+     *
+     * @param userId 送信対象のユーザID
+     * @param message 送信メッセージ
+     * @throws RecordNotFoundException
+     */
     public void pushMessage(Integer userId, String message) throws RecordNotFoundException {
-
-        if(isTestMode()) {
-            return;
-        }
 
         OptionalEntity<UserT> userEntity = userTBhv.selectByPK(userId);
 
@@ -67,16 +76,22 @@ public class LineService {
                         userT.getLastName() + StringUtils.SPACE
                         + userT.getFirstName() + "(" + userT.getLineUserName() + ")");
 
-                LineMessagingClient lineMessagingClient = buildLineMessagingClient();
-
                 try {
-                    // PUSH通信
-                    BotApiResponse response = lineMessagingClient.pushMessage(
-                            new PushMessage(userT.getLineId(), new TextMessage(message))).get();
+                    if(!commonService.isDevelopMode()) {
+                        // 非開発モード
+                        LineMessagingClient lineMessagingClient = buildLineMessagingClient();
 
-                    // ログ出力
-                    loggerService.outLog(LogMessageKeyConstants.Info.I_05_0002, new Object[]{LineApiType.PUSH, response.getMessage(), response.getDetails().toString()});
-                    loggerService.outLog(LogMessageKeyConstants.Info.I_05_0001, new Object[]{LineApiType.PUSH, sendUserMap, message});
+                        // PUSH通信
+                        BotApiResponse response = lineMessagingClient.pushMessage(
+                                new PushMessage(userT.getLineId(), new TextMessage(message))).get();
+
+                        // ログ出力
+                        loggerService.outLog(LogMessageKeyConstants.Info.I_05_0002,
+                                new Object[]{LineApiType.PUSH, response.getMessage(), response.getDetails().toString()});
+                    }
+
+                    loggerService.outLog(LogMessageKeyConstants.Info.I_05_0001,
+                            new Object[]{LineApiType.PUSH, sendUserMap, message});
 
                 } catch (InterruptedException | ExecutionException e) {
                     throw new RuntimeException(e);
@@ -87,26 +102,20 @@ public class LineService {
                         userT.getLastName() + StringUtils.SPACE + userT.getFirstName());
 
                 // ログ出力
-                loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0001, new Object[]{LineApiType.PUSH, sendUserMap, message});
+                loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0001,
+                        new Object[]{LineApiType.PUSH, sendUserMap, message});
             }
         }
     }
 
-    private boolean isTestMode() throws RecordNotFoundException {
-        String testModeFlg = systemPropertyService.getSystemPropertyValue(
-                SystemPropertyKeyConstants.LineApi.TEST_MODE_FLG);
-
-        if (StringUtils.equals(testModeFlg, Flag.ON.getStringValue())) {
-            return true;
-        }
-        return false;
-    }
-
+    /**
+     * LineAPI:pushメッセージを複数人分実行。
+     *
+     * @param userIds 送信対象のユーザIDのリスト
+     * @param message 送信メッセージ
+     * @throws RecordNotFoundException
+     */
     public void pushMessage(List<Integer> userIds, String message) throws RecordNotFoundException {
-
-        if(isTestMode()) {
-            return;
-        }
 
         // 送信対象のユーザ取得
         List<UserDto> userList = userService.selectListByIds(userIds);
@@ -139,17 +148,22 @@ public class LineService {
             }
         }
 
-        LineMessagingClient lineMessagingClient = buildLineMessagingClient();
-
         if (CollectionUtils.isNotEmpty(sendUserLineId)) {
             // LINEユーザが存在
             try {
-                // PUSH通信
-                BotApiResponse response = lineMessagingClient.multicast(new Multicast(
-                        new HashSet<String>(sendUserLineId), new TextMessage(message))).get();
+                if(!commonService.isDevelopMode()) {
+                    // 非開発モード
+                    LineMessagingClient lineMessagingClient = buildLineMessagingClient();
 
-                loggerService.outLog(LogMessageKeyConstants.Info.I_05_0002, new Object[]{LineApiType.MULTICAST, response.getMessage(), response.getDetails().toString()});
-                loggerService.outLog(LogMessageKeyConstants.Info.I_05_0001, new Object[]{LineApiType.MULTICAST, sendUserMap, message});
+                    // PUSH通信
+                    BotApiResponse response = lineMessagingClient.multicast(new Multicast(
+                            new HashSet<String>(sendUserLineId), new TextMessage(message))).get();
+
+                    loggerService.outLog(LogMessageKeyConstants.Info.I_05_0002,
+                            new Object[]{LineApiType.MULTICAST, response.getMessage(), response.getDetails().toString()});
+                }
+                loggerService.outLog(LogMessageKeyConstants.Info.I_05_0001,
+                        new Object[]{LineApiType.MULTICAST, sendUserMap, message});
 
             } catch (InterruptedException | ExecutionException e) {
                 throw new RuntimeException(e);
@@ -159,13 +173,15 @@ public class LineService {
         if (!notSendUserMap.isEmpty()){
             // 非LINEユーザが存在
             // ログ出力
-            loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0001, new Object[]{LineApiType.MULTICAST, notSendUserMap, message});
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0001,
+                    new Object[]{LineApiType.MULTICAST, notSendUserMap, message});
         }
 
         if (CollectionUtils.isNotEmpty(unknownUserIds)) {
             // 存在しないユーザ
             // ログ出力
-            loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0002, new Object[]{LineApiType.MULTICAST, unknownUserIds.toString(), message});
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0002,
+                    new Object[]{LineApiType.MULTICAST, unknownUserIds.toString(), message});
         }
 
     }

@@ -242,7 +242,7 @@ ALTER TABLE Bacchus.entry_t
 	ADD FOREIGN KEY (candidate_no)
 	REFERENCES Bacchus.candidate_t (candidate_no)
 	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+	ON DELETE CASCADE
 ;
 
 
@@ -250,7 +250,7 @@ ALTER TABLE Bacchus.candidate_t
 	ADD FOREIGN KEY (event_no)
 	REFERENCES Bacchus.event_t (event_no)
 	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+	ON DELETE CASCADE
 ;
 
 
@@ -258,7 +258,7 @@ ALTER TABLE Bacchus.event_notify
 	ADD FOREIGN KEY (event_no)
 	REFERENCES Bacchus.event_t (event_no)
 	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+	ON DELETE CASCADE
 ;
 
 

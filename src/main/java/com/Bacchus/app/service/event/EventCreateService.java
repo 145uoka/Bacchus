@@ -95,23 +95,25 @@ public class EventCreateService {
         // 候補日の数だけDtoリストにセットする
         List<CandidateT> candidateList = new ArrayList<CandidateT>();
 
-        for (int i = 0; i < form.getStartDate().length; i++) {
+        if (form.getStartDate() != null && form.getStartDate().length > 0) {
+            for (int i = 0; i < form.getStartDate().length; i++) {
 
-            //候補日が空白でなければtrue
-            if (StringUtils.isNotEmpty(form.getStartDate()[i])) {
-
-                CandidateT candidateT = new CandidateT();
-                String startDateYYYYMDDD = form.getStartDate()[i].replace("/", "");                candidateT.setStartDate(startDateYYYYMDDD);
+                //候補日が空白でなければtrue
                 if (StringUtils.isNotEmpty(form.getStartDate()[i])) {
-                    // 日時フォーマット文字列  yyyy/MM
-                    SimpleDateFormat df = new SimpleDateFormat(DateUtil.DATE_TIME_FORMAT_YYYYMMDD);
 
-                    Date startDate = df.parse(form.getStartDate()[i]);
-                    String str = new SimpleDateFormat(DateUtil.DATE_TIME_FORMAT_YYYYMMDDHHMM).format(startDate);
-                    candidateT.setEventStartDatetime(DateUtil.convertToLocalDateTime(str, DateUtil.DATE_TIME_FORMAT_YYYYMMDDHHMM));
+                    CandidateT candidateT = new CandidateT();
+                    String startDateYYYYMDDD = form.getStartDate()[i].replace("/", "");                    candidateT.setStartDate(startDateYYYYMDDD);
+                    if (StringUtils.isNotEmpty(form.getStartDate()[i])) {
+                        // 日時フォーマット文字列  yyyy/MM
+                        SimpleDateFormat df = new SimpleDateFormat(DateUtil.DATE_TIME_FORMAT_YYYYMMDD);
+
+                        Date startDate = df.parse(form.getStartDate()[i]);
+                        String str = new SimpleDateFormat(DateUtil.DATE_TIME_FORMAT_YYYYMMDDHHMM).format(startDate);
+                        candidateT.setEventStartDatetime(DateUtil.convertToLocalDateTime(str, DateUtil.DATE_TIME_FORMAT_YYYYMMDDHHMM));
+                    }
+                    candidateT.setCandidateNo(candidateTbhv.selectNextVal());                    candidateT.setEventNo(eventT.getEventNo());                    candidateList.add(candidateT);
+
                 }
-                candidateT.setCandidateNo(candidateTbhv.selectNextVal());                candidateT.setEventNo(eventT.getEventNo());                candidateList.add(candidateT);
-
             }
         }
 

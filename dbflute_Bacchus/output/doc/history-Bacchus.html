@@ -118,11 +118,67 @@ p.tablecount {
 </div>
 
 <div class="section">
+	<h2><span class="dt">Diff Date: </span>2018/02/03 17:43:13</h2>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4><a href="./schema-Bacchus.html#event_t">event_t</a></h4>
+		<div class="change-table-content">
+			<h5>Delete Column</h5>
+			<ul class="column-content">
+				<li>event_div</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section">
+	<h2><span class="dt">Diff Date: </span>2018/02/03 17:26:55</h2>
+
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>event_t</h4>
+		<div class="change-table-content">
+			<h5>Change Column</h5>
+			<dl class="column-content">
+				<dt>event_type_id</dt>
+				<dd><span>Not Null</span>true&nbsp;-&gt;&nbsp;false</dd>
+			</dl>
+		</div>
+	</div>
+</div>
+<div class="section">
+	<h2><span class="dt">Diff Date: </span>2018/02/03 17:23:31</h2>
+	<p class="tablecount"><span class="dt">table count: </span>10&nbsp;-&gt;&nbsp;11</p>
+
+	<h3>Add Table</h3>
+	<ul class="table-content">
+		<li>event_type_m</li>
+	</ul>
+	<h3>Change Table</h3>
+	<div class="table-content">
+		<h4>event_t</h4>
+		<div class="change-table-content">
+			<h5>Add Column</h5>
+			<ul class="column-content">
+				<li>event_type_id</li>
+			</ul>
+			<h5>Add FK</h5>
+			<ul class="column-content">
+				<li>event_t_event_type_id_fkey</li>
+			</ul>
+		</div>
+	</div>
+	<h3>Add Sequence</h3>
+	<ul class="table-content">
+		<li>postgres.bacchus.event_type_m_event_type_id_seq</li>
+	</ul>
+</div>
+<div class="section">
 	<h2><span class="dt">Diff Date: </span>2018/01/21 17:15:54</h2>
 
 	<h3>Change Table</h3>
 	<div class="table-content">
-		<h4><a href="./schema-Bacchus.html#event_notify">event_notify</a></h4>
+		<h4>event_notify</h4>
 		<div class="change-table-content">
 			<h5>Change Column</h5>
 			<dl class="column-content">

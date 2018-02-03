@@ -22,6 +22,7 @@ import com.Bacchus.app.service.CommonService;
 import com.Bacchus.app.service.LoggerService;
 import com.Bacchus.app.service.SystemPropertyService;
 import com.Bacchus.app.service.event.EventCreateService;
+import com.Bacchus.app.service.event.EventService;
 import com.Bacchus.app.util.DateUtil;
 import com.Bacchus.app.util.MessageKeyUtil;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
@@ -62,6 +63,9 @@ public class EventCreateController extends BaseController {
 
     @Autowired
     CommonService commonService;
+
+    @Autowired
+    EventService eventService;
 
     /**
      * イベント登録画面初期表示.
@@ -123,11 +127,10 @@ public class EventCreateController extends BaseController {
         }
 
         // イベント種別の妥当性チェック
-        if (!bindingResult.hasFieldErrors("eventDiv")) {
-            if (StringUtils.isNotEmpty(form.getEventDiv())) {
-                if (!commonService.isExistsGenCode(SystemCodeConstants.GeneralCodeKbn.EVENT_DIV,
-                        form.getEventDiv())) {
-                    bindingResult.rejectValue("eventDiv",
+        if (!bindingResult.hasFieldErrors("eventTypeId")) {
+            if (form.getEventTypeId() != null) {
+                if (!eventService.isExistsEventType(form.getEventTypeId())) {
+                    bindingResult.rejectValue("eventTypeId",
                             MessageKeyUtil.encloseStringDelete(GlueNetValidator.INVALID), null, "");
                 }
             }
@@ -196,10 +199,8 @@ public class EventCreateController extends BaseController {
         model.addAttribute("auxiliaryFlgSelectList", auxiliaryFlgSelectList);
 
         // イベント種別のプルダウン
-        List<LabelValueDto> eventDivList = commonService.creatOptionalLabelValueList(
-                SystemCodeConstants.GeneralCodeKbn.EVENT_DIV,
-                SystemCodeConstants.PLEASE_SELECT_MSG);
-        model.addAttribute("eventDivList", eventDivList);
+        List<LabelValueDto> eventTypeList = eventService.creatEventTypeLabelValueList();
+        model.addAttribute("eventTypeList", eventTypeList);
     }
 
 

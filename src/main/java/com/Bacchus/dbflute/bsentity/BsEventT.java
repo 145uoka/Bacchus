@@ -19,7 +19,7 @@ import com.Bacchus.dbflute.exentity.*;
  *     event_no
  *
  * [column]
- *     event_no, event_name, event_detail, event_place, event_url, tell, event_entry_fee, auxiliary_flg, fix_flg, candidate_no, store_name, event_div, user_id
+ *     event_no, event_name, event_detail, event_place, event_url, tell, event_entry_fee, auxiliary_flg, fix_flg, candidate_no, store_name, user_id, event_type_id
  *
  * [sequence]
  *     event_t_event_no_seq
@@ -31,13 +31,13 @@ import com.Bacchus.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     user_t
+ *     event_type_m, user_t
  *
  * [referrer table]
  *     candidate_t, event_notify
  *
  * [foreign property]
- *     userT
+ *     eventTypeM, userT
  *
  * [referrer property]
  *     candidateTList, eventNotifyList
@@ -55,8 +55,8 @@ import com.Bacchus.dbflute.exentity.*;
  * Integer fixFlg = entity.getFixFlg();
  * Integer candidateNo = entity.getCandidateNo();
  * String storeName = entity.getStoreName();
- * String eventDiv = entity.getEventDiv();
  * Integer userId = entity.getUserId();
+ * Integer eventTypeId = entity.getEventTypeId();
  * entity.setEventNo(eventNo);
  * entity.setEventName(eventName);
  * entity.setEventDetail(eventDetail);
@@ -68,8 +68,8 @@ import com.Bacchus.dbflute.exentity.*;
  * entity.setFixFlg(fixFlg);
  * entity.setCandidateNo(candidateNo);
  * entity.setStoreName(storeName);
- * entity.setEventDiv(eventDiv);
  * entity.setUserId(userId);
+ * entity.setEventTypeId(eventTypeId);
  * = = = = = = = = = =/
  * </pre>
  * @author DBFlute(AutoGenerator)
@@ -118,11 +118,11 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
     /** store_name: {text(2147483647)} */
     protected String _storeName;
 
-    /** event_div: {text(2147483647)} */
-    protected String _eventDiv;
-
     /** user_id: {int4(10), FK to user_t} */
     protected Integer _userId;
+
+    /** event_type_id: {int4(10), FK to event_type_m} */
+    protected Integer _eventTypeId;
 
     // ===================================================================================
     //                                                                             DB Meta
@@ -149,6 +149,27 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
+    /** event_type_m by my event_type_id, named 'eventTypeM'. */
+    protected OptionalEntity<EventTypeM> _eventTypeM;
+
+    /**
+     * [get] event_type_m by my event_type_id, named 'eventTypeM'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'eventTypeM'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<EventTypeM> getEventTypeM() {
+        if (_eventTypeM == null) { _eventTypeM = OptionalEntity.relationEmpty(this, "eventTypeM"); }
+        return _eventTypeM;
+    }
+
+    /**
+     * [set] event_type_m by my event_type_id, named 'eventTypeM'.
+     * @param eventTypeM The entity of foreign property 'eventTypeM'. (NullAllowed)
+     */
+    public void setEventTypeM(OptionalEntity<EventTypeM> eventTypeM) {
+        _eventTypeM = eventTypeM;
+    }
+
     /** user_t by my user_id, named 'userT'. */
     protected OptionalEntity<UserT> _userT;
 
@@ -242,6 +263,8 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
+        if (_eventTypeM != null && _eventTypeM.isPresent())
+        { sb.append(li).append(xbRDS(_eventTypeM, "eventTypeM")); }
         if (_userT != null && _userT.isPresent())
         { sb.append(li).append(xbRDS(_userT, "userT")); }
         if (_candidateTList != null) { for (CandidateT et : _candidateTList)
@@ -268,8 +291,8 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
         sb.append(dm).append(xfND(_fixFlg));
         sb.append(dm).append(xfND(_candidateNo));
         sb.append(dm).append(xfND(_storeName));
-        sb.append(dm).append(xfND(_eventDiv));
         sb.append(dm).append(xfND(_userId));
+        sb.append(dm).append(xfND(_eventTypeId));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
@@ -280,6 +303,8 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
+        if (_eventTypeM != null && _eventTypeM.isPresent())
+        { sb.append(dm).append("eventTypeM"); }
         if (_userT != null && _userT.isPresent())
         { sb.append(dm).append("userT"); }
         if (_candidateTList != null && !_candidateTList.isEmpty())
@@ -521,26 +546,6 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] event_div: {text(2147483647)} <br>
-     * イベント区分
-     * @return The value of the column 'event_div'. (NullAllowed even if selected: for no constraint)
-     */
-    public String getEventDiv() {
-        checkSpecifiedProperty("eventDiv");
-        return _eventDiv;
-    }
-
-    /**
-     * [set] event_div: {text(2147483647)} <br>
-     * イベント区分
-     * @param eventDiv The value of the column 'event_div'. (NullAllowed: null update allowed for no constraint)
-     */
-    public void setEventDiv(String eventDiv) {
-        registerModifiedProperty("eventDiv");
-        _eventDiv = eventDiv;
-    }
-
-    /**
      * [get] user_id: {int4(10), FK to user_t} <br>
      * 幹事ユーザID
      * @return The value of the column 'user_id'. (NullAllowed even if selected: for no constraint)
@@ -558,5 +563,25 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
     public void setUserId(Integer userId) {
         registerModifiedProperty("userId");
         _userId = userId;
+    }
+
+    /**
+     * [get] event_type_id: {int4(10), FK to event_type_m} <br>
+     * イベント区分ID
+     * @return The value of the column 'event_type_id'. (NullAllowed even if selected: for no constraint)
+     */
+    public Integer getEventTypeId() {
+        checkSpecifiedProperty("eventTypeId");
+        return _eventTypeId;
+    }
+
+    /**
+     * [set] event_type_id: {int4(10), FK to event_type_m} <br>
+     * イベント区分ID
+     * @param eventTypeId The value of the column 'event_type_id'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setEventTypeId(Integer eventTypeId) {
+        registerModifiedProperty("eventTypeId");
+        _eventTypeId = eventTypeId;
     }
 }

@@ -117,13 +117,28 @@
             name="candidate_no" size="10" type="INTEGER"/>
         <column comment="店舗名" dbType="text" javaType="String"
             name="store_name" size="2147483647" type="VARCHAR"/>
-        <column comment="イベント区分" dbType="text" javaType="String"
-            name="event_div" size="2147483647" type="VARCHAR"/>
         <column comment="幹事ユーザID" dbType="int4" javaType="Integer"
             name="user_id" size="10" type="INTEGER"/>
+        <column comment="イベント区分ID" dbType="int4" javaType="Integer"
+            name="event_type_id" size="10" type="INTEGER"/>
+        <foreign-key foreignSchema="bacchus" foreignTable="event_type_m" name="event_t_event_type_id_fkey">
+            <reference foreign="event_type_id" local="event_type_id"/>
+        </foreign-key>
         <foreign-key foreignSchema="bacchus" foreignTable="user_t" name="event_t_user_id_fkey">
             <reference foreign="user_id" local="user_id"/>
         </foreign-key>
+    </table>
+    <table comment="イベント区分_M" name="event_type_m"
+        schema="postgres.bacchus" type="TABLE">
+        <column autoIncrement="true" comment="イベント区分ID" dbType="serial"
+            default="nextval('event_type_m_event_type_id_seq'::regclass)"
+            javaType="Integer" name="event_type_id"
+            pkName="event_type_m_pkey" pkPosition="1" primaryKey="true"
+            required="true" size="10" type="INTEGER"/>
+        <column comment="イベント区分名称" dbType="text" javaType="String"
+            name="event_type_name" required="true" size="2147483647" type="VARCHAR"/>
+        <column comment="表示順" dbType="int4" javaType="Integer"
+            name="order_num" size="10" type="INTEGER"/>
     </table>
     <table comment="汎用コード_M" name="general_code_m"
         schema="postgres.bacchus" type="TABLE">
@@ -235,6 +250,8 @@
             minimumValue="1" name="event_notify_event_notify_no_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="event_t_event_no_seq" schema="postgres.bacchus"/>
+        <sequence incrementSize="1" maximumValue="9223372036854775807"
+            minimumValue="1" name="event_type_m_event_type_id_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="general_code_m_code_id_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"

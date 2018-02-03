@@ -120,18 +120,15 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group <ext:isErrors path='eventDiv' value='has-error'/>">
-                <label class="col-md-4 control-label">
-                  イベント種別
-                  <span class="label label-danger" style="margin-left: 10px"></span>
-                </label>
+              <div class="form-group <ext:isErrors path='eventTypeId' value='has-error'/>">
+                <label class="col-md-4 control-label">イベント種別<span class="label label-danger" style="margin-left: 10px"></span></label>
                 <div class="col-md-6">
-                  <form:select path="eventDiv" class="form-control" items="${eventDivList}" itemLabel="label" itemValue="value" />
+                  <form:select path="eventTypeId" class="form-control" items="${eventTypeList}" itemLabel="label" itemValue="value" />
                 </div>
                 <div style="clear: both;">
                   <span class="col-md-4"></span>
                   <div class="col-md-6">
-                    <form:errors path="eventDiv" element="div" cssClass="text-danger" />
+                    <form:errors path="eventTypeId" element="div" cssClass="text-danger" />
                   </div>
                 </div>
               </div>

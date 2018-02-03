@@ -53,13 +53,15 @@ public class EventDto implements Serializable {
     private Integer entryPeople;
 
     /** イベント区分 */
-    private String eventDiv;
+    private String eventTypeId;
 
     /** 幹事ユーザID */
     private Integer userId;
 
     /** 幹事ユーザDto */
     private UserDto userDto;
+
+    private EventTypeDto eventTypeDto;
 
     /**
      * イベント管理番号の取得。
@@ -300,17 +302,17 @@ public class EventDto implements Serializable {
      *
      * @return イベント区分
      */
-    public String getEventDiv() {
-        return this.eventDiv;
+    public String getEventTypeId() {
+        return this.eventTypeId;
     }
 
     /**
      * イベント区分を設定。
      *
-     * @param eventDiv イベント区分
+     * @param eventTypeId イベント区分
      */
-    public void setEventDiv(String eventDiv) {
-        this.eventDiv = eventDiv;
+    public void setEventTypeId(String eventTypeId) {
+        this.eventTypeId = eventTypeId;
     }
 
     /**
@@ -347,6 +349,14 @@ public class EventDto implements Serializable {
      */
     public void setUserDto(UserDto userDto) {
         this.userDto = userDto;
+    }
+
+    public EventTypeDto getEventTypeDto() {
+        return eventTypeDto;
+    }
+
+    public void setEventTypeDto(EventTypeDto eventTypeDto) {
+        this.eventTypeDto = eventTypeDto;
     }
 
 }

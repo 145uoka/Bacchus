@@ -15,7 +15,7 @@ import com.Bacchus.dbflute.cbean.*;
  *     event_no
  *
  * [column]
- *     event_no, event_name, event_detail, event_place, event_url, tell, event_entry_fee, auxiliary_flg, fix_flg, candidate_no, store_name, event_div, user_id
+ *     event_no, event_name, event_detail, event_place, event_url, tell, event_entry_fee, auxiliary_flg, fix_flg, candidate_no, store_name, user_id, event_type_id
  *
  * [sequence]
  *     event_t_event_no_seq
@@ -27,13 +27,13 @@ import com.Bacchus.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     user_t
+ *     event_type_m, user_t
  *
  * [referrer table]
  *     candidate_t, event_notify
  *
  * [foreign property]
- *     userT
+ *     eventTypeM, userT
  *
  * [referrer property]
  *     candidateTList, eventNotifyList
@@ -132,6 +132,13 @@ public class LoaderOfEventT {
     // ===================================================================================
     //                                                                    Pull out Foreign
     //                                                                    ================
+    protected LoaderOfEventTypeM _foreignEventTypeMLoader;
+    public LoaderOfEventTypeM pulloutEventTypeM() {
+        if (_foreignEventTypeMLoader == null)
+        { _foreignEventTypeMLoader = new LoaderOfEventTypeM().ready(myBhv().pulloutEventTypeM(_selectedList), _selector); }
+        return _foreignEventTypeMLoader;
+    }
+
     protected LoaderOfUserT _foreignUserTLoader;
     public LoaderOfUserT pulloutUserT() {
         if (_foreignUserTLoader == null)

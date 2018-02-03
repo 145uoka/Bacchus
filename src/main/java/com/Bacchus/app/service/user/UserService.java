@@ -32,6 +32,7 @@ import com.Bacchus.dbflute.exentity.UserTypeM;
 import com.Bacchus.dbflute.exentity.customize.EventNotifyUser;
 import com.Bacchus.webbase.common.constants.LogMessageKeyConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants;
+import com.Bacchus.webbase.common.constants.SystemCodeConstants.Flag;
 
 /**
  * ユーザーのサービスクラス。
@@ -101,6 +102,7 @@ public class UserService extends AbstractService {
 
         EventNotifyUserPmb pmb = new EventNotifyUserPmb();
         pmb.setEventNo(eventNo);
+        pmb.setLineFlg(Flag.ON.getIntegerValue());
 
         // DB - SELECT (外だしSQL - EventTBhv_selectEventIndex.sql)
         List<EventNotifyUser> eventNotifyUserEntityList = userTBhv.outsideSql().selectList(pmb);

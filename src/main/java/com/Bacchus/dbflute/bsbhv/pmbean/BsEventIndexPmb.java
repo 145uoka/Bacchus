@@ -26,12 +26,6 @@ public class BsEventIndexPmb implements ListHandlingPmb<EventTBhv, EventIndex>, 
     /** The parameter of eventT_entryDiv. */
     protected Integer _eventT_entryDiv;
 
-    /** The parameter of generalCodeM_codeDiv. */
-    protected String _generalCodeM_codeDiv;
-
-    /** The parameter of generalCodeM_delFlg. */
-    protected Integer _generalCodeM_delFlg;
-
     /** The max size of safety result. */
     protected int _safetyMaxResultSize;
 
@@ -131,8 +125,6 @@ public class BsEventIndexPmb implements ListHandlingPmb<EventTBhv, EventIndex>, 
         final StringBuilder sb = new StringBuilder();
         sb.append(dm).append(_eventT_fixFlg);
         sb.append(dm).append(_eventT_entryDiv);
-        sb.append(dm).append(_generalCodeM_codeDiv);
-        sb.append(dm).append(_generalCodeM_delFlg);
         if (sb.length() > 0) { sb.delete(0, dm.length()); }
         sb.insert(0, "{").append("}");
         return sb.toString();
@@ -171,37 +163,5 @@ public class BsEventIndexPmb implements ListHandlingPmb<EventTBhv, EventIndex>, 
      */
     public void setEventT_entryDiv(Integer eventT_entryDiv) {
         _eventT_entryDiv = eventT_entryDiv;
-    }
-
-    /**
-     * [get] generalCodeM_codeDiv <br>
-     * @return The value of generalCodeM_codeDiv. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
-     */
-    public String getGeneralCodeM_codeDiv() {
-        return filterStringParameter(_generalCodeM_codeDiv);
-    }
-
-    /**
-     * [set] generalCodeM_codeDiv <br>
-     * @param generalCodeM_codeDiv The value of generalCodeM_codeDiv. (NullAllowed)
-     */
-    public void setGeneralCodeM_codeDiv(String generalCodeM_codeDiv) {
-        _generalCodeM_codeDiv = generalCodeM_codeDiv;
-    }
-
-    /**
-     * [get] generalCodeM_delFlg <br>
-     * @return The value of generalCodeM_delFlg. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
-     */
-    public Integer getGeneralCodeM_delFlg() {
-        return _generalCodeM_delFlg;
-    }
-
-    /**
-     * [set] generalCodeM_delFlg <br>
-     * @param generalCodeM_delFlg The value of generalCodeM_delFlg. (NullAllowed)
-     */
-    public void setGeneralCodeM_delFlg(Integer generalCodeM_delFlg) {
-        _generalCodeM_delFlg = generalCodeM_delFlg;
     }
 }

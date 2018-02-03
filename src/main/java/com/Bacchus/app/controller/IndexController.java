@@ -35,7 +35,7 @@ public class IndexController extends BaseController {
 
         if (userInfo.isLogined()) {
             // ログイン中
-            return redirect("/loginTop");
+            return redirect(ProcConstants.EVENT + ProcConstants.Operation.INDEX);
         }
 
         if (commonService.isDevelopMode()) {

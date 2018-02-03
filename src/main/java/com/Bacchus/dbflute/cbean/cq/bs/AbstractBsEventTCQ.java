@@ -1753,159 +1753,6 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
     protected abstract ConditionValue xgetCValueStoreName();
 
     /**
-     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * event_div: {text(2147483647)}
-     * @param eventDiv The value of eventDiv as equal. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setEventDiv_Equal(String eventDiv) {
-        doSetEventDiv_Equal(fRES(eventDiv));
-    }
-
-    protected void doSetEventDiv_Equal(String eventDiv) {
-        regEventDiv(CK_EQ, eventDiv);
-    }
-
-    /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * event_div: {text(2147483647)}
-     * @param eventDiv The value of eventDiv as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setEventDiv_NotEqual(String eventDiv) {
-        doSetEventDiv_NotEqual(fRES(eventDiv));
-    }
-
-    protected void doSetEventDiv_NotEqual(String eventDiv) {
-        regEventDiv(CK_NES, eventDiv);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * event_div: {text(2147483647)}
-     * @param eventDiv The value of eventDiv as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setEventDiv_GreaterThan(String eventDiv) {
-        regEventDiv(CK_GT, fRES(eventDiv));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * event_div: {text(2147483647)}
-     * @param eventDiv The value of eventDiv as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setEventDiv_LessThan(String eventDiv) {
-        regEventDiv(CK_LT, fRES(eventDiv));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * event_div: {text(2147483647)}
-     * @param eventDiv The value of eventDiv as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setEventDiv_GreaterEqual(String eventDiv) {
-        regEventDiv(CK_GE, fRES(eventDiv));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * event_div: {text(2147483647)}
-     * @param eventDiv The value of eventDiv as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setEventDiv_LessEqual(String eventDiv) {
-        regEventDiv(CK_LE, fRES(eventDiv));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * event_div: {text(2147483647)}
-     * @param eventDivList The collection of eventDiv as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setEventDiv_InScope(Collection<String> eventDivList) {
-        doSetEventDiv_InScope(eventDivList);
-    }
-
-    protected void doSetEventDiv_InScope(Collection<String> eventDivList) {
-        regINS(CK_INS, cTL(eventDivList), xgetCValueEventDiv(), "event_div");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * event_div: {text(2147483647)}
-     * @param eventDivList The collection of eventDiv as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setEventDiv_NotInScope(Collection<String> eventDivList) {
-        doSetEventDiv_NotInScope(eventDivList);
-    }
-
-    protected void doSetEventDiv_NotInScope(Collection<String> eventDivList) {
-        regINS(CK_NINS, cTL(eventDivList), xgetCValueEventDiv(), "event_div");
-    }
-
-    /**
-     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * event_div: {text(2147483647)} <br>
-     * <pre>e.g. setEventDiv_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param eventDiv The value of eventDiv as likeSearch. (NullAllowed: if null (or empty), no condition)
-     * @param opLambda The callback for option of like-search. (NotNull)
-     */
-    public void setEventDiv_LikeSearch(String eventDiv, ConditionOptionCall<LikeSearchOption> opLambda) {
-        setEventDiv_LikeSearch(eventDiv, xcLSOP(opLambda));
-    }
-
-    /**
-     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * event_div: {text(2147483647)} <br>
-     * <pre>e.g. setEventDiv_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param eventDiv The value of eventDiv as likeSearch. (NullAllowed: if null (or empty), no condition)
-     * @param likeSearchOption The option of like-search. (NotNull)
-     */
-    protected void setEventDiv_LikeSearch(String eventDiv, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(eventDiv), xgetCValueEventDiv(), "event_div", likeSearchOption);
-    }
-
-    /**
-     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
-     * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * event_div: {text(2147483647)}
-     * @param eventDiv The value of eventDiv as notLikeSearch. (NullAllowed: if null (or empty), no condition)
-     * @param opLambda The callback for option of like-search. (NotNull)
-     */
-    public void setEventDiv_NotLikeSearch(String eventDiv, ConditionOptionCall<LikeSearchOption> opLambda) {
-        setEventDiv_NotLikeSearch(eventDiv, xcLSOP(opLambda));
-    }
-
-    /**
-     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
-     * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * event_div: {text(2147483647)}
-     * @param eventDiv The value of eventDiv as notLikeSearch. (NullAllowed: if null (or empty), no condition)
-     * @param likeSearchOption The option of not-like-search. (NotNull)
-     */
-    protected void setEventDiv_NotLikeSearch(String eventDiv, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(eventDiv), xgetCValueEventDiv(), "event_div", likeSearchOption);
-    }
-
-    /**
-     * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * event_div: {text(2147483647)}
-     */
-    public void setEventDiv_IsNull() { regEventDiv(CK_ISN, DOBJ); }
-
-    /**
-     * IsNullOrEmpty {is null or empty}. And OnlyOnceRegistered. <br>
-     * event_div: {text(2147483647)}
-     */
-    public void setEventDiv_IsNullOrEmpty() { regEventDiv(CK_ISNOE, DOBJ); }
-
-    /**
-     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * event_div: {text(2147483647)}
-     */
-    public void setEventDiv_IsNotNull() { regEventDiv(CK_ISNN, DOBJ); }
-
-    protected void regEventDiv(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueEventDiv(), "event_div"); }
-    protected abstract ConditionValue xgetCValueEventDiv();
-
-    /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * user_id: {int4(10), FK to user_t}
      * @param userId The value of userId as equal. (basically NotNull: error as default, or no condition as option)
@@ -2033,6 +1880,135 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
 
     protected void regUserId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueUserId(), "user_id"); }
     protected abstract ConditionValue xgetCValueUserId();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param eventTypeId The value of eventTypeId as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setEventTypeId_Equal(Integer eventTypeId) {
+        doSetEventTypeId_Equal(eventTypeId);
+    }
+
+    protected void doSetEventTypeId_Equal(Integer eventTypeId) {
+        regEventTypeId(CK_EQ, eventTypeId);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param eventTypeId The value of eventTypeId as notEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setEventTypeId_NotEqual(Integer eventTypeId) {
+        doSetEventTypeId_NotEqual(eventTypeId);
+    }
+
+    protected void doSetEventTypeId_NotEqual(Integer eventTypeId) {
+        regEventTypeId(CK_NES, eventTypeId);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param eventTypeId The value of eventTypeId as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setEventTypeId_GreaterThan(Integer eventTypeId) {
+        regEventTypeId(CK_GT, eventTypeId);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param eventTypeId The value of eventTypeId as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setEventTypeId_LessThan(Integer eventTypeId) {
+        regEventTypeId(CK_LT, eventTypeId);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param eventTypeId The value of eventTypeId as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setEventTypeId_GreaterEqual(Integer eventTypeId) {
+        regEventTypeId(CK_GE, eventTypeId);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param eventTypeId The value of eventTypeId as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setEventTypeId_LessEqual(Integer eventTypeId) {
+        regEventTypeId(CK_LE, eventTypeId);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param minNumber The min number of eventTypeId. (NullAllowed: if null, no from-condition)
+     * @param maxNumber The max number of eventTypeId. (NullAllowed: if null, no to-condition)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setEventTypeId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setEventTypeId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param minNumber The min number of eventTypeId. (NullAllowed: if null, no from-condition)
+     * @param maxNumber The max number of eventTypeId. (NullAllowed: if null, no to-condition)
+     * @param rangeOfOption The option of range-of. (NotNull)
+     */
+    protected void setEventTypeId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValueEventTypeId(), "event_type_id", rangeOfOption);
+    }
+
+    /**
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param eventTypeIdList The collection of eventTypeId as inScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setEventTypeId_InScope(Collection<Integer> eventTypeIdList) {
+        doSetEventTypeId_InScope(eventTypeIdList);
+    }
+
+    protected void doSetEventTypeId_InScope(Collection<Integer> eventTypeIdList) {
+        regINS(CK_INS, cTL(eventTypeIdList), xgetCValueEventTypeId(), "event_type_id");
+    }
+
+    /**
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param eventTypeIdList The collection of eventTypeId as notInScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setEventTypeId_NotInScope(Collection<Integer> eventTypeIdList) {
+        doSetEventTypeId_NotInScope(eventTypeIdList);
+    }
+
+    protected void doSetEventTypeId_NotInScope(Collection<Integer> eventTypeIdList) {
+        regINS(CK_NINS, cTL(eventTypeIdList), xgetCValueEventTypeId(), "event_type_id");
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     */
+    public void setEventTypeId_IsNull() { regEventTypeId(CK_ISN, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     */
+    public void setEventTypeId_IsNotNull() { regEventTypeId(CK_ISNN, DOBJ); }
+
+    protected void regEventTypeId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueEventTypeId(), "event_type_id"); }
+    protected abstract ConditionValue xgetCValueEventTypeId();
 
     // ===================================================================================
     //                                                                     ScalarCondition

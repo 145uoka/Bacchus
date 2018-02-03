@@ -321,26 +321,6 @@ public class BsEventTCQ extends AbstractBsEventTCQ {
      */
     public BsEventTCQ addOrderBy_StoreName_Desc() { regOBD("store_name"); return this; }
 
-    protected ConditionValue _eventDiv;
-    public ConditionValue xdfgetEventDiv()
-    { if (_eventDiv == null) { _eventDiv = nCV(); }
-      return _eventDiv; }
-    protected ConditionValue xgetCValueEventDiv() { return xdfgetEventDiv(); }
-
-    /** 
-     * Add order-by as ascend. <br>
-     * event_div: {text(2147483647)}
-     * @return this. (NotNull)
-     */
-    public BsEventTCQ addOrderBy_EventDiv_Asc() { regOBA("event_div"); return this; }
-
-    /**
-     * Add order-by as descend. <br>
-     * event_div: {text(2147483647)}
-     * @return this. (NotNull)
-     */
-    public BsEventTCQ addOrderBy_EventDiv_Desc() { regOBD("event_div"); return this; }
-
     protected ConditionValue _userId;
     public ConditionValue xdfgetUserId()
     { if (_userId == null) { _userId = nCV(); }
@@ -360,6 +340,26 @@ public class BsEventTCQ extends AbstractBsEventTCQ {
      * @return this. (NotNull)
      */
     public BsEventTCQ addOrderBy_UserId_Desc() { regOBD("user_id"); return this; }
+
+    protected ConditionValue _eventTypeId;
+    public ConditionValue xdfgetEventTypeId()
+    { if (_eventTypeId == null) { _eventTypeId = nCV(); }
+      return _eventTypeId; }
+    protected ConditionValue xgetCValueEventTypeId() { return xdfgetEventTypeId(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @return this. (NotNull)
+     */
+    public BsEventTCQ addOrderBy_EventTypeId_Asc() { regOBA("event_type_id"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @return this. (NotNull)
+     */
+    public BsEventTCQ addOrderBy_EventTypeId_Desc() { regOBD("event_type_id"); return this; }
 
     // ===================================================================================
     //                                                             SpecifiedDerivedOrderBy
@@ -402,6 +402,9 @@ public class BsEventTCQ extends AbstractBsEventTCQ {
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         EventTCQ bq = (EventTCQ)bqs;
         EventTCQ uq = (EventTCQ)uqs;
+        if (bq.hasConditionQueryEventTypeM()) {
+            uq.queryEventTypeM().reflectRelationOnUnionQuery(bq.queryEventTypeM(), uq.queryEventTypeM());
+        }
         if (bq.hasConditionQueryUserT()) {
             uq.queryUserT().reflectRelationOnUnionQuery(bq.queryUserT(), uq.queryUserT());
         }
@@ -410,6 +413,26 @@ public class BsEventTCQ extends AbstractBsEventTCQ {
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * event_type_m by my event_type_id, named 'eventTypeM'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public EventTypeMCQ queryEventTypeM() {
+        return xdfgetConditionQueryEventTypeM();
+    }
+    public EventTypeMCQ xdfgetConditionQueryEventTypeM() {
+        String prop = "eventTypeM";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryEventTypeM()); xsetupOuterJoinEventTypeM(); }
+        return xgetQueRlMap(prop);
+    }
+    protected EventTypeMCQ xcreateQueryEventTypeM() {
+        String nrp = xresolveNRP("event_t", "eventTypeM"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new EventTypeMCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "eventTypeM", nrp);
+    }
+    protected void xsetupOuterJoinEventTypeM() { xregOutJo("eventTypeM"); }
+    public boolean hasConditionQueryEventTypeM() { return xhasQueRlMap("eventTypeM"); }
+
     /**
      * Get the condition-query for relation table. <br>
      * user_t by my user_id, named 'userT'.

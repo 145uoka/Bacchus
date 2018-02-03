@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS Bacchus.event_t;
 DROP TABLE IF EXISTS Bacchus.user_t;
 DROP TABLE IF EXISTS Bacchus.auth_M;
 DROP TABLE IF EXISTS Bacchus.display_def_m;
+DROP TABLE IF EXISTS Bacchus.event_type_m;
 DROP TABLE IF EXISTS Bacchus.general_code_m;
 DROP TABLE IF EXISTS Bacchus.system_property_m;
 DROP TABLE IF EXISTS Bacchus.user_type_m;
@@ -122,11 +123,24 @@ CREATE TABLE Bacchus.event_t
 	candidate_no int,
 	-- 店舗名
 	store_name text,
-	-- イベント区分
-	event_div text,
 	-- 幹事ユーザID
 	user_id int,
+	-- イベント区分ID
+	event_type_id int,
 	PRIMARY KEY (event_no)
+) WITHOUT OIDS;
+
+
+-- イベント区分_M
+CREATE TABLE Bacchus.event_type_m
+(
+	-- イベント区分ID
+	event_type_id serial NOT NULL,
+	-- イベント区分名称
+	event_type_name text NOT NULL,
+	-- 表示順
+	order_num int,
+	PRIMARY KEY (event_type_id)
 ) WITHOUT OIDS;
 
 
@@ -262,11 +276,20 @@ ALTER TABLE Bacchus.event_notify
 ;
 
 
+ALTER TABLE Bacchus.event_t
+	ADD FOREIGN KEY (event_type_id)
+	REFERENCES Bacchus.event_type_m (event_type_id)
+	ON UPDATE RESTRICT
+	ON DELETE CASCADE
+
+;
+
+
 ALTER TABLE Bacchus.entry_t
 	ADD FOREIGN KEY (user_id)
 	REFERENCES Bacchus.user_t (user_id)
 	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+	ON DELETE CASCADE
 ;
 
 
@@ -274,7 +297,7 @@ ALTER TABLE Bacchus.event_notify
 	ADD FOREIGN KEY (user_id)
 	REFERENCES Bacchus.user_t (user_id)
 	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+	ON DELETE CASCADE
 ;
 
 
@@ -282,7 +305,7 @@ ALTER TABLE Bacchus.event_t
 	ADD FOREIGN KEY (user_id)
 	REFERENCES Bacchus.user_t (user_id)
 	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+	ON DELETE SET NULL
 ;
 
 
@@ -336,8 +359,12 @@ COMMENT ON COLUMN Bacchus.event_t.auxiliary_flg  IS '補助フラグ';
 COMMENT ON COLUMN Bacchus.event_t.fix_flg IS '確定フラグ';
 COMMENT ON COLUMN Bacchus.event_t.candidate_no IS '候補日管理番号';
 COMMENT ON COLUMN Bacchus.event_t.store_name IS '店舗名';
-COMMENT ON COLUMN Bacchus.event_t.event_div IS 'イベント区分';
 COMMENT ON COLUMN Bacchus.event_t.user_id IS '幹事ユーザID';
+COMMENT ON COLUMN Bacchus.event_t.event_type_id IS 'イベント区分ID';
+COMMENT ON TABLE Bacchus.event_type_m IS 'イベント区分_M';
+COMMENT ON COLUMN Bacchus.event_type_m.event_type_id IS 'イベント区分ID';
+COMMENT ON COLUMN Bacchus.event_type_m.event_type_name IS 'イベント区分名称';
+COMMENT ON COLUMN Bacchus.event_type_m.order_num IS '表示順';
 COMMENT ON TABLE Bacchus.general_code_m IS '汎用コード_M';
 COMMENT ON COLUMN Bacchus.general_code_m.code_id IS 'コードID';
 COMMENT ON COLUMN Bacchus.general_code_m.code_div IS 'コード区分';

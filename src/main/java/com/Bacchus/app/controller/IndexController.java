@@ -19,7 +19,6 @@ import com.Bacchus.webbase.common.constants.ProcConstants;
  */
 @BeforeLogin
 @Controller
-@RequestMapping(value = "/")
 public class IndexController extends BaseController {
 
     @Autowired
@@ -30,7 +29,7 @@ public class IndexController extends BaseController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(@ModelAttribute("form") LoginNameForm form, Model model) throws Exception {
 
         if (userInfo.isLogined()) {
@@ -46,6 +45,17 @@ public class IndexController extends BaseController {
         // Lineでのログイン画面
         model.addAttribute("form", form);
         return ProcConstants.Operation.INDEX;
+    }
+
+    /**
+     * TOP画面の表示
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/adminLogin", method = RequestMethod.GET)
+    public String adminLogin(@ModelAttribute("form") LoginNameForm form, Model model) throws Exception {
+
+            return "adminLogin";
     }
 
 }

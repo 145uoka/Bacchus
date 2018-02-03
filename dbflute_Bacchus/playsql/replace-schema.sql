@@ -281,6 +281,7 @@ ALTER TABLE Bacchus.event_t
 	REFERENCES Bacchus.event_type_m (event_type_id)
 	ON UPDATE RESTRICT
 	ON DELETE CASCADE
+
 ;
 
 

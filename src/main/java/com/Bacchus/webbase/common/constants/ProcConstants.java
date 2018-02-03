@@ -14,5 +14,7 @@ public class ProcConstants {
     public static final String EDIT = "/edit";
     public static final String UPDATE = "/update";
     public static final String DELETE= "/delete";
+    public static final String NOTIFY = "/notify";
+    public static final String EXEC = "/exec";
     }
 }

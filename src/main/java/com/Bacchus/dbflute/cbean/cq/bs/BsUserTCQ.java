@@ -82,17 +82,26 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
     public Map<String, EntryTCQ> xdfgetUserId_ExistsReferrer_EntryTList() { return xgetSQueMap("userId_ExistsReferrer_EntryTList"); }
     public String keepUserId_ExistsReferrer_EntryTList(EntryTCQ sq) { return xkeepSQue("userId_ExistsReferrer_EntryTList", sq); }
 
+    public Map<String, EventNotifyCQ> xdfgetUserId_ExistsReferrer_EventNotifyList() { return xgetSQueMap("userId_ExistsReferrer_EventNotifyList"); }
+    public String keepUserId_ExistsReferrer_EventNotifyList(EventNotifyCQ sq) { return xkeepSQue("userId_ExistsReferrer_EventNotifyList", sq); }
+
     public Map<String, EventTCQ> xdfgetUserId_ExistsReferrer_EventTList() { return xgetSQueMap("userId_ExistsReferrer_EventTList"); }
     public String keepUserId_ExistsReferrer_EventTList(EventTCQ sq) { return xkeepSQue("userId_ExistsReferrer_EventTList", sq); }
 
     public Map<String, EntryTCQ> xdfgetUserId_NotExistsReferrer_EntryTList() { return xgetSQueMap("userId_NotExistsReferrer_EntryTList"); }
     public String keepUserId_NotExistsReferrer_EntryTList(EntryTCQ sq) { return xkeepSQue("userId_NotExistsReferrer_EntryTList", sq); }
 
+    public Map<String, EventNotifyCQ> xdfgetUserId_NotExistsReferrer_EventNotifyList() { return xgetSQueMap("userId_NotExistsReferrer_EventNotifyList"); }
+    public String keepUserId_NotExistsReferrer_EventNotifyList(EventNotifyCQ sq) { return xkeepSQue("userId_NotExistsReferrer_EventNotifyList", sq); }
+
     public Map<String, EventTCQ> xdfgetUserId_NotExistsReferrer_EventTList() { return xgetSQueMap("userId_NotExistsReferrer_EventTList"); }
     public String keepUserId_NotExistsReferrer_EventTList(EventTCQ sq) { return xkeepSQue("userId_NotExistsReferrer_EventTList", sq); }
 
     public Map<String, EntryTCQ> xdfgetUserId_SpecifyDerivedReferrer_EntryTList() { return xgetSQueMap("userId_SpecifyDerivedReferrer_EntryTList"); }
     public String keepUserId_SpecifyDerivedReferrer_EntryTList(EntryTCQ sq) { return xkeepSQue("userId_SpecifyDerivedReferrer_EntryTList", sq); }
+
+    public Map<String, EventNotifyCQ> xdfgetUserId_SpecifyDerivedReferrer_EventNotifyList() { return xgetSQueMap("userId_SpecifyDerivedReferrer_EventNotifyList"); }
+    public String keepUserId_SpecifyDerivedReferrer_EventNotifyList(EventNotifyCQ sq) { return xkeepSQue("userId_SpecifyDerivedReferrer_EventNotifyList", sq); }
 
     public Map<String, EventTCQ> xdfgetUserId_SpecifyDerivedReferrer_EventTList() { return xgetSQueMap("userId_SpecifyDerivedReferrer_EventTList"); }
     public String keepUserId_SpecifyDerivedReferrer_EventTList(EventTCQ sq) { return xkeepSQue("userId_SpecifyDerivedReferrer_EventTList", sq); }
@@ -101,6 +110,11 @@ public class BsUserTCQ extends AbstractBsUserTCQ {
     public String keepUserId_QueryDerivedReferrer_EntryTList(EntryTCQ sq) { return xkeepSQue("userId_QueryDerivedReferrer_EntryTList", sq); }
     public Map<String, Object> xdfgetUserId_QueryDerivedReferrer_EntryTListParameter() { return xgetSQuePmMap("userId_QueryDerivedReferrer_EntryTList"); }
     public String keepUserId_QueryDerivedReferrer_EntryTListParameter(Object pm) { return xkeepSQuePm("userId_QueryDerivedReferrer_EntryTList", pm); }
+
+    public Map<String, EventNotifyCQ> xdfgetUserId_QueryDerivedReferrer_EventNotifyList() { return xgetSQueMap("userId_QueryDerivedReferrer_EventNotifyList"); }
+    public String keepUserId_QueryDerivedReferrer_EventNotifyList(EventNotifyCQ sq) { return xkeepSQue("userId_QueryDerivedReferrer_EventNotifyList", sq); }
+    public Map<String, Object> xdfgetUserId_QueryDerivedReferrer_EventNotifyListParameter() { return xgetSQuePmMap("userId_QueryDerivedReferrer_EventNotifyList"); }
+    public String keepUserId_QueryDerivedReferrer_EventNotifyListParameter(Object pm) { return xkeepSQuePm("userId_QueryDerivedReferrer_EventNotifyList", pm); }
 
     public Map<String, EventTCQ> xdfgetUserId_QueryDerivedReferrer_EventTList() { return xgetSQueMap("userId_QueryDerivedReferrer_EventTList"); }
     public String keepUserId_QueryDerivedReferrer_EventTList(EventTCQ sq) { return xkeepSQue("userId_QueryDerivedReferrer_EventTList", sq); }

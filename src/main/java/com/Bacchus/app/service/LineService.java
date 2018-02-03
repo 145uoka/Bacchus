@@ -46,6 +46,10 @@ public class LineService {
 
     public void pushMessage(Integer userId, String message) throws RecordNotFoundException {
 
+        if(isTestMode()) {
+            return;
+        }
+
         OptionalEntity<UserT> userEntity = userTBhv.selectByPK(userId);
 
         if (userEntity != null && userEntity.isPresent()) {
@@ -88,7 +92,21 @@ public class LineService {
         }
     }
 
+    private boolean isTestMode() throws RecordNotFoundException {
+        String testModeFlg = systemPropertyService.getSystemPropertyValue(
+                SystemPropertyKeyConstants.LineApi.TEST_MODE_FLG);
+
+        if (StringUtils.equals(testModeFlg, Flag.ON.getStringValue())) {
+            return true;
+        }
+        return false;
+    }
+
     public void pushMessage(List<Integer> userIds, String message) throws RecordNotFoundException {
+
+        if(isTestMode()) {
+            return;
+        }
 
         // 送信対象のユーザ取得
         List<UserDto> userList = userService.selectListByIds(userIds);

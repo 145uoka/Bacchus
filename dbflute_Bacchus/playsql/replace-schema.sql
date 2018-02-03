@@ -2,6 +2,7 @@
 /* Drop Tables */
 
 DROP TABLE IF EXISTS Bacchus.entry_t;
+DROP TABLE IF EXISTS Bacchus.event_notify;
 DROP TABLE IF EXISTS Bacchus.candidate_t;
 DROP TABLE IF EXISTS Bacchus.event_t;
 DROP TABLE IF EXISTS Bacchus.user_t;
@@ -77,6 +78,22 @@ CREATE TABLE Bacchus.entry_t
 	-- 参加区分
 	entry_div int,
 	PRIMARY KEY (entry_id)
+) WITHOUT OIDS;
+
+
+-- イベント通知_T
+CREATE TABLE Bacchus.event_notify
+(
+	-- イベント通知番号
+	event_notify_no serial NOT NULL,
+	-- イベント管理番号
+	event_no int NOT NULL,
+	-- user_id
+	user_id int NOT NULL,
+	-- 通知日時
+	notify_datetime timestamp,
+	PRIMARY KEY (event_notify_no),
+	UNIQUE (event_no, user_id)
 ) WITHOUT OIDS;
 
 
@@ -237,7 +254,23 @@ ALTER TABLE Bacchus.candidate_t
 ;
 
 
+ALTER TABLE Bacchus.event_notify
+	ADD FOREIGN KEY (event_no)
+	REFERENCES Bacchus.event_t (event_no)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
 ALTER TABLE Bacchus.entry_t
+	ADD FOREIGN KEY (user_id)
+	REFERENCES Bacchus.user_t (user_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE Bacchus.event_notify
 	ADD FOREIGN KEY (user_id)
 	REFERENCES Bacchus.user_t (user_id)
 	ON UPDATE RESTRICT
@@ -286,6 +319,11 @@ COMMENT ON COLUMN Bacchus.entry_t.entry_id IS '参加ID';
 COMMENT ON COLUMN Bacchus.entry_t.candidate_no IS '候補日管理番号';
 COMMENT ON COLUMN Bacchus.entry_t.user_id IS 'user_id';
 COMMENT ON COLUMN Bacchus.entry_t.entry_div IS '参加区分';
+COMMENT ON TABLE Bacchus.event_notify IS 'イベント通知_T';
+COMMENT ON COLUMN Bacchus.event_notify.event_notify_no IS 'イベント通知番号';
+COMMENT ON COLUMN Bacchus.event_notify.event_no IS 'イベント管理番号';
+COMMENT ON COLUMN Bacchus.event_notify.user_id IS 'user_id';
+COMMENT ON COLUMN Bacchus.event_notify.notify_datetime IS '通知日時';
 COMMENT ON TABLE Bacchus.event_t IS 'イベント_T';
 COMMENT ON COLUMN Bacchus.event_t.event_no IS 'イベント管理番号';
 COMMENT ON COLUMN Bacchus.event_t.event_name IS 'イベント名';

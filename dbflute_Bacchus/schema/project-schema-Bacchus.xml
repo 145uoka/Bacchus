@@ -67,6 +67,31 @@
             <reference foreign="user_id" local="user_id"/>
         </foreign-key>
     </table>
+    <table comment="イベント通知_T" name="event_notify"
+        schema="postgres.bacchus" type="TABLE">
+        <column autoIncrement="true" comment="イベント通知番号" dbType="serial"
+            default="nextval('event_notify_event_notify_no_seq'::regclass)"
+            javaType="Integer" name="event_notify_no"
+            pkName="event_notify_pkey" pkPosition="1" primaryKey="true"
+            required="true" size="10" type="INTEGER"/>
+        <column comment="イベント管理番号" dbType="int4" javaType="Integer"
+            name="event_no" required="true" size="10" type="INTEGER"/>
+        <column comment="user_id" dbType="int4" javaType="Integer"
+            name="user_id" required="true" size="10" type="INTEGER"/>
+        <column comment="通知日時" dbType="timestamp"
+            javaType="java.time.LocalDateTime" name="notify_datetime"
+            size="29, 6" type="TIMESTAMP"/>
+        <foreign-key foreignSchema="bacchus" foreignTable="event_t" name="event_notify_event_no_fkey">
+            <reference foreign="event_no" local="event_no"/>
+        </foreign-key>
+        <foreign-key foreignSchema="bacchus" foreignTable="user_t" name="event_notify_user_id_fkey">
+            <reference foreign="user_id" local="user_id"/>
+        </foreign-key>
+        <unique name="event_notify_event_no_user_id_key">
+            <unique-column name="event_no" position="1"/>
+            <unique-column name="user_id" position="2"/>
+        </unique>
+    </table>
     <table comment="イベント_T" name="event_t" schema="postgres.bacchus" type="TABLE">
         <column autoIncrement="true" comment="イベント管理番号" dbType="serial"
             default="nextval('event_t_event_no_seq'::regclass)"
@@ -206,6 +231,8 @@
             minimumValue="1" name="candidate_t_candidate_no_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="entry_t_entry_id_seq" schema="postgres.bacchus"/>
+        <sequence incrementSize="1" maximumValue="9223372036854775807"
+            minimumValue="1" name="event_notify_event_notify_no_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="event_t_event_no_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"

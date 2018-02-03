@@ -82,16 +82,30 @@ public class BsEventTCQ extends AbstractBsEventTCQ {
     public Map<String, CandidateTCQ> xdfgetEventNo_ExistsReferrer_CandidateTList() { return xgetSQueMap("eventNo_ExistsReferrer_CandidateTList"); }
     public String keepEventNo_ExistsReferrer_CandidateTList(CandidateTCQ sq) { return xkeepSQue("eventNo_ExistsReferrer_CandidateTList", sq); }
 
+    public Map<String, EventNotifyCQ> xdfgetEventNo_ExistsReferrer_EventNotifyList() { return xgetSQueMap("eventNo_ExistsReferrer_EventNotifyList"); }
+    public String keepEventNo_ExistsReferrer_EventNotifyList(EventNotifyCQ sq) { return xkeepSQue("eventNo_ExistsReferrer_EventNotifyList", sq); }
+
     public Map<String, CandidateTCQ> xdfgetEventNo_NotExistsReferrer_CandidateTList() { return xgetSQueMap("eventNo_NotExistsReferrer_CandidateTList"); }
     public String keepEventNo_NotExistsReferrer_CandidateTList(CandidateTCQ sq) { return xkeepSQue("eventNo_NotExistsReferrer_CandidateTList", sq); }
 
+    public Map<String, EventNotifyCQ> xdfgetEventNo_NotExistsReferrer_EventNotifyList() { return xgetSQueMap("eventNo_NotExistsReferrer_EventNotifyList"); }
+    public String keepEventNo_NotExistsReferrer_EventNotifyList(EventNotifyCQ sq) { return xkeepSQue("eventNo_NotExistsReferrer_EventNotifyList", sq); }
+
     public Map<String, CandidateTCQ> xdfgetEventNo_SpecifyDerivedReferrer_CandidateTList() { return xgetSQueMap("eventNo_SpecifyDerivedReferrer_CandidateTList"); }
     public String keepEventNo_SpecifyDerivedReferrer_CandidateTList(CandidateTCQ sq) { return xkeepSQue("eventNo_SpecifyDerivedReferrer_CandidateTList", sq); }
+
+    public Map<String, EventNotifyCQ> xdfgetEventNo_SpecifyDerivedReferrer_EventNotifyList() { return xgetSQueMap("eventNo_SpecifyDerivedReferrer_EventNotifyList"); }
+    public String keepEventNo_SpecifyDerivedReferrer_EventNotifyList(EventNotifyCQ sq) { return xkeepSQue("eventNo_SpecifyDerivedReferrer_EventNotifyList", sq); }
 
     public Map<String, CandidateTCQ> xdfgetEventNo_QueryDerivedReferrer_CandidateTList() { return xgetSQueMap("eventNo_QueryDerivedReferrer_CandidateTList"); }
     public String keepEventNo_QueryDerivedReferrer_CandidateTList(CandidateTCQ sq) { return xkeepSQue("eventNo_QueryDerivedReferrer_CandidateTList", sq); }
     public Map<String, Object> xdfgetEventNo_QueryDerivedReferrer_CandidateTListParameter() { return xgetSQuePmMap("eventNo_QueryDerivedReferrer_CandidateTList"); }
     public String keepEventNo_QueryDerivedReferrer_CandidateTListParameter(Object pm) { return xkeepSQuePm("eventNo_QueryDerivedReferrer_CandidateTList", pm); }
+
+    public Map<String, EventNotifyCQ> xdfgetEventNo_QueryDerivedReferrer_EventNotifyList() { return xgetSQueMap("eventNo_QueryDerivedReferrer_EventNotifyList"); }
+    public String keepEventNo_QueryDerivedReferrer_EventNotifyList(EventNotifyCQ sq) { return xkeepSQue("eventNo_QueryDerivedReferrer_EventNotifyList", sq); }
+    public Map<String, Object> xdfgetEventNo_QueryDerivedReferrer_EventNotifyListParameter() { return xgetSQuePmMap("eventNo_QueryDerivedReferrer_EventNotifyList"); }
+    public String keepEventNo_QueryDerivedReferrer_EventNotifyListParameter(Object pm) { return xkeepSQuePm("eventNo_QueryDerivedReferrer_EventNotifyList", pm); }
 
     /** 
      * Add order-by as ascend. <br>

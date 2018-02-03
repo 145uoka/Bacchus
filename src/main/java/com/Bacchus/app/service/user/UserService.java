@@ -13,19 +13,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.Bacchus.app.Exception.RecordNotFoundException;
 import com.Bacchus.app.components.AuthDto;
+import com.Bacchus.app.components.EventNotifyUserDto;
 import com.Bacchus.app.components.LabelValueDto;
 import com.Bacchus.app.components.UserDto;
 import com.Bacchus.app.components.UserTypeDto;
 import com.Bacchus.app.service.AbstractService;
 import com.Bacchus.app.service.LoggerService;
+import com.Bacchus.app.util.DateUtil;
 import com.Bacchus.dbflute.cbean.UserTCB;
 import com.Bacchus.dbflute.cbean.UserTypeMCB;
 import com.Bacchus.dbflute.exbhv.AuthMBhv;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.dbflute.exbhv.UserTypeMBhv;
+import com.Bacchus.dbflute.exbhv.pmbean.EventNotifyUserPmb;
 import com.Bacchus.dbflute.exentity.AuthM;
 import com.Bacchus.dbflute.exentity.UserT;
 import com.Bacchus.dbflute.exentity.UserTypeM;
+import com.Bacchus.dbflute.exentity.customize.EventNotifyUser;
 import com.Bacchus.webbase.common.constants.LogMessageKeyConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants;
 
@@ -86,6 +90,35 @@ public class UserService extends AbstractService {
         }
 
         return userDtoList;
+    }
+
+    /**
+     * ユーザ情報を全件取得。
+     *
+     * @return UserDtoのリスト
+     */
+    public List<EventNotifyUserDto> findAllJoinEventNotify(Integer eventNo) {
+
+        EventNotifyUserPmb pmb = new EventNotifyUserPmb();
+        pmb.setEventNo(eventNo);
+
+        // DB - SELECT (外だしSQL - EventTBhv_selectEventIndex.sql)
+        List<EventNotifyUser> eventNotifyUserEntityList = userTBhv.outsideSql().selectList(pmb);
+        List<EventNotifyUserDto> resultDtoList = new ArrayList<EventNotifyUserDto>();
+
+        for (EventNotifyUser eventNotifyUser : eventNotifyUserEntityList) {
+            // EntityからDtoへ変換（EventIndex）
+            EventNotifyUserDto eventNotifyUserDto = new EventNotifyUserDto();
+            BeanUtils.copyProperties(eventNotifyUser, eventNotifyUserDto);
+
+            String notifyDatetimeDisplay = DateUtil.localDateTime2String(
+                    eventNotifyUser.getNotifyDatetime(), DateUtil.DATE_TIME_FORMAT_YYYYMMDDEHHMM);
+
+            eventNotifyUserDto.setNotifyDatetimeDisplay(notifyDatetimeDisplay);
+            resultDtoList.add(eventNotifyUserDto);
+        }
+
+        return resultDtoList;
     }
 
     /**

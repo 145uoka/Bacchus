@@ -39,6 +39,11 @@
         <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
         <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
     </bean>
+	<bean id="eventNotifyBhv" class="com.Bacchus.dbflute.exbhv.EventNotifyBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="commonColumnAutoSetupper"/></property>
+    </bean>
 	<bean id="eventTBhv" class="com.Bacchus.dbflute.exbhv.EventTBhv" autowire="byType">
         <property name="behaviorCommandInvoker"><ref bean="behaviorCommandInvoker"/></property>
         <property name="behaviorSelector"><ref bean="behaviorSelector"/></property>

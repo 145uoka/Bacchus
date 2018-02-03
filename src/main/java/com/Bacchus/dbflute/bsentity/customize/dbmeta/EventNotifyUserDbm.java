@@ -1,30 +1,29 @@
-package com.Bacchus.dbflute.bsentity.dbmeta;
+package com.Bacchus.dbflute.bsentity.customize.dbmeta;
 
 import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
-import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
 import org.dbflute.dbmeta.property.PropertyGateway;
 import org.dbflute.dbway.DBDef;
 import com.Bacchus.dbflute.allcommon.*;
-import com.Bacchus.dbflute.exentity.*;
+import com.Bacchus.dbflute.exentity.customize.*;
 
 /**
- * The DB meta of user_t. (Singleton)
+ * The DB meta of EventNotifyUser. (Singleton)
  * @author DBFlute(AutoGenerator)
  */
-public class UserTDbm extends AbstractDBMeta {
+public class EventNotifyUserDbm extends AbstractDBMeta {
 
     // ===================================================================================
     //                                                                           Singleton
     //                                                                           =========
-    private static final UserTDbm _instance = new UserTDbm();
-    private UserTDbm() {}
-    public static UserTDbm getInstance() { return _instance; }
+    private static final EventNotifyUserDbm _instance = new EventNotifyUserDbm();
+    private EventNotifyUserDbm() {}
+    public static EventNotifyUserDbm getInstance() { return _instance; }
 
     // ===================================================================================
     //                                                                       Current DBDef
@@ -43,42 +42,34 @@ public class UserTDbm extends AbstractDBMeta {
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     { xsetupEpg(); }
     protected void xsetupEpg() {
-        setupEpg(_epgMap, et -> ((UserT)et).getUserId(), (et, vl) -> ((UserT)et).setUserId(cti(vl)), "userId");
-        setupEpg(_epgMap, et -> ((UserT)et).getLoginId(), (et, vl) -> ((UserT)et).setLoginId((String)vl), "loginId");
-        setupEpg(_epgMap, et -> ((UserT)et).getLineFlg(), (et, vl) -> ((UserT)et).setLineFlg(cti(vl)), "lineFlg");
-        setupEpg(_epgMap, et -> ((UserT)et).getLineId(), (et, vl) -> ((UserT)et).setLineId((String)vl), "lineId");
-        setupEpg(_epgMap, et -> ((UserT)et).getLineUserName(), (et, vl) -> ((UserT)et).setLineUserName((String)vl), "lineUserName");
-        setupEpg(_epgMap, et -> ((UserT)et).getUserName(), (et, vl) -> ((UserT)et).setUserName((String)vl), "userName");
-        setupEpg(_epgMap, et -> ((UserT)et).getLastName(), (et, vl) -> ((UserT)et).setLastName((String)vl), "lastName");
-        setupEpg(_epgMap, et -> ((UserT)et).getFirstName(), (et, vl) -> ((UserT)et).setFirstName((String)vl), "firstName");
-        setupEpg(_epgMap, et -> ((UserT)et).getEmail(), (et, vl) -> ((UserT)et).setEmail((String)vl), "email");
-        setupEpg(_epgMap, et -> ((UserT)et).getPassword(), (et, vl) -> ((UserT)et).setPassword((String)vl), "password");
-        setupEpg(_epgMap, et -> ((UserT)et).getUserTypeId(), (et, vl) -> ((UserT)et).setUserTypeId(cti(vl)), "userTypeId");
-        setupEpg(_epgMap, et -> ((UserT)et).getAuthLevel(), (et, vl) -> ((UserT)et).setAuthLevel(cti(vl)), "authLevel");
+        setupEpg(_epgMap, et -> ((EventNotifyUser)et).getUserId(), (et, vl) -> ((EventNotifyUser)et).setUserId(cti(vl)), "userId");
+        setupEpg(_epgMap, et -> ((EventNotifyUser)et).getLoginId(), (et, vl) -> ((EventNotifyUser)et).setLoginId((String)vl), "loginId");
+        setupEpg(_epgMap, et -> ((EventNotifyUser)et).getLineFlg(), (et, vl) -> ((EventNotifyUser)et).setLineFlg(cti(vl)), "lineFlg");
+        setupEpg(_epgMap, et -> ((EventNotifyUser)et).getLineId(), (et, vl) -> ((EventNotifyUser)et).setLineId((String)vl), "lineId");
+        setupEpg(_epgMap, et -> ((EventNotifyUser)et).getLineUserName(), (et, vl) -> ((EventNotifyUser)et).setLineUserName((String)vl), "lineUserName");
+        setupEpg(_epgMap, et -> ((EventNotifyUser)et).getUserName(), (et, vl) -> ((EventNotifyUser)et).setUserName((String)vl), "userName");
+        setupEpg(_epgMap, et -> ((EventNotifyUser)et).getLastName(), (et, vl) -> ((EventNotifyUser)et).setLastName((String)vl), "lastName");
+        setupEpg(_epgMap, et -> ((EventNotifyUser)et).getFirstName(), (et, vl) -> ((EventNotifyUser)et).setFirstName((String)vl), "firstName");
+        setupEpg(_epgMap, et -> ((EventNotifyUser)et).getEmail(), (et, vl) -> ((EventNotifyUser)et).setEmail((String)vl), "email");
+        setupEpg(_epgMap, et -> ((EventNotifyUser)et).getPassword(), (et, vl) -> ((EventNotifyUser)et).setPassword((String)vl), "password");
+        setupEpg(_epgMap, et -> ((EventNotifyUser)et).getUserTypeId(), (et, vl) -> ((EventNotifyUser)et).setUserTypeId(cti(vl)), "userTypeId");
+        setupEpg(_epgMap, et -> ((EventNotifyUser)et).getAuthLevel(), (et, vl) -> ((EventNotifyUser)et).setAuthLevel(cti(vl)), "authLevel");
+        setupEpg(_epgMap, et -> ((EventNotifyUser)et).getUserTypeName(), (et, vl) -> ((EventNotifyUser)et).setUserTypeName((String)vl), "userTypeName");
+        setupEpg(_epgMap, et -> ((EventNotifyUser)et).getSubsidyAmount(), (et, vl) -> ((EventNotifyUser)et).setSubsidyAmount(cti(vl)), "subsidyAmount");
+        setupEpg(_epgMap, et -> ((EventNotifyUser)et).getEventNotifyNo(), (et, vl) -> ((EventNotifyUser)et).setEventNotifyNo(cti(vl)), "eventNotifyNo");
+        setupEpg(_epgMap, et -> ((EventNotifyUser)et).getEventNo(), (et, vl) -> ((EventNotifyUser)et).setEventNo(cti(vl)), "eventNo");
+        setupEpg(_epgMap, et -> ((EventNotifyUser)et).getNotifyDatetime(), (et, vl) -> ((EventNotifyUser)et).setNotifyDatetime(ctldt(vl)), "notifyDatetime");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
 
-    // -----------------------------------------------------
-    //                                      Foreign Property
-    //                                      ----------------
-    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
-    { xsetupEfpg(); }
-    @SuppressWarnings("unchecked")
-    protected void xsetupEfpg() {
-        setupEfpg(_efpgMap, et -> ((UserT)et).getAuthM(), (et, vl) -> ((UserT)et).setAuthM((OptionalEntity<AuthM>)vl), "authM");
-        setupEfpg(_efpgMap, et -> ((UserT)et).getUserTypeM(), (et, vl) -> ((UserT)et).setUserTypeM((OptionalEntity<UserTypeM>)vl), "userTypeM");
-    }
-    public PropertyGateway findForeignPropertyGateway(String prop)
-    { return doFindEfpg(_efpgMap, prop); }
-
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
-    protected final String _tableDbName = "user_t";
-    protected final String _tableDispName = "user_t";
-    protected final String _tablePropertyName = "userT";
-    protected final TableSqlName _tableSqlName = new TableSqlName("user_t", _tableDbName);
+    protected final String _tableDbName = "EventNotifyUser";
+    protected final String _tableDispName = "EventNotifyUser";
+    protected final String _tablePropertyName = "eventNotifyUser";
+    protected final TableSqlName _tableSqlName = new TableSqlName("EventNotifyUser", _tableDbName);
     { _tableSqlName.xacceptFilter(DBFluteConfig.getInstance().getTableSqlNameFilter()); }
     public String getTableDbName() { return _tableDbName; }
     public String getTableDispName() { return _tableDispName; }
@@ -88,9 +79,9 @@ public class UserTDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, true, true, true, "serial", 10, 0, "nextval('user_t_user_id_seq'::regclass)", false, null, null, null, "entryTList,eventNotifyList,eventTList", null, false);
+    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, false, "serial", 10, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnLoginId = cci("login_id", "login_id", null, null, String.class, "loginId", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnLineFlg = cci("line_flg", "line_flg", null, null, Integer.class, "lineFlg", null, false, false, true, "int4", 10, 0, "0", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnLineFlg = cci("line_flg", "line_flg", null, null, Integer.class, "lineFlg", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnLineId = cci("line_id", "line_id", null, null, String.class, "lineId", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnLineUserName = cci("line_user_name", "line_user_name", null, null, String.class, "lineUserName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnUserName = cci("user_name", "user_name", null, null, String.class, "userName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
@@ -98,69 +89,99 @@ public class UserTDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnFirstName = cci("first_name", "first_name", null, null, String.class, "firstName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEmail = cci("email", "email", null, null, String.class, "email", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnPassword = cci("password", "password", null, null, String.class, "password", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnUserTypeId = cci("user_type_id", "user_type_id", null, null, Integer.class, "userTypeId", null, false, false, true, "int4", 10, 0, null, false, null, null, "userTypeM", null, null, false);
-    protected final ColumnInfo _columnAuthLevel = cci("auth_level", "auth_level", null, null, Integer.class, "authLevel", null, false, false, true, "int4", 10, 0, null, false, null, null, "authM", null, null, false);
+    protected final ColumnInfo _columnUserTypeId = cci("user_type_id", "user_type_id", null, null, Integer.class, "userTypeId", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnAuthLevel = cci("auth_level", "auth_level", null, null, Integer.class, "authLevel", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUserTypeName = cci("user_type_name", "user_type_name", null, null, String.class, "userTypeName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnSubsidyAmount = cci("subsidy_amount", "subsidy_amount", null, null, Integer.class, "subsidyAmount", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnEventNotifyNo = cci("event_notify_no", "event_notify_no", null, null, Integer.class, "eventNotifyNo", null, false, false, false, "serial", 10, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnEventNo = cci("event_no", "event_no", null, null, Integer.class, "eventNo", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnNotifyDatetime = cci("notify_datetime", "notify_datetime", null, null, java.time.LocalDateTime.class, "notifyDatetime", null, false, false, false, "timestamp", 29, 6, null, false, null, null, null, null, null, false);
 
     /**
-     * user_id: {PK, ID, NotNull, serial(10)}
+     * user_id: {serial(10), refers to user_t.user_id}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUserId() { return _columnUserId; }
     /**
-     * login_id: {UQ, text(2147483647)}
+     * login_id: {text(2147483647), refers to user_t.login_id}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnLoginId() { return _columnLoginId; }
     /**
-     * line_flg: {NotNull, int4(10), default=[0]}
+     * line_flg: {int4(10), refers to user_t.line_flg}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnLineFlg() { return _columnLineFlg; }
     /**
-     * line_id: {text(2147483647)}
+     * line_id: {text(2147483647), refers to user_t.line_id}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnLineId() { return _columnLineId; }
     /**
-     * line_user_name: {text(2147483647)}
+     * line_user_name: {text(2147483647), refers to user_t.line_user_name}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnLineUserName() { return _columnLineUserName; }
     /**
-     * user_name: {text(2147483647)}
+     * user_name: {text(2147483647), refers to user_t.user_name}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUserName() { return _columnUserName; }
     /**
-     * last_name: {text(2147483647)}
+     * last_name: {text(2147483647), refers to user_t.last_name}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnLastName() { return _columnLastName; }
     /**
-     * first_name: {text(2147483647)}
+     * first_name: {text(2147483647), refers to user_t.first_name}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnFirstName() { return _columnFirstName; }
     /**
-     * email: {text(2147483647)}
+     * email: {text(2147483647), refers to user_t.email}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnEmail() { return _columnEmail; }
     /**
-     * password: {text(2147483647)}
+     * password: {text(2147483647), refers to user_t.password}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnPassword() { return _columnPassword; }
     /**
-     * user_type_id: {NotNull, int4(10), FK to user_type_m}
+     * user_type_id: {int4(10), refers to user_t.user_type_id}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUserTypeId() { return _columnUserTypeId; }
     /**
-     * auth_level: {NotNull, int4(10), FK to auth_m}
+     * auth_level: {int4(10), refers to user_t.auth_level}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnAuthLevel() { return _columnAuthLevel; }
+    /**
+     * user_type_name: {text(2147483647), refers to user_type_m.user_type_name}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnUserTypeName() { return _columnUserTypeName; }
+    /**
+     * subsidy_amount: {int4(10), refers to user_type_m.subsidy_amount}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnSubsidyAmount() { return _columnSubsidyAmount; }
+    /**
+     * event_notify_no: {serial(10), refers to event_notify.event_notify_no}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnEventNotifyNo() { return _columnEventNotifyNo; }
+    /**
+     * event_no: {int4(10), refers to event_notify.event_no}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnEventNo() { return _columnEventNo; }
+    /**
+     * notify_datetime: {timestamp(29, 6), refers to event_notify.notify_datetime}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnNotifyDatetime() { return _columnNotifyDatetime; }
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
@@ -176,6 +197,11 @@ public class UserTDbm extends AbstractDBMeta {
         ls.add(columnPassword());
         ls.add(columnUserTypeId());
         ls.add(columnAuthLevel());
+        ls.add(columnUserTypeName());
+        ls.add(columnSubsidyAmount());
+        ls.add(columnEventNotifyNo());
+        ls.add(columnEventNo());
+        ls.add(columnNotifyDatetime());
         return ls;
     }
 
@@ -187,14 +213,11 @@ public class UserTDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                       Primary Element
     //                                       ---------------
-    protected UniqueInfo cpui() { return hpcpui(columnUserId()); }
-    public boolean hasPrimaryKey() { return true; }
+    protected UniqueInfo cpui() {
+        throw new UnsupportedOperationException("The table does not have primary key: " + getTableDbName());
+    }
+    public boolean hasPrimaryKey() { return false; }
     public boolean hasCompoundPrimaryKey() { return false; }
-
-    // -----------------------------------------------------
-    //                                        Unique Element
-    //                                        --------------
-    public UniqueInfo uniqueOf() { return hpcui(columnLoginId()); }
 
     // ===================================================================================
     //                                                                       Relation Info
@@ -204,83 +227,39 @@ public class UserTDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
-    /**
-     * auth_m by my auth_level, named 'authM'.
-     * @return The information object of foreign property. (NotNull)
-     */
-    public ForeignInfo foreignAuthM() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnAuthLevel(), AuthMDbm.getInstance().columnAuthLevel());
-        return cfi("user_t_auth_level_fkey", "authM", this, AuthMDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "userTList", false);
-    }
-    /**
-     * user_type_m by my user_type_id, named 'userTypeM'.
-     * @return The information object of foreign property. (NotNull)
-     */
-    public ForeignInfo foreignUserTypeM() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserTypeId(), UserTypeMDbm.getInstance().columnUserTypeId());
-        return cfi("user_t_user_type_id_fkey", "userTypeM", this, UserTypeMDbm.getInstance(), mp, 1, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "userTList", false);
-    }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
-    /**
-     * entry_t by user_id, named 'entryTList'.
-     * @return The information object of referrer property. (NotNull)
-     */
-    public ReferrerInfo referrerEntryTList() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), EntryTDbm.getInstance().columnUserId());
-        return cri("entry_t_user_id_fkey", "entryTList", this, EntryTDbm.getInstance(), mp, false, "userT");
-    }
-    /**
-     * event_notify by user_id, named 'eventNotifyList'.
-     * @return The information object of referrer property. (NotNull)
-     */
-    public ReferrerInfo referrerEventNotifyList() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), EventNotifyDbm.getInstance().columnUserId());
-        return cri("event_notify_user_id_fkey", "eventNotifyList", this, EventNotifyDbm.getInstance(), mp, false, "userT");
-    }
-    /**
-     * event_t by user_id, named 'eventTList'.
-     * @return The information object of referrer property. (NotNull)
-     */
-    public ReferrerInfo referrerEventTList() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), EventTDbm.getInstance().columnUserId());
-        return cri("event_t_user_id_fkey", "eventTList", this, EventTDbm.getInstance(), mp, false, "userT");
-    }
 
     // ===================================================================================
     //                                                                        Various Info
     //                                                                        ============
-    public boolean hasSequence() { return true; }
-    public String getSequenceName() { return "user_t_user_id_seq"; }
-    public Integer getSequenceIncrementSize() { return 1; }
-    public Integer getSequenceCacheSize() { return null; }
 
     // ===================================================================================
     //                                                                           Type Name
     //                                                                           =========
-    public String getEntityTypeName() { return "com.Bacchus.dbflute.exentity.UserT"; }
-    public String getConditionBeanTypeName() { return "com.Bacchus.dbflute.cbean.UserTCB"; }
-    public String getBehaviorTypeName() { return "com.Bacchus.dbflute.exbhv.UserTBhv"; }
+    public String getEntityTypeName() { return "com.Bacchus.dbflute.exentity.customize.EventNotifyUser"; }
+    public String getConditionBeanTypeName() { return null; }
+    public String getBehaviorTypeName() { return null; }
 
     // ===================================================================================
     //                                                                         Object Type
     //                                                                         ===========
-    public Class<UserT> getEntityType() { return UserT.class; }
+    public Class<EventNotifyUser> getEntityType() { return EventNotifyUser.class; }
 
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public UserT newEntity() { return new UserT(); }
+    public EventNotifyUser newEntity() { return new EventNotifyUser(); }
 
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
     public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
-    { doAcceptPrimaryKeyMap((UserT)et, mp); }
+    { doAcceptPrimaryKeyMap((EventNotifyUser)et, mp); }
     public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
-    { doAcceptAllColumnMap((UserT)et, mp); }
+    { doAcceptAllColumnMap((EventNotifyUser)et, mp); }
     public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
     public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

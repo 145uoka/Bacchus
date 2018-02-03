@@ -177,6 +177,25 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
     public abstract String keepEventNo_ExistsReferrer_CandidateTList(CandidateTCQ sq);
 
     /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select event_no from event_notify where ...)} <br>
+     * event_notify by event_no, named 'eventNotifyAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsEventNotify</span>(notifyCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     notifyCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of EventNotifyList for 'exists'. (NotNull)
+     */
+    public void existsEventNotify(SubQuery<EventNotifyCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        EventNotifyCB cb = new EventNotifyCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepEventNo_ExistsReferrer_EventNotifyList(cb.query());
+        registerExistsReferrer(cb.query(), "event_no", "event_no", pp, "eventNotifyList");
+    }
+    public abstract String keepEventNo_ExistsReferrer_EventNotifyList(EventNotifyCQ sq);
+
+    /**
      * Set up NotExistsReferrer (correlated sub-query). <br>
      * {not exists (select event_no from candidate_t where ...)} <br>
      * candidate_t by event_no, named 'candidateTAsOne'.
@@ -195,6 +214,25 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
     }
     public abstract String keepEventNo_NotExistsReferrer_CandidateTList(CandidateTCQ sq);
 
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select event_no from event_notify where ...)} <br>
+     * event_notify by event_no, named 'eventNotifyAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsEventNotify</span>(notifyCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     notifyCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of EventNo_NotExistsReferrer_EventNotifyList for 'not exists'. (NotNull)
+     */
+    public void notExistsEventNotify(SubQuery<EventNotifyCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        EventNotifyCB cb = new EventNotifyCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepEventNo_NotExistsReferrer_EventNotifyList(cb.query());
+        registerNotExistsReferrer(cb.query(), "event_no", "event_no", pp, "eventNotifyList");
+    }
+    public abstract String keepEventNo_NotExistsReferrer_EventNotifyList(EventNotifyCQ sq);
+
     public void xsderiveCandidateTList(String fn, SubQuery<CandidateTCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         CandidateTCB cb = new CandidateTCB(); cb.xsetupForDerivedReferrer(this);
@@ -202,6 +240,14 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
         registerSpecifyDerivedReferrer(fn, cb.query(), "event_no", "event_no", pp, "candidateTList", al, op);
     }
     public abstract String keepEventNo_SpecifyDerivedReferrer_CandidateTList(CandidateTCQ sq);
+
+    public void xsderiveEventNotifyList(String fn, SubQuery<EventNotifyCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        EventNotifyCB cb = new EventNotifyCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepEventNo_SpecifyDerivedReferrer_EventNotifyList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "event_no", "event_no", pp, "eventNotifyList", al, op);
+    }
+    public abstract String keepEventNo_SpecifyDerivedReferrer_EventNotifyList(EventNotifyCQ sq);
 
     /**
      * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
@@ -229,6 +275,33 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
     }
     public abstract String keepEventNo_QueryDerivedReferrer_CandidateTList(CandidateTCQ sq);
     public abstract String keepEventNo_QueryDerivedReferrer_CandidateTListParameter(Object vl);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from event_notify where ...)} <br>
+     * event_notify by event_no, named 'eventNotifyAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedEventNotify()</span>.<span style="color: #CC4747">max</span>(notifyCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     notifyCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     notifyCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<EventNotifyCB> derivedEventNotify() {
+        return xcreateQDRFunctionEventNotifyList();
+    }
+    protected HpQDRFunction<EventNotifyCB> xcreateQDRFunctionEventNotifyList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveEventNotifyList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveEventNotifyList(String fn, SubQuery<EventNotifyCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        EventNotifyCB cb = new EventNotifyCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepEventNo_QueryDerivedReferrer_EventNotifyList(cb.query()); String prpp = keepEventNo_QueryDerivedReferrer_EventNotifyListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "event_no", "event_no", sqpp, "eventNotifyList", rd, vl, prpp, op);
+    }
+    public abstract String keepEventNo_QueryDerivedReferrer_EventNotifyList(EventNotifyCQ sq);
+    public abstract String keepEventNo_QueryDerivedReferrer_EventNotifyListParameter(Object vl);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>

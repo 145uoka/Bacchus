@@ -46,13 +46,16 @@ $(function() {
 		if (chk === undefined || chk === null) {
 			return;
 		}
-		if (evt.target != chk) {
-			chk.checked = !chk.checked;
-		}
-		if (chk.checked) {
-			$t.addClass('checked_tr');
-		} else {
-			$t.removeClass('checked_tr');
+		if(!chk.disabled) {
+			if (evt.target != chk) {
+
+				chk.checked = !chk.checked;
+			}
+			if (chk.checked) {
+				$t.addClass('checked_tr');
+			} else {
+				$t.removeClass('checked_tr');
+			}
 		}
 	});
 });

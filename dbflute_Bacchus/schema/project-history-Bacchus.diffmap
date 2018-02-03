@@ -1,4 +1,65 @@
 map:{
+    ; 2018/01/21 17:15:54 = map:{
+        ; diffDate = 2018/01/21 17:15:54
+        ; tableDiff = map:{
+            ; event_notify = map:{
+                ; tableName = event_notify
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; notify_datetime = map:{
+                        ; columnName = notify_datetime
+                        ; diffType = CHANGE
+                        ; dbTypeDiff = map:{
+                            ; next = timestamp
+                            ; previous = time
+                        }
+                        ; columnSizeDiff = map:{
+                            ; next = 29, 6
+                            ; previous = 15, 6
+                        }
+                        ; notNullDiff = map:{
+                            ; next = false
+                            ; previous = true
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ; 2018/01/21 15:24:20 = map:{
+        ; diffDate = 2018/01/21 15:24:20
+        ; tableDiff = map:{
+            ; event_notify = map:{
+                ; tableName = event_notify
+                ; diffType = CHANGE
+                ; uniqueKeyDiff = map:{
+                    ; event_notify_event_no_user_id_key = map:{
+                        ; constraintName = event_notify_event_no_user_id_key
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
+    ; 2018/01/21 15:15:46 = map:{
+        ; diffDate = 2018/01/21 15:15:46
+        ; tableCount = map:{
+            ; next = 10
+            ; previous = 9
+        }
+        ; tableDiff = map:{
+            ; event_notify = map:{
+                ; tableName = event_notify
+                ; diffType = ADD
+            }
+        }
+        ; sequenceDiff = map:{
+            ; postgres.bacchus.event_notify_event_notify_no_seq = map:{
+                ; sequenceName = postgres.bacchus.event_notify_event_notify_no_seq
+                ; diffType = ADD
+            }
+        }
+    }
     ; 2018/01/08 15:48:21 = map:{
         ; diffDate = 2018/01/08 15:48:21
         ; tableDiff = map:{

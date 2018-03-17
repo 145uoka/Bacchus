@@ -66,24 +66,11 @@
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<import resource="classpath:dbfluteBeans.xml"/>
-	<!--
-		CSRF protection. Here we only include the CsrfFilter instead of all of Spring Security.
-		See http://docs.spring.io/spring-security/site/docs/3.2.x/reference/htmlsingle/#csrf for more information on
-		Spring Security's CSRF protection
-	-->
 
 	<bean id="csrfTokenRepository" class="org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository"/>
 	<bean id="requestDataValueProcessor" class="org.springframework.security.web.servlet.support.csrf.CsrfRequestDataValueProcessor"/>
 	<bean id="logoutFilter" class="com.Bacchus.webbase.appbase.LogoutFilter">
 		<constructor-arg index="0" ref="csrfTokenRepository"/>
-	</bean>
-	<bean id="resetCsrfFilter" class="com.Bacchus.webbase.appbase.ResetCsrfFilter">
-		<constructor-arg index="0" ref="csrfTokenRepository"/>
-		<property name="resetURLs">
-			<set>
-				<value>/</value>
-			</set>
-		</property>
 	</bean>
 
 <!--

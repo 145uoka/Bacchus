@@ -73,13 +73,6 @@
 	-->
 
 	<bean id="csrfTokenRepository" class="org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository"/>
-	<bean id="csrfFilter" class="com.Bacchus.webbase.appbase.CustomCsrfFilter">
-		<constructor-arg index="0" ref="csrfTokenRepository"/>
-		<!-- CsrfFilter内で発生する例外を検知するカスタムハンドラ(当PJではSessionTimeout検知用に改修) -->
-		<property name="accessDeniedHandler">
-			<bean class="com.Bacchus.webbase.appbase.CustomAccessDeniedHandler"/>
-		</property>
-	</bean>
 	<bean id="requestDataValueProcessor" class="org.springframework.security.web.servlet.support.csrf.CsrfRequestDataValueProcessor"/>
 	<bean id="logoutFilter" class="com.Bacchus.webbase.appbase.LogoutFilter">
 		<constructor-arg index="0" ref="csrfTokenRepository"/>

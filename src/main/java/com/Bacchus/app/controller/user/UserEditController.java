@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -144,7 +145,8 @@ public class UserEditController extends BaseController {
         }
 
         // ログインIDのユニークチェック
-        if(!(userT.getLoginId().equals(form.getLoginId()))){
+
+        if(!StringUtils.equals(userT.getLoginId(), form.getLoginId())){
         	int userCount = userTBhv.selectCount(cb -> {
                 cb.query().setLoginId_Equal(form.getLoginId());
             });

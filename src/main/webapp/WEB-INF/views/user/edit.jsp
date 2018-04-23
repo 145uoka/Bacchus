@@ -27,6 +27,58 @@
 	         document.form.submit();
 	}
 	</script>
+
+<script type="text/javascript">
+
+    /*ログインID、パスワードの入力項目初期表示 (チェック：入力可、チェックなし：入力不可) */
+	$(document).ready(function() {
+		var loginCheck = document.getElementById('loginCheck');
+		var loginCheckResult = loginCheck.checked;
+		var loginId = document.getElementById('loginId');
+
+		var passwardCheck = document.getElementById('passwardCheck');
+		var passwardCheckResult = passwardCheck.checked;
+		var firstPassward = document.getElementById('firstPassward');
+		var confirmPassword = document.getElementById('confirmPassword');
+
+		if (loginCheckResult) {
+			loginId.disabled = false;
+		} else {
+			loginId.disabled = true;
+		}
+
+		if (passwardCheckResult) {
+			firstPassward.disabled = false;
+			confirmPassword.disabled = false;
+		} else {
+			firstPassward.disabled = true;
+			confirmPassword.disabled = true;
+		}
+
+	});
+
+	/*ログインID入力項目の切り替え*/
+	function switchDisabledLoginId() {
+		if ($('#loginCheck').prop('checked')) {
+			$('#loginId').prop('disabled', false);
+
+		} else {
+			$('#loginId').prop('disabled', true);
+		}
+	}
+
+	/*パスワードの入力項目の切り替え*/
+	function switchDisabledPassward() {
+		if ($('#passwardCheck').prop('checked')) {
+			$('#firstPassward').prop('disabled', false);
+			$('#confirmPassword').prop('disabled', false);
+
+		} else {
+			$('#firstPassward').prop('disabled', true);
+			$('#confirmPassword').prop('disabled', true);
+		}
+	}
+</script>
 </head>
 
 <body>
@@ -130,47 +182,57 @@
               </div>
               --%>
               <div class="form-group <ext:isErrors path='loginId' value='has-error'/>">
-                <label class="col-md-4 control-label">ログインID<span class="label label-danger" style="margin-left: 10px">必須</span></label>
+                <label class="col-md-4 control-label">ログインID</label>
                 <div class="col-md-6">
-                  <form:input path="loginId" value="${userTDto.loginId}" class="form-control" maxlength="${ext:getMaxLen('CNT0001') }" />
-                </div>
-                <div style="clear: both;">
-                  <span class="col-md-4"></span>
-                  <div class="col-md-6">
-                    <form:errors path="loginId" element="div" cssClass="text-danger" />
+                  <form:input path="loginId" value="${userTDto.loginId}" class="form-control" maxlength="${ext:getMaxLen('CNT0001') }" disabled=""/>
+                  <div style="clear: both;">
+                    <div class="col-md-10">
+                      <form:errors path="loginId" element="div" cssClass="text-danger" />
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="form-group <ext:isErrors path='password' value='has-error'/>">
-                <label class="col-md-4 control-label">パスワード<span class="label label-danger" style="margin-left: 10px">必須</span></label>
-                <div class="col-md-6">
-                  <form:password path="password" class="form-control" />
+                <div class="col-md-2 checkbox">
+                  <label>
+                    <form:checkbox path="loginCheck" id="loginCheck" value="1" onClick="switchDisabledLoginId()"/>ID変更
+                  </label>
                 </div>
-                <div style="clear: both;">
-                  <span class="col-md-4"></span>
-                  <div class="col-md-6">
-                    <form:errors path="password" element="div" cssClass="text-danger" />
+              </div>
+
+              <div class="form-group <ext:isErrors path='firstPassward' value='has-error'/>">
+                <label class="col-md-4 control-label">パスワード</label>
+                <div class="col-md-6">
+                  <form:input type="password" path="firstPassward" class="form-control" disabled="" />
+                  <div style="clear: both;">
+                    <div class="col-md-10">
+                      <form:errors path="firstPassward" element="div" cssClass="text-danger" />
+                    </div>
                   </div>
                 </div>
+                <div class="col-md-2 checkbox">
+                  <label>
+                    <form:checkbox  path="passwardCheck" id="passwardCheck" value="1" onClick="switchDisabledPassward()"/>パスワード変更
+                  </label>
+                </div>
               </div>
+
               <div class="form-group <ext:isErrors path='confirmPassword' value='has-error'/>">
-                <label class="col-md-4 control-label">パスワード確認<span class="label label-danger" style="margin-left: 10px">必須</span></label>
+                <label class="col-md-4 control-label">パスワード確認</label>
                 <div class="col-md-6">
-                  <form:password path="confirmPassword" class="form-control" />
-                </div>
-                <div style="clear: both;">
-                  <span class="col-md-4"></span>
-                  <div class="col-md-6">
-                    <form:errors path="confirmPassword" element="div" cssClass="text-danger" />
+                  <form:input type="password" path="confirmPassword" class="form-control" disabled=""/>
+                  <div style="clear: both;">
+                    <div class="col-md-10">
+                      <form:errors path="confirmPassword" element="div" cssClass="text-danger" />
+                    </div>
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
       </div>
 
-      <input type="hidden" name="userId" value="${userTDto.userId}">
+      <input type="hidden" name="userId" value="${form.userId}">
 
 			<div class="row">
 				<div class="col-md-offset-1 col-md-10" align="center">
@@ -190,7 +252,7 @@
 					</table>
 				</div>
 			</div>
-		</div>
+			</div>
 	</form:form>
 
 	<jsp:include page="../common/footer.jsp" />

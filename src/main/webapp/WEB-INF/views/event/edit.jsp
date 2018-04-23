@@ -15,6 +15,39 @@
 <script type="text/javascript" src='<c:url value="/resources/js/event.js"/>'></script>
 
 <script type="text/javascript">
+
+var startDateCnt = <c:out value="${fn:length(form.startDate)}"/>;
+
+function updateCandidate() {
+	//候補日追加（最終行1行追加）
+
+	var table = document.getElementById('candidateTable');
+	var tr = table.insertRow(-1);
+	var td1 = tr.insertCell(-1), td2 = tr.insertCell(-1), td3 = tr
+			.insertCell(-1);
+	td1.classList.add("p-details");
+	td2.classList.add("p-details");
+	td3.classList.add("p-details");
+
+	var $startDateCol = '<div class="input-group date date-ymd"style="width: 180px; ">';
+	$startDateCol += '<input id="startDate[' + startDateCnt + ']" name="startDate[' + startDateCnt + ']" ';
+	$startDateCol += 'class="form-control" type="text" maxlength="10" placeholder="yyyy/MM/dd"/><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>';
+	$startDateCol += '</div>';
+
+	var $fixFlgCol = '<input id="fixDate" name="fixDate" type="radio" value="'+ startDateCnt + '"/>';
+	var $deleteCol = '<td class="p-details"><a type="button" class="btn btn-danger" onClick="deleteRow(this)">削除</a></td>';
+
+	td1.innerHTML = $startDateCol;
+	td2.innerHTML = $fixFlgCol;
+	td3.innerHTML = $deleteCol;
+	initRadioTable();
+	initDatepicker();
+	startDateCnt++;
+}
+</script>
+
+
+<script type="text/javascript">
 	if ("${successMessages}".length > 0) {
 		$(document).ready(function() {
 			$('.alert').fadeIn(1500).delay(1000).fadeOut(1000);
@@ -27,7 +60,7 @@
 <body>
 
   <jsp:include page="../common/header.jsp" />
-  <form:form modelAttribute="form" method="post" name="form" action="${pageContext.request.contextPath}/event/store" class="form-horizontal">
+  <form:form modelAttribute="form" method="post" name="form" action="${pageContext.request.contextPath}/event/update" class="form-horizontal">
 
 
     <div class="container">
@@ -226,6 +259,41 @@
                         <td class="p-details">-</td>
                       </tr>
 
+
+                      <c:choose>
+                        <c:when test="${fn:length(form.startDate) > 0}">
+
+                          <c:forEach var="list" items="${form.startDate}" varStatus="status">
+                            <tr>
+                              <td class="p-details">
+                                <div class=" <ext:isErrors path='startDate[${status.index}]' value='has-error'/>">
+                                  <div class="input-group date date-ymd" style="width: 180px; <ext:isErrors path='startDate[${status.index}]' value='has-error' />">
+                                    <form:input type="text" path="startDate[${status.index}]" value="${form.startDate[status.index]}" maxlength="10" class="form-control" placeholder="yyyy/MM/dd" />
+                                    <span class="input-group-addon">
+                                      <i class="glyphicon glyphicon-calendar"></i>
+                                    </span>
+                                  </div>
+                                  <div style="clear: both;">
+                                    <form:errors path="startDate[${status.index}]" element="div" cssClass="text-danger" />
+                                  </div>
+                                </div>
+                              </td>
+                              <td class="p-details">
+                                <form:radiobutton path="fixDate" id="count" value="${status.index}" />
+                              </td>
+                              <td class="p-details">
+                                <a type="button" class="btn btn-danger" onClick="deleteRow(this)">削除</a>
+                              </td>
+                            </tr>
+                          </c:forEach>
+
+                        </c:when>
+                        <c:otherwise>
+                        </c:otherwise>
+                      </c:choose>
+
+
+
                     </tbody>
                   </table>
                   <div class="row">
@@ -236,7 +304,7 @@
                             <label class="space" style="width: 30px;"></label>
                           </td>
                           <td style="vertical-align: middle;">
-                            <button type="button" id="candidate" onClick="addCandidate()" class="btn btn-info">候補日追加</button>
+                            <button type="button" id="candidate" onClick="updateCandidate()" class="btn btn-info">候補日追加</button>
                           </td>
                         </tr>
                       </table>
@@ -249,15 +317,14 @@
         </div>
       </div>
       <div></div>
+      <form:hidden path="eventNo"/>
       <div class="row">
         <div class="col-md-offset-1 col-md-10" align="center">
           <table style="margin-bottom: 20px">
             <tr>
-              <td>
-                <label class="space" style="width: 30px;"></label>
-              </td>
+              <td><label class="space" style="width: 30px;"></label></td>
               <td style="vertical-align: middle;">
-                <button type="submit" class="btn btn-success">登録</button>
+                <button type="submit" class="btn btn-edit">更新</button>
               </td>
             </tr>
           </table>

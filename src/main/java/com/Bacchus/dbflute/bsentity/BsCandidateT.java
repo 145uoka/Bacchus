@@ -74,7 +74,7 @@ public abstract class BsCandidateT extends AbstractEntity implements DomainEntit
     /** candidate_no: {PK, ID, NotNull, serial(10)} */
     protected Integer _candidateNo;
 
-    /** event_no: {NotNull, int4(10), FK to event_t} */
+    /** event_no: {UQ+, NotNull, int4(10), FK to event_t} */
     protected Integer _eventNo;
 
     /** event_start_datetime: {timestamp(29, 6)} */
@@ -83,7 +83,7 @@ public abstract class BsCandidateT extends AbstractEntity implements DomainEntit
     /** event_end_datetime: {timestamp(29, 6)} */
     protected java.time.LocalDateTime _eventEndDatetime;
 
-    /** start_date: {text(2147483647)} */
+    /** start_date: {+UQ, text(2147483647)} */
     protected String _startDate;
 
     /** start_time: {text(2147483647)} */
@@ -109,6 +109,19 @@ public abstract class BsCandidateT extends AbstractEntity implements DomainEntit
     public boolean hasPrimaryKeyValue() {
         if (_candidateNo == null) { return false; }
         return true;
+    }
+
+    /**
+     * To be unique by the unique column. <br>
+     * You can update the entity by the key when entity update (NOT batch update).
+     * @param eventNo : UQ+, NotNull, int4(10), FK to event_t. (NotNull)
+     * @param startDate : +UQ, text(2147483647). (NotNull)
+     */
+    public void uniqueBy(Integer eventNo, String startDate) {
+        __uniqueDrivenProperties.clear();
+        __uniqueDrivenProperties.addPropertyName("eventNo");
+        __uniqueDrivenProperties.addPropertyName("startDate");
+        setEventNo(eventNo);setStartDate(startDate);
     }
 
     // ===================================================================================
@@ -255,7 +268,7 @@ public abstract class BsCandidateT extends AbstractEntity implements DomainEntit
     }
 
     /**
-     * [get] event_no: {NotNull, int4(10), FK to event_t} <br>
+     * [get] event_no: {UQ+, NotNull, int4(10), FK to event_t} <br>
      * イベント管理番号
      * @return The value of the column 'event_no'. (basically NotNull if selected: for the constraint)
      */
@@ -265,7 +278,7 @@ public abstract class BsCandidateT extends AbstractEntity implements DomainEntit
     }
 
     /**
-     * [set] event_no: {NotNull, int4(10), FK to event_t} <br>
+     * [set] event_no: {UQ+, NotNull, int4(10), FK to event_t} <br>
      * イベント管理番号
      * @param eventNo The value of the column 'event_no'. (basically NotNull if update: for the constraint)
      */
@@ -315,7 +328,7 @@ public abstract class BsCandidateT extends AbstractEntity implements DomainEntit
     }
 
     /**
-     * [get] start_date: {text(2147483647)} <br>
+     * [get] start_date: {+UQ, text(2147483647)} <br>
      * 開始年月日
      * @return The value of the column 'start_date'. (NullAllowed even if selected: for no constraint)
      */
@@ -325,7 +338,7 @@ public abstract class BsCandidateT extends AbstractEntity implements DomainEntit
     }
 
     /**
-     * [set] start_date: {text(2147483647)} <br>
+     * [set] start_date: {+UQ, text(2147483647)} <br>
      * 開始年月日
      * @param startDate The value of the column 'start_date'. (NullAllowed: null update allowed for no constraint)
      */

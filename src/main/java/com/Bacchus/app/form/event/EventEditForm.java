@@ -8,12 +8,12 @@ import com.Bacchus.webbase.common.beanvalidation.Number;
 import com.Bacchus.webbase.common.constants.MessageKeyConstants.GlueNetValidator;
 
 /**
- * ログインフォーム。
+ * 編集フォーム.
  *
- * @author sagawa_k
- * $Id:$
+ * @author hasegawa_m
+ *
  */
-public class EventCreateForm implements Serializable {
+public class EventEditForm implements Serializable {
 
 	/** serialVersionUID */
 	private static final long serialVersionUID = 1L;
@@ -40,12 +40,15 @@ public class EventCreateForm implements Serializable {
 
 	private String storeName ;
 
-	private Integer eventTypeId ;
+	private String eventTypeId ;
 
 	@Number(message=GlueNetValidator.INVALID)
 	private String userId ;
 
 	private String[] startDate;
+
+	/** イベント管理番号 */
+    private Integer eventNo;
 
 
 	public String getEventName() {
@@ -107,6 +110,7 @@ public class EventCreateForm implements Serializable {
 		this.auxiliaryFlg = auxiliaryFlg;
 	}
 
+
 	public String getFixDate() {
 		return fixDate;
 	}
@@ -126,12 +130,12 @@ public class EventCreateForm implements Serializable {
 		this.storeName = storeName;
 	}
 
-	public Integer getEventTypeId() {
+	public String getEventTypeId() {
         return eventTypeId;
     }
 
 
-    public void setEventTypeId(Integer eventTypeId) {
+    public void setEventTypeId(String eventTypeId) {
         this.eventTypeId = eventTypeId;
     }
 
@@ -164,6 +168,16 @@ public class EventCreateForm implements Serializable {
     public void setEventEntryFee(String eventEntryFee) {
         this.eventEntryFee = eventEntryFee;
     }
+
+
+	public Integer getEventNo() {
+		return eventNo;
+	}
+
+
+	public void setEventNo(Integer eventNo) {
+		this.eventNo = eventNo;
+	}
 
 
 }

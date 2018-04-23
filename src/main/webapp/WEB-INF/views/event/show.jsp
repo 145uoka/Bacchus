@@ -58,12 +58,14 @@
           <table style="margin-bottom: 20px">
             <tr>
               <c:if test="${not empty candidateDtoList}">
-                <td style="vertical-align: middle;"><a class="btn btn-warning" href="${pageContext.request.contextPath}/entry/create?eventNo=${form.eventNo}"
+                <td style="vertical-align: middle;"><a class="btn btn-add" href="${pageContext.request.contextPath}/entry/create?eventNo=${form.eventNo}"
                   role="button">参加可否更新</a></td>
                 <td><label class="space" style="width: 30px;"></label></td>
                 <td style="vertical-align: middle;"><a class="btn btn-info" href="${pageContext.request.contextPath}/event/notify?eventNo=${form.eventNo}" role="button">通知</a></td>
                 <td><label class="space" style="width: 30px;"></label></td>
               </c:if>
+              <td style="vertical-align: middle;"><a type="button" class="btn btn-edit" href="${pageContext.request.contextPath}/event/edit?eventNo=${form.eventNo}" role="button">編集</a></td>
+              <td><label class="space" style="width: 30px;"></label></td>
               <td style="vertical-align: middle;"><a type="button" class="btn btn-danger" onClick="deleteConfirmation()">削除</a></td>
             </tr>
           </table>

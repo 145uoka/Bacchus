@@ -44,7 +44,8 @@ CREATE TABLE Bacchus.candidate_t
 	start_date text,
 	-- 開始時分
 	start_time text,
-	PRIMARY KEY (candidate_no)
+	PRIMARY KEY (candidate_no),
+	UNIQUE (event_no, start_date)
 ) WITHOUT OIDS;
 
 
@@ -281,7 +282,6 @@ ALTER TABLE Bacchus.event_t
 	REFERENCES Bacchus.event_type_m (event_type_id)
 	ON UPDATE RESTRICT
 	ON DELETE CASCADE
-
 ;
 
 

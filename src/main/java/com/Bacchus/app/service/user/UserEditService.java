@@ -1,5 +1,7 @@
 package com.Bacchus.app.service.user;
 
+//import org.apache.commons.codec.binary.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.dbflute.optional.OptionalEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,8 +84,14 @@ public class UserEditService {
         userT.setAuthLevel(userDto.getAuthLevel());
         userT.setUserTypeId(userDto.getUserTypeId());
 //        userT.setEmail(userDto.getEmail());
-        String encPassword = EncryptUtil.saltHash(userDto.getPassword(), EncryptUtil.EncryptType.MD5);
-        userT.setPassword(encPassword);
+        if(StringUtils.isNotEmpty(userDto.getLoginId())){
+        	userT.setLoginId(userDto.getLoginId());
+        }
+
+        if(StringUtils.isNotEmpty(userDto.getPassword())){
+        	String encPassword = EncryptUtil.saltHash(userDto.getPassword(), EncryptUtil.EncryptType.MD5);
+        	userT.setPassword(encPassword);
+        }
 
         // 更新
         userTBhv.update(userT);

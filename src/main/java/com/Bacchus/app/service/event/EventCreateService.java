@@ -123,7 +123,7 @@ public class EventCreateService {
         }
 
         // 未確定ボタンが選択されていない場合true
-        if (StringUtils.isNotEmpty(form.getFixFlg())) {
+        if (StringUtils.isNotEmpty(form.getFixDate())) {
 
             EventT event = new EventT();
 
@@ -135,11 +135,11 @@ public class EventCreateService {
             cb.query().setEventNo_Equal(eventT.getEventNo());
 
             // 確定ラジオボタンを選択した候補日の候補日番号をセット
-            String fixDate = form.getStartDate()[Integer.parseInt(form.getFixFlg())].replace("/", "");
+            String fixDate = form.getStartDate()[Integer.parseInt(form.getFixDate())].replace("/", "");
             for (CandidateT candidate : candidateList) {
 
                 // CandidateTのイベント候補日が確定選択した候補日と一致すればtrue
-                if (StringUtils.isNotEmpty(form.getFixFlg()))
+                if (StringUtils.isNotEmpty(form.getFixDate()))
                     if (StringUtils.equals(candidate.getStartDate(), fixDate)) {
 
                         // 確定候補日の候補日番号をセット
@@ -178,10 +178,10 @@ public class EventCreateService {
     public boolean isFixCandidate(EventCreateForm form) {
 
         //未確定ボタンが選択されていない場合true
-        if (StringUtils.isNotEmpty(form.getFixFlg())) {
+        if (StringUtils.isNotEmpty(form.getFixDate())) {
 
             //確定ボタンが選択されている日付が空白の時true
-            if (StringUtils.isEmpty(form.getStartDate()[Integer.parseInt(form.getFixFlg())])) {
+            if (StringUtils.isEmpty(form.getStartDate()[Integer.parseInt(form.getFixDate())])) {
                 return true;
             }
         }

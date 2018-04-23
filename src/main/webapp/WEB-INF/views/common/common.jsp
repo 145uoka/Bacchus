@@ -27,6 +27,7 @@
 <!-- CSS Glue-net -->
 <link href='<c:url value="/resources/css/color/templateColor.css"/>' rel="stylesheet">
 <link href='<c:url value="/resources/css/common/commonTableStyle.css"/>' rel="stylesheet">
+<link href='<c:url value="/resources/css/common/common.css"/>' rel="stylesheet">
 
 <!-- JS vendor -->
 <script type="text/javascript" src='<c:url value="/resources/js/vendor/jquery/jquery-1.11.1.min.js"/>'></script>

@@ -184,6 +184,32 @@ public abstract class BsCandidateTBhv extends AbstractBehaviorWritable<Candidate
         return newConditionBean().acceptPK(candidateNo);
     }
 
+    /**
+     * Select the entity by the unique-key value.
+     * @param eventNo : UQ+, NotNull, int4(10), FK to event_t. (NotNull)
+     * @param startDate : +UQ, text(2147483647). (NotNull)
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<CandidateT> selectByUniqueOf(Integer eventNo, String startDate) {
+        return facadeSelectByUniqueOf(eventNo, startDate);
+    }
+
+    protected OptionalEntity<CandidateT> facadeSelectByUniqueOf(Integer eventNo, String startDate) {
+        return doSelectByUniqueOf(eventNo, startDate, typeOfSelectedEntity());
+    }
+
+    protected <ENTITY extends CandidateT> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer eventNo, String startDate, Class<? extends ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(eventNo, startDate), tp), eventNo, startDate);
+    }
+
+    protected CandidateTCB xprepareCBAsUniqueOf(Integer eventNo, String startDate) {
+        assertObjectNotNull("eventNo", eventNo);assertObjectNotNull("startDate", startDate);
+        return newConditionBean().acceptUniqueOf(eventNo, startDate);
+    }
+
     // ===================================================================================
     //                                                                         List Select
     //                                                                         ===========

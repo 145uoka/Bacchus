@@ -53,7 +53,7 @@ public class EventDto implements Serializable {
     private Integer entryPeople;
 
     /** イベント区分 */
-    private String eventTypeId;
+    private Integer eventTypeId;
 
     /** 幹事ユーザID */
     private Integer userId;
@@ -302,7 +302,7 @@ public class EventDto implements Serializable {
      *
      * @return イベント区分
      */
-    public String getEventTypeId() {
+    public Integer getEventTypeId() {
         return this.eventTypeId;
     }
 
@@ -311,7 +311,7 @@ public class EventDto implements Serializable {
      *
      * @param eventTypeId イベント区分
      */
-    public void setEventTypeId(String eventTypeId) {
+    public void setEventTypeId(Integer eventTypeId) {
         this.eventTypeId = eventTypeId;
     }
 

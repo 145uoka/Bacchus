@@ -156,7 +156,7 @@ public class EventCreateController extends BaseController {
         if (eventCreateService.isFixCandidate(form)) {
 
             // エラー文のセット
-            bindingResult.rejectValue("startDate[" + Integer.parseInt(form.getFixFlg()) + "]",
+            bindingResult.rejectValue("startDate[" + Integer.parseInt(form.getFixDate()) + "]",
                     MessageKeyUtil.encloseStringDelete(GlueNetValidator.NOTBLANK_WITH_FIELD),
                     new Object[] { "確定対象の日付" }, "");
         }

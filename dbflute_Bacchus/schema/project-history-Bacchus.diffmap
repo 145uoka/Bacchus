@@ -1,4 +1,19 @@
 map:{
+    ; 2018/04/17 16:24:29 = map:{
+        ; diffDate = 2018/04/17 16:24:29
+        ; tableDiff = map:{
+            ; candidate_t = map:{
+                ; tableName = candidate_t
+                ; diffType = CHANGE
+                ; uniqueKeyDiff = map:{
+                    ; candidate_t_event_no_start_date_key = map:{
+                        ; constraintName = candidate_t_event_no_start_date_key
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
     ; 2018/02/03 17:43:13 = map:{
         ; diffDate = 2018/02/03 17:43:13
         ; tableDiff = map:{

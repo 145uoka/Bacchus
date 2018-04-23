@@ -69,7 +69,7 @@ from
   left outer join event_type_m t5
     ON t1.event_type_id = t5.event_type_id
 order by
-  t3.event_start_datetime asc, t1.event_no
+  t3.event_start_datetime desc, t1.event_no
 
 
 

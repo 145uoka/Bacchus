@@ -247,7 +247,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * event_no: {NotNull, int4(10), FK to event_t}
+     * event_no: {UQ+, NotNull, int4(10), FK to event_t}
      * @param eventNo The value of eventNo as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setEventNo_Equal(Integer eventNo) {
@@ -260,7 +260,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * event_no: {NotNull, int4(10), FK to event_t}
+     * event_no: {UQ+, NotNull, int4(10), FK to event_t}
      * @param eventNo The value of eventNo as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setEventNo_NotEqual(Integer eventNo) {
@@ -273,7 +273,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * event_no: {NotNull, int4(10), FK to event_t}
+     * event_no: {UQ+, NotNull, int4(10), FK to event_t}
      * @param eventNo The value of eventNo as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setEventNo_GreaterThan(Integer eventNo) {
@@ -282,7 +282,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * event_no: {NotNull, int4(10), FK to event_t}
+     * event_no: {UQ+, NotNull, int4(10), FK to event_t}
      * @param eventNo The value of eventNo as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setEventNo_LessThan(Integer eventNo) {
@@ -291,7 +291,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * event_no: {NotNull, int4(10), FK to event_t}
+     * event_no: {UQ+, NotNull, int4(10), FK to event_t}
      * @param eventNo The value of eventNo as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setEventNo_GreaterEqual(Integer eventNo) {
@@ -300,7 +300,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * event_no: {NotNull, int4(10), FK to event_t}
+     * event_no: {UQ+, NotNull, int4(10), FK to event_t}
      * @param eventNo The value of eventNo as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setEventNo_LessEqual(Integer eventNo) {
@@ -311,7 +311,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * event_no: {NotNull, int4(10), FK to event_t}
+     * event_no: {UQ+, NotNull, int4(10), FK to event_t}
      * @param minNumber The min number of eventNo. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of eventNo. (NullAllowed: if null, no to-condition)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -324,7 +324,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * event_no: {NotNull, int4(10), FK to event_t}
+     * event_no: {UQ+, NotNull, int4(10), FK to event_t}
      * @param minNumber The min number of eventNo. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of eventNo. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -335,7 +335,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * event_no: {NotNull, int4(10), FK to event_t}
+     * event_no: {UQ+, NotNull, int4(10), FK to event_t}
      * @param eventNoList The collection of eventNo as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setEventNo_InScope(Collection<Integer> eventNoList) {
@@ -348,7 +348,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * event_no: {NotNull, int4(10), FK to event_t}
+     * event_no: {UQ+, NotNull, int4(10), FK to event_t}
      * @param eventNoList The collection of eventNo as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setEventNo_NotInScope(Collection<Integer> eventNoList) {
@@ -538,7 +538,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * start_date: {text(2147483647)}
+     * start_date: {+UQ, text(2147483647)}
      * @param startDate The value of startDate as equal. (NullAllowed: if null (or empty), no condition)
      */
     public void setStartDate_Equal(String startDate) {
@@ -551,7 +551,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * start_date: {text(2147483647)}
+     * start_date: {+UQ, text(2147483647)}
      * @param startDate The value of startDate as notEqual. (NullAllowed: if null (or empty), no condition)
      */
     public void setStartDate_NotEqual(String startDate) {
@@ -564,7 +564,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * start_date: {text(2147483647)}
+     * start_date: {+UQ, text(2147483647)}
      * @param startDate The value of startDate as greaterThan. (NullAllowed: if null (or empty), no condition)
      */
     public void setStartDate_GreaterThan(String startDate) {
@@ -573,7 +573,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * start_date: {text(2147483647)}
+     * start_date: {+UQ, text(2147483647)}
      * @param startDate The value of startDate as lessThan. (NullAllowed: if null (or empty), no condition)
      */
     public void setStartDate_LessThan(String startDate) {
@@ -582,7 +582,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * start_date: {text(2147483647)}
+     * start_date: {+UQ, text(2147483647)}
      * @param startDate The value of startDate as greaterEqual. (NullAllowed: if null (or empty), no condition)
      */
     public void setStartDate_GreaterEqual(String startDate) {
@@ -591,7 +591,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * start_date: {text(2147483647)}
+     * start_date: {+UQ, text(2147483647)}
      * @param startDate The value of startDate as lessEqual. (NullAllowed: if null (or empty), no condition)
      */
     public void setStartDate_LessEqual(String startDate) {
@@ -600,7 +600,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * start_date: {text(2147483647)}
+     * start_date: {+UQ, text(2147483647)}
      * @param startDateList The collection of startDate as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setStartDate_InScope(Collection<String> startDateList) {
@@ -613,7 +613,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * start_date: {text(2147483647)}
+     * start_date: {+UQ, text(2147483647)}
      * @param startDateList The collection of startDate as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setStartDate_NotInScope(Collection<String> startDateList) {
@@ -626,7 +626,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * start_date: {text(2147483647)} <br>
+     * start_date: {+UQ, text(2147483647)} <br>
      * <pre>e.g. setStartDate_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
      * @param startDate The value of startDate as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
@@ -637,7 +637,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * start_date: {text(2147483647)} <br>
+     * start_date: {+UQ, text(2147483647)} <br>
      * <pre>e.g. setStartDate_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
      * @param startDate The value of startDate as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
@@ -649,7 +649,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * start_date: {text(2147483647)}
+     * start_date: {+UQ, text(2147483647)}
      * @param startDate The value of startDate as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
@@ -660,7 +660,7 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * start_date: {text(2147483647)}
+     * start_date: {+UQ, text(2147483647)}
      * @param startDate The value of startDate as notLikeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
@@ -670,19 +670,19 @@ public abstract class AbstractBsCandidateTCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * start_date: {text(2147483647)}
+     * start_date: {+UQ, text(2147483647)}
      */
     public void setStartDate_IsNull() { regStartDate(CK_ISN, DOBJ); }
 
     /**
      * IsNullOrEmpty {is null or empty}. And OnlyOnceRegistered. <br>
-     * start_date: {text(2147483647)}
+     * start_date: {+UQ, text(2147483647)}
      */
     public void setStartDate_IsNullOrEmpty() { regStartDate(CK_ISNOE, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * start_date: {text(2147483647)}
+     * start_date: {+UQ, text(2147483647)}
      */
     public void setStartDate_IsNotNull() { regStartDate(CK_ISNN, DOBJ); }
 

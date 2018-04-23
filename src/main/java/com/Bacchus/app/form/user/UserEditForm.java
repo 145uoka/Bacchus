@@ -24,8 +24,11 @@ public class UserEditForm implements Serializable {
 	private Integer userId;
 
     /** ログインID */
-    @NotEmpty
+
+	
     private String loginId;
+
+    private String loginCheck;
 
 	@NotEmpty
 	private String lastName;
@@ -37,11 +40,13 @@ public class UserEditForm implements Serializable {
 //	@Email
 //	private String email;
 
-	@NotEmpty
-	private String password;
 
-	@NotEmpty
+	private String firstPassward;
+
+
 	private String confirmPassword;
+
+	private String passwardCheck;
 
 	@NotEmpty
 	private String authLevel;
@@ -110,12 +115,12 @@ public class UserEditForm implements Serializable {
 //		this.email = email;
 //	}
 
-	public String getPassword() {
-		return password;
+	public String getfirstPassward() {
+		return firstPassward;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setfirstPassward(String firstPassward) {
+		this.firstPassward = firstPassward;
 	}
 
 
@@ -142,6 +147,22 @@ public class UserEditForm implements Serializable {
 
 	public void setUserTypeId(String userTypeId) {
 		this.userTypeId = userTypeId;
+	}
+
+	public String getLoginCheck() {
+		return loginCheck;
+	}
+
+	public void setLoginCheck(String loginCheck) {
+		this.loginCheck = loginCheck;
+	}
+
+	public String getPasswardCheck() {
+		return passwardCheck;
+	}
+
+	public void setPasswardCheck(String passwardCheck) {
+		this.passwardCheck = passwardCheck;
 	}
 
 

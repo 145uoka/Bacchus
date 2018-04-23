@@ -86,7 +86,8 @@ function initRadioTable() {
 		$(this).addClass('hover_tr');
 	}, function() {
 		$(this).removeClass('hover_tr');
-	}).click(function(evt) {
+	/*})
+	.click(function(evt) {
 		var $t = $(this);
 		var chk = $t.find(':radio')[0];
 		if (chk === undefined || chk === null) {
@@ -102,7 +103,7 @@ function initRadioTable() {
 		}
 		if (chk.checked) {
 			$t.addClass('checked_tr');
-		}
+		}*/
 	});
 }
 

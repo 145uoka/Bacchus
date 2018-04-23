@@ -5,7 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.commons.codec.binary.StringUtils;
+//import org.apache.commons.codec.binary.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -78,11 +79,11 @@ public class UserEditController extends BaseController {
         model.addAttribute("form", form);
         super.setDisplayTitle(model, DisplayIdConstants.User.BACCHUS_0103);
 
-//        // ユーザー区分のプルダウン項目の取得
-//        model.addAttribute("userTypeSelectList", userService.createUserTypePullDown());
-//
-//        // 権限のレベルプルダウン項目の取得
-//        model.addAttribute("authList", userService.createAuthLevelPullDown(SystemCodeConstants.PLEASE_SELECT_MSG));
+        //        // ユーザー区分のプルダウン項目の取得
+        //        model.addAttribute("userTypeSelectList", userService.createUserTypePullDown());
+        //
+        //        // 権限のレベルプルダウン項目の取得
+        //        model.addAttribute("authList", userService.createAuthLevelPullDown(SystemCodeConstants.PLEASE_SELECT_MSG));
 
         initPulldown(model);
 
@@ -95,7 +96,7 @@ public class UserEditController extends BaseController {
         // ユーザー区分のセット
         form.setUserTypeId(String.valueOf(userEditService.selectUser(form).getUserTypeId()));
 
-            return ProcConstants.USER + ProcConstants.Operation.EDIT;
+        return ProcConstants.USER + ProcConstants.Operation.EDIT;
 
     }
 
@@ -114,18 +115,33 @@ public class UserEditController extends BaseController {
         model.addAttribute("form", form);
         super.setDisplayTitle(model, DisplayIdConstants.User.BACCHUS_0103);
 
-        List<String> messageList = null;
+        List<String> messageList = new ArrayList<String>();
         String message = null;
 
         // password確認
-//        if (!StringUtils.equals(form.getPassword(), form.getConfirmPassword())) {
-//            bindingResult.rejectValue("password",null, null, "");
-//            bindingResult.rejectValue("confirmPassword",null, null, "");
-//            message = messageSource.getMessage(MessageKeyUtil.encloseStringDelete(
-//                    MessageKeyConstants.Error.EXISTS_NOT_SET_PASSWORD),
-//                    new String[]{"パスワード", "新しいパスワード", "確認用パスワード"},
-//                    Locale.getDefault());
-//        }
+        boolean isPasswardcheck = false;
+        if (StringUtils.isNotEmpty(form.getPasswardCheck())) {
+            if (StringUtils.isNotEmpty(form.getfirstPassward()) && StringUtils.isNotEmpty(form.getConfirmPassword())) {
+                if (!StringUtils.equals(form.getfirstPassward(), form.getConfirmPassword())) {
+                    bindingResult.rejectValue("firstPassward", null, null, "");
+                    bindingResult.rejectValue("confirmPassword", null, null, "");
+                    message = messageSource.getMessage(
+                            MessageKeyUtil.encloseStringDelete(MessageKeyConstants.Error.DISAGREEMENT_VALUE),
+                            new String[] { "パスワード", "パスワード確認" }, Locale.getDefault());
+                    messageList.add(message);
+
+                }else{
+                    isPasswardcheck = true;
+                }
+            }
+            if(StringUtils.isEmpty(form.getfirstPassward())){
+                bindingResult.rejectValue("firstPassward", MessageKeyUtil.encloseStringDelete(
+                        MessageKeyConstants.Jsr303Hibernate.NOTEMPTY_MESSAGE), null, "");
+            }
+            if(StringUtils.isEmpty(form.getConfirmPassword()))
+                bindingResult.rejectValue("confirmPassword", MessageKeyUtil.encloseStringDelete(
+                        MessageKeyConstants.Jsr303Hibernate.NOTEMPTY_MESSAGE), null, "");
+        }
 
         // ユニークチェックのためのユーザーデータ取得
         UserT userT = userEditService.validation(form);
@@ -146,15 +162,25 @@ public class UserEditController extends BaseController {
 
         // ログインIDのユニークチェック
 
-        if(!StringUtils.equals(userT.getLoginId(), form.getLoginId())){
-        	int userCount = userTBhv.selectCount(cb -> {
-                cb.query().setLoginId_Equal(form.getLoginId());
-            });
+        boolean isLoginIdcheck = false;
+        if(StringUtils.isNotEmpty(form.getLoginCheck())){
+            if(StringUtils.isNotEmpty(form.getLoginId())){
+                if(!StringUtils.equals(userT.getLoginId(), form.getLoginId())){
+                    int userCount = userTBhv.selectCount(cb -> {
+                        cb.query().setLoginId_Equal(form.getLoginId());
+                    });
 
-            if (userCount > 0) {
+                    if (userCount > 0) {
+                        bindingResult.rejectValue("loginId", MessageKeyUtil.encloseStringDelete(
+                                MessageKeyConstants.Error.ALREADY_USED),
+                                new String[]{"このログインID"}, "");
+                    }
+                }else{
+                    isLoginIdcheck = true;
+                }
+            }else{
                 bindingResult.rejectValue("loginId", MessageKeyUtil.encloseStringDelete(
-                        MessageKeyConstants.Error.ALREADY_USED),
-                        new String[]{"このログインID"}, "");
+                        MessageKeyConstants.Jsr303Hibernate.NOTEMPTY_MESSAGE),null, "");
             }
         }
 
@@ -167,36 +193,36 @@ public class UserEditController extends BaseController {
             return ProcConstants.USER + ProcConstants.Operation.EDIT;
         }
 
-//        // emailが更新されていた場合true
-//        if (!userService.isExistsEmail(form.getEmail())) {
-//            // emailのユニークチェック
-//            UserTCB userTcb = new UserTCB();
-//            userTcb.query().setEmail_Equal(form.getEmail());
-//            List<UserT> emailList = userTBhv.readList(userTcb);
-//
-//            // リストの中身が空でなければtrue
-//            if (!CollectionUtils.isEmpty(emailList)) {
-//                model.addAttribute(MODEL_KEY_FORM, form);
-//                model.addAttribute("errors", bindingResult);
-//                return ProcConstants.USER + ProcConstants.Operation.EDIT;
-//            }
-//        }
+        //        // emailが更新されていた場合true
+        //        if (!userService.isExistsEmail(form.getEmail())) {
+        //            // emailのユニークチェック
+        //            UserTCB userTcb = new UserTCB();
+        //            userTcb.query().setEmail_Equal(form.getEmail());
+        //            List<UserT> emailList = userTBhv.readList(userTcb);
+        //
+        //            // リストの中身が空でなければtrue
+        //            if (!CollectionUtils.isEmpty(emailList)) {
+        //                model.addAttribute(MODEL_KEY_FORM, form);
+        //                model.addAttribute("errors", bindingResult);
+        //                return ProcConstants.USER + ProcConstants.Operation.EDIT;
+        //            }
+        //        }
 
         // userNameが更新されていた場合true
-//        if (!userService.isExistsUserName(form.getUserName())) {
-//
-//            // userNameのユニークチェック
-//            UserTCB userTcb = new UserTCB();
-//            userTcb = new UserTCB();
-//            userTcb.query().setUserName_Equal(form.getUserName());
-//            List<UserT> userNameList = userTBhv.readList(userTcb);
-//
-//            if (!CollectionUtils.isEmpty(userNameList)) {
-//                model.addAttribute(MODEL_KEY_FORM, form);
-//                model.addAttribute("errors", bindingResult);
-//                return ProcConstants.USER + ProcConstants.Operation.EDIT;
-//            }
-//        }
+        //        if (!userService.isExistsUserName(form.getUserName())) {
+        //
+        //            // userNameのユニークチェック
+        //            UserTCB userTcb = new UserTCB();
+        //            userTcb = new UserTCB();
+        //            userTcb.query().setUserName_Equal(form.getUserName());
+        //            List<UserT> userNameList = userTBhv.readList(userTcb);
+        //
+        //            if (!CollectionUtils.isEmpty(userNameList)) {
+        //                model.addAttribute(MODEL_KEY_FORM, form);
+        //                model.addAttribute("errors", bindingResult);
+        //                return ProcConstants.USER + ProcConstants.Operation.EDIT;
+        //            }
+        //        }
 
         UserDto userDto = new UserDto();
         userDto.setUserId(form.getUserId());
@@ -204,7 +230,13 @@ public class UserEditController extends BaseController {
         userDto.setLastName(form.getLastName());
         userDto.setAuthLevel(authLevel);
         userDto.setUserTypeId(userTypeId);
-        userDto.setPassword(form.getPassword());
+        if(isLoginIdcheck){
+            userDto.setLoginId(form.getLoginId());
+        }
+
+        if(isPasswardcheck){
+            userDto.setPassword(form.getfirstPassward());
+        }
 
         // 更新処理
         userEditService.update(userDto);
@@ -258,18 +290,18 @@ public class UserEditController extends BaseController {
      *
      * @param model
      */
-   private void initPulldown(Model model){
+    private void initPulldown(Model model){
 
-	   // ユーザー区分のプルダウン項目の取得
-       model.addAttribute("userTypeSelectList", userService.createUserTypePullDown());
+        // ユーザー区分のプルダウン項目の取得
+        model.addAttribute("userTypeSelectList", userService.createUserTypePullDown());
 
-       // 権限のレベルプルダウン項目の取得
-       model.addAttribute("authList", userService.createAuthLevelPullDown(SystemCodeConstants.PLEASE_SELECT_MSG));
+        // 権限のレベルプルダウン項目の取得
+        model.addAttribute("authList", userService.createAuthLevelPullDown(SystemCodeConstants.PLEASE_SELECT_MSG));
 
-//       // 権限レベルのセット
-//       form.setAuthLevel(userEditService.selectUser(form).getAuthLevel());
-//
-//       // ユーザー区分のセット
-//       form.setUserTypeId(userEditService.selectUser(form).getUserTypeId());
-   }
+        //       // 権限レベルのセット
+        //       form.setAuthLevel(userEditService.selectUser(form).getAuthLevel());
+        //
+        //       // ユーザー区分のセット
+        //       form.setUserTypeId(userEditService.selectUser(form).getUserTypeId());
+    }
 }

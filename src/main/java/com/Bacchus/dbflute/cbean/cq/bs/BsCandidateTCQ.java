@@ -115,14 +115,14 @@ public class BsCandidateTCQ extends AbstractBsCandidateTCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * event_no: {NotNull, int4(10), FK to event_t}
+     * event_no: {UQ+, NotNull, int4(10), FK to event_t}
      * @return this. (NotNull)
      */
     public BsCandidateTCQ addOrderBy_EventNo_Asc() { regOBA("event_no"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * event_no: {NotNull, int4(10), FK to event_t}
+     * event_no: {UQ+, NotNull, int4(10), FK to event_t}
      * @return this. (NotNull)
      */
     public BsCandidateTCQ addOrderBy_EventNo_Desc() { regOBD("event_no"); return this; }
@@ -175,14 +175,14 @@ public class BsCandidateTCQ extends AbstractBsCandidateTCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * start_date: {text(2147483647)}
+     * start_date: {+UQ, text(2147483647)}
      * @return this. (NotNull)
      */
     public BsCandidateTCQ addOrderBy_StartDate_Asc() { regOBA("start_date"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * start_date: {text(2147483647)}
+     * start_date: {+UQ, text(2147483647)}
      * @return this. (NotNull)
      */
     public BsCandidateTCQ addOrderBy_StartDate_Desc() { regOBD("start_date"); return this; }

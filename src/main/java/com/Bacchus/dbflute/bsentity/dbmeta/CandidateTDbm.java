@@ -94,7 +94,7 @@ public class CandidateTDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnCandidateNo() { return _columnCandidateNo; }
     /**
-     * event_no: {NotNull, int4(10), FK to event_t}
+     * event_no: {UQ+, NotNull, int4(10), FK to event_t}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnEventNo() { return _columnEventNo; }
@@ -109,7 +109,7 @@ public class CandidateTDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnEventEndDatetime() { return _columnEventEndDatetime; }
     /**
-     * start_date: {text(2147483647)}
+     * start_date: {+UQ, text(2147483647)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnStartDate() { return _columnStartDate; }
@@ -141,6 +141,16 @@ public class CandidateTDbm extends AbstractDBMeta {
     protected UniqueInfo cpui() { return hpcpui(columnCandidateNo()); }
     public boolean hasPrimaryKey() { return true; }
     public boolean hasCompoundPrimaryKey() { return false; }
+
+    // -----------------------------------------------------
+    //                                        Unique Element
+    //                                        --------------
+    public UniqueInfo uniqueOf() {
+        List<ColumnInfo> ls = newArrayListSized(4);
+        ls.add(columnEventNo());
+        ls.add(columnStartDate());
+        return hpcui(ls);
+    }
 
     // ===================================================================================
     //                                                                       Relation Info

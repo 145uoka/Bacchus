@@ -91,6 +91,19 @@ public class BsCandidateTCB extends AbstractConditionBean {
         return (CandidateTCB)this;
     }
 
+    /**
+     * Accept the query condition of unique key as equal.
+     * @param eventNo : UQ+, NotNull, int4(10), FK to event_t. (NotNull)
+     * @param startDate : +UQ, text(2147483647). (NotNull)
+     * @return this. (NotNull)
+     */
+    public CandidateTCB acceptUniqueOf(Integer eventNo, String startDate) {
+        assertObjectNotNull("eventNo", eventNo);assertObjectNotNull("startDate", startDate);
+        BsCandidateTCB cb = this;
+        cb.query().setEventNo_Equal(eventNo);cb.query().setStartDate_Equal(startDate);
+        return (CandidateTCB)this;
+    }
+
     public ConditionBean addOrderBy_PK_Asc() {
         query().addOrderBy_CandidateNo_Asc();
         return this;
@@ -319,7 +332,7 @@ public class BsCandidateTCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnCandidateNo() { return doColumn("candidate_no"); }
         /**
-         * event_no: {NotNull, int4(10), FK to event_t}
+         * event_no: {UQ+, NotNull, int4(10), FK to event_t}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnEventNo() { return doColumn("event_no"); }
@@ -334,7 +347,7 @@ public class BsCandidateTCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnEventEndDatetime() { return doColumn("event_end_datetime"); }
         /**
-         * start_date: {text(2147483647)}
+         * start_date: {+UQ, text(2147483647)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnStartDate() { return doColumn("start_date"); }

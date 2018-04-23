@@ -30,6 +30,10 @@
         <foreign-key foreignSchema="bacchus" foreignTable="event_t" name="candidate_t_event_no_fkey">
             <reference foreign="event_no" local="event_no"/>
         </foreign-key>
+        <unique name="candidate_t_event_no_start_date_key">
+            <unique-column name="event_no" position="1"/>
+            <unique-column name="start_date" position="2"/>
+        </unique>
     </table>
     <table comment="画面名定義_M" name="display_def_m"
         schema="postgres.bacchus" type="TABLE">
@@ -243,6 +247,10 @@
     </table>
     <sequenceGroup>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
+            minimumValue="1" name="user_t_user_id_seq" schema="postgres.bacchus"/>
+        <sequence incrementSize="1" maximumValue="9223372036854775807"
+            minimumValue="1" name="user_type_m_user_type_id_seq" schema="postgres.bacchus"/>
+        <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="candidate_t_candidate_no_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="entry_t_entry_id_seq" schema="postgres.bacchus"/>
@@ -254,9 +262,5 @@
             minimumValue="1" name="event_type_m_event_type_id_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="general_code_m_code_id_seq" schema="postgres.bacchus"/>
-        <sequence incrementSize="1" maximumValue="9223372036854775807"
-            minimumValue="1" name="user_t_user_id_seq" schema="postgres.bacchus"/>
-        <sequence incrementSize="1" maximumValue="9223372036854775807"
-            minimumValue="1" name="user_type_m_user_type_id_seq" schema="postgres.bacchus"/>
     </sequenceGroup>
 </database>

@@ -53,6 +53,13 @@
   border-color: #eea236;
 }
 
+/* ＆通知ボタン */
+.btn-info＆ {
+  color: #fff;
+  background-color: #ff80c0;
+  border-color: #ff80c0;
+}
+
 /* 履歴表示ボタン */
 .btn-hist {
   color: #400040;

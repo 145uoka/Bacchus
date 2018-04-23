@@ -163,7 +163,7 @@ public class EventService {
         BeanUtils.copyProperties(form, eventTEntity);
 
         // イベント区分の項目が選択されている場合true
-        if (StringUtils.isNotEmpty(form.getAuxiliaryFlg())) {
+        if (StringUtils.isNotEmpty(form.getEventTypeId())) {
             eventTEntity.setEventTypeId(Integer.parseInt(form.getEventTypeId()));
         }
 

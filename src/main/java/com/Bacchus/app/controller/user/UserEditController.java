@@ -118,11 +118,14 @@ public class UserEditController extends BaseController {
         List<String> messageList = new ArrayList<String>();
         String message = null;
 
-        // password確認
+        // パスワードチェック
         boolean isPasswardcheck = false;
         if (StringUtils.isNotEmpty(form.getPasswardCheck())) {
+            //パスワード変更にチェックが入っている場合、入力チェックを行う。
             if (StringUtils.isNotEmpty(form.getfirstPassward()) && StringUtils.isNotEmpty(form.getConfirmPassword())) {
+                //パスワードとパスワード確認の両者が入力されていれば、true。
                 if (!StringUtils.equals(form.getfirstPassward(), form.getConfirmPassword())) {
+                    //パスワードとパスワード確認の両者が一致しなければ、エラーを表示。
                     bindingResult.rejectValue("firstPassward", null, null, "");
                     bindingResult.rejectValue("confirmPassword", null, null, "");
                     message = messageSource.getMessage(
@@ -131,16 +134,21 @@ public class UserEditController extends BaseController {
                     messageList.add(message);
 
                 }else{
+                    //パスワードとパスワード確認の両者が一致すれば、チェックOK。
                     isPasswardcheck = true;
                 }
+
+            }else{
+                //パスワードとパスワード確認の両者が未入力であれば、エラーを表示。
+                if(StringUtils.isEmpty(form.getfirstPassward())){
+                    bindingResult.rejectValue("firstPassward", MessageKeyUtil.encloseStringDelete(
+                            MessageKeyConstants.Jsr303Hibernate.NOTEMPTY_MESSAGE), null, "");
+                }
+                if(StringUtils.isEmpty(form.getConfirmPassword())){
+                    bindingResult.rejectValue("confirmPassword", MessageKeyUtil.encloseStringDelete(
+                            MessageKeyConstants.Jsr303Hibernate.NOTEMPTY_MESSAGE), null, "");
+                }
             }
-            if(StringUtils.isEmpty(form.getfirstPassward())){
-                bindingResult.rejectValue("firstPassward", MessageKeyUtil.encloseStringDelete(
-                        MessageKeyConstants.Jsr303Hibernate.NOTEMPTY_MESSAGE), null, "");
-            }
-            if(StringUtils.isEmpty(form.getConfirmPassword()))
-                bindingResult.rejectValue("confirmPassword", MessageKeyUtil.encloseStringDelete(
-                        MessageKeyConstants.Jsr303Hibernate.NOTEMPTY_MESSAGE), null, "");
         }
 
         // ユニークチェックのためのユーザーデータ取得
@@ -161,24 +169,33 @@ public class UserEditController extends BaseController {
         }
 
         // ログインIDのユニークチェック
-
         boolean isLoginIdcheck = false;
         if(StringUtils.isNotEmpty(form.getLoginCheck())){
+            //ログイン変更にチェックが入っている場合、入力チェックを行う。
             if(StringUtils.isNotEmpty(form.getLoginId())){
+                //ログインIDが入力されていれば、true。
                 if(!StringUtils.equals(userT.getLoginId(), form.getLoginId())){
+                    //ユーザー_TのログインIDとフォームのログインIDが一致しなければ、変更可能かのチェックを行う。
                     int userCount = userTBhv.selectCount(cb -> {
                         cb.query().setLoginId_Equal(form.getLoginId());
                     });
 
                     if (userCount > 0) {
+                        //すでに使用されているログインIDの場合、エラーを表示。
                         bindingResult.rejectValue("loginId", MessageKeyUtil.encloseStringDelete(
                                 MessageKeyConstants.Error.ALREADY_USED),
                                 new String[]{"このログインID"}, "");
+                    }else{
+                        //使用可能なログインIDであれば、チェックOK。
+                        isLoginIdcheck = true;
                     }
                 }else{
+                    //ユーザー_TのログインIDとフォームのログインIDが一致した場合も、チェックOKとする。
                     isLoginIdcheck = true;
                 }
+
             }else{
+                //ログインIDが未入力であれば、エラーを表示。
                 bindingResult.rejectValue("loginId", MessageKeyUtil.encloseStringDelete(
                         MessageKeyConstants.Jsr303Hibernate.NOTEMPTY_MESSAGE),null, "");
             }

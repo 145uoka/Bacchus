@@ -50,6 +50,11 @@ public class GlobalInterceptor implements HandlerInterceptor {
 			if (!hasAnnotation(handlerMethod, BeforeLogin.class)) {
 
 				// login中で且つ、氏名が未設定
+			    logger.debug("userInfo.isLogined() : " + userInfo.isLogined());
+			    logger.debug("userInfo.getFirstName() : " + userInfo.getFirstName());
+			    logger.debug("userInfo.getLastName() : " + userInfo.getLastName());
+			    logger.debug("equest.getRequestURI() : " + request.getRequestURI());
+			    logger.debug("request.getContextPath() : " + request.getContextPath());
 				if(userInfo.isLogined() && (StringUtils.isEmpty(userInfo.getFirstName()) && StringUtils.isEmpty(userInfo.getLastName()))){
 					if (!StringUtils.equals(request.getRequestURI(), "/Bacchus/profile/edit")) {
 						response.sendRedirect(request.getContextPath() + "/profile/edit");

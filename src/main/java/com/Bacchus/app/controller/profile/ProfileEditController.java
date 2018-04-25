@@ -110,6 +110,15 @@ public class ProfileEditController extends BaseController {
 
         List<String> messageList = this.validate(form, bindingResult);
 
+        if(!StringUtils.isNotEmpty(form.getLastName())){
+            bindingResult.rejectValue("lastName",MessageKeyUtil.encloseStringDelete(
+                    MessageKeyConstants.GlueNetValidator.NOTEMPTY_WITH_FIELD), new String[]{"苗字"}, "");
+        }
+        if(!StringUtils.isNotEmpty(form.getFirstName())){
+            bindingResult.rejectValue("firstName",MessageKeyUtil.encloseStringDelete(
+                    MessageKeyConstants.GlueNetValidator.NOTEMPTY_WITH_FIELD), new String[]{"名前"}, "");
+        }
+
         // validation確認
         if (bindingResult.hasErrors()) {
             model.addAttribute(MODEL_KEY_FORM, form);

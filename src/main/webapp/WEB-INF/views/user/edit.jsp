@@ -183,7 +183,12 @@
               --%>
               <div class="form-group <ext:isErrors path='loginId' value='has-error'/>">
                 <label class="col-md-4 control-label">ログインID</label>
-                <div class="col-md-6">
+                <div class="col-md-2 checkbox">
+                  <label>
+                    <form:checkbox path="loginCheck" id="loginCheck" value="1" onClick="switchDisabledLoginId()"/>ID変更
+                  </label>
+                </div>
+                <div class="col-md-4">
                   <form:input path="loginId" value="${userTDto.loginId}" class="form-control" maxlength="${ext:getMaxLen('CNT0001') }" disabled=""/>
                   <div style="clear: both;">
                     <div class="col-md-10">
@@ -191,16 +196,16 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-2 checkbox">
-                  <label>
-                    <form:checkbox path="loginCheck" id="loginCheck" value="1" onClick="switchDisabledLoginId()"/>ID変更
-                  </label>
-                </div>
               </div>
 
               <div class="form-group <ext:isErrors path='firstPassward' value='has-error'/>">
                 <label class="col-md-4 control-label">パスワード</label>
-                <div class="col-md-6">
+                <div class="col-md-2 checkbox">
+                  <label>
+                    <form:checkbox  path="passwardCheck" id="passwardCheck" value="1" onClick="switchDisabledPassward()"/>パスワード変更
+                  </label>
+                </div>
+                <div class="col-md-4">
                   <form:input type="password" path="firstPassward" class="form-control" disabled="" />
                   <div style="clear: both;">
                     <div class="col-md-10">
@@ -208,16 +213,12 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-2 checkbox">
-                  <label>
-                    <form:checkbox  path="passwardCheck" id="passwardCheck" value="1" onClick="switchDisabledPassward()"/>パスワード変更
-                  </label>
-                </div>
               </div>
 
               <div class="form-group <ext:isErrors path='confirmPassword' value='has-error'/>">
                 <label class="col-md-4 control-label">パスワード確認</label>
-                <div class="col-md-6">
+                <div class="col-md-2"></div>
+                <div class="col-md-4">
                   <form:input type="password" path="confirmPassword" class="form-control" disabled=""/>
                   <div style="clear: both;">
                     <div class="col-md-10">

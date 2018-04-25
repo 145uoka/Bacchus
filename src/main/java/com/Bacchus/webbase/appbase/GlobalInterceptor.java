@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.dbflute.hook.AccessContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,10 +42,21 @@ public class GlobalInterceptor implements HandlerInterceptor {
 		setupLogs(request);
 		logger.info("preHandle: {}", request.getRequestURI());
 
+
+
 		if (handler instanceof HandlerMethod) {
 			HandlerMethod handlerMethod = (HandlerMethod) handler;
 			// BeforeLoginアノテーションがついていないクラス、メソッドはログインチェックをする必要がある
 			if (!hasAnnotation(handlerMethod, BeforeLogin.class)) {
+
+				// login中で且つ、氏名が未設定
+				if(userInfo.isLogined() && (StringUtils.isEmpty(userInfo.getFirstName()) && StringUtils.isEmpty(userInfo.getLastName()))){
+					if (!StringUtils.equals(request.getRequestURI(), "/Bacchus/profile/edit")) {
+						response.sendRedirect(request.getContextPath() + "/profile/edit");
+						return false;
+					}
+				}
+
 				// BeforeLoginアノテーションがついていないコントローラへのリクエストで、
 				// ログインしていない場合はログインページヘリダイレクト
 				if (!userInfo.isLogined()) {

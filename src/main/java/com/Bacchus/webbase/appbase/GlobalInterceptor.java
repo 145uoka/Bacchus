@@ -53,10 +53,10 @@ public class GlobalInterceptor implements HandlerInterceptor {
 			    logger.debug("userInfo.isLogined() : " + userInfo.isLogined());
 			    logger.debug("userInfo.getFirstName() : " + userInfo.getFirstName());
 			    logger.debug("userInfo.getLastName() : " + userInfo.getLastName());
-			    logger.debug("equest.getRequestURI() : " + request.getRequestURI());
+			    logger.debug("request.getRequestURI() : " + request.getRequestURI());
 			    logger.debug("request.getContextPath() : " + request.getContextPath());
 				if(userInfo.isLogined() && (StringUtils.isEmpty(userInfo.getFirstName()) && StringUtils.isEmpty(userInfo.getLastName()))){
-					if (!StringUtils.equals(request.getRequestURI(), "/Bacchus/profile/edit")) {
+					if (!StringUtils.equals(request.getRequestURI(), "/profile/edit")) {
 						response.sendRedirect(request.getContextPath() + "/profile/edit");
 						return false;
 					}

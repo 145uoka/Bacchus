@@ -55,12 +55,15 @@
                   <form:input path="lineUserName" class="form-control" disabled="true"/>
                 </div>
               </div>
-              <div class="form-group <ext:isErrors path='firstName' value='has-error'/> <ext:isErrors path='lastName' value='has-error'/>">
-                <label class="col-md-4 control-label">氏名</label>
-                <div class="col-md-3">
+
+              <div class="form-group">
+                <label class="col-md-4 control-label">氏名
+                  <span class="label label-danger" style="margin-left: 10px">必須</span>
+                </label>
+                <div class="col-md-3 <ext:isErrors path='lastName' value='has-error'/>">
                   <form:input path="lastName" class="form-control" maxlength="${ext:getMaxLen('CNT0001') }" placeholder="氏"/>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 <ext:isErrors path='firstName' value='has-error'/>">
                   <form:input path="firstName" class="form-control" maxlength="${ext:getMaxLen('CNT0001') }" placeholder="名"/>
                 </div>
                 <div style="clear: both;">
@@ -71,8 +74,9 @@
                   <div class="col-md-3">
                     <form:errors path="firstName" element="div" cssClass="text-danger" />
                   </div>
-                </div>
-              </div>
+               </div>
+             </div>
+
               <%--
               <div class="form-group <ext:isErrors path='userName' value='has-error'/>">
                 <label class="col-md-4 control-label">ニックネーム</label>

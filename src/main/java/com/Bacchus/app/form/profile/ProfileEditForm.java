@@ -2,6 +2,8 @@ package  com.Bacchus.app.form.profile;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * プロフィール編集用Form。
  *
@@ -35,9 +37,11 @@ public class ProfileEditForm implements Serializable {
     private Integer lineFlg;
 
     /** 名 */
+    @NotEmpty
     private String firstName;
 
     /** 氏 */
+    @NotEmpty
     private String lastName;
 
     /** ログインID */

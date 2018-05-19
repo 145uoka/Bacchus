@@ -85,8 +85,8 @@ public class LoginController extends BaseController {
         String authorizeUrl = "https://access.line.me/oauth2/v2.1/authorize";
 
         String responsetype = "response_type=code";
-        String client_id = "client_id=1545279597";
-        String redirect_uri = "redirect_uri=https%3A%2F%2Fglue-bacchus.herokuapp.com%2Flogin%2Fcallback";
+        String client_id = "client_id=1581946528";
+        String redirect_uri = "redirect_uri=https%3A%2F%2Fbacchusapl.herokuapp.com%2Flogin%2Fcallback";
         String state = "state=12345abcde";
         String scope = "scope=openid%20profile";
 
@@ -115,9 +115,9 @@ public class LoginController extends BaseController {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("grant_type", "authorization_code"));
         params.add(new BasicNameValuePair("code", code));
-        params.add(new BasicNameValuePair("redirect_uri", "https://glue-bacchus.herokuapp.com/login/callback"));
-        params.add(new BasicNameValuePair("client_id", "1545279597"));
-        params.add(new BasicNameValuePair("client_secret", "0e994f18b1e437b590bc5d25addcf1f5"));
+        params.add(new BasicNameValuePair("redirect_uri", "https://bacchusapl.herokuapp.com/login/callback"));
+        params.add(new BasicNameValuePair("client_id", "1581946528"));
+        params.add(new BasicNameValuePair("client_secret", "ed0e3cf2efd795629a6634abf49fb307"));
 
         UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(params, SystemCodeConstants.CHARACTER_ENCODING);
         httpPost.setEntity(formEntity);

@@ -150,7 +150,7 @@ public class LineService {
                                  new ConfirmTemplate("ごみ捨ては終わった？",
                                  new MessageAction("はい", "はい"),
                                  new MessageAction("いいえ", "いいえ"))))).get();
-                    logger.info("Sent messages: {}", response);
+//                    logger.info("Sent messages: {}", response);
                 } catch (InterruptedException | ExecutionException e) {
                     throw new RuntimeException(e);
                 }

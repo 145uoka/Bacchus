@@ -138,8 +138,7 @@ public class EventNotifyController extends BaseController {
 
     @RequestMapping(value = "/push", method = RequestMethod.GET)
     public String test(@RequestParam("userId") String userId, Model model) throws Exception {
-    	System.out.println(userId);
-    	lineService.pushMessage(Integer.parseInt(userId), "あいうえお");
+    	lineService.pushMessage(userId, "あいうえお");
 
 
         return "/index";

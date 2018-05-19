@@ -193,4 +193,44 @@ public class LineService {
 
         return new LineMessagingClientBuilder(token).build();
     }
+
+
+
+
+
+    /**
+     * LineAPI:pushメッセージを実行。
+     *
+     * @param userId 送信対象のユーザID
+     * @param message 送信メッセージ
+     * @throws RecordNotFoundException
+     */
+    public void pushMessage(String userId, String message) throws RecordNotFoundException {
+
+
+            Map<Integer, String> sendUserMap = new TreeMap<Integer, String>();
+
+
+
+                try {
+                    if(!commonService.isDevelopMode()) {
+                        // 非開発モード
+                        LineMessagingClient lineMessagingClient = buildLineMessagingClient();
+
+                        // PUSH通信
+                        BotApiResponse response = lineMessagingClient.pushMessage(
+                                new PushMessage(userId, new TextMessage(message))).get();
+
+                        // ログ出力
+                        loggerService.outLog(LogMessageKeyConstants.Info.I_05_0002,
+                                new Object[]{LineApiType.PUSH, response.getMessage(), response.getDetails().toString()});
+                    }
+
+                    loggerService.outLog(LogMessageKeyConstants.Info.I_05_0001,
+                            new Object[]{LineApiType.PUSH, sendUserMap, message});
+
+                } catch (InterruptedException | ExecutionException e) {
+                    throw new RuntimeException(e);
+                }
+    }
 }

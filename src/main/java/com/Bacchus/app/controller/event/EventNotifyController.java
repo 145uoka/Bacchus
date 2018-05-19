@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Bacchus.app.Exception.RecordNotFoundException;
@@ -133,4 +134,15 @@ public class EventNotifyController extends BaseController {
 
         return super.redirect(ProcConstants.EVENT + ProcConstants.Operation.NOTIFY);
     }
+
+
+    @RequestMapping(value = "/push", method = RequestMethod.GET)
+    public String test(@RequestParam("userId") String userId, Model model) throws Exception {
+
+    	lineService.pushMessage(Integer.parseInt(userId), "あいうえお");
+
+
+        return "/index";
+    }
+
 }

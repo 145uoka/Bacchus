@@ -29,6 +29,7 @@ import com.Bacchus.app.util.MessageKeyUtil;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.dbflute.exbhv.UserTypeMBhv;
 import com.Bacchus.webbase.appbase.BaseController;
+import com.Bacchus.webbase.appbase.BeforeLogin;
 import com.Bacchus.webbase.common.constants.DisplayIdConstants;
 import com.Bacchus.webbase.common.constants.MessageKeyConstants;
 import com.Bacchus.webbase.common.constants.ProcConstants;
@@ -39,6 +40,7 @@ import com.Bacchus.webbase.common.constants.SystemPropertyKeyConstants;
  * イベント通知用コントローラ。
  *
  */
+@BeforeLogin
 @Controller
 @RequestMapping(value = ProcConstants.EVENT)
 public class EventNotifyController extends BaseController {

@@ -26,7 +26,10 @@ import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.LineMessagingClientBuilder;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.action.MessageAction;
+import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.message.template.ConfirmTemplate;
 import com.linecorp.bot.model.response.BotApiResponse;
 
 /**
@@ -49,6 +52,12 @@ public class LineService {
 
     @Autowired
     UserTBhv userTBhv;
+
+    private final LineMessagingClient lineMessagingClient;
+
+    LineService(LineMessagingClient lineMessagingClient) {
+        this.lineMessagingClient = lineMessagingClient;
+    }
 
     /**
      * LineAPI:pushメッセージを実行。
@@ -93,6 +102,55 @@ public class LineService {
                     loggerService.outLog(LogMessageKeyConstants.Info.I_05_0001,
                             new Object[]{LineApiType.PUSH, sendUserMap, message});
 
+                } catch (InterruptedException | ExecutionException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                // 非LINEユーザ
+                sendUserMap.put(userT.getUserId(),
+                        userT.getLastName() + StringUtils.SPACE + userT.getFirstName());
+
+                // ログ出力
+                loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0001,
+                        new Object[]{LineApiType.PUSH, sendUserMap, message});
+            }
+        }
+    }
+
+    /**
+     * LineAPI:pushメッセージを実行。
+     *
+     * @param userId 送信対象のユーザID
+     * @param message 送信メッセージ
+     * @throws RecordNotFoundException
+     */
+    public void sendMessage(Integer userId, String message) throws RecordNotFoundException {
+
+        OptionalEntity<UserT> userEntity = userTBhv.selectByPK(userId);
+
+        if (userEntity != null && userEntity.isPresent()) {
+
+            UserT userT = userEntity.get();
+
+            Map<Integer, String> sendUserMap = new TreeMap<Integer, String>();
+
+
+            if (userT.getLineFlg().intValue() == Flag.ON.getIntegerValue().intValue()
+                    && StringUtils.isNotEmpty(userT.getLineId())) {
+
+                // LINEユーザ
+                sendUserMap.put(userT.getUserId(),
+                        userT.getLastName() + StringUtils.SPACE
+                        + userT.getFirstName() + "(" + userT.getLineUserName() + ")");
+
+                try {
+                    BotApiResponse response = lineMessagingClient
+                                .pushMessage(new PushMessage(userT.getLineId(),
+                                 new TemplateMessage(message,
+                                 new ConfirmTemplate("ごみ捨ては終わった？",
+                                 new MessageAction("はい", "はい"),
+                                 new MessageAction("いいえ", "いいえ"))))).get();
+                    logger.info("Sent messages: {}", response);
                 } catch (InterruptedException | ExecutionException e) {
                     throw new RuntimeException(e);
                 }

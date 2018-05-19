@@ -1,6 +1,12 @@
 
 /* Drop Tables */
 
+
+DROP SCHEMA IF EXISTS bacchus;
+CREATE SCHEMA bacchus
+  AUTHORIZATION nxkjvrmnwesvoh;
+
+
 DROP TABLE IF EXISTS Bacchus.entry_t;
 DROP TABLE IF EXISTS Bacchus.event_notify;
 DROP TABLE IF EXISTS Bacchus.candidate_t;
@@ -226,7 +232,6 @@ CREATE TABLE Bacchus.user_t
 ) WITHOUT OIDS;
 
 
-ALTER SEQUENCE Bacchus.user_t_user_id_SEQ INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 RESTART 1 CACHE 1;
 
 
 -- ユーザー区分_M

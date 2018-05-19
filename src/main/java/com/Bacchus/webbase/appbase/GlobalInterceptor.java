@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
 import org.dbflute.hook.AccessContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,12 +54,12 @@ public class GlobalInterceptor implements HandlerInterceptor {
 			    logger.debug("userInfo.getLastName() : " + userInfo.getLastName());
 			    logger.debug("request.getRequestURI() : " + request.getRequestURI());
 			    logger.debug("request.getContextPath() : " + request.getContextPath());
-				if(userInfo.isLogined() && (StringUtils.isEmpty(userInfo.getFirstName()) && StringUtils.isEmpty(userInfo.getLastName()))){
-					if (!StringUtils.equals(request.getRequestURI(), "/profile/edit")) {
-						response.sendRedirect(request.getContextPath() + "/profile/edit");
-						return false;
-					}
-				}
+//				if(userInfo.isLogined() && (StringUtils.isEmpty(userInfo.getFirstName()) && StringUtils.isEmpty(userInfo.getLastName()))){
+//					if (!StringUtils.equals(request.getRequestURI(), "/profile/edit")) {
+//						response.sendRedirect(request.getContextPath() + "/profile/edit");
+//						return false;
+//					}
+//				}
 
 				// BeforeLoginアノテーションがついていないコントローラへのリクエストで、
 				// ログインしていない場合はログインページヘリダイレクト

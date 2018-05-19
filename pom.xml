@@ -188,6 +188,13 @@
 			<version>1.14.0</version>
 		</dependency>
 
+		<!-- line-bot-spring-boot -->
+		<dependency>
+			<groupId>com.linecorp.bot</groupId>
+			<artifactId>line-bot-spring-boot</artifactId>
+			<version>1.14.0</version>
+		</dependency>
+
 
 		<!-- Test -->
 		<dependency>

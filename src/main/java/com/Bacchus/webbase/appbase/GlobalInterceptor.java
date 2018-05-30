@@ -19,6 +19,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.Bacchus.webbase.common.constants.ProcConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants;
 import com.Bacchus.webbase.common.web.util.RequestUtil;
 import com.Bacchus.webbase.components.UserInfo;
@@ -55,12 +56,17 @@ public class GlobalInterceptor implements HandlerInterceptor {
 			    logger.debug("userInfo.getLastName() : " + userInfo.getLastName());
 			    logger.debug("request.getRequestURI() : " + request.getRequestURI());
 			    logger.debug("request.getContextPath() : " + request.getContextPath());
-				if(userInfo.isLogined() && (StringUtils.isEmpty(userInfo.getFirstName()) && StringUtils.isEmpty(userInfo.getLastName()))){
-					if (!StringUtils.equals(request.getRequestURI(), "/profile/edit")) {
-						response.sendRedirect(request.getContextPath() + "/profile/edit");
-						return false;
-					}
-				}
+
+			    // ログイン中でプロフィール未設定の場合、強制的にプロフィール設定させる
+			    if (!StringUtils.equals(request.getRequestURI(), ProcConstants.PROFILE + ProcConstants.Operation.UPDATE)) {
+
+			        if(userInfo.isLogined() &&
+			                (StringUtils.isEmpty(userInfo.getFirstName()) && StringUtils.isEmpty(userInfo.getLastName()))){
+
+			            response.sendRedirect(request.getContextPath() + "/profile/edit");
+			            return false;
+			        }
+			    }
 
 				// BeforeLoginアノテーションがついていないコントローラへのリクエストで、
 				// ログインしていない場合はログインページヘリダイレクト

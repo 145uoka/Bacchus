@@ -62,6 +62,7 @@ public class SystemPropertyMCIQ extends AbstractBsSystemPropertyMCQ {
     //                                                                Override about Query
     //                                                                ====================
     protected ConditionValue xgetCValuePropKey() { return _myCQ.xdfgetPropKey(); }
+    protected ConditionValue xgetCValuePropGroup() { return _myCQ.xdfgetPropGroup(); }
     protected ConditionValue xgetCValuePropValue() { return _myCQ.xdfgetPropValue(); }
     protected ConditionValue xgetCValueDescription() { return _myCQ.xdfgetDescription(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }

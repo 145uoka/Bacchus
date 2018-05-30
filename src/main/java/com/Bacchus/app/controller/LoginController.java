@@ -16,7 +16,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -82,28 +81,9 @@ public class LoginController extends BaseController {
     @RequestMapping(value = "/lineLogin", method = RequestMethod.GET)
     public String lineLogin() throws Exception {
 
-        String authorizeUrl = "https://access.line.me/oauth2/v2.1/authorize";
+        String redirectUrl = oAuthService.creatAauthorizeUrl();
 
-        String responsetype = "response_type=code";
-        String client_id = "client_id=1545279597";
-        String redirect_uri = "redirect_uri=https%3A%2F%2Fglue-bacchus.herokuapp.com%2Flogin%2Fcallback";
-        String state = "state=12345abcde";
-        String scope = "scope=openid%20profile";
-
-        StringBuffer sb = new StringBuffer();
-        sb.append(authorizeUrl);
-        sb.append("?");
-        sb.append(responsetype);
-        sb.append("&");
-        sb.append(client_id);
-        sb.append("&");
-        sb.append(redirect_uri);
-        sb.append("&");
-        sb.append(state);
-        sb.append("&");
-        sb.append(scope);
-
-        return super.redirect(sb.toString());
+        return super.redirect(redirectUrl);
     }
 
     @RequestMapping(value = "/callback", method = RequestMethod.GET)
@@ -112,12 +92,7 @@ public class LoginController extends BaseController {
 
         HttpPost httpPost = new HttpPost("https://api.line.me/oauth2/v2.1/token");
 
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("grant_type", "authorization_code"));
-        params.add(new BasicNameValuePair("code", code));
-        params.add(new BasicNameValuePair("redirect_uri", "https://glue-bacchus.herokuapp.com/login/callback"));
-        params.add(new BasicNameValuePair("client_id", "1545279597"));
-        params.add(new BasicNameValuePair("client_secret", "0e994f18b1e437b590bc5d25addcf1f5"));
+        List<NameValuePair> params = oAuthService.getAccessTokenParam(code);
 
         UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(params, SystemCodeConstants.CHARACTER_ENCODING);
         httpPost.setEntity(formEntity);
@@ -156,7 +131,7 @@ public class LoginController extends BaseController {
         return redirect("/");
     }
 
-    public IdToken idToken(String id_token) {
+    private IdToken idToken(String id_token) {
         try {
             DecodedJWT jwt = JWT.decode(id_token);
             return new IdToken(

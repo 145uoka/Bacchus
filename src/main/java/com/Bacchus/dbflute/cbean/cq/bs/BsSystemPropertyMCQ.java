@@ -93,6 +93,26 @@ public class BsSystemPropertyMCQ extends AbstractBsSystemPropertyMCQ {
      */
     public BsSystemPropertyMCQ addOrderBy_PropKey_Desc() { regOBD("prop_key"); return this; }
 
+    protected ConditionValue _propGroup;
+    public ConditionValue xdfgetPropGroup()
+    { if (_propGroup == null) { _propGroup = nCV(); }
+      return _propGroup; }
+    protected ConditionValue xgetCValuePropGroup() { return xdfgetPropGroup(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * prop_group: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsSystemPropertyMCQ addOrderBy_PropGroup_Asc() { regOBA("prop_group"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * prop_group: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsSystemPropertyMCQ addOrderBy_PropGroup_Desc() { regOBD("prop_group"); return this; }
+
     protected ConditionValue _propValue;
     public ConditionValue xdfgetPropValue()
     { if (_propValue == null) { _propValue = nCV(); }

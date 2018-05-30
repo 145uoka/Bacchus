@@ -179,6 +179,8 @@ CREATE TABLE Bacchus.system_property_m
 (
 	-- プロパティキー
 	prop_key text NOT NULL,
+	-- プロパティグループ
+	prop_group text,
 	-- 値
 	prop_value text,
 	-- 説明
@@ -379,6 +381,7 @@ COMMENT ON COLUMN Bacchus.general_code_m.UPDATE_DATETIME IS '更新日時';
 COMMENT ON COLUMN Bacchus.general_code_m.UPDATE_USER IS '更新者';
 COMMENT ON TABLE Bacchus.system_property_m IS 'システムプロパティ_M';
 COMMENT ON COLUMN Bacchus.system_property_m.prop_key IS 'プロパティキー';
+COMMENT ON COLUMN Bacchus.system_property_m.prop_group IS 'プロパティグループ';
 COMMENT ON COLUMN Bacchus.system_property_m.prop_value IS '値';
 COMMENT ON COLUMN Bacchus.system_property_m.description IS '説明';
 COMMENT ON COLUMN Bacchus.system_property_m.REGISTER_DATETIME IS '作成日時';

@@ -43,6 +43,7 @@ public class SystemPropertyMDbm extends AbstractDBMeta {
     { xsetupEpg(); }
     protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((SystemPropertyM)et).getPropKey(), (et, vl) -> ((SystemPropertyM)et).setPropKey((String)vl), "propKey");
+        setupEpg(_epgMap, et -> ((SystemPropertyM)et).getPropGroup(), (et, vl) -> ((SystemPropertyM)et).setPropGroup((String)vl), "propGroup");
         setupEpg(_epgMap, et -> ((SystemPropertyM)et).getPropValue(), (et, vl) -> ((SystemPropertyM)et).setPropValue((String)vl), "propValue");
         setupEpg(_epgMap, et -> ((SystemPropertyM)et).getDescription(), (et, vl) -> ((SystemPropertyM)et).setDescription((String)vl), "description");
         setupEpg(_epgMap, et -> ((SystemPropertyM)et).getRegisterDatetime(), (et, vl) -> ((SystemPropertyM)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
@@ -70,6 +71,7 @@ public class SystemPropertyMDbm extends AbstractDBMeta {
     //                                                                         Column Info
     //                                                                         ===========
     protected final ColumnInfo _columnPropKey = cci("prop_key", "prop_key", null, null, String.class, "propKey", null, true, false, true, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnPropGroup = cci("prop_group", "prop_group", null, null, String.class, "propGroup", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnPropValue = cci("prop_value", "prop_value", null, null, String.class, "propValue", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnDescription = cci("description", "description", null, null, String.class, "description", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, false, "timestamp", 29, 6, "now()", true, null, null, null, null, null, false);
@@ -82,6 +84,11 @@ public class SystemPropertyMDbm extends AbstractDBMeta {
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnPropKey() { return _columnPropKey; }
+    /**
+     * prop_group: {text(2147483647)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnPropGroup() { return _columnPropGroup; }
     /**
      * prop_value: {text(2147483647)}
      * @return The information object of specified column. (NotNull)
@@ -116,6 +123,7 @@ public class SystemPropertyMDbm extends AbstractDBMeta {
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
         ls.add(columnPropKey());
+        ls.add(columnPropGroup());
         ls.add(columnPropValue());
         ls.add(columnDescription());
         ls.add(columnRegisterDatetime());

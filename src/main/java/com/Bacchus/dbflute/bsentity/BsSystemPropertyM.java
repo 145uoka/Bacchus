@@ -18,7 +18,7 @@ import com.Bacchus.dbflute.exentity.*;
  *     prop_key
  *
  * [column]
- *     prop_key, prop_value, description, register_datetime, register_user, update_datetime, update_user
+ *     prop_key, prop_group, prop_value, description, register_datetime, register_user, update_datetime, update_user
  *
  * [sequence]
  *     
@@ -44,6 +44,7 @@ import com.Bacchus.dbflute.exentity.*;
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * String propKey = entity.getPropKey();
+ * String propGroup = entity.getPropGroup();
  * String propValue = entity.getPropValue();
  * String description = entity.getDescription();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
@@ -51,6 +52,7 @@ import com.Bacchus.dbflute.exentity.*;
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateUser = entity.getUpdateUser();
  * entity.setPropKey(propKey);
+ * entity.setPropGroup(propGroup);
  * entity.setPropValue(propValue);
  * entity.setDescription(description);
  * entity.setRegisterDatetime(registerDatetime);
@@ -74,6 +76,9 @@ public abstract class BsSystemPropertyM extends AbstractEntity implements Domain
     //                                                                           =========
     /** prop_key: {PK, NotNull, text(2147483647)} */
     protected String _propKey;
+
+    /** prop_group: {text(2147483647)} */
+    protected String _propGroup;
 
     /** prop_value: {text(2147483647)} */
     protected String _propValue;
@@ -156,6 +161,7 @@ public abstract class BsSystemPropertyM extends AbstractEntity implements Domain
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
         sb.append(dm).append(xfND(_propKey));
+        sb.append(dm).append(xfND(_propGroup));
         sb.append(dm).append(xfND(_propValue));
         sb.append(dm).append(xfND(_description));
         sb.append(dm).append(xfND(_registerDatetime));
@@ -200,6 +206,26 @@ public abstract class BsSystemPropertyM extends AbstractEntity implements Domain
     public void setPropKey(String propKey) {
         registerModifiedProperty("propKey");
         _propKey = propKey;
+    }
+
+    /**
+     * [get] prop_group: {text(2147483647)} <br>
+     * プロパティグループ
+     * @return The value of the column 'prop_group'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getPropGroup() {
+        checkSpecifiedProperty("propGroup");
+        return _propGroup;
+    }
+
+    /**
+     * [set] prop_group: {text(2147483647)} <br>
+     * プロパティグループ
+     * @param propGroup The value of the column 'prop_group'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setPropGroup(String propGroup) {
+        registerModifiedProperty("propGroup");
+        _propGroup = propGroup;
     }
 
     /**

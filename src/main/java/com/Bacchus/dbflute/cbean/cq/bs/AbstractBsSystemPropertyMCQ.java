@@ -192,6 +192,159 @@ public abstract class AbstractBsSystemPropertyMCQ extends AbstractConditionQuery
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * prop_group: {text(2147483647)}
+     * @param propGroup The value of propGroup as equal. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setPropGroup_Equal(String propGroup) {
+        doSetPropGroup_Equal(fRES(propGroup));
+    }
+
+    protected void doSetPropGroup_Equal(String propGroup) {
+        regPropGroup(CK_EQ, propGroup);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * prop_group: {text(2147483647)}
+     * @param propGroup The value of propGroup as notEqual. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setPropGroup_NotEqual(String propGroup) {
+        doSetPropGroup_NotEqual(fRES(propGroup));
+    }
+
+    protected void doSetPropGroup_NotEqual(String propGroup) {
+        regPropGroup(CK_NES, propGroup);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * prop_group: {text(2147483647)}
+     * @param propGroup The value of propGroup as greaterThan. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setPropGroup_GreaterThan(String propGroup) {
+        regPropGroup(CK_GT, fRES(propGroup));
+    }
+
+    /**
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * prop_group: {text(2147483647)}
+     * @param propGroup The value of propGroup as lessThan. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setPropGroup_LessThan(String propGroup) {
+        regPropGroup(CK_LT, fRES(propGroup));
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * prop_group: {text(2147483647)}
+     * @param propGroup The value of propGroup as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setPropGroup_GreaterEqual(String propGroup) {
+        regPropGroup(CK_GE, fRES(propGroup));
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * prop_group: {text(2147483647)}
+     * @param propGroup The value of propGroup as lessEqual. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setPropGroup_LessEqual(String propGroup) {
+        regPropGroup(CK_LE, fRES(propGroup));
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * prop_group: {text(2147483647)}
+     * @param propGroupList The collection of propGroup as inScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setPropGroup_InScope(Collection<String> propGroupList) {
+        doSetPropGroup_InScope(propGroupList);
+    }
+
+    protected void doSetPropGroup_InScope(Collection<String> propGroupList) {
+        regINS(CK_INS, cTL(propGroupList), xgetCValuePropGroup(), "prop_group");
+    }
+
+    /**
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * prop_group: {text(2147483647)}
+     * @param propGroupList The collection of propGroup as notInScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setPropGroup_NotInScope(Collection<String> propGroupList) {
+        doSetPropGroup_NotInScope(propGroupList);
+    }
+
+    protected void doSetPropGroup_NotInScope(Collection<String> propGroupList) {
+        regINS(CK_NINS, cTL(propGroupList), xgetCValuePropGroup(), "prop_group");
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * prop_group: {text(2147483647)} <br>
+     * <pre>e.g. setPropGroup_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param propGroup The value of propGroup as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setPropGroup_LikeSearch(String propGroup, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setPropGroup_LikeSearch(propGroup, xcLSOP(opLambda));
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * prop_group: {text(2147483647)} <br>
+     * <pre>e.g. setPropGroup_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param propGroup The value of propGroup as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param likeSearchOption The option of like-search. (NotNull)
+     */
+    protected void setPropGroup_LikeSearch(String propGroup, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(propGroup), xgetCValuePropGroup(), "prop_group", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * prop_group: {text(2147483647)}
+     * @param propGroup The value of propGroup as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setPropGroup_NotLikeSearch(String propGroup, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setPropGroup_NotLikeSearch(propGroup, xcLSOP(opLambda));
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * prop_group: {text(2147483647)}
+     * @param propGroup The value of propGroup as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param likeSearchOption The option of not-like-search. (NotNull)
+     */
+    protected void setPropGroup_NotLikeSearch(String propGroup, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(propGroup), xgetCValuePropGroup(), "prop_group", likeSearchOption);
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * prop_group: {text(2147483647)}
+     */
+    public void setPropGroup_IsNull() { regPropGroup(CK_ISN, DOBJ); }
+
+    /**
+     * IsNullOrEmpty {is null or empty}. And OnlyOnceRegistered. <br>
+     * prop_group: {text(2147483647)}
+     */
+    public void setPropGroup_IsNullOrEmpty() { regPropGroup(CK_ISNOE, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * prop_group: {text(2147483647)}
+     */
+    public void setPropGroup_IsNotNull() { regPropGroup(CK_ISNN, DOBJ); }
+
+    protected void regPropGroup(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValuePropGroup(), "prop_group"); }
+    protected abstract ConditionValue xgetCValuePropGroup();
+
+    /**
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * prop_value: {text(2147483647)}
      * @param propValue The value of propValue as equal. (NullAllowed: if null (or empty), no condition)
      */

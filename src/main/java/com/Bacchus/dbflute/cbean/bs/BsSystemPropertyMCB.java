@@ -288,6 +288,11 @@ public class BsSystemPropertyMCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnPropKey() { return doColumn("prop_key"); }
         /**
+         * prop_group: {text(2147483647)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnPropGroup() { return doColumn("prop_group"); }
+        /**
          * prop_value: {text(2147483647)}
          * @return The information object of specified column. (NotNull)
          */

@@ -180,6 +180,8 @@
             name="prop_key" pkName="system_property_m_pkey"
             pkPosition="1" primaryKey="true" required="true"
             size="2147483647" type="VARCHAR"/>
+        <column comment="プロパティグループ" dbType="text" javaType="String"
+            name="prop_group" size="2147483647" type="VARCHAR"/>
         <column comment="値" dbType="text" javaType="String"
             name="prop_value" size="2147483647" type="VARCHAR"/>
         <column comment="説明" dbType="text" javaType="String"
@@ -247,10 +249,6 @@
     </table>
     <sequenceGroup>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
-            minimumValue="1" name="user_t_user_id_seq" schema="postgres.bacchus"/>
-        <sequence incrementSize="1" maximumValue="9223372036854775807"
-            minimumValue="1" name="user_type_m_user_type_id_seq" schema="postgres.bacchus"/>
-        <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="candidate_t_candidate_no_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="entry_t_entry_id_seq" schema="postgres.bacchus"/>
@@ -262,5 +260,9 @@
             minimumValue="1" name="event_type_m_event_type_id_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="general_code_m_code_id_seq" schema="postgres.bacchus"/>
+        <sequence incrementSize="1" maximumValue="9223372036854775807"
+            minimumValue="1" name="user_t_user_id_seq" schema="postgres.bacchus"/>
+        <sequence incrementSize="1" maximumValue="9223372036854775807"
+            minimumValue="1" name="user_type_m_user_type_id_seq" schema="postgres.bacchus"/>
     </sequenceGroup>
 </database>

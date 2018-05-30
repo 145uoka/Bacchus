@@ -77,4 +77,22 @@ public class SystemPropertyService extends AbstractService {
         return result;
     }
 
+    /**
+     * プロパティ取得
+     *
+     * @param propKey
+     * @return
+     * @throws RecordNotFoundException
+     */
+    public String getSystemPropertyValue(ListResultBean<SystemPropertyM> systemPropertyMList, String propKey) throws RecordNotFoundException {
+
+        SystemPropertyM systemPropertyM = getSystemPropertyMByKey(systemPropertyMList, propKey);
+
+        if (systemPropertyM == null) {
+            return null;
+        }
+
+        return systemPropertyM.getPropValue();
+    }
+
 }

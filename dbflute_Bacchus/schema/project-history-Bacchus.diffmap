@@ -1,4 +1,19 @@
 map:{
+    ; 2018/05/30 13:30:26 = map:{
+        ; diffDate = 2018/05/30 13:30:26
+        ; tableDiff = map:{
+            ; system_property_m = map:{
+                ; tableName = system_property_m
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; prop_group = map:{
+                        ; columnName = prop_group
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
     ; 2018/04/17 16:24:29 = map:{
         ; diffDate = 2018/04/17 16:24:29
         ; tableDiff = map:{

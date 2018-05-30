@@ -1,5 +1,7 @@
 package com.Bacchus.app.util;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,17 +9,24 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
-import org.apache.commons.lang3.text.translate.EntityArrays;
-import org.apache.commons.lang3.text.translate.JavaUnicodeEscaper;
-import org.apache.commons.lang3.text.translate.LookupTranslator;
+import org.apache.commons.lang3.StringUtils;
 
 
 /**
  * 共通処理
  */
 public class CommonUtil {
+
+    public static String urlEncode(String param) throws UnsupportedEncodingException {
+
+        if (StringUtils.isEmpty(param)) {
+            return param;
+        }
+
+        String encodeStr = URLEncoder.encode(param, "UTF-8");
+        encodeStr = encodeStr.replace("+", "%20");
+        return encodeStr;
+    }
 
     /**
      * NULLをStringの空文字にする

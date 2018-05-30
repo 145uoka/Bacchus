@@ -58,7 +58,8 @@ public class GlobalInterceptor implements HandlerInterceptor {
 			    logger.debug("request.getContextPath() : " + request.getContextPath());
 
 			    // ログイン中でプロフィール未設定の場合、強制的にプロフィール設定させる
-			    if (!StringUtils.equals(request.getRequestURI(), ProcConstants.PROFILE + ProcConstants.Operation.UPDATE)) {
+			    if ((!StringUtils.equals(request.getRequestURI(), ProcConstants.PROFILE + ProcConstants.Operation.EDIT))
+			            && (!StringUtils.equals(request.getRequestURI(), ProcConstants.PROFILE + ProcConstants.Operation.UPDATE))) {
 
 			        if(userInfo.isLogined() &&
 			                (StringUtils.isEmpty(userInfo.getFirstName()) && StringUtils.isEmpty(userInfo.getLastName()))){

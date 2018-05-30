@@ -7,7 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.dbflute.cbean.result.ListResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.Bacchus.app.form.entry.EntryForm;
@@ -40,7 +39,6 @@ public class EntryService extends AbstractService {
     @Autowired
     CommonService commonService;
 
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public void registerEntry(EntryRegisterForm form, Integer eventNo, Integer userId) {
 
         List<EntryForm> entryFormList = form.getEntryFormList();

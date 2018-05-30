@@ -88,7 +88,7 @@ public class OAuthService {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("grant_type", systemPropertyService.getSystemPropertyValue(
                 systemPropertyMList, SystemPropertyKeyConstants.GRANT_TYPE)));
-        params.add(new BasicNameValuePair("grant_type", code));
+        params.add(new BasicNameValuePair("code", code));
         params.add(new BasicNameValuePair("redirect_uri", systemPropertyService.getSystemPropertyValue(
                 systemPropertyMList, SystemPropertyKeyConstants.REDIRECT_URI)));
         params.add(new BasicNameValuePair("client_id", systemPropertyService.getSystemPropertyValue(

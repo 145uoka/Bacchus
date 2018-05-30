@@ -4,7 +4,7 @@
 * Xls Data Result *
 *                 *
 * * * * * * * * * *
-data-directory: playsql/data/ut/xls
+data-directory: playsql/data/pr/xls
 
 [UT_TEST_DATA.xls]
   system_property_m (11)

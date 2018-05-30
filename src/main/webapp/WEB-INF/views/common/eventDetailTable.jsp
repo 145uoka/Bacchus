@@ -16,13 +16,21 @@
   </tr>
   <tr>
     <th class="main-background-color col-md-3 text-center">場所</th>
-    <td class="text-center col-md-9"><c:out value="${eventDto.eventPlace}" /></td>
+    <td class="text-center col-md-9">
+    <c:if test="${!empty eventDto.eventPlaceUrlEncode}">
+      <a href="http://maps.google.co.jp/maps?q=${eventDto.eventPlaceUrlEncode}" target = "_blank">
+    </c:if>
+    <c:out value="${eventDto.eventPlace}" />
+    <c:if test="${!empty eventDto.eventPlaceUrlEncode}">
+      </a>
+    </c:if>
+    </td>
   </tr>
   <tr>
     <th class="main-background-color col-md-3 text-center">URL</th>
     <td class="text-center col-md-9">
     <c:if test="${!empty eventDto.eventUrl}">
-      <a href="${eventDto.eventUrl}"><c:out value="${eventDto.eventUrl}" /></a>
+      <a href="${eventDto.eventUrl}" target = "_blank"><c:out value="${eventDto.eventUrl}" /></a>
     </c:if>
     </td>
   </tr>

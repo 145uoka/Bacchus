@@ -1,5 +1,6 @@
 package com.Bacchus.app.controller.event;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -89,12 +90,13 @@ public class EventEditController extends BaseController {
      *
      * @param model
      * @return "/event/eventEdit"
+	 * @throws UnsupportedEncodingException
      * @throws Exception
      */
 	@RequestMapping(value = ProcConstants.Operation.EDIT, method = RequestMethod.GET)
 	public String eventEdit(@ModelAttribute("form") EventEditForm form, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model, HttpSession ses)
-			throws RecordNotFoundException, IllegalAccessException, InvocationTargetException {
+			throws RecordNotFoundException, IllegalAccessException, InvocationTargetException, UnsupportedEncodingException {
 
 		// 画面名の設定
 		super.setDisplayTitle(model, Event.BACCHUS_0203);

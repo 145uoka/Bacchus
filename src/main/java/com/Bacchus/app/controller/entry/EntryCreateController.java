@@ -1,5 +1,6 @@
 package com.Bacchus.app.controller.entry;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -92,10 +93,11 @@ public class EntryCreateController extends BaseController {
      * @return /event/entry/input
      * @throws RecordNotFoundException
      * @throws IllegalRequestParamException
+     * @throws UnsupportedEncodingException
      */
     @RequestMapping(value = ProcConstants.Operation.CREATE, method = RequestMethod.GET)
     public String create(@ModelAttribute("form") EntryInputForm inputForm,
-            BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) throws RecordNotFoundException, IllegalRequestParamException {
+            BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) throws RecordNotFoundException, IllegalRequestParamException, UnsupportedEncodingException {
 
         if(!userInfo.isAdminFlg()) {
 //            if (inputForm.getUserId() == null ||

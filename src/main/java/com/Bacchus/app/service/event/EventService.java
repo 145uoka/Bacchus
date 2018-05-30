@@ -1,10 +1,9 @@
 package com.Bacchus.app.service.event;
 
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.Bacchus.app.Exception.IllegalRequestParamException;
 import com.Bacchus.app.Exception.RecordNotFoundException;
 import com.Bacchus.app.components.CandidateDto;
 import com.Bacchus.app.components.EventDto;
@@ -29,6 +29,7 @@ import com.Bacchus.app.form.event.EventEditForm;
 import com.Bacchus.app.service.CommonService;
 import com.Bacchus.app.service.LoggerService;
 import com.Bacchus.app.service.entry.EntryService;
+import com.Bacchus.app.util.CommonUtil;
 import com.Bacchus.app.util.DateUtil;
 import com.Bacchus.dbflute.cbean.UserTCB;
 import com.Bacchus.dbflute.exbhv.CandidateTBhv;
@@ -92,8 +93,9 @@ public class EventService {
      *
      * @param eventNo イベント管理番号
      * @return EventDto イベントDto
+     * @throws UnsupportedEncodingException
      */
-    public EventDto findEventByPK(int eventNo) {
+    public EventDto findEventByPK(int eventNo) throws UnsupportedEncodingException {
 
         // 経費補助有無の文言取得
         Map<String, String> generalCodeDtoMap = commonService.getGeneralCodeMapByCodeKbn(GeneralCodeKbn.AUXILIARY_DIV);
@@ -111,6 +113,7 @@ public class EventService {
             // EntityからDtoへ変換（event_T）
             eventDto = new EventDto();
             BeanUtils.copyProperties(eventT.get(), eventDto);
+            eventDto.setEventPlaceUrlEncode(CommonUtil.urlEncode(eventDto.getEventPlace()));
 
             if (eventT.get().getUserT().isPresent()) {
 
@@ -143,8 +146,9 @@ public class EventService {
      * @param form EventEditForm
      * @throws ParseException
      * @throws RecordNotFoundException
+     * @throws IllegalRequestParamException
      */
-    public void update(EventEditForm form) throws ParseException, RecordNotFoundException {
+    public void update(EventEditForm form) throws ParseException, RecordNotFoundException, IllegalRequestParamException {
 
         // 編集するイベントIDを取得し、レコードをSELECT。
         OptionalEntity<EventT> eventTOptionalEntity = eventTBhv.selectByPK(form.getEventNo());
@@ -185,85 +189,65 @@ public class EventService {
         // 更新
         eventTBhv.update(eventTEntity);
 
-        // 入力された候補日をリストにセットする。
-        List<String> formCandidateList = new ArrayList<String>();
+        if (form.getStartDate() == null || form.getStartDate().length == 0) {
+            candidateTbhv.queryDelete(cb->{
+               cb.query().setEventNo_Equal(form.getEventNo());
+            });
 
-        if (form.getStartDate() != null && form.getStartDate().length > 0) {
-            // 候補日が空白でなければ、画面入力日と候補日テーブル登録日の比較を行う。
-            for (int i = 0; i < form.getStartDate().length; i++) {
-                if (StringUtils.isNotEmpty(form.getStartDate()[i])) {
-                    formCandidateList.add(form.getStartDate()[i]);
-                }
-            }
+        } else {
 
             // 選択したイベント管理番号から、候補日_Tを取得
-            ListResultBean<CandidateT> candidateTEntityList = entryService.findRegisterCandidateTList(form.getEventNo());
-
-            // record無し処理
-            if (CollectionUtils.isEmpty(candidateTEntityList)) {
-                Map<String, Object> conditionMap = new HashMap<String, Object>();
-                conditionMap.put("eventNo", form.getEventNo());
-                throw new RecordNotFoundException("event_t", RecordNotFoundException.createKeyInfoMessage(conditionMap));
-            }
-
-            List<String> entityCandidateList = new ArrayList<String>();
-            List<Integer> candidateNoList = new ArrayList<Integer>();
-            List<Integer> entrySummaryList = new ArrayList<Integer>();
-            Map<String, Integer> candidateMap = new HashMap<String, Integer>();
-
-            for (CandidateT candidateT : candidateTEntityList) {
-                candidateNoList.add(candidateT.getCandidateNo());
-                entrySummaryList.add(entryService.selectCountByEntryDiv(candidateT.getCandidateNo(),
-                        SystemCodeConstants.EntryDiv.ENTRY));
-                CandidateDto candidateDto = convCandidateEntityToDto(candidateT);
-                entityCandidateList.add(candidateDto.getStartDate());
-
-                candidateMap.put(candidateDto.getStartDate(), candidateDto.getCandidateNo());
-            }
+            ListResultBean<CandidateT> candidateTList = candidateTbhv.selectList(cb->{
+                cb.query().setEventNo_Equal(form.getEventNo());
+                cb.query().addOrderBy_EventStartDatetime_Asc();
+            });
 
             List<CandidateT> candidateInsertList = new ArrayList<CandidateT>();
-            List<CandidateT> candidateDeleteList = new ArrayList<CandidateT>();
 
-            if (CollectionUtils.isNotEmpty(entityCandidateList)) {
-                //候補日リストがnullでなければ、以下の3パターンの処理を行う。
-                for (int j = 0; j < form.getStartDate().length; j++) {
+            for (String startDate : form.getStartDate()) {
 
-                    if (entityCandidateList.contains(form.getStartDate()[j])) {
-                        // 画面入力日がcandidate_tにすでに登録されている場合、何もしない。
-                        continue;
+                if (StringUtils.isEmpty(startDate)) {
+                    continue;
+                }
+                String startDateYYYYMMDD = startDate.replace("/", "");
+                boolean isExists = false;
 
-                    } else if (!entityCandidateList.contains(form.getStartDate()[j])) {
-                        // 画面入力日がcandidate_tに登録されていない場合、登録リストにセットする。
-
-                        if(StringUtils.isEmpty(form.getStartDate()[j])){
-                            //入力候補日のうちnullがあれば、スキップ。
-                            continue;
-                        }
-
-                        CandidateT candidateTInsertEntity = new CandidateT();
-                        String startDateYYYYMMDD = form.getStartDate()[j].replace("/", "");
-                        candidateTInsertEntity.setStartDate(startDateYYYYMMDD);
-
-                        SimpleDateFormat df = new SimpleDateFormat(DateUtil.DATE_TIME_FORMAT_YYYYMMDD);
-                        Date startDate = df.parse(form.getStartDate()[j]);
-                        String str = new SimpleDateFormat(DateUtil.DATE_TIME_FORMAT_YYYYMMDDHHMM).format(startDate);
-                        candidateTInsertEntity.setEventStartDatetime(
-                                DateUtil.convertToLocalDateTime(str, DateUtil.DATE_TIME_FORMAT_YYYYMMDDHHMM));
-
-                        candidateTInsertEntity.setCandidateNo(candidateTbhv.selectNextVal());
-                        candidateTInsertEntity.setEventNo(eventTEntity.getEventNo());
-                        candidateInsertList.add(candidateTInsertEntity);
+                for (CandidateT candidateT : candidateTList) {
+                    if (StringUtils.equals(startDateYYYYMMDD, candidateT.getStartDate())) {
+                        isExists = true;
+                        break;
                     }
                 }
 
-                for (String date : entityCandidateList) {
-                    if (!formCandidateList.contains(date)) {
-                        // candidate_tに登録されている日が画面入力日から削除された場合、削除リストにセットする。
-                        OptionalEntity<CandidateT> optionalEntity = candidateTbhv.selectByPK(candidateMap.get(date));
-                        CandidateT candidateTDeleteEntity = optionalEntity.get();
+                if (!isExists) {
+                    CandidateT candidateTInsertEntity = new CandidateT();
 
-                        candidateDeleteList.add(candidateTDeleteEntity);
+                    candidateTInsertEntity.setStartDate(startDateYYYYMMDD);
+                    candidateTInsertEntity.setEventNo(eventTEntity.getEventNo());
+                    candidateTInsertEntity.setEventStartDatetime(
+                            DateUtil.convertToLocalDateTime(startDate + " 00:00", DateUtil.DATE_TIME_FORMAT_YYYYMMDDHHMM));
+//                    candidateTInsertEntity.setCandidateNo(candidateTbhv.selectNextVal());
+
+                    candidateInsertList.add(candidateTInsertEntity);
+                }
+            }
+
+            List<CandidateT> candidateDeleteList = new ArrayList<CandidateT>();
+
+            for (CandidateT candidateT : candidateTList) {
+                boolean isExists = false;
+                for (String startDate : form.getStartDate()) {
+                    if (StringUtils.isEmpty(startDate)) {
+                        continue;
                     }
+                    startDate = startDate.replace("/", "");
+                    if (StringUtils.equals(candidateT.getStartDate(), startDate)) {
+                        isExists = true;
+                        break;
+                    }
+                }
+                if (!isExists) {
+                    candidateDeleteList.add(candidateT);
                 }
             }
 
@@ -278,14 +262,17 @@ public class EventService {
         }
 
         if (StringUtils.isNotEmpty(form.getFixDate())) {
-            // 日付確定ボタンが選択された場合、true。
-            EventT event = new EventT();
-
-            event.setEventNo(eventTEntity.getEventNo());
-            event.setFixFlg(Flag.ON.getIntegerValue());
-
+            String fixDate = form.getStartDate()[Integer.parseInt(form.getFixDate())];
+            if (StringUtils.isEmpty(fixDate)) {
+                throw new IllegalRequestParamException("startDate[" + form.getFixDate() + "]", fixDate);
+            } else {
+                fixDate = fixDate.replace("/", "");
+            }
             // 候補日テーブルから登録したイベントの候補日を取得
-            ListResultBean<CandidateT> candidateTList = entryService.findRegisterCandidateTList(form.getEventNo());
+            ListResultBean<CandidateT> candidateTList = candidateTbhv.selectList(cb->{
+                cb.query().setEventNo_Equal(form.getEventNo());
+                cb.query().addOrderBy_EventStartDatetime_Asc();
+            });
 
             // record無し処理
             if (CollectionUtils.isEmpty(candidateTList)) {
@@ -295,26 +282,22 @@ public class EventService {
                         RecordNotFoundException.createKeyInfoMessage(conditionMap));
             }
 
-            List<CandidateDto> candidateDtoList = new ArrayList<CandidateDto>();
+            // 確定ラジオボタンを選択した候補日の候補日番号をセット
+
 
             for (CandidateT candidateT : candidateTList) {
-                CandidateDto candidateDto = convCandidateEntityToDto(candidateT);
-                candidateDtoList.add(candidateDto);
-            }
-
-            // 確定ラジオボタンを選択した候補日の候補日番号をセット
-            String fixDate = form.getStartDate()[Integer.parseInt(form.getFixDate())];
-            for (CandidateDto candidate : candidateDtoList) {
 
                 // CandidateTのイベント候補日が確定選択した候補日と一致すればtrue
-                if (StringUtils.isNotEmpty(form.getFixDate())) {
-                    if (StringUtils.equals(candidate.getStartDate(), fixDate)) {
+                if (StringUtils.equals(candidateT.getStartDate(), fixDate)) {
 
-                        // 確定候補日の候補日番号をセット
-                        event.setCandidateNo(candidate.getCandidateNo());
-                    }
                     // 登録
-                    eventTBhv.update(event);
+                    EventT event = new EventT();
+                    event.setFixFlg(Flag.ON.getIntegerValue());
+                    event.setCandidateNo(candidateT.getCandidateNo());
+                    eventTBhv.queryUpdate(event, cb->{
+                        cb.query().setEventNo_Equal(form.getEventNo());
+                    });
+                    break;
                 }
             }
 
@@ -322,12 +305,10 @@ public class EventService {
 
             // 未確定ボタンが選択された場合、fixFlgに0をセット
             EventT event = new EventT();
-            event.setEventNo(eventTEntity.getEventNo());
-            event.setCandidateNo(null);
             event.setFixFlg(Flag.OFF.getIntegerValue());
-
-            // 登録
-            eventTBhv.update(event);
+            eventTBhv.queryUpdate(event, cb->{
+                cb.query().setEventNo_Equal(form.getEventNo());
+            });
         }
 
         // ログ出力

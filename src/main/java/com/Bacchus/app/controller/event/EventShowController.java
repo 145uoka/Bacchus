@@ -1,5 +1,6 @@
 package com.Bacchus.app.controller.event;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -99,10 +100,11 @@ public class EventShowController extends BaseController {
      * @throws RecordNotFoundException
      * @throws InvocationTargetException
      * @throws IllegalAccessException
+     * @throws UnsupportedEncodingException
      */
     @RequestMapping(value = ProcConstants.Operation.SHOW, method = RequestMethod.GET)
     public String show(@ModelAttribute("form") ShowForm form,
-            BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model, HttpSession ses) throws RecordNotFoundException, IllegalAccessException, InvocationTargetException {
+            BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model, HttpSession ses) throws RecordNotFoundException, IllegalAccessException, InvocationTargetException, UnsupportedEncodingException {
 
         if (!super.userInfo.isLogined()) {
             // 未ログインの場合、ログインさせる
@@ -132,8 +134,7 @@ public class EventShowController extends BaseController {
         model.addAttribute("form", form);
 
         // 選択したイベント管理番号から、候補日_Tを取得
-        ListResultBean<CandidateT> candidateTList =
-                entryService.findRegisterCandidateTList(form.getEventNo());
+        ListResultBean<CandidateT> candidateTList = entryService.findRegisterCandidateTList(form.getEventNo());
 
         // record無し処理
         if (CollectionUtils.isEmpty(candidateTList)) {

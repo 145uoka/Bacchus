@@ -20,13 +20,16 @@ public class EventDto implements Serializable {
     private String eventName;
 
     /** イベント詳細 */
-    private String eventDetail ;
+    private String eventDetail;
 
     /** 場所 */
-    private String eventPlace ;
+    private String eventPlace;
+
+    /** 場所URLエンコード済み */
+    private String eventPlaceUrlEncode;
 
     /** URL */
-    private String eventUrl ;
+    private String eventUrl;
 
     /** 電話番号 */
     private String tell;
@@ -35,7 +38,7 @@ public class EventDto implements Serializable {
     private Integer eventEntryFee;
 
     /** 補助フラグ */
-    private Integer auxiliaryFlg ;
+    private Integer auxiliaryFlg;
 
     /** 補助フラグ表示名称 */
     private String auxiliaryFlgDisplay;
@@ -105,7 +108,7 @@ public class EventDto implements Serializable {
      * @return イベント詳細
      */
     public String getEventDetail () {
-        return this.eventDetail ;
+        return this.eventDetail;
     }
 
     /**
@@ -114,7 +117,7 @@ public class EventDto implements Serializable {
      * @param eventDetail  イベント詳細
      */
     public void setEventDetail (String eventDetail ) {
-        this.eventDetail  = eventDetail ;
+        this.eventDetail  = eventDetail;
     }
 
     /**
@@ -123,7 +126,7 @@ public class EventDto implements Serializable {
      * @return 場所
      */
     public String getEventPlace () {
-        return this.eventPlace ;
+        return this.eventPlace;
     }
 
     /**
@@ -132,7 +135,7 @@ public class EventDto implements Serializable {
      * @param eventPlace  場所
      */
     public void setEventPlace (String eventPlace ) {
-        this.eventPlace  = eventPlace ;
+        this.eventPlace  = eventPlace;
     }
 
     /**
@@ -141,7 +144,7 @@ public class EventDto implements Serializable {
      * @return URL
      */
     public String getEventUrl () {
-        return this.eventUrl ;
+        return this.eventUrl;
     }
 
     /**
@@ -150,7 +153,7 @@ public class EventDto implements Serializable {
      * @param eventUrl  URL
      */
     public void setEventUrl (String eventUrl ) {
-        this.eventUrl  = eventUrl ;
+        this.eventUrl  = eventUrl;
     }
 
     /**
@@ -195,7 +198,7 @@ public class EventDto implements Serializable {
      * @return 補助フラグ
      */
     public Integer getAuxiliaryFlg () {
-        return this.auxiliaryFlg ;
+        return this.auxiliaryFlg;
     }
 
     /**
@@ -204,7 +207,7 @@ public class EventDto implements Serializable {
      * @param auxiliaryFlg  補助フラグ
      */
     public void setAuxiliaryFlg (Integer auxiliaryFlg ) {
-        this.auxiliaryFlg  = auxiliaryFlg ;
+        this.auxiliaryFlg  = auxiliaryFlg;
     }
 
     /**
@@ -357,6 +360,14 @@ public class EventDto implements Serializable {
 
     public void setEventTypeDto(EventTypeDto eventTypeDto) {
         this.eventTypeDto = eventTypeDto;
+    }
+
+    public String getEventPlaceUrlEncode() {
+        return eventPlaceUrlEncode;
+    }
+
+    public void setEventPlaceUrlEncode(String eventPlaceUrlEncode) {
+        this.eventPlaceUrlEncode = eventPlaceUrlEncode;
     }
 
 }

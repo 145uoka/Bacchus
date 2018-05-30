@@ -126,8 +126,8 @@ CREATE TABLE Bacchus.event_t
 	store_name text,
 	-- イベント区分ID
 	event_type_id int,
-	-- ユーザーID
-	user_id int NOT NULL,
+	-- 幹事ユーザーID
+	user_id int,
 	PRIMARY KEY (event_no)
 ) WITHOUT OIDS;
 
@@ -359,7 +359,7 @@ COMMENT ON COLUMN Bacchus.event_t.fix_flg IS '確定フラグ';
 COMMENT ON COLUMN Bacchus.event_t.candidate_no IS '候補日管理番号';
 COMMENT ON COLUMN Bacchus.event_t.store_name IS '店舗名';
 COMMENT ON COLUMN Bacchus.event_t.event_type_id IS 'イベント区分ID';
-COMMENT ON COLUMN Bacchus.event_t.user_id IS 'ユーザーID';
+COMMENT ON COLUMN Bacchus.event_t.user_id IS '幹事ユーザーID';
 COMMENT ON TABLE Bacchus.event_type_m IS 'イベント区分_M';
 COMMENT ON COLUMN Bacchus.event_type_m.event_type_id IS 'イベント区分ID';
 COMMENT ON COLUMN Bacchus.event_type_m.event_type_name IS 'イベント区分名称';

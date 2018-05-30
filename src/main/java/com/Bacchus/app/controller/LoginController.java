@@ -17,6 +17,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,6 +65,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RequestMapping(value = "/login")
 public class LoginController extends BaseController {
 
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     OAuthService oAuthService;
 
@@ -104,8 +108,11 @@ public class LoginController extends BaseController {
 
         String json = EntityUtils.toString(httpResponse.getEntity(), SystemCodeConstants.CHARACTER_ENCODING);
 
+        logger.debug("json>>>" + json);
+
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(json);
+
 
         AccessToken accessToken = new AccessToken(
                 node.get("scope").asText(),

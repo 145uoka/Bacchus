@@ -10,7 +10,7 @@ public class SystemPropertyKeyConstants {
     public static final String AUTHORIZE_URL = "AUTHORIZE_URL";
     public static final String RESPONSE_TYPE = "RESPONSE_TYPE";
     public static final String CLIENT_ID = "CLIENT_ID";
-    public static final String REDIRECT_URI  = "REDIRECT_URI ";
+    public static final String REDIRECT_URI  = "REDIRECT_URI";
     public static final String STATE = "STATE";
     public static final String SCOPE = "SCOPE";
     public static final String CLIENT_SECRET = "CLIENT_SECRET";

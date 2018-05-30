@@ -75,10 +75,10 @@ CREATE TABLE Bacchus.entry_t
 	entry_id bigserial NOT NULL,
 	-- 候補日管理番号
 	candidate_no int NOT NULL,
-	-- user_id
-	user_id int NOT NULL,
 	-- 参加区分
 	entry_div int,
+	-- ユーザーID
+	user_id int NOT NULL,
 	PRIMARY KEY (entry_id)
 ) WITHOUT OIDS;
 
@@ -90,10 +90,10 @@ CREATE TABLE Bacchus.event_notify
 	event_notify_no serial NOT NULL,
 	-- イベント管理番号
 	event_no int NOT NULL,
-	-- user_id
-	user_id int NOT NULL,
 	-- 通知日時
 	notify_datetime timestamp,
+	-- ユーザーID
+	user_id int NOT NULL,
 	PRIMARY KEY (event_notify_no),
 	UNIQUE (event_no, user_id)
 ) WITHOUT OIDS;
@@ -124,10 +124,10 @@ CREATE TABLE Bacchus.event_t
 	candidate_no int,
 	-- 店舗名
 	store_name text,
-	-- 幹事ユーザID
-	user_id int,
 	-- イベント区分ID
 	event_type_id int,
+	-- ユーザーID
+	user_id int NOT NULL,
 	PRIMARY KEY (event_no)
 ) WITHOUT OIDS;
 
@@ -200,7 +200,7 @@ CREATE TABLE Bacchus.system_property_m
 -- ユーザー_T
 CREATE TABLE Bacchus.user_t
 (
-	-- user_id
+	-- ユーザーID
 	user_id serial NOT NULL,
 	-- ログインID
 	login_id text UNIQUE,
@@ -226,9 +226,6 @@ CREATE TABLE Bacchus.user_t
 	auth_level int NOT NULL,
 	PRIMARY KEY (user_id)
 ) WITHOUT OIDS;
-
-
-ALTER SEQUENCE Bacchus.user_t_user_id_SEQ INCREMENT 1 MINVALUE 1 MAXVALUE 9223372036854775807 RESTART 1 CACHE 1;
 
 
 -- ユーザー区分_M
@@ -342,13 +339,13 @@ COMMENT ON COLUMN Bacchus.display_def_m.UPDATE_USER IS '更新者';
 COMMENT ON TABLE Bacchus.entry_t IS '参加_T';
 COMMENT ON COLUMN Bacchus.entry_t.entry_id IS '参加ID';
 COMMENT ON COLUMN Bacchus.entry_t.candidate_no IS '候補日管理番号';
-COMMENT ON COLUMN Bacchus.entry_t.user_id IS 'user_id';
 COMMENT ON COLUMN Bacchus.entry_t.entry_div IS '参加区分';
+COMMENT ON COLUMN Bacchus.entry_t.user_id IS 'ユーザーID';
 COMMENT ON TABLE Bacchus.event_notify IS 'イベント通知_T';
 COMMENT ON COLUMN Bacchus.event_notify.event_notify_no IS 'イベント通知番号';
 COMMENT ON COLUMN Bacchus.event_notify.event_no IS 'イベント管理番号';
-COMMENT ON COLUMN Bacchus.event_notify.user_id IS 'user_id';
 COMMENT ON COLUMN Bacchus.event_notify.notify_datetime IS '通知日時';
+COMMENT ON COLUMN Bacchus.event_notify.user_id IS 'ユーザーID';
 COMMENT ON TABLE Bacchus.event_t IS 'イベント_T';
 COMMENT ON COLUMN Bacchus.event_t.event_no IS 'イベント管理番号';
 COMMENT ON COLUMN Bacchus.event_t.event_name IS 'イベント名';
@@ -361,8 +358,8 @@ COMMENT ON COLUMN Bacchus.event_t.auxiliary_flg  IS '補助フラグ';
 COMMENT ON COLUMN Bacchus.event_t.fix_flg IS '確定フラグ';
 COMMENT ON COLUMN Bacchus.event_t.candidate_no IS '候補日管理番号';
 COMMENT ON COLUMN Bacchus.event_t.store_name IS '店舗名';
-COMMENT ON COLUMN Bacchus.event_t.user_id IS '幹事ユーザID';
 COMMENT ON COLUMN Bacchus.event_t.event_type_id IS 'イベント区分ID';
+COMMENT ON COLUMN Bacchus.event_t.user_id IS 'ユーザーID';
 COMMENT ON TABLE Bacchus.event_type_m IS 'イベント区分_M';
 COMMENT ON COLUMN Bacchus.event_type_m.event_type_id IS 'イベント区分ID';
 COMMENT ON COLUMN Bacchus.event_type_m.event_type_name IS 'イベント区分名称';
@@ -389,7 +386,7 @@ COMMENT ON COLUMN Bacchus.system_property_m.REGISTER_USER IS '作成者';
 COMMENT ON COLUMN Bacchus.system_property_m.UPDATE_DATETIME IS '更新日時';
 COMMENT ON COLUMN Bacchus.system_property_m.UPDATE_USER IS '更新者';
 COMMENT ON TABLE Bacchus.user_t IS 'ユーザー_T';
-COMMENT ON COLUMN Bacchus.user_t.user_id IS 'user_id';
+COMMENT ON COLUMN Bacchus.user_t.user_id IS 'ユーザーID';
 COMMENT ON COLUMN Bacchus.user_t.login_id IS 'ログインID';
 COMMENT ON COLUMN Bacchus.user_t.line_flg IS 'Lineフラグ';
 COMMENT ON COLUMN Bacchus.user_t.line_id IS 'LineID';

@@ -64,6 +64,10 @@ public class OAuthService {
         sb.append(CommonUtil.urlEncode(systemPropertyService.getSystemPropertyValue(
                 systemPropertyMList, SystemPropertyKeyConstants.CLIENT_ID)));
 
+        sb.append("&redirect_uri=");
+        sb.append(CommonUtil.urlEncode(systemPropertyService.getSystemPropertyValue(
+                systemPropertyMList, SystemPropertyKeyConstants.REDIRECT_URI)));
+
         sb.append("&state=");
         sb.append(CommonUtil.urlEncode(systemPropertyService.getSystemPropertyValue(
                 systemPropertyMList, SystemPropertyKeyConstants.STATE)));

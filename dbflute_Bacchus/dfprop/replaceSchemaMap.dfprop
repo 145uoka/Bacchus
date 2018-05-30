@@ -36,7 +36,7 @@ map:{
     #  If DBFlute environment type is specified, inherits it as default.
     #
     #; repsEnvType = ut
-#    ; repsEnvType = pr
+    ; repsEnvType = pr
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

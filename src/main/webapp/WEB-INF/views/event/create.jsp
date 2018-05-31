@@ -33,6 +33,22 @@
     <div class="container">
 
 
+      <%-- ボタン  --%>
+      <c:if test="${not empty backUrl}">
+        <div class="row">
+          <div class="col-md-offset-1 col-md-10">
+            <div align="left">
+              <table style="margin-bottom: 10px">
+                <tr>
+                  <td style="vertical-align: middle;"><a href="${pageContext.request.contextPath}${backUrl}" type="button" class="btn btn-warning"> <i class="glyphicon glyphicon-chevron-left"></i>&nbsp;戻る
+                  </a></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </c:if>
+
       <%-- 画面タイトル --%>
       <div class="row">
         <div class="col-md-offset-1 col-md-10">

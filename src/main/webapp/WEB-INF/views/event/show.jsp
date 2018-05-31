@@ -31,6 +31,34 @@
 
     <div class="container">
 
+      <%-- ボタン  --%>
+      <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+          <div align="left">
+            <table>
+              <tr>
+                <td style="vertical-align: middle;"><a href="${pageContext.request.contextPath}/event/index" type="button" class="btn btn-warning"> <i class="glyphicon glyphicon-chevron-left"></i>&nbsp;戻る
+                </a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+          <div class="col-md-5">
+
+          <div align="right">
+          <table>
+              <tr>
+                <td style="vertical-align: middle;"><a type="button" class="btn btn-success" href="${pageContext.request.contextPath}/event/copy/${form.eventNo}" role="button">複製</a></td>
+                <td><label class="space" style="width: 20px;"></label></td>
+                <td style="vertical-align: middle;"><a type="button" class="btn btn-warning" href="${pageContext.request.contextPath}/event/edit/${form.eventNo}" role="button">編集</a></td>
+                <td><label class="space" style="width: 20px;"></label></td>
+                <td style="vertical-align: middle;"><a type="button" class="btn btn-danger" onClick="deleteConfirmation()">削除</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
       <div class="row">
         <div class="col-md-offset-1 col-md-10">
           <h3>
@@ -52,21 +80,33 @@
         </div>
       </div>
 
-      <!-- ボタン -->
+     <%-- ボタン  --%>
       <div class="row">
         <div class="col-md-offset-1 col-md-10" align="center">
           <table style="margin-bottom: 20px">
             <tr>
-              <c:if test="${not empty candidateDtoList}">
-                <td style="vertical-align: middle;"><a class="btn btn-add" href="${pageContext.request.contextPath}/entry/create?eventNo=${form.eventNo}"
-                  role="button">参加可否更新</a></td>
-                <td><label class="space" style="width: 30px;"></label></td>
-                <td style="vertical-align: middle;"><a class="btn btn-info" href="${pageContext.request.contextPath}/event/notify?eventNo=${form.eventNo}" role="button">通知</a></td>
-                <td><label class="space" style="width: 30px;"></label></td>
-              </c:if>
-              <td style="vertical-align: middle;"><a type="button" class="btn btn-edit" href="${pageContext.request.contextPath}/event/edit?eventNo=${form.eventNo}" role="button">編集</a></td>
-              <td><label class="space" style="width: 30px;"></label></td>
-              <td style="vertical-align: middle;"><a type="button" class="btn btn-danger" onClick="deleteConfirmation()">削除</a></td>
+                <td style="vertical-align: middle;">
+                <c:choose>
+                  <c:when test="${empty candidateDtoList or userInfo.adminFlg}">
+                    <a class="btn btn-add disabled" href="${pageContext.request.contextPath}/entry/create?eventNo=${form.eventNo}" role="button">参加可否更新</a>
+                  </c:when>
+                  <c:otherwise>
+                    <a class="btn btn-add" href="${pageContext.request.contextPath}/entry/create?eventNo=${form.eventNo}" role="button">参加可否更新</a>
+                  </c:otherwise>
+                </c:choose>
+              </td>
+
+                <td><label class="space" style="width: 20px;"></label></td>
+                <td style="vertical-align: middle;">
+                <c:choose>
+                  <c:when test="${empty candidateDtoList}">
+                    <a class="btn btn-info disabled" href="${pageContext.request.contextPath}/event/notify/${form.eventNo}" role="button">通知</a>
+                  </c:when>
+                  <c:otherwise>
+                    <a class="btn btn-info" href="${pageContext.request.contextPath}/event/notify/${form.eventNo}" role="button">通知</a>
+                  </c:otherwise>
+                </c:choose>
+              </td>
             </tr>
           </table>
         </div>

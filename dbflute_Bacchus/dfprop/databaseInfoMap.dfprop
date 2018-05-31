@@ -16,7 +16,7 @@
 #
 map:{
     ; driver   = org.postgresql.Driver
-    ; ; schema   = bacchus
+    ; schema   = bacchus
 
     # -------- pr --------
     #; url      = jdbc:postgresql://ec2-54-83-192-68.compute-1.amazonaws.com:5432/d6tgfg2q2aqst5?sslmode=require

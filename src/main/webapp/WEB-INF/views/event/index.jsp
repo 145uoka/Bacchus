@@ -48,7 +48,7 @@
             </thead>
             <tbody>
               <c:forEach var="list" items="${eventIndexDtoList}" varStatus="status">
-                <tr data-href="${pageContext.request.contextPath}/event/show?eventNo=${list.eventNo}">
+                <tr data-href="${pageContext.request.contextPath}/event/show/${list.eventNo}">
                   <td class="text-center"><c:out value="${status.count}" /></td>
                   <td><c:out value="${list.eventName}" /></td>
                   <td class="text-center"><c:out value="${list.eventTypeName}" /></td>

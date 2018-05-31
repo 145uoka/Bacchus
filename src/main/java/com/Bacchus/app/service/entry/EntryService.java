@@ -87,8 +87,8 @@ public class EntryService extends AbstractService {
         entryTCB.query().queryCandidateT().innerJoin();
         entryTCB.query().queryUserT().innerJoin();
         entryTCB.query().setCandidateNo_InScope(candidateNoList);
+        entryTCB.query().queryCandidateT().addOrderBy_EventStartDatetime_Asc();
         entryTCB.query().addOrderBy_UserId_Asc();
-        entryTCB.query().queryCandidateT().addOrderBy_EventEndDatetime_Asc();
         ListResultBean<EntryT> entryTList = entryTBhv.readList(entryTCB);
         return entryTList;
     }

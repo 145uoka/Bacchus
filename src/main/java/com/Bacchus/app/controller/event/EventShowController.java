@@ -3,12 +3,13 @@ package com.Bacchus.app.controller.event;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.codec.binary.StringUtils;
@@ -17,11 +18,10 @@ import org.dbflute.cbean.result.ListResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Bacchus.app.Exception.RecordNotFoundException;
 import com.Bacchus.app.components.CandidateDto;
@@ -35,13 +35,13 @@ import com.Bacchus.app.service.CommonService;
 import com.Bacchus.app.service.LoggerService;
 import com.Bacchus.app.service.entry.EntryService;
 import com.Bacchus.app.service.event.EventService;
-import com.Bacchus.app.service.event.EventShowService;
 import com.Bacchus.app.service.user.UserService;
 import com.Bacchus.app.util.DateUtil;
 import com.Bacchus.dbflute.exentity.CandidateT;
 import com.Bacchus.dbflute.exentity.EntryT;
 import com.Bacchus.webbase.appbase.BaseController;
 import com.Bacchus.webbase.appbase.BeforeLogin;
+import com.Bacchus.webbase.common.beanvalidation.NumRequired;
 import com.Bacchus.webbase.common.constants.DisplayIdConstants.Event;
 import com.Bacchus.webbase.common.constants.ProcConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants;
@@ -83,13 +83,6 @@ public class EventShowController extends BaseController {
     EntryService entryService;
 
     /**
-     * イベント詳細画面サービス
-     */
-    @Autowired
-    EventShowService eventShowService;
-
-
-    /**
      * イベント詳細。
      *
      * @param form Form
@@ -102,13 +95,16 @@ public class EventShowController extends BaseController {
      * @throws IllegalAccessException
      * @throws UnsupportedEncodingException
      */
-    @RequestMapping(value = ProcConstants.Operation.SHOW, method = RequestMethod.GET)
-    public String show(@ModelAttribute("form") ShowForm form,
-            BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model, HttpSession ses) throws RecordNotFoundException, IllegalAccessException, InvocationTargetException, UnsupportedEncodingException {
+
+    @RequestMapping(value = ProcConstants.Operation.SHOW + "/{paramEventNo}", method = RequestMethod.GET)
+    public String show(@PathVariable(value = "paramEventNo") @Valid @NumRequired String paramEventNo, Model model,
+            HttpSession ses) throws RecordNotFoundException, IllegalAccessException, InvocationTargetException, UnsupportedEncodingException {
+
+        int eventNo = Integer.parseInt(paramEventNo);
 
         if (!super.userInfo.isLogined()) {
             // 未ログインの場合、ログインさせる
-            String nextPage = ProcConstants.EVENT + ProcConstants.Operation.SHOW + "?eventNo="+form.getEventNo();
+            String nextPage = ProcConstants.EVENT + ProcConstants.Operation.SHOW + "/"+eventNo;
             ses.setAttribute("nextPage", nextPage);
             return super.redirect("/login/lineLogin");
         } else {
@@ -119,22 +115,16 @@ public class EventShowController extends BaseController {
         super.setDisplayTitle(model, Event.BACCHUS_0204);
 
         // イベント情報の取得
-        EventDto eventDto = eventService.findEventByPK(form.getEventNo());
-
-        // record無し処理
-        if (eventDto == null) {
-            Map<String, Object> conditionMap = new HashMap<String, Object>();
-            conditionMap.put("eventNo", form.getEventNo());
-            throw new RecordNotFoundException("event_t", RecordNotFoundException.createKeyInfoMessage(conditionMap));
-        }
+        EventDto eventDto = eventService.findEventByPK(eventNo);
 
         model.addAttribute("eventDto", eventDto);
 
-        form.setUserId(userInfo.getUserId());
+        ShowForm form = new ShowForm();
+        form.setEventNo(eventNo);
         model.addAttribute("form", form);
 
         // 選択したイベント管理番号から、候補日_Tを取得
-        ListResultBean<CandidateT> candidateTList = entryService.findRegisterCandidateTList(form.getEventNo());
+        ListResultBean<CandidateT> candidateTList = entryService.findRegisterCandidateTList(eventNo);
 
         // record無し処理
         if (CollectionUtils.isEmpty(candidateTList)) {
@@ -168,15 +158,14 @@ public class EventShowController extends BaseController {
         }
 
         // 参加可否情報の取得
-        Map<Integer, EntryDispListDto> entryDispMap = new HashMap<Integer, EntryDispListDto>();
 
-        Map<Integer, Map<Integer, EntryDto>> tempEntryDispMap = new HashMap<Integer, Map<Integer, EntryDto>>();
+        Map<Integer, Map<Integer, EntryDto>> tempEntryDispMap = new TreeMap<Integer, Map<Integer, EntryDto>>();
         ListResultBean<EntryT> entryTList = entryService.findEntryByCandidateNoList(candidateNoList);
 
         for (EntryT entry : entryTList) {
             Map<Integer, EntryDto> entryDtoMap = tempEntryDispMap.get(entry.getUserId());
             if (entryDtoMap == null) {
-                entryDtoMap = new HashMap<Integer, EntryDto>();
+                entryDtoMap = new TreeMap<Integer, EntryDto>();
             }
             EntryDto entryDto = new EntryDto();
 
@@ -276,13 +265,12 @@ public class EventShowController extends BaseController {
     }
 
     @RequestMapping(value = ProcConstants.Operation.DELETE, method = RequestMethod.GET)
-    public String delete(@ModelAttribute("form") ShowForm form,RedirectAttributes redirectAttributes, Model model){
+    public String delete(@ModelAttribute("form") ShowForm form){
 
-    	//削除
-    	eventShowService.delete(form);
+        //削除
+        eventService.delete(form);
 
-
-    	return redirect( ProcConstants.EVENT + ProcConstants.Operation.INDEX);
+        return redirect(ProcConstants.EVENT + ProcConstants.Operation.INDEX);
     }
 
 }

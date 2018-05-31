@@ -15,9 +15,6 @@ public class ShowForm implements Serializable {
     /** イベント管理番号 */
     private Integer eventNo;
 
-    /** ユーザーID */
-    private Integer userId;
-
     /**
      * イベント管理番号の取得。
      *
@@ -36,21 +33,4 @@ public class ShowForm implements Serializable {
         this.eventNo = eventNo;
     }
 
-    /**
-     * ユーザーIDの取得。
-     *
-     * @return ユーザーID
-     */
-    public Integer getUserId() {
-        return this.userId;
-    }
-
-    /**
-     * ユーザーIDを設定。
-     *
-     * @param userId ユーザーID
-     */
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
 }

@@ -16,5 +16,6 @@ public class ProcConstants {
     public static final String DELETE= "/delete";
     public static final String NOTIFY = "/notify";
     public static final String EXEC = "/exec";
+    public static final String COPY = "/copy";
     }
 }

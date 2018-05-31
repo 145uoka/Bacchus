@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.Bacchus.app.components.EventIndexDto;
-import com.Bacchus.app.service.event.EventIndexService;
 import com.Bacchus.app.service.event.EventService;
 import com.Bacchus.webbase.appbase.BaseController;
 import com.Bacchus.webbase.common.constants.DisplayIdConstants;
@@ -23,9 +22,6 @@ import com.Bacchus.webbase.common.constants.ProcConstants;
 @Controller
 @RequestMapping(value = ProcConstants.EVENT)
 public class EventIndexController extends BaseController {
-
-    @Autowired
-    EventIndexService eventIndexService;
 
     @Autowired
     EventService eventService;

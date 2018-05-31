@@ -263,7 +263,7 @@ public class MessageKeyConstants {
         public static final String NOT_DELETE_LOGIN_USER_ACCOUNT = "{error.not.delete.login.user.account}";
         /** これ以上追加することは出来ません。 */
         public static final String LIMIT_REGISTER = "{error.limit.register}";
-        /** 削除対象が選択されていません。 */
+        /** {0}が選択されていません。 */
         public static final String UNCHECKED = "{error.unchecked}";
         /** 入力された権限レベルは既に登録されています。 */
         public static final String ALREADY_REGISTERED = "{error.already.registered}";

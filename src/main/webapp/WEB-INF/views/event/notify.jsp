@@ -10,7 +10,7 @@
 </head>
 <body>
   <jsp:include page="../common/header.jsp" />
-  <form:form modelAttribute="form" method="post" name="form" action="${pageContext.request.contextPath}/event/notify/exec" class="form-horizontal">
+  <form:form modelAttribute="form" method="post" name="form" action="${pageContext.request.contextPath}/event/notify/${form.eventNo}/exec" class="form-horizontal">
 
     <form:hidden path="eventNo" />
 
@@ -22,7 +22,7 @@
         <div align="left">
           <table style="margin-bottom: 10px">
             <tr>
-              <td style="vertical-align: middle;"><a href="${pageContext.request.contextPath}/event/show?eventNo=${form.eventNo}" type="button" class="btn btn-warning"> <i
+              <td style="vertical-align: middle;"><a href="${pageContext.request.contextPath}/event/show/${form.eventNo}" type="button" class="btn btn-warning"> <i
                   class="glyphicon glyphicon-chevron-left"></i>&nbsp;戻る
               </a></td>
             </tr>
@@ -65,9 +65,18 @@
         <div align="left">
           <table style="margin-bottom: 10px">
             <tr>
-              <td style="vertical-align: middle;"><a type="button" class="btn btn-success" id="allCheck"><i class="glyphicon glyphicon-check"></i>&nbsp;全選択</a></td>
-              <td><label class="space" style="width: 30px;"></label></td>
-              <td style="vertical-align: middle;"><a type="button" class="btn btn-danger" id="allUnCheck"><i class="glyphicon glyphicon-unchecked"></i>&nbsp;全解除</a></td>
+              <c:choose>
+                <c:when test="${empty candidateDtoList}">
+                  <td style="vertical-align: middle;"><a type="button" class="btn btn-success disabled" id="allCheck"><i class="glyphicon glyphicon-check"></i>&nbsp;全選択</a></td>
+                  <td><label class="space" style="width: 30px;"></label></td>
+                  <td style="vertical-align: middle;"><a type="button" class="btn btn-danger disabled" id="allUnCheck"><i class="glyphicon glyphicon-unchecked"></i>&nbsp;全解除</a></td>
+                </c:when>
+                <c:otherwise>
+                  <td style="vertical-align: middle;"><a type="button" class="btn btn-success" id="allCheck"><i class="glyphicon glyphicon-check"></i>&nbsp;全選択</a></td>
+                  <td><label class="space" style="width: 30px;"></label></td>
+                  <td style="vertical-align: middle;"><a type="button" class="btn btn-danger" id="allUnCheck"><i class="glyphicon glyphicon-unchecked"></i>&nbsp;全解除</a></td>
+                </c:otherwise>
+              </c:choose>
             </tr>
           </table>
         </div>
@@ -109,7 +118,16 @@
         <div align="center">
           <table style="margin-bottom: 20px">
             <tr>
-              <td style="vertical-align: middle;"><a type="button" class="btn btn-info" onClick="notifyExec()">通知</a>
+              <td style="vertical-align: middle;">
+                <c:choose>
+                  <c:when test="${empty candidateDtoList}">
+                    <a type="button" class="btn btn-info disabled" onClick="notifyExec()">通知</a>
+                  </c:when>
+                  <c:otherwise>
+                    <a type="button" class="btn btn-info" onClick="notifyExec()">通知</a>
+                  </c:otherwise>
+                </c:choose>
+              </td>
             </tr>
           </table>
         </div>

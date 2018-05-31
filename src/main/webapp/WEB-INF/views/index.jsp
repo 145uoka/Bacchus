@@ -25,6 +25,12 @@
           <a class="btn-line-login" href="${pageContext.request.contextPath}/login/lineLogin"></a>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" align="center">
+          <a href="https://line.me/R/ti/p/%40lng6226y"><img height="36" border="0" alt="友だち追加" src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png"></a>
+        </div>
+      </div>
     </div>
   </form:form>
   <jsp:include page="common/footer.jsp" />

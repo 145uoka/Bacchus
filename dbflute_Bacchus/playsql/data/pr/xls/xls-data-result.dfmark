@@ -8,12 +8,12 @@ data-directory: playsql/data/pr/xls
 
 [UT_TEST_DATA.xls]
   system_property_m (11)
-  auth_m (2)
+  auth_m (3)
   DISPLAY_DEF_M (10)
   user_type_m (2)
   user_t (2)
-  event_type_m (1)
+  event_type_m (8)
   event_t (0)
   candidate_t (0)
   entry_t (0)
-  general_code_m (15)
+  general_code_m (8)

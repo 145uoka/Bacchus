@@ -144,7 +144,10 @@ public class EventEditController extends BaseController {
             List<String> candidateDtoList = new ArrayList<String>();
 
             for (int i = 0; i < candidateTList.size(); i++) {
-                candidateDtoList.add(candidateTList.get(i).getStartDate());
+                String candidate = DateUtil.localDateTime2String(candidateTList.get(i).getEventStartDatetime(),
+                        DateUtil.DATE_TIME_FORMAT_YYYYMMDD);
+
+                candidateDtoList.add(candidate);
 
                 // ラジオボタンの初期表示
                 if (candidateTList.get(i).getCandidateNo().equals(eventDto.getCandidateNo())) {

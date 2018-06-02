@@ -27,6 +27,8 @@ import com.linecorp.bot.client.LineMessagingClientBuilder;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.action.MessageAction;
+import com.linecorp.bot.model.event.Event;
+import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.template.ConfirmTemplate;
@@ -244,5 +246,24 @@ public class LineService {
                 } catch (InterruptedException | ExecutionException e) {
                     throw new RuntimeException(e);
                 }
+    }
+
+    public TextMessage handleTextContent(String replyToken, Event event, TextMessageContent content) throws Exception {
+        //入力されたテキストを取得
+        String text = content.getText();
+
+        switch (text) {
+            case "はい":
+
+                return new TextMessage("参加ありがとうございます");
+
+            case "いいえ":
+
+            	return new TextMessage("次回は参加お願いします");
+
+            default:
+                break;
+        }
+		return null;
     }
 }

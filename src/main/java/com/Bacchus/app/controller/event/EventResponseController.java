@@ -1,6 +1,9 @@
 package com.Bacchus.app.controller.event;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.Bacchus.app.service.CommonService;
 import com.Bacchus.app.service.LineService;
@@ -22,6 +25,7 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
  *
  */
 @LineMessageHandler
+@Controller
 public class EventResponseController extends BaseController {
 
     /** ロガーロジック */
@@ -56,6 +60,7 @@ public class EventResponseController extends BaseController {
      * @throws Exception
      */
     @EventMapping
+    @RequestMapping(value = "/line/callback", method = {RequestMethod.GET, RequestMethod.POST})
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
     	String text = event.getMessage().getText();
 //        TextMessageContent message = event.getMessage();

@@ -57,7 +57,7 @@ public class EventResponseController extends BaseController {
      */
     @EventMapping
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
-
+    	System.out.println("event: " + event);
 //        TextMessageContent message = event.getMessage();
         return new TextMessage("メッセージか送られました");
 //        lineService.handleTextContent(event.getReplyToken(), event, message);

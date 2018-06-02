@@ -223,7 +223,7 @@ public class LineService {
                         // PUSH通信
                         BotApiResponse response = lineMessagingClient
                                 .pushMessage(new PushMessage(userId,
-                                             new TemplateMessage("イベント通知",
+                                             new TemplateMessage("イベント参加通知です！！",
                                                      new ConfirmTemplate("イベント参加しますか？",
                                                              new MessageAction("はい", "はい"),
                                                              new MessageAction("いいえ", "いいえ")

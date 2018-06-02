@@ -26,7 +26,10 @@ import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.LineMessagingClientBuilder;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.action.MessageAction;
+import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.message.template.ConfirmTemplate;
 import com.linecorp.bot.model.response.BotApiResponse;
 
 /**
@@ -218,8 +221,17 @@ public class LineService {
                         LineMessagingClient lineMessagingClient = buildLineMessagingClient();
 
                         // PUSH通信
-                        BotApiResponse response = lineMessagingClient.pushMessage(
-                                new PushMessage(userId, new TextMessage(message))).get();
+                        BotApiResponse response = lineMessagingClient
+                                .pushMessage(new PushMessage(userId,
+                                             new TemplateMessage("イベント通知",
+                                                     new ConfirmTemplate("イベント参加しますか？",
+                                                             new MessageAction("はい", "はい"),
+                                                             new MessageAction("いいえ", "いいえ")
+                                                     )
+                                             )))
+                                .get();
+//                        BotApiResponse response = lineMessagingClient.pushMessage(
+//                                new PushMessage(userId, new TextMessage(message))).get();
 
                         // ログ出力
                         loggerService.outLog(LogMessageKeyConstants.Info.I_05_0002,

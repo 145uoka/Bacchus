@@ -57,9 +57,22 @@ public class EventResponseController extends BaseController {
      */
     @EventMapping
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
-    	System.out.println("event: " + event);
+    	String text = event.getMessage().getText();
 //        TextMessageContent message = event.getMessage();
-        return new TextMessage("メッセージか送られました");
-//        lineService.handleTextContent(event.getReplyToken(), event, message);
+//        return new TextMessage("メッセージか送られました");//
+        switch (text) {
+      case "はい":
+    	  //登録処理
+
+          return new TextMessage("参加ありがとうございます");
+
+      case "いいえ":
+    	  //何もしない
+
+      	return new TextMessage("次回は参加お願いします");
+
+      default:
+    	  return new TextMessage("次回は参加お願いします");
+  }
     }
 }

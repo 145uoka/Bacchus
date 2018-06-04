@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Bacchus.dbflute.exbhv.SystemPropertyMBhv;
 import com.Bacchus.dbflute.exentity.SystemPropertyM;
+import com.Bacchus.webbase.appbase.BeforeLogin;
 
 /**
  * 呼び覚ましのコントローラー．
  *
  */
+@BeforeLogin
 @RestController
 public class WakeUpRestController {
 

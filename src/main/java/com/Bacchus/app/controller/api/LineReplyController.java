@@ -5,6 +5,7 @@ import java.util.concurrent.CompletableFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +18,8 @@ import com.Bacchus.webbase.common.constants.SystemPropertyKeyConstants;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.LineMessagingClientBuilder;
 import com.linecorp.bot.model.ReplyMessage;
+import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 
@@ -37,18 +40,17 @@ public class LineReplyController {
 
     @RequestMapping(value = "/reply", method = RequestMethod.POST)
     @ResponseBody
-    public CompletableFuture<BotApiResponse> reply(String event) throws RecordNotFoundException {
+    public CompletableFuture<BotApiResponse> reply(@RequestBody MessageEvent<TextMessageContent> event) throws RecordNotFoundException {
 
         logger.info("[CALL] : reply!!");
-        logger.info("event : " + event);
 
         String accessToken =
                 systemPropertyService.getSystemPropertyValue(SystemPropertyKeyConstants.MESSAGING_API_ACCESS_TOKEN);
 
         LineMessagingClient lineMessagingClient = new LineMessagingClientBuilder(accessToken).build();
 
-        String receivedMessage = event;
-        String replyToken = event;
+        String receivedMessage = event.getMessage().getText();
+        String replyToken = event.getReplyToken();
 
         ReplyMessage replyMessage = new ReplyMessage(replyToken, new TextMessage(receivedMessage));
 

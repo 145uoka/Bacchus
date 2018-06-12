@@ -28,6 +28,7 @@ import com.Bacchus.app.service.SystemPropertyService;
 import com.Bacchus.app.service.event.EventService;
 import com.Bacchus.app.service.user.UserService;
 import com.Bacchus.app.util.MessageKeyUtil;
+import com.Bacchus.dbflute.exbhv.CandidateTBhv;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.dbflute.exbhv.UserTypeMBhv;
 import com.Bacchus.webbase.appbase.BaseController;
@@ -71,6 +72,9 @@ public class EventNotifyController extends BaseController {
     @Autowired
     EventService eventService;
 
+    @Autowired
+    CandidateTBhv candidateTbhv;
+
     /**
      * 通知対象ユーザ一覧表示。
      *
@@ -97,6 +101,12 @@ public class EventNotifyController extends BaseController {
 
         // ユーザー一覧項目の取得
         model.addAttribute("userList", userService.findAllJoinEventNotify(eventNo));
+
+        boolean isExistsCandidate = !candidateTbhv.selectList(cb->{
+            cb.query().setEventNo_Equal(eventNo);
+        }).isEmpty();
+
+        model.addAttribute("isExistsCandidate", isExistsCandidate);
 
         return ProcConstants.EVENT + ProcConstants.Operation.NOTIFY;
     }

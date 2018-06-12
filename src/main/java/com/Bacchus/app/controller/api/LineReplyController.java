@@ -18,8 +18,6 @@ import com.Bacchus.webbase.common.constants.SystemPropertyKeyConstants;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.LineMessagingClientBuilder;
 import com.linecorp.bot.model.ReplyMessage;
-import com.linecorp.bot.model.event.MessageEvent;
-import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 
@@ -40,7 +38,7 @@ public class LineReplyController {
 
     @RequestMapping(value = "/reply", method = RequestMethod.POST)
     @ResponseBody
-    public CompletableFuture<BotApiResponse> reply(@RequestBody MessageEvent<TextMessageContent> event) throws RecordNotFoundException {
+    public CompletableFuture<BotApiResponse> reply(@RequestBody String event) throws RecordNotFoundException {
 
         logger.info("[CALL] : reply!!");
 
@@ -49,8 +47,8 @@ public class LineReplyController {
 
         LineMessagingClient lineMessagingClient = new LineMessagingClientBuilder(accessToken).build();
 
-        String receivedMessage = event.getMessage().getText();
-        String replyToken = event.getReplyToken();
+        String receivedMessage = event;
+        String replyToken = event;
 
         ReplyMessage replyMessage = new ReplyMessage(replyToken, new TextMessage(receivedMessage));
 

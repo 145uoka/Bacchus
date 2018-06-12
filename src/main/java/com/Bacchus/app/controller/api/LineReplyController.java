@@ -41,6 +41,7 @@ public class LineReplyController {
     public CompletableFuture<BotApiResponse> reply(@RequestBody String event) throws RecordNotFoundException {
 
         logger.info("[CALL] : reply!!");
+        logger.info("[event] : " + event);
 
         String accessToken =
                 systemPropertyService.getSystemPropertyValue(SystemPropertyKeyConstants.MESSAGING_API_ACCESS_TOKEN);

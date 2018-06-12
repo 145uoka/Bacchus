@@ -67,14 +67,14 @@
             <tr>
               <c:choose>
                 <c:when test="${isExistsCandidate}">
-                  <td style="vertical-align: middle;"><a type="button" class="btn btn-success disabled" id="allCheck"><i class="glyphicon glyphicon-check"></i>&nbsp;全選択</a></td>
-                  <td><label class="space" style="width: 30px;"></label></td>
-                  <td style="vertical-align: middle;"><a type="button" class="btn btn-danger disabled" id="allUnCheck"><i class="glyphicon glyphicon-unchecked"></i>&nbsp;全解除</a></td>
-                </c:when>
-                <c:otherwise>
                   <td style="vertical-align: middle;"><a type="button" class="btn btn-success" id="allCheck"><i class="glyphicon glyphicon-check"></i>&nbsp;全選択</a></td>
                   <td><label class="space" style="width: 30px;"></label></td>
                   <td style="vertical-align: middle;"><a type="button" class="btn btn-danger" id="allUnCheck"><i class="glyphicon glyphicon-unchecked"></i>&nbsp;全解除</a></td>
+                </c:when>
+                <c:otherwise>
+                  <td style="vertical-align: middle;"><a type="button" class="btn btn-success disabled" id="allCheck"><i class="glyphicon glyphicon-check"></i>&nbsp;全選択</a></td>
+                  <td><label class="space" style="width: 30px;"></label></td>
+                  <td style="vertical-align: middle;"><a type="button" class="btn btn-danger disabled" id="allUnCheck"><i class="glyphicon glyphicon-unchecked"></i>&nbsp;全解除</a></td>
                 </c:otherwise>
               </c:choose>
             </tr>
@@ -121,10 +121,10 @@
               <td style="vertical-align: middle;">
                 <c:choose>
                   <c:when test="${isExistsCandidate}">
-                    <a type="button" class="btn btn-info disabled" onClick="notifyExec()">通知</a>
+                    <a type="button" class="btn btn-info" onClick="notifyExec()">通知</a>
                   </c:when>
                   <c:otherwise>
-                    <a type="button" class="btn btn-info" onClick="notifyExec()">通知</a>
+                    <a type="button" class="btn btn-info disabled" onClick="notifyExec()">通知</a>
                   </c:otherwise>
                 </c:choose>
               </td>

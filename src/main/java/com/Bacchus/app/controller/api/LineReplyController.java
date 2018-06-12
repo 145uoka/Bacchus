@@ -1,5 +1,6 @@
 package com.Bacchus.app.controller.api;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import org.slf4j.Logger;
@@ -39,7 +40,7 @@ public class LineReplyController {
 
     @RequestMapping(value = "/reply", method = RequestMethod.POST)
     @ResponseBody
-    public CompletableFuture<BotApiResponse> reply(MessageEvent<TextMessageContent> event) throws RecordNotFoundException {
+    public CompletableFuture<BotApiResponse> reply(List<MessageEvent<TextMessageContent>> event) throws RecordNotFoundException {
 
         logger.info("[CALL] : reply!!");
 
@@ -48,8 +49,8 @@ public class LineReplyController {
 
         LineMessagingClient lineMessagingClient = new LineMessagingClientBuilder(accessToken).build();
 
-        String receivedMessage = event.getMessage().getText();
-        String replyToken = event.getReplyToken();
+        String receivedMessage = event.get(0).getMessage().getText();
+        String replyToken = event.get(0).getReplyToken();
 
         ReplyMessage replyMessage = new ReplyMessage(replyToken, new TextMessage(receivedMessage));
 

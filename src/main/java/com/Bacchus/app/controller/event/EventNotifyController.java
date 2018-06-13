@@ -223,8 +223,6 @@ public class EventNotifyController extends BaseController {
 
         eventService.notifyEvent(userIds, form.getEventNo());
 
-        redirectAttributes.addAttribute("eventNo", form.getEventNo());
-
         // 完了メッセージの設定
         String message = messageSource.getMessage(
                 MessageKeyUtil.encloseStringDelete(MessageKeyConstants.Success.CREATE), null, Locale.getDefault());
@@ -232,6 +230,6 @@ public class EventNotifyController extends BaseController {
         List<String> successMessageList = new ArrayList<String>(Arrays.asList(message));
         redirectAttributes.addFlashAttribute(MessageType.SUCCESS, successMessageList);
 
-        return super.redirect(ProcConstants.EVENT + ProcConstants.Operation.NOTIFY);
+        return super.redirect(ProcConstants.EVENT + ProcConstants.Operation.NOTIFY + "/" + eventNo);
     }
 }

@@ -188,6 +188,14 @@
 			<version>1.14.0</version>
 		</dependency>
 
+	<!-- https://mvnrepository.com/artifact/com.linecorp.bot/line-bot-servlet -->
+	<dependency>
+		<groupId>com.linecorp.bot</groupId>
+		<artifactId>line-bot-servlet</artifactId>
+		<version>1.17.0</version>
+	</dependency>
+
+
 
 		<!-- Test -->
 		<dependency>

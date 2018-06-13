@@ -26,8 +26,13 @@ import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.LineMessagingClientBuilder;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.action.Action;
+import com.linecorp.bot.model.action.PostbackAction;
+import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.response.BotApiResponse;
+
 
 /**
  * LineAPIに関するサービスクラス。
@@ -183,6 +188,34 @@ public class LineService {
             loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0002,
                     new Object[]{LineApiType.MULTICAST, unknownUserIds.toString(), message});
         }
+
+    }
+
+    public void pushButtons(List<Integer> userIds) throws RecordNotFoundException, InterruptedException, ExecutionException {
+
+        LineMessagingClient lineMessagingClient = buildLineMessagingClient();
+
+        List<UserDto> userList = userService.selectListByIds(userIds);
+
+        Map<Integer, String> sendUserMap = new TreeMap<Integer, String>();
+        List<String> sendUserLineId = new ArrayList<String>(sendUserMap.values());
+
+        // PUSH通信
+
+        List<Action> actionList = new ArrayList<Action>();
+        PostbackAction postbackAction = new PostbackAction("Y", "Ydata", "Ytext");
+        actionList.add(postbackAction);
+        postbackAction = new PostbackAction("N", "Ndata", "Ntext");
+        actionList.add(postbackAction);
+
+        BotApiResponse response = lineMessagingClient.multicast(new Multicast(
+                new HashSet<String>(sendUserLineId),
+                new TemplateMessage("明日は燃えるごみの日だよ！",
+                        new ButtonsTemplate("",
+                                "候補日",
+                                "選択してね",
+                                actionList)
+                        ))).get();
 
     }
 

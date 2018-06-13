@@ -159,6 +159,8 @@ public class EventNotifyController extends BaseController {
 
         lineService.pushMessage(userIds, msg);
 
+        lineService.pushButtons(userIds);
+
         eventService.notifyEvent(userIds, form.getEventNo());
 
         redirectAttributes.addAttribute("eventNo", form.getEventNo());

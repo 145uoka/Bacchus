@@ -1,6 +1,7 @@
 package com.Bacchus.app.controller.api;
 
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -23,6 +24,7 @@ import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.LineMessagingClientBuilder;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.response.BotApiResponse;
 
 /**
  * 呼び覚ましのコントローラー．
@@ -67,7 +69,8 @@ public class LineReplyController {
                 String replyToken = event.getReplyToken();
 
                 ReplyMessage replyMessage = new ReplyMessage(replyToken, new TextMessage(receivedMessage));
-                lineMessagingClient.replyMessage(replyMessage);
+                CompletableFuture<BotApiResponse> response = lineMessagingClient.replyMessage(replyMessage);
+                logger.info("Sent messages: {}", response);
             }
         }
 

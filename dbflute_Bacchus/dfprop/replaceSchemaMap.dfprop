@@ -37,7 +37,7 @@ map:{
     #
     #; repsEnvType = pr
     #; repsEnvType = ut
-    ; repsEnvType = ut
+    ; repsEnvType = pr
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

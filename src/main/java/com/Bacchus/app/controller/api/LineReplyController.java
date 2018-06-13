@@ -50,6 +50,7 @@ public class LineReplyController {
         try {
             Events eventList = mapper.readValue(events, Events.class);
             System.out.println("eventList_size : " + eventList.getEvents().size());
+            System.out.println("reply_token : " + eventList.getEvents().get(0).getReplyToken());
         } catch (IOException e) {
             e.printStackTrace();
         }

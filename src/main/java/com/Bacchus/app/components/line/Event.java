@@ -1,48 +1,141 @@
 package com.Bacchus.app.components.line;
 
-import java.time.Instant;
+import java.io.Serializable;
 
-import javax.xml.transform.stream.StreamSource;
+/**
+ * Webhookイベントオブジェクト。
+ *
+ * @author 
+ */
+public class Event implements Serializable {
 
+    /** serialVersionUID */
+    private static final long serialVersionUID = 1L;
 
-public class Event {
+    /** イベントのタイプを表す識別子 */
     private String type;
-    private String replyToken;
-    private Instant timestamp;
 
-    private StreamSource source;
+    /** イベントの発生時刻（ミリ秒） */
+    private Long timestamp;
+
+    /** イベントの送信元情報を含むユーザー、グループ、またはトークルームオブジェクト */
+    private Source source;
+
+    /** メッセージイベント */
     private Message message;
+
+    /** イベントへの応答に使用するトークン */
+    private String replyToken;
+
+    /** ポストバックイベント */
+    private Postback postback;
+
+    /**
+     * イベントのタイプを表す識別子の取得。
+     *
+     * @return イベントのタイプを表す識別子
+     */
     public String getType() {
-        return type;
+        return this.type;
     }
+
+    /**
+     * イベントのタイプを表す識別子を設定。
+     *
+     * @param type イベントのタイプを表す識別子
+     */
     public void setType(String type) {
         this.type = type;
     }
-    public String getReplyToken() {
-        return replyToken;
+
+    /**
+     * イベントの発生時刻（ミリ秒）の取得。
+     *
+     * @return イベントの発生時刻（ミリ秒）
+     */
+    public Long getTimestamp() {
+        return this.timestamp;
     }
-    public void setReplyToken(String replyToken) {
-        this.replyToken = replyToken;
-    }
-    public Instant getTimestamp() {
-        return timestamp;
-    }
-    public void setTimestamp(Instant timestamp) {
+
+    /**
+     * イベントの発生時刻（ミリ秒）を設定。
+     *
+     * @param timestamp イベントの発生時刻（ミリ秒）
+     */
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
-    public StreamSource getSource() {
-        return source;
+
+    /**
+     * イベントの送信元情報を含むユーザー、グループ、またはトークルームオブジェクトの取得。
+     *
+     * @return イベントの送信元情報を含むユーザー、グループ、またはトークルームオブジェクト
+     */
+    public Source getSource() {
+        return this.source;
     }
-    public void setSource(StreamSource source) {
+
+    /**
+     * イベントの送信元情報を含むユーザー、グループ、またはトークルームオブジェクトを設定。
+     *
+     * @param source イベントの送信元情報を含むユーザー、グループ、またはトークルームオブジェクト
+     */
+    public void setSource(Source source) {
         this.source = source;
     }
+
+    /**
+     * メッセージイベントの取得。
+     *
+     * @return メッセージイベント
+     */
     public Message getMessage() {
-        return message;
+        return this.message;
     }
+
+    /**
+     * メッセージイベントを設定。
+     *
+     * @param message メッセージイベント
+     */
     public void setMessage(Message message) {
         this.message = message;
     }
 
+    /**
+     * イベントへの応答に使用するトークンの取得。
+     *
+     * @return イベントへの応答に使用するトークン
+     */
+    public String getReplyToken() {
+        return this.replyToken;
+    }
 
+    /**
+     * イベントへの応答に使用するトークンを設定。
+     *
+     * @param replyToken イベントへの応答に使用するトークン
+     */
+    public void setReplyToken(String replyToken) {
+        this.replyToken = replyToken;
+    }
+
+    /**
+     * ポストバックイベントの取得。
+     *
+     * @return ポストバックイベント
+     */
+    public Postback getPostback() {
+        return this.postback;
+    }
+
+    /**
+     * ポストバックイベントを設定。
+     *
+     * @param postback ポストバックイベント
+     */
+    public void setPostback(Postback postback) {
+        this.postback = postback;
+    }
 
 }

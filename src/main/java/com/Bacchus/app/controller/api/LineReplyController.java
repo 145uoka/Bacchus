@@ -65,8 +65,8 @@ public class LineReplyController {
                 String receivedMessage = event.getMessage().getText();
                 String replyToken = event.getReplyToken();
 
-                System.out.println("reply_token : " + replyToken);
-                System.out.println("receivedMessage : " + receivedMessage);
+                logger.debug("reply_token : " + replyToken);
+                logger.debug("receivedMessage : " + receivedMessage);
 
                 ReplyMessage replyMessage = new ReplyMessage(replyToken, new TextMessage(receivedMessage));
                 BotApiResponse response = lineMessagingClient.replyMessage(replyMessage).get();

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Bacchus.app.Exception.RecordNotFoundException;
+import com.Bacchus.app.components.LineSourceListDto;
 import com.Bacchus.app.components.UserDto;
 import com.Bacchus.app.service.user.UserService;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
@@ -26,11 +27,8 @@ import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.LineMessagingClientBuilder;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
-import com.linecorp.bot.model.action.Action;
-import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
-import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.response.BotApiResponse;
 
 
@@ -120,7 +118,35 @@ public class LineService {
      * @param message 送信メッセージ
      * @throws RecordNotFoundException
      */
-    public void pushMessage(List<Integer> userIds, String message) throws RecordNotFoundException {
+    public void pushMessage(LineSourceListDto lineSourceListDto, String message)
+            throws RecordNotFoundException {
+
+        if (CollectionUtils.isNotEmpty(lineSourceListDto.getSendUserLineId())) {
+            // LINEユーザが存在
+            try {
+                if(!commonService.isDevelopMode()) {
+                    // 非開発モード
+                    LineMessagingClient lineMessagingClient = buildLineMessagingClient();
+
+                    // PUSH通信
+                    BotApiResponse response = lineMessagingClient.multicast(new Multicast(
+                            new HashSet<String>(lineSourceListDto.getSendUserLineId()), new TextMessage(message))).get();
+
+                    loggerService.outLog(LogMessageKeyConstants.Info.I_05_0002,
+                            new Object[]{LineApiType.MULTICAST, response.getMessage(), response.getDetails().toString()});
+                }
+                loggerService.outLog(LogMessageKeyConstants.Info.I_05_0001,
+                        new Object[]{LineApiType.MULTICAST, lineSourceListDto.getSendUserMap(), message});
+
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public LineSourceListDto createLineSourceListDto(List<Integer> userIds) {
+
+        LineSourceListDto lineSourceListDto = new LineSourceListDto();
 
         // 送信対象のユーザ取得
         List<UserDto> userList = userService.selectListByIds(userIds);
@@ -153,86 +179,21 @@ public class LineService {
             }
         }
 
-        if (CollectionUtils.isNotEmpty(sendUserLineId)) {
-            // LINEユーザが存在
-            try {
-                if(!commonService.isDevelopMode()) {
-                    // 非開発モード
-                    LineMessagingClient lineMessagingClient = buildLineMessagingClient();
+        lineSourceListDto.setSendUserLineId(sendUserLineId);
+        lineSourceListDto.setNotSendUserMap(notSendUserMap);
+        lineSourceListDto.setSendUserMap(sendUserMap);
+        lineSourceListDto.setUnknownUserIds(unknownUserIds);
 
-                    // PUSH通信
-                    BotApiResponse response = lineMessagingClient.multicast(new Multicast(
-                            new HashSet<String>(sendUserLineId), new TextMessage(message))).get();
-
-                    loggerService.outLog(LogMessageKeyConstants.Info.I_05_0002,
-                            new Object[]{LineApiType.MULTICAST, response.getMessage(), response.getDetails().toString()});
-                }
-                loggerService.outLog(LogMessageKeyConstants.Info.I_05_0001,
-                        new Object[]{LineApiType.MULTICAST, sendUserMap, message});
-
-            } catch (InterruptedException | ExecutionException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        if (!notSendUserMap.isEmpty()){
-            // 非LINEユーザが存在
-            // ログ出力
-            loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0001,
-                    new Object[]{LineApiType.MULTICAST, notSendUserMap, message});
-        }
-
-        if (CollectionUtils.isNotEmpty(unknownUserIds)) {
-            // 存在しないユーザ
-            // ログ出力
-            loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0002,
-                    new Object[]{LineApiType.MULTICAST, unknownUserIds.toString(), message});
-        }
-
+        return lineSourceListDto;
     }
 
-    public void pushButtons(List<Integer> userIds) throws RecordNotFoundException, InterruptedException, ExecutionException {
+    public void pushButtons(LineSourceListDto lineSourceListDto, TemplateMessage templateMessage) throws RecordNotFoundException, InterruptedException, ExecutionException {
 
         LineMessagingClient lineMessagingClient = buildLineMessagingClient();
 
-        List<UserDto> userList = userService.selectListByIds(userIds);
-
-        Map<Integer, String> sendUserMap = new TreeMap<Integer, String>();
-        List<String> sendUserLineId = new ArrayList<String>(sendUserMap.values());
-
-        for (UserDto userDto : userList) {
-
-            // 存在しないユーザIDから、存在するユーザIDをremove
-
-            if (userDto.getLineFlg().intValue() == Flag.ON.getIntegerValue().intValue()
-                    && StringUtils.isNotEmpty(userDto.getLineId())) {
-
-                // LINEユーザ
-                sendUserLineId.add(userDto.getLineId());
-                sendUserMap.put(userDto.getUserId(),
-                        userDto.getLastName() + StringUtils.SPACE
-                        + userDto.getFirstName() + "(" + userDto.getLineUserName() + ")");
-            } else {
-            }
-        }
-
         // PUSH通信
-
-        List<Action> actionList = new ArrayList<Action>();
-        PostbackAction postbackAction = new PostbackAction("Y", "Ydata", "Ytext");
-        actionList.add(postbackAction);
-        postbackAction = new PostbackAction("N", "Ndata", "Ntext");
-        actionList.add(postbackAction);
-
         BotApiResponse response = lineMessagingClient.multicast(new Multicast(
-                new HashSet<String>(sendUserLineId),
-                new TemplateMessage("明日は燃えるごみの日だよ！",
-                        new ButtonsTemplate(null,
-                                "候補日",
-                                "選択してね",
-                                actionList)
-                        ))).get();
-
+                new HashSet<String>(lineSourceListDto.getSendUserLineId()), templateMessage)).get();
     }
 
     public LineMessagingClient buildLineMessagingClient() throws RecordNotFoundException {

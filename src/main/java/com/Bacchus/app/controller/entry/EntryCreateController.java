@@ -156,10 +156,8 @@ public class EntryCreateController extends BaseController {
 
         model.addAttribute("form", form);
 
-        List<LabelValueDto> entrySelectList =
-                commonService.creatOptionalLabelValueList(
-                        SystemCodeConstants.GeneralCodeKbn.ENTRY_DIV,
-                        SystemCodeConstants.PLEASE_SELECT_MSG);
+        List<LabelValueDto> entrySelectList = commonService.creatOptionalLabelValueList(
+                SystemCodeConstants.GeneralCodeKbn.ENTRY_DIV, true, SystemCodeConstants.PLEASE_SELECT_MSG);
 
         model.addAttribute("entrySelectList", entrySelectList);
 

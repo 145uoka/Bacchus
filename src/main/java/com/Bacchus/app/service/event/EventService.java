@@ -511,8 +511,7 @@ public class EventService {
 
         // 経費補助のプルダウン
         List<LabelValueDto> auxiliaryFlgSelectList = commonService.creatOptionalLabelValueList(
-                SystemCodeConstants.GeneralCodeKbn.AUXILIARY_DIV,
-                SystemCodeConstants.PLEASE_SELECT_MSG);
+                SystemCodeConstants.GeneralCodeKbn.AUXILIARY_DIV, true, SystemCodeConstants.PLEASE_SELECT_MSG);
         model.addAttribute("auxiliaryFlgSelectList", auxiliaryFlgSelectList);
 
         // イベント種別のプルダウン

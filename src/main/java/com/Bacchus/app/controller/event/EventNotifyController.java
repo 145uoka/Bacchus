@@ -8,6 +8,7 @@ import java.util.Locale;
 import javax.validation.Valid;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.dbflute.cbean.result.ListResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Bacchus.app.components.EventDto;
+import com.Bacchus.app.components.LabelValueDto;
+import com.Bacchus.app.components.LineSourceListDto;
 import com.Bacchus.app.form.event.NotifyExecForm;
 import com.Bacchus.app.form.event.NotifyForm;
 import com.Bacchus.app.service.CommonService;
@@ -31,13 +34,21 @@ import com.Bacchus.app.util.MessageKeyUtil;
 import com.Bacchus.dbflute.exbhv.CandidateTBhv;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.dbflute.exbhv.UserTypeMBhv;
+import com.Bacchus.dbflute.exentity.CandidateT;
 import com.Bacchus.webbase.appbase.BaseController;
 import com.Bacchus.webbase.common.beanvalidation.NumRequired;
 import com.Bacchus.webbase.common.constants.DisplayIdConstants;
+import com.Bacchus.webbase.common.constants.LogMessageKeyConstants;
 import com.Bacchus.webbase.common.constants.MessageKeyConstants;
 import com.Bacchus.webbase.common.constants.ProcConstants;
+import com.Bacchus.webbase.common.constants.SystemCodeConstants;
+import com.Bacchus.webbase.common.constants.SystemCodeConstants.LineApiType;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.MessageType;
 import com.Bacchus.webbase.common.constants.SystemPropertyKeyConstants;
+import com.linecorp.bot.model.action.Action;
+import com.linecorp.bot.model.action.PostbackAction;
+import com.linecorp.bot.model.message.TemplateMessage;
+import com.linecorp.bot.model.message.template.ButtonsTemplate;
 
 /**
  * イベント通知用コントローラ。
@@ -157,9 +168,58 @@ public class EventNotifyController extends BaseController {
         String url = systemPropertyService.getSystemPropertyValue(SystemPropertyKeyConstants.BACCHUS_URL);
         String msg = url + ProcConstants.EVENT + ProcConstants.Operation.SHOW + "?eventNo="+form.getEventNo();
 
-        lineService.pushMessage(userIds, msg);
+        LineSourceListDto lineSourceListDto = lineService.createLineSourceListDto(userIds);
 
-        lineService.pushButtons(userIds);
+        // PUSH Message!!
+        lineService.pushMessage(lineSourceListDto, msg);
+
+        if (!lineSourceListDto.getNotSendUserMap().isEmpty()){
+            // 非LINEユーザが存在
+            // ログ出力
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0001,
+                    new Object[]{LineApiType.MULTICAST, lineSourceListDto.getNotSendUserMap(), msg});
+        }
+
+        if (CollectionUtils.isNotEmpty(lineSourceListDto.getUnknownUserIds())) {
+            // 存在しないユーザ
+            // ログ出力
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0002,
+                    new Object[]{LineApiType.MULTICAST, lineSourceListDto.getUnknownUserIds().toString(), msg});
+        }
+
+        // PUSH Button!!
+        List<LabelValueDto> entrySelectList = commonService.creatOptionalLabelValueList(
+                        SystemCodeConstants.GeneralCodeKbn.ENTRY_DIV, false, SystemCodeConstants.PLEASE_SELECT_MSG);
+
+
+        ListResultBean<CandidateT> candidateTList = candidateTbhv.selectList(cb->{
+            cb.query().setEventNo_Equal(eventNo);
+            cb.query().addOrderBy_EventStartDatetime_Asc();
+        });
+
+        List<TemplateMessage> templateMessageList = new ArrayList<TemplateMessage>();
+
+        for (CandidateT candidateT : candidateTList) {
+
+            List<Action> actionList = new ArrayList<Action>();
+
+            for (LabelValueDto labelValueDto : entrySelectList) {
+                PostbackAction postbackAction = new PostbackAction(
+                        labelValueDto.getLabel().toString(),
+                        "{\"CandidateNo\":" + candidateT.getCandidateNo() +
+                        ", \"value\":" + labelValueDto.getValue().toString() + "}",
+                        labelValueDto.getLabel().toString());
+                actionList.add(postbackAction);
+            }
+
+            TemplateMessage templateMessage = new TemplateMessage("入力してね",
+                    new ButtonsTemplate(null, "候補日", "選択してね", actionList));
+            templateMessageList.add(templateMessage);
+        }
+
+        for (TemplateMessage templateMessage : templateMessageList) {
+            lineService.pushButtons(lineSourceListDto, templateMessage);
+        }
 
         eventService.notifyEvent(userIds, form.getEventNo());
 

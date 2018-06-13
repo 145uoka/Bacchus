@@ -108,13 +108,17 @@ public class CommonService {
         return generalRemarks;
     }
 
-    public List<LabelValueDto> creatOptionalLabelValueList(String codeKbn, String optionalNullText) {
+    public List<LabelValueDto> creatOptionalLabelValueList(String codeKbn, boolean isNullPerm,
+            String optionalNullText) {
 
         List<LabelValueDto> resultList = new ArrayList<LabelValueDto>();
         LabelValueDto labelValueDto = new LabelValueDto();
-        labelValueDto.setValue("");
-        labelValueDto.setLabel(optionalNullText);
-        resultList.add(labelValueDto);
+
+        if (isNullPerm) {
+            labelValueDto.setValue("");
+            labelValueDto.setLabel(optionalNullText);
+            resultList.add(labelValueDto);
+        }
 
         List<GeneralCodeDto> generalCodeDtoList = getGeneralCodeListByCodeKbn(codeKbn);
 

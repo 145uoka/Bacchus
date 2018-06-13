@@ -60,7 +60,7 @@ public class LineReplyController {
 
         LineMessagingClient lineMessagingClient = lineService.buildLineMessagingClient();
 
-        if (eventList != null && CollectionUtils.isEmpty(eventList.getEvents())) {
+        if (eventList != null && !CollectionUtils.isEmpty(eventList.getEvents())) {
             for (Event event : eventList.getEvents()) {
                 String receivedMessage = event.getMessage().getText();
                 String replyToken = event.getReplyToken();

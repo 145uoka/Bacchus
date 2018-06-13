@@ -1,8 +1,8 @@
 package com.Bacchus.app.controller.api;
 
 import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Bacchus.app.Exception.RecordNotFoundException;
+import com.Bacchus.app.components.line.Event;
 import com.Bacchus.app.components.line.Events;
 import com.Bacchus.app.service.SystemPropertyService;
 import com.Bacchus.webbase.appbase.BeforeLogin;
@@ -22,7 +23,6 @@ import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.LineMessagingClientBuilder;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.message.TextMessage;
-import com.linecorp.bot.model.response.BotApiResponse;
 
 /**
  * 呼び覚ましのコントローラー．
@@ -41,14 +41,15 @@ public class LineReplyController {
 
     @RequestMapping(value = "/reply", method = RequestMethod.POST)
     @ResponseBody
-    public CompletableFuture<BotApiResponse> reply(@RequestBody String events) throws RecordNotFoundException {
+    public void reply(@RequestBody String events) throws RecordNotFoundException {
 
         logger.info("[CALL] : reply!!");
         logger.info("[events] : " + events);
 
         ObjectMapper mapper = new ObjectMapper();
+        Events eventList = null;
         try {
-            Events eventList = mapper.readValue(events, Events.class);
+            eventList = mapper.readValue(events, Events.class);
             System.out.println("eventList_size : " + eventList.getEvents().size());
             System.out.println("reply_token : " + eventList.getEvents().get(0).getReplyToken());
         } catch (IOException e) {
@@ -60,11 +61,16 @@ public class LineReplyController {
 
         LineMessagingClient lineMessagingClient = new LineMessagingClientBuilder(accessToken).build();
 
-        String receivedMessage = "";
-        String replyToken = "";
+        if (eventList != null && CollectionUtils.isEmpty(eventList.getEvents())) {
+            for (Event event : eventList.getEvents()) {
+                String receivedMessage = event.getMessage().getText();
+                String replyToken = event.getReplyToken();
 
-        ReplyMessage replyMessage = new ReplyMessage(replyToken, new TextMessage(receivedMessage));
+                ReplyMessage replyMessage = new ReplyMessage(replyToken, new TextMessage(receivedMessage));
+                lineMessagingClient.replyMessage(replyMessage);
+            }
+        }
 
-        return lineMessagingClient.replyMessage(replyMessage);
+        return;
     }
 }

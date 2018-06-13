@@ -26,7 +26,7 @@ public class LineBotClient {
     }
 
     public <T> void multicast(MulticastRequestDto multicastRequestDto) {
-        HttpPost httpPost = new HttpPost("https://api.line.me/v2/bot/message/reply");
+        HttpPost httpPost = new HttpPost("https://api.line.me/v2/bot/message/multicast");
         httpPost.setHeader("Content-Type", CONTENT_TYPE);
         httpPost.setHeader("Authorization", this.authorization);
 

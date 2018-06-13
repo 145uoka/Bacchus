@@ -186,7 +186,7 @@ public class LineService {
 
     }
 
-    private LineMessagingClient buildLineMessagingClient() throws RecordNotFoundException {
+    public LineMessagingClient buildLineMessagingClient() throws RecordNotFoundException {
 
         String token = systemPropertyService.getSystemPropertyValue(
                 SystemPropertyKeyConstants.LineApi.MESSAGING_API_ACCESS_TOKEN);

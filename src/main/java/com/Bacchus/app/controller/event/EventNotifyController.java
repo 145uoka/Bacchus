@@ -35,6 +35,8 @@ import com.Bacchus.dbflute.exbhv.CandidateTBhv;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.dbflute.exbhv.UserTypeMBhv;
 import com.Bacchus.dbflute.exentity.CandidateT;
+import com.Bacchus.linebot.LineBotClient;
+import com.Bacchus.linebot.dto.MulticastRequestDto;
 import com.Bacchus.webbase.appbase.BaseController;
 import com.Bacchus.webbase.common.beanvalidation.NumRequired;
 import com.Bacchus.webbase.common.constants.DisplayIdConstants;
@@ -217,9 +219,18 @@ public class EventNotifyController extends BaseController {
             templateMessageList.add(templateMessage);
         }
 
-        for (TemplateMessage templateMessage : templateMessageList) {
-            lineService.pushButtons(lineSourceListDto, templateMessage);
-        }
+//        for (TemplateMessage templateMessage : templateMessageList) {
+//            lineService.pushButtons(lineSourceListDto, templateMessage);
+//        }
+
+        String token = systemPropertyService.getSystemPropertyValue(
+                SystemPropertyKeyConstants.LineApi.MESSAGING_API_ACCESS_TOKEN);
+
+        LineBotClient lineBotClient = new LineBotClient(token);
+        MulticastRequestDto<TemplateMessage> multicastRequestDto = new MulticastRequestDto<TemplateMessage>();
+        multicastRequestDto.setTo(lineSourceListDto.getSendUserLineId());
+        multicastRequestDto.setMessages(templateMessageList);
+        lineBotClient.multicast(multicastRequestDto);
 
         eventService.notifyEvent(userIds, form.getEventNo());
 

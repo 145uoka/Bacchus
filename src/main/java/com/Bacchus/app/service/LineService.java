@@ -227,7 +227,7 @@ public class LineService {
         BotApiResponse response = lineMessagingClient.multicast(new Multicast(
                 new HashSet<String>(sendUserLineId),
                 new TemplateMessage("明日は燃えるごみの日だよ！",
-                        new ButtonsTemplate("",
+                        new ButtonsTemplate(null,
                                 "候補日",
                                 "選択してね",
                                 actionList)

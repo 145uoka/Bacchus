@@ -227,7 +227,7 @@ public class EventNotifyController extends BaseController {
                 SystemPropertyKeyConstants.LineApi.MESSAGING_API_ACCESS_TOKEN);
 
         LineBotClient lineBotClient = new LineBotClient(token);
-        MulticastRequestDto<TemplateMessage> multicastRequestDto = new MulticastRequestDto<TemplateMessage>();
+        MulticastRequestDto multicastRequestDto = new MulticastRequestDto();
         multicastRequestDto.setTo(lineSourceListDto.getSendUserLineId());
         multicastRequestDto.setMessages(templateMessageList);
         lineBotClient.multicast(multicastRequestDto);

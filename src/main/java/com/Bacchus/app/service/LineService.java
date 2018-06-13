@@ -200,6 +200,22 @@ public class LineService {
         Map<Integer, String> sendUserMap = new TreeMap<Integer, String>();
         List<String> sendUserLineId = new ArrayList<String>(sendUserMap.values());
 
+        for (UserDto userDto : userList) {
+
+            // 存在しないユーザIDから、存在するユーザIDをremove
+
+            if (userDto.getLineFlg().intValue() == Flag.ON.getIntegerValue().intValue()
+                    && StringUtils.isNotEmpty(userDto.getLineId())) {
+
+                // LINEユーザ
+                sendUserLineId.add(userDto.getLineId());
+                sendUserMap.put(userDto.getUserId(),
+                        userDto.getLastName() + StringUtils.SPACE
+                        + userDto.getFirstName() + "(" + userDto.getLineUserName() + ")");
+            } else {
+            }
+        }
+
         // PUSH通信
 
         List<Action> actionList = new ArrayList<Action>();

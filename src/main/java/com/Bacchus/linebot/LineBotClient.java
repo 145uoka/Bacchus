@@ -26,19 +26,29 @@ public class LineBotClient {
     }
 
     public <T> void multicast(MulticastRequestDto multicastRequestDto) {
-        HttpPost httpPost = new HttpPost("https://api.line.me/v2/bot/message/multicast");
-        httpPost.setHeader("Content-Type", CONTENT_TYPE);
-        httpPost.setHeader("Authorization", this.authorization);
+        String body = encodeBody(multicastRequestDto);
+        request("https://api.line.me/v2/bot/message/multicast", body);
+    }
 
+    private String encodeBody(Object requestDtof) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         String body = null;
         try {
-            body = mapper.writeValueAsString(multicastRequestDto);
+            body = mapper.writeValueAsString(requestDtof);
             System.out.println(body);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return body;
+    }
+
+    private void request(String url, String body) {
+
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.setHeader("Content-Type", CONTENT_TYPE);
+        httpPost.setHeader("Authorization", this.authorization);
 
         StringEntity params = new StringEntity(body, StandardCharsets.UTF_8);
         httpPost.setEntity(params);
@@ -57,6 +67,5 @@ public class LineBotClient {
         } catch (final ClientProtocolException e) {
         } catch (final IOException e) {
         }
-
     }
 }

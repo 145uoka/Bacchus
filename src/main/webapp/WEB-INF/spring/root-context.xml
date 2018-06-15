@@ -25,6 +25,7 @@
 				<value>classpath:messages</value>
 				<value>classpath:app-messages</value>
 				<value>classpath:log-messages</value>
+				<value>classpath:line-message</value>
 			</list>
 		</property>
 	</bean>

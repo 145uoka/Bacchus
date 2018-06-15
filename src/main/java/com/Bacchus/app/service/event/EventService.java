@@ -1,5 +1,6 @@
 package com.Bacchus.app.service.event;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -26,13 +27,18 @@ import com.Bacchus.app.components.EventDto;
 import com.Bacchus.app.components.EventIndexDto;
 import com.Bacchus.app.components.EventTypeDto;
 import com.Bacchus.app.components.LabelValueDto;
+import com.Bacchus.app.components.LineSourceListDto;
+import com.Bacchus.app.components.PostbackDataEventNotify;
 import com.Bacchus.app.components.UserDto;
 import com.Bacchus.app.form.event.AbstractEventRegisterForm;
 import com.Bacchus.app.form.event.EventCreateForm;
 import com.Bacchus.app.form.event.EventEditForm;
 import com.Bacchus.app.form.event.ShowForm;
+import com.Bacchus.app.service.AbstractService;
 import com.Bacchus.app.service.CommonService;
+import com.Bacchus.app.service.LineService;
 import com.Bacchus.app.service.LoggerService;
+import com.Bacchus.app.service.SystemPropertyService;
 import com.Bacchus.app.service.entry.EntryService;
 import com.Bacchus.app.util.CommonUtil;
 import com.Bacchus.app.util.DateUtil;
@@ -49,11 +55,24 @@ import com.Bacchus.dbflute.exentity.EventT;
 import com.Bacchus.dbflute.exentity.EventTypeM;
 import com.Bacchus.dbflute.exentity.UserT;
 import com.Bacchus.dbflute.exentity.customize.EventIndex;
+import com.Bacchus.linebot.LineBotClient;
+import com.Bacchus.linebot.dto.MulticastRequestDto;
 import com.Bacchus.webbase.common.constants.LogMessageKeyConstants;
 import com.Bacchus.webbase.common.constants.MessageKeyConstants.GlueNetValidator;
+import com.Bacchus.webbase.common.constants.ProcConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.Flag;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.GeneralCodeKbn;
+import com.Bacchus.webbase.common.constants.SystemCodeConstants.LineApiType;
+import com.Bacchus.webbase.common.constants.SystemPropertyKeyConstants;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.linecorp.bot.model.action.Action;
+import com.linecorp.bot.model.action.PostbackAction;
+import com.linecorp.bot.model.message.Message;
+import com.linecorp.bot.model.message.TemplateMessage;
+import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.message.template.ButtonsTemplate;
 
 /**
  * イベント関連サービスクラス。
@@ -61,7 +80,10 @@ import com.Bacchus.webbase.common.constants.SystemCodeConstants.GeneralCodeKbn;
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class EventService {
+public class EventService extends AbstractService {
+
+    @Autowired
+    SystemPropertyService systemPropertyService;
 
     @Autowired
     UserTBhv userTBhv;
@@ -93,6 +115,9 @@ public class EventService {
     /** ロガーロジック */
     @Autowired
     LoggerService loggerService;
+
+    @Autowired
+    LineService lineService;
 
     /**
      * イベント管理番号（PK）をもとにイベントDtoを取得。
@@ -639,7 +664,9 @@ public class EventService {
         return resultDtoList;
     }
 
-    public void notifyEvent(List<Integer> userIds, Integer eventNo) {
+    public void notifyEvent(List<Integer> userIds, Integer eventNo) throws RecordNotFoundException {
+
+        multicastNotifyEvent(eventNo, userIds);
 
         List<EventNotify> existsEventNotifyList = eventNotifyBhv.selectList(cb ->{
             cb.query().setEventNo_Equal(eventNo);
@@ -676,6 +703,99 @@ public class EventService {
         }
         if (CollectionUtils.isNotEmpty(updateEventNotifyList)) {
             eventNotifyBhv.batchUpdate(updateEventNotifyList);
+        }
+    }
+
+    private void multicastNotifyEvent(int eventNo, List<Integer> userIds) throws RecordNotFoundException {
+
+        LineSourceListDto lineSourceListDto = lineService.createLineSourceListDto(userIds);
+
+        OptionalEntity<EventT> optEvent = eventTBhv.selectEntity(cb->{
+            cb.query().setEventNo_Equal(eventNo);
+            cb.query().existsCandidateT(subCb->{
+                subCb.query().addOrderBy_EventStartDatetime_Asc();
+            });
+        });
+
+        if (!optEvent.isPresent()) {
+            // TODO notfound!!
+        }
+
+        EventT eventT = optEvent.get();
+
+        List<Message> messageList = new ArrayList<Message>();
+
+        String url = systemPropertyService.getSystemPropertyValue(SystemPropertyKeyConstants.BACCHUS_URL);
+        url += ProcConstants.EVENT + ProcConstants.Operation.SHOW + "?eventNo=" + eventNo;
+
+        String msg = super.getMsg("event.notify", new Object[]{
+                eventT.getEventName(),
+                url
+        });
+
+        messageList.add(new TextMessage(msg));
+
+        // PUSH Button!!
+        List<LabelValueDto> entrySelectList = commonService.creatOptionalLabelValueList(
+                        SystemCodeConstants.GeneralCodeKbn.ENTRY_DIV, false, SystemCodeConstants.PLEASE_SELECT_MSG);
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        String data = null;
+
+        for (CandidateT candidateT : eventT.getCandidateTList()) {
+
+            List<Action> actionList = new ArrayList<Action>();
+
+            for (LabelValueDto labelValueDto : entrySelectList) {
+
+                PostbackDataEventNotify postbackDataEventNotify = new PostbackDataEventNotify();
+                postbackDataEventNotify.setEventNo(eventNo);
+                postbackDataEventNotify.setCandidateNo(candidateT.getCandidateNo());
+                postbackDataEventNotify.setEntryDiv(labelValueDto.getValue().toString());
+
+                try {
+                    data = mapper.writeValueAsString(actionList);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                PostbackAction postbackAction = new PostbackAction(
+                        labelValueDto.getLabel().toString(),
+                        data,
+                        labelValueDto.getLabel().toString());
+                actionList.add(postbackAction);
+            }
+
+            String eventStartDatetimeDisplay = DateUtil.localDateTime2String(
+                    candidateT.getEventStartDatetime(), DateUtil.DATE_TIME_FORMAT_YYYYMMDDE);
+
+            TemplateMessage templateMessage = new TemplateMessage("入力してね",
+                    new ButtonsTemplate(null, "候補日", eventStartDatetimeDisplay, actionList));
+            messageList.add(templateMessage);
+        }
+
+        String token = systemPropertyService.getSystemPropertyValue(
+                SystemPropertyKeyConstants.LineApi.MESSAGING_API_ACCESS_TOKEN);
+
+        LineBotClient lineBotClient = new LineBotClient(token);
+        MulticastRequestDto multicastRequestDto = new MulticastRequestDto();
+        multicastRequestDto.setTo(lineSourceListDto.getSendUserLineId());
+        multicastRequestDto.setMessages(messageList);
+        lineBotClient.multicast(multicastRequestDto);
+
+        if (!lineSourceListDto.getNotSendUserMap().isEmpty()){
+            // 非LINEユーザが存在
+            // ログ出力
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0001,
+                    new Object[]{LineApiType.MULTICAST, lineSourceListDto.getNotSendUserMap(), msg});
+        }
+
+        if (CollectionUtils.isNotEmpty(lineSourceListDto.getUnknownUserIds())) {
+            // 存在しないユーザ
+            // ログ出力
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0002,
+                    new Object[]{LineApiType.MULTICAST, lineSourceListDto.getUnknownUserIds().toString(), msg});
         }
     }
 

@@ -757,7 +757,7 @@ public class EventService extends AbstractService {
                 postbackDataEventNotify.setEntryDiv(labelValueDto.getValue().toString());
 
                 try {
-                    data = mapper.writeValueAsString(actionList);
+                    data = mapper.writeValueAsString(postbackDataEventNotify);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -712,14 +712,16 @@ public class EventService extends AbstractService {
 
         OptionalEntity<EventT> optEvent = eventTBhv.selectEntity(cb->{
             cb.query().setEventNo_Equal(eventNo);
-            cb.query().existsCandidateT(subCb->{
-                subCb.query().addOrderBy_EventStartDatetime_Asc();
-            });
         });
 
         if (!optEvent.isPresent()) {
             // TODO notfound!!
         }
+
+        ListResultBean<CandidateT> candidateTList = candidateTbhv.selectList(cb->{
+            cb.query().setEventNo_Equal(eventNo);
+            cb.query().addOrderBy_EventStartDatetime_Asc();
+        });
 
         EventT eventT = optEvent.get();
 
@@ -743,7 +745,7 @@ public class EventService extends AbstractService {
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         String data = null;
 
-        for (CandidateT candidateT : eventT.getCandidateTList()) {
+        for (CandidateT candidateT : candidateTList) {
 
             List<Action> actionList = new ArrayList<Action>();
 

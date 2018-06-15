@@ -52,6 +52,7 @@ public class LineBotClient {
 
         StringEntity params = new StringEntity(body, StandardCharsets.UTF_8);
         httpPost.setEntity(params);
+
         try (CloseableHttpClient client = HttpClients.createDefault();
                 CloseableHttpResponse resp = client.execute(httpPost);
                 BufferedReader br = new BufferedReader(new InputStreamReader(resp.getEntity().getContent(), StandardCharsets.UTF_8)))

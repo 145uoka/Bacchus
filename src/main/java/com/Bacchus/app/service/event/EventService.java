@@ -666,6 +666,7 @@ public class EventService extends AbstractService {
 
     public void notifyEvent(List<Integer> userIds, Integer eventNo) throws RecordNotFoundException {
 
+        // line multicast!!
         multicastNotifyEvent(eventNo, userIds);
 
         List<EventNotify> existsEventNotifyList = eventNotifyBhv.selectList(cb ->{
@@ -727,8 +728,9 @@ public class EventService extends AbstractService {
 
         List<Message> messageList = new ArrayList<Message>();
 
+        // イベント内容の設定
         String url = systemPropertyService.getSystemPropertyValue(SystemPropertyKeyConstants.BACCHUS_URL);
-        url += ProcConstants.EVENT + ProcConstants.Operation.SHOW + "?eventNo=" + eventNo;
+        url += ProcConstants.EVENT + ProcConstants.Operation.SHOW + "/" + eventNo;
 
         String msg = super.getMsg("event.notify", new Object[]{
                 eventT.getEventName(),
@@ -737,7 +739,7 @@ public class EventService extends AbstractService {
 
         messageList.add(new TextMessage(msg));
 
-        // PUSH Button!!
+        // 参加可否ボタンの設定
         List<LabelValueDto> entrySelectList = commonService.creatOptionalLabelValueList(
                         SystemCodeConstants.GeneralCodeKbn.ENTRY_DIV, false, SystemCodeConstants.PLEASE_SELECT_MSG);
 
@@ -780,11 +782,15 @@ public class EventService extends AbstractService {
         String token = systemPropertyService.getSystemPropertyValue(
                 SystemPropertyKeyConstants.LineApi.MESSAGING_API_ACCESS_TOKEN);
 
+        // multicast!!
         LineBotClient lineBotClient = new LineBotClient(token);
         MulticastRequestDto multicastRequestDto = new MulticastRequestDto();
         multicastRequestDto.setTo(lineSourceListDto.getSendUserLineId());
         multicastRequestDto.setMessages(messageList);
-        lineBotClient.multicast(multicastRequestDto);
+
+        if(!commonService.isDevelopMode()) {
+            lineBotClient.multicast(multicastRequestDto);
+         }
 
         if (!lineSourceListDto.getNotSendUserMap().isEmpty()){
             // 非LINEユーザが存在

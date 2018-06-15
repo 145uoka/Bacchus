@@ -155,6 +155,6 @@ public class EventNotifyController extends BaseController {
         List<String> successMessageList = new ArrayList<String>(Arrays.asList(message));
         redirectAttributes.addFlashAttribute(MessageType.SUCCESS, successMessageList);
 
-        return "redirect:" + ProcConstants.EVENT + ProcConstants.Operation.NOTIFY + "/" + eventNo;
+        return redirect(ProcConstants.EVENT + ProcConstants.Operation.NOTIFY + "/" + eventNo);
     }
 }

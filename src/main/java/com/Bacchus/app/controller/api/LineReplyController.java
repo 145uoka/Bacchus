@@ -18,12 +18,10 @@ import com.Bacchus.app.components.line.Event;
 import com.Bacchus.app.components.line.Events;
 import com.Bacchus.app.service.LineService;
 import com.Bacchus.app.service.SystemPropertyService;
+import com.Bacchus.app.service.api.LinePostbackService;
 import com.Bacchus.webbase.appbase.BeforeLogin;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linecorp.bot.client.LineMessagingClient;
-import com.linecorp.bot.model.ReplyMessage;
-import com.linecorp.bot.model.message.TextMessage;
-import com.linecorp.bot.model.response.BotApiResponse;
 
 /**
  * 呼び覚ましのコントローラー．
@@ -42,6 +40,9 @@ public class LineReplyController {
     /** システムプロパティ_M Bhv */
     @Autowired
     SystemPropertyService systemPropertyService;
+
+    @Autowired
+    LinePostbackService linePostbackService;
 
     @RequestMapping(value = "/reply", method = RequestMethod.POST)
     @ResponseBody
@@ -62,15 +63,25 @@ public class LineReplyController {
 
         if (eventList != null && !CollectionUtils.isEmpty(eventList.getEvents())) {
             for (Event event : eventList.getEvents()) {
-                String receivedMessage = event.getMessage().getText();
-                String replyToken = event.getReplyToken();
+                String type = event.getType();
 
-                logger.debug("reply_token : " + replyToken);
-                logger.debug("receivedMessage : " + receivedMessage);
+                switch (type) {
+                case "postback":
+                    linePostbackService.postback(event);
+                    break;
 
-                ReplyMessage replyMessage = new ReplyMessage(replyToken, new TextMessage(receivedMessage));
-                BotApiResponse response = lineMessagingClient.replyMessage(replyMessage).get();
-                logger.info("Sent messages: {}", response);
+                case "message":
+//                    String receivedMessage = event.getMessage().getText();
+//                    String replyToken = event.getReplyToken();
+//
+//                    logger.debug("reply_token : " + replyToken);
+//                    logger.debug("receivedMessage : " + receivedMessage);
+//
+//                    ReplyMessage replyMessage = new ReplyMessage(replyToken, new TextMessage(receivedMessage));
+//                    BotApiResponse response = lineMessagingClient.replyMessage(replyMessage).get();
+//                    logger.info("Sent messages: {}", response);
+                    break;
+                }
             }
         }
 

@@ -43,7 +43,30 @@ public class GlobalInterceptor implements HandlerInterceptor {
 		setupLogs(request);
 		logger.info("preHandle: {}", request.getRequestURI());
 
+		// dbflute用
+        // [アクセス日時]
+        // 例えば、アプリで日時を取得する統一したインターフェースからの日時を利用。
+        // [アクセスユーザ]
+        // 例えば、セッション上のログインユーザを利用。
+        // ログインしていない場合のことも考慮すること。
+        String accessUser = "no-login";
+        if (userInfo.isLogined()) {
+            accessUser = userInfo.getUserName();
+        }
 
+        AccessContext context = new AccessContext();
+        context.setAccessLocalDateTime(LocalDateTime.now());
+        context.setAccessUser(accessUser);
+        // [アクセスプロセス]
+        // 例えば、Pageクラスの名前をそのまま利用。
+        // アプリケーションでプロセスを判別できる適切な名前を設定すること。
+        // DBのカラムサイズに注意(サイズオーバーしないように)
+        if (handler instanceof HandlerMethod) {
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            String accessProcess = handlerMethod.getBeanType().getSimpleName();
+            context.setAccessProcess(accessProcess);
+        }
+        AccessContext.setAccessContextOnThread(context);
 
 		if (handler instanceof HandlerMethod) {
 			HandlerMethod handlerMethod = (HandlerMethod) handler;
@@ -95,35 +118,6 @@ public class GlobalInterceptor implements HandlerInterceptor {
 					}
 				}
 			}
-		}
-		// dbflute用
-		if (AccessContext.isExistAccessContextOnThread()) {
-			// 既に設定されていたら何もしないで次へ
-			// (二度呼び出しされたときのために念のため)
-		} else {
-			// [アクセス日時]
-			// 例えば、アプリで日時を取得する統一したインターフェースからの日時を利用。
-			// [アクセスユーザ]
-			// 例えば、セッション上のログインユーザを利用。
-			// ログインしていない場合のことも考慮すること。
-			String accessUser = "no-login";
-			if (userInfo.isLogined()) {
-			    accessUser = userInfo.getEmail();
-			}
-
-			AccessContext context = new AccessContext();
-			context.setAccessLocalDateTime(LocalDateTime.now());
-			context.setAccessUser(accessUser);
-			// [アクセスプロセス]
-			// 例えば、Pageクラスの名前をそのまま利用。
-			// アプリケーションでプロセスを判別できる適切な名前を設定すること。
-			// DBのカラムサイズに注意(サイズオーバーしないように)
-			if (handler instanceof HandlerMethod) {
-				HandlerMethod handlerMethod = (HandlerMethod) handler;
-				String accessProcess = handlerMethod.getBeanType().getSimpleName();
-				context.setAccessProcess(accessProcess);
-			}
-			AccessContext.setAccessContextOnThread(context);
 		}
 
 		return true;

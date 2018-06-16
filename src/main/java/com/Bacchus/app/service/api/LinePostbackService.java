@@ -49,6 +49,7 @@ public class LinePostbackService {
 
         switch ((String)dataMap.get("type")) {
         case "eventNotify":
+            eventEntry(event);
             break;
         }
 

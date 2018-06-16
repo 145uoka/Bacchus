@@ -51,7 +51,7 @@ public class GlobalInterceptor implements HandlerInterceptor {
         // ログインしていない場合のことも考慮すること。
         String accessUser = "no-login";
         if (userInfo.isLogined()) {
-            accessUser = userInfo.getUserName();
+//            accessUser = userInfo.getUserName();
         }
 
         AccessContext context = new AccessContext();

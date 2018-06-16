@@ -51,7 +51,9 @@ public class GlobalInterceptor implements HandlerInterceptor {
         // ログインしていない場合のことも考慮すること。
         String accessUser = "no-login";
         if (userInfo.isLogined()) {
-//            accessUser = userInfo.getUserName();
+            if (userInfo.getUserId() != null) {
+                accessUser = userInfo.getUserId().toString();
+            }
         }
 
         AccessContext context = new AccessContext();
@@ -133,8 +135,14 @@ public class GlobalInterceptor implements HandlerInterceptor {
 		}
 		// リモートIPアドレス
 		MDC.put("remoteAddr", RequestUtil.getRemoteAddr(request));
-		MDC.put("loginEmail", userInfo.getEmail());
-		MDC.put("loginName", userInfo.getUserName());
+		String userId = null;
+		if (userInfo.getUserId() != null) {
+		    userId = userInfo.getUserId().toString();
+		} else {
+		    userId = "no-login";
+		}
+		MDC.put("loginUserId", userId);
+		MDC.put("loginLineUserName", userInfo.getLineUserName());
 	}
 
 	static boolean hasAnnotation(HandlerMethod handlerMethod, Class<? extends Annotation> annotationClass) {

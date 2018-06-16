@@ -117,6 +117,7 @@ public class OAuthService {
             userT.setLineFlg(Flag.ON.getIntegerValue().intValue());
             userT.setLineId(idToken.sub);
             userT.setLineUserName(idToken.name);
+            userT.setRegisterUser(userId.toString());
             userTBhv.insert(userT);
         } else {
             userT = userTList.get(0);

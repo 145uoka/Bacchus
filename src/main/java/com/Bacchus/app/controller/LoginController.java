@@ -202,6 +202,7 @@ public class LoginController extends BaseController {
      *
      */
     private void initLoginInfo() {
+
         userInfo.setLogined(true);
         boolean lineUserFlg = Flag.getFlagByIntegerValue(userInfo.getLineFlg()).isBoolValue();
         userInfo.setLineUserFlg(lineUserFlg);

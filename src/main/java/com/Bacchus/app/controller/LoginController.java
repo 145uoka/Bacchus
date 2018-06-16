@@ -87,7 +87,7 @@ public class LoginController extends BaseController {
 
         String redirectUrl = oAuthService.creatAauthorizeUrl();
 
-        return super.redirect(redirectUrl);
+        return redirect(redirectUrl);
     }
 
     @RequestMapping(value = "/callback", method = RequestMethod.GET)

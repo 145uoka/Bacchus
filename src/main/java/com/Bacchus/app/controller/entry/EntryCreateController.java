@@ -211,12 +211,6 @@ public class EntryCreateController extends BaseController {
         List<String> successMessageList = new ArrayList<>(Arrays.asList(message));
         redirectAttributes.addFlashAttribute(MessageType.SUCCESS, successMessageList);
 
-        EntryInputForm inputForm = new EntryInputForm();
-        inputForm.setEventNo(eventNo);
-//        inputForm.setUserId(this.userInfo.getUserId());
-
-        redirectAttributes.addAttribute("eventNo", eventNo);
-
-        return super.redirect(ProcConstants.EVENT + ProcConstants.Operation.SHOW);
+        return redirect(ProcConstants.EVENT + ProcConstants.Operation.SHOW + "/" + eventNo);
     }
 }

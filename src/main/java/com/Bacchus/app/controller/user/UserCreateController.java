@@ -177,6 +177,6 @@ public class UserCreateController extends BaseController {
         loggerService.outLog(LogMessageKeyConstants.Info.I_01_0001, new Object[] { userDto.getUserId(),
                 userDto.getLastName(), userDto.getFirstName() });
 
-        return super.redirect(ProcConstants.USER + ProcConstants.Operation.INDEX);
+        return redirect(ProcConstants.USER + ProcConstants.Operation.INDEX);
     }
 }

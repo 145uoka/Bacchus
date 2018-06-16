@@ -140,7 +140,7 @@ public class ProfileEditController extends BaseController {
                 userInfo.getEmail()
                 });
 
-        return super.redirect(ProcConstants.PROFILE + ProcConstants.Operation.EDIT);
+        return redirect(ProcConstants.PROFILE + ProcConstants.Operation.EDIT);
     }
 
     /**

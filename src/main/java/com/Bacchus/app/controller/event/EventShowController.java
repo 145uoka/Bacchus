@@ -106,7 +106,7 @@ public class EventShowController extends BaseController {
             // 未ログインの場合、ログインさせる
             String nextPage = ProcConstants.EVENT + ProcConstants.Operation.SHOW + "/"+eventNo;
             ses.setAttribute("nextPage", nextPage);
-            return super.redirect("/login/lineLogin");
+            return redirect("/login/lineLogin");
         } else {
             ses.setAttribute("nextPage", null);
         }

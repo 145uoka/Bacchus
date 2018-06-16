@@ -266,7 +266,7 @@ public class UserEditController extends BaseController {
         redirectAttributes.addFlashAttribute(MessageType.SUCCESS, successMessageList);
 
         // 一覧画面へリダイレクトする
-        return super.redirect(ProcConstants.USER + ProcConstants.Operation.INDEX);
+        return redirect(ProcConstants.USER + ProcConstants.Operation.INDEX);
 
     }
 
@@ -298,7 +298,7 @@ public class UserEditController extends BaseController {
         redirectAttributes.addFlashAttribute(MessageType.SUCCESS, successMessageList);
 
         // 一覧画面へリダイレクトする
-        return super.redirect(ProcConstants.USER + ProcConstants.Operation.INDEX);
+        return redirect(ProcConstants.USER + ProcConstants.Operation.INDEX);
 
     }
 

@@ -760,6 +760,7 @@ public class EventService extends AbstractService {
 
                 try {
                     data = mapper.writeValueAsString(postbackDataEventNotify);
+                    data = data.replace("\r\n", "");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

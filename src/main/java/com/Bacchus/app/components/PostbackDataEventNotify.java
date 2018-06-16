@@ -1,6 +1,11 @@
 package com.Bacchus.app.components;
 
-public class PostbackDataEventNotify {
+public class PostbackDataEventNotify extends AbstractPostBackData {
+
+    public PostbackDataEventNotify() {
+        this.setType("eventNotify");
+    }
+
     private Integer eventNo;
     private Integer candidateNo;
     private String entryDiv;

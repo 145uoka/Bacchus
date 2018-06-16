@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Bacchus.app.Exception.AbnormalRecordsDetection;
 import com.Bacchus.app.Exception.RecordNotFoundException;
 import com.Bacchus.app.components.line.Event;
 import com.Bacchus.app.components.line.Events;
@@ -46,7 +47,8 @@ public class LineReplyController {
 
     @RequestMapping(value = "/reply", method = RequestMethod.POST)
     @ResponseBody
-    public void reply(@RequestBody String events) throws RecordNotFoundException, InterruptedException, ExecutionException {
+    public void reply(@RequestBody String events) throws RecordNotFoundException, InterruptedException,
+    ExecutionException, AbnormalRecordsDetection {
 
         logger.info("[CALL] : reply!!");
         logger.info("[events] : " + events);

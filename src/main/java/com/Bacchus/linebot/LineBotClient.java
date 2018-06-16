@@ -13,6 +13,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import com.Bacchus.linebot.dto.MulticastRequestDto;
+import com.Bacchus.linebot.dto.ReplyRequestDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -28,6 +29,11 @@ public class LineBotClient {
     public <T> void multicast(MulticastRequestDto multicastRequestDto) {
         String body = encodeBody(multicastRequestDto);
         request("https://api.line.me/v2/bot/message/multicast", body);
+    }
+
+    public <T> void reply(ReplyRequestDto replyRequestDto) {
+        String body = encodeBody(replyRequestDto);
+        request("https://api.line.me/v2/bot/message/reply", body);
     }
 
     private String encodeBody(Object requestDtof) {

@@ -751,6 +751,9 @@ public class EventService extends AbstractService {
 
             List<Action> actionList = new ArrayList<Action>();
 
+            String eventStartDatetimeDisplay = DateUtil.localDateTime2String(
+                    candidateT.getEventStartDatetime(), DateUtil.DATE_TIME_FORMAT_YYYYMMDDE);
+
             for (LabelValueDto labelValueDto : entrySelectList) {
 
                 PostbackDataEventNotify postbackDataEventNotify = new PostbackDataEventNotify();
@@ -768,15 +771,12 @@ public class EventService extends AbstractService {
                 PostbackAction postbackAction = new PostbackAction(
                         labelValueDto.getLabel().toString(),
                         data,
-                        labelValueDto.getLabel().toString());
+                        eventStartDatetimeDisplay + ":[" + labelValueDto.getLabel().toString() + "]");
                 actionList.add(postbackAction);
             }
 
-            String eventStartDatetimeDisplay = DateUtil.localDateTime2String(
-                    candidateT.getEventStartDatetime(), DateUtil.DATE_TIME_FORMAT_YYYYMMDDE);
-
-            TemplateMessage templateMessage = new TemplateMessage("入力してね",
-                    new ButtonsTemplate(null, "候補日", eventStartDatetimeDisplay, actionList));
+            TemplateMessage templateMessage = new TemplateMessage("参加可否入力",
+                    new ButtonsTemplate(null, eventT.getEventName(), "候補日" + eventStartDatetimeDisplay, actionList));
             messageList.add(templateMessage);
         }
 

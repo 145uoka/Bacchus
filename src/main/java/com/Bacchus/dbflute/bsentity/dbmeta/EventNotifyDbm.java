@@ -45,8 +45,12 @@ public class EventNotifyDbm extends AbstractDBMeta {
     protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((EventNotify)et).getEventNotifyNo(), (et, vl) -> ((EventNotify)et).setEventNotifyNo(cti(vl)), "eventNotifyNo");
         setupEpg(_epgMap, et -> ((EventNotify)et).getEventNo(), (et, vl) -> ((EventNotify)et).setEventNo(cti(vl)), "eventNo");
-        setupEpg(_epgMap, et -> ((EventNotify)et).getUserId(), (et, vl) -> ((EventNotify)et).setUserId(cti(vl)), "userId");
         setupEpg(_epgMap, et -> ((EventNotify)et).getNotifyDatetime(), (et, vl) -> ((EventNotify)et).setNotifyDatetime(ctldt(vl)), "notifyDatetime");
+        setupEpg(_epgMap, et -> ((EventNotify)et).getUserId(), (et, vl) -> ((EventNotify)et).setUserId(cti(vl)), "userId");
+        setupEpg(_epgMap, et -> ((EventNotify)et).getRegisterDatetime(), (et, vl) -> ((EventNotify)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
+        setupEpg(_epgMap, et -> ((EventNotify)et).getRegisterUser(), (et, vl) -> ((EventNotify)et).setRegisterUser((String)vl), "registerUser");
+        setupEpg(_epgMap, et -> ((EventNotify)et).getUpdateDatetime(), (et, vl) -> ((EventNotify)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
+        setupEpg(_epgMap, et -> ((EventNotify)et).getUpdateUser(), (et, vl) -> ((EventNotify)et).setUpdateUser((String)vl), "updateUser");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -82,8 +86,12 @@ public class EventNotifyDbm extends AbstractDBMeta {
     //                                                                         ===========
     protected final ColumnInfo _columnEventNotifyNo = cci("event_notify_no", "event_notify_no", null, null, Integer.class, "eventNotifyNo", null, true, true, true, "serial", 10, 0, "nextval('event_notify_event_notify_no_seq'::regclass)", false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEventNo = cci("event_no", "event_no", null, null, Integer.class, "eventNo", null, false, false, true, "int4", 10, 0, null, false, null, null, "eventT", null, null, false);
-    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, true, "int4", 10, 0, null, false, null, null, "userT", null, null, false);
     protected final ColumnInfo _columnNotifyDatetime = cci("notify_datetime", "notify_datetime", null, null, java.time.LocalDateTime.class, "notifyDatetime", null, false, false, false, "timestamp", 29, 6, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, true, "int4", 10, 0, null, false, null, null, "userT", null, null, false);
+    protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, false, "timestamp", 29, 6, "now()", true, null, null, null, null, null, false);
+    protected final ColumnInfo _columnRegisterUser = cci("register_user", "register_user", null, null, String.class, "registerUser", null, false, false, false, "text", 2147483647, 0, null, true, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUpdateDatetime = cci("update_datetime", "update_datetime", null, null, java.time.LocalDateTime.class, "updateDatetime", null, false, false, false, "timestamp", 29, 6, "now()", true, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUpdateUser = cci("update_user", "update_user", null, null, String.class, "updateUser", null, false, false, false, "text", 2147483647, 0, null, true, null, null, null, null, null, false);
 
     /**
      * event_notify_no: {PK, ID, NotNull, serial(10)}
@@ -91,27 +99,51 @@ public class EventNotifyDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnEventNotifyNo() { return _columnEventNotifyNo; }
     /**
-     * event_no: {UQ+, NotNull, int4(10), FK to event_t}
+     * event_no: {UQ, NotNull, int4(10), FK to event_t}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnEventNo() { return _columnEventNo; }
-    /**
-     * user_id: {+UQ, NotNull, int4(10), FK to user_t}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnUserId() { return _columnUserId; }
     /**
      * notify_datetime: {timestamp(29, 6)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnNotifyDatetime() { return _columnNotifyDatetime; }
+    /**
+     * user_id: {NotNull, int4(10), FK to user_t}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnUserId() { return _columnUserId; }
+    /**
+     * register_datetime: {timestamp(29, 6), default=[now()]}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnRegisterDatetime() { return _columnRegisterDatetime; }
+    /**
+     * register_user: {text(2147483647)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnRegisterUser() { return _columnRegisterUser; }
+    /**
+     * update_datetime: {timestamp(29, 6), default=[now()]}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnUpdateDatetime() { return _columnUpdateDatetime; }
+    /**
+     * update_user: {text(2147483647)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnUpdateUser() { return _columnUpdateUser; }
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
         ls.add(columnEventNotifyNo());
         ls.add(columnEventNo());
-        ls.add(columnUserId());
         ls.add(columnNotifyDatetime());
+        ls.add(columnUserId());
+        ls.add(columnRegisterDatetime());
+        ls.add(columnRegisterUser());
+        ls.add(columnUpdateDatetime());
+        ls.add(columnUpdateUser());
         return ls;
     }
 
@@ -130,12 +162,7 @@ public class EventNotifyDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                        Unique Element
     //                                        --------------
-    public UniqueInfo uniqueOf() {
-        List<ColumnInfo> ls = newArrayListSized(4);
-        ls.add(columnEventNo());
-        ls.add(columnUserId());
-        return hpcui(ls);
-    }
+    public UniqueInfo uniqueOf() { return hpcui(columnEventNo()); }
 
     // ===================================================================================
     //                                                                       Relation Info
@@ -151,7 +178,7 @@ public class EventNotifyDbm extends AbstractDBMeta {
      */
     public ForeignInfo foreignEventT() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnEventNo(), EventTDbm.getInstance().columnEventNo());
-        return cfi("event_notify_event_no_fkey", "eventT", this, EventTDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "eventNotifyList", false);
+        return cfi("event_notify_event_no_fkey", "eventT", this, EventTDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, true, false, false, false, null, null, false, "eventNotifyAsOne", false);
     }
     /**
      * user_t by my user_id, named 'userT'.
@@ -173,6 +200,13 @@ public class EventNotifyDbm extends AbstractDBMeta {
     public String getSequenceName() { return "event_notify_event_notify_no_seq"; }
     public Integer getSequenceIncrementSize() { return 1; }
     public Integer getSequenceCacheSize() { return null; }
+    public boolean hasCommonColumn() { return true; }
+    public List<ColumnInfo> getCommonColumnInfoList()
+    { return newArrayList(columnRegisterDatetime(), columnRegisterUser(), columnUpdateDatetime(), columnUpdateUser()); }
+    public List<ColumnInfo> getCommonColumnInfoBeforeInsertList()
+    { return newArrayList(columnRegisterDatetime(), columnRegisterUser(), columnUpdateDatetime(), columnUpdateUser()); }
+    public List<ColumnInfo> getCommonColumnInfoBeforeUpdateList()
+    { return newArrayList(columnUpdateDatetime(), columnUpdateUser()); }
 
     // ===================================================================================
     //                                                                           Type Name

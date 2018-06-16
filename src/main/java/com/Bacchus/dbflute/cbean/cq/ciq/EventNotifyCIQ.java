@@ -63,8 +63,12 @@ public class EventNotifyCIQ extends AbstractBsEventNotifyCQ {
     //                                                                ====================
     protected ConditionValue xgetCValueEventNotifyNo() { return _myCQ.xdfgetEventNotifyNo(); }
     protected ConditionValue xgetCValueEventNo() { return _myCQ.xdfgetEventNo(); }
-    protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
     protected ConditionValue xgetCValueNotifyDatetime() { return _myCQ.xdfgetNotifyDatetime(); }
+    protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
+    protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
+    protected ConditionValue xgetCValueRegisterUser() { return _myCQ.xdfgetRegisterUser(); }
+    protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }
+    protected ConditionValue xgetCValueUpdateUser() { return _myCQ.xdfgetUpdateUser(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(EventNotifyCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

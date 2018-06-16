@@ -49,6 +49,10 @@ public class CandidateTDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((CandidateT)et).getEventEndDatetime(), (et, vl) -> ((CandidateT)et).setEventEndDatetime(ctldt(vl)), "eventEndDatetime");
         setupEpg(_epgMap, et -> ((CandidateT)et).getStartDate(), (et, vl) -> ((CandidateT)et).setStartDate((String)vl), "startDate");
         setupEpg(_epgMap, et -> ((CandidateT)et).getStartTime(), (et, vl) -> ((CandidateT)et).setStartTime((String)vl), "startTime");
+        setupEpg(_epgMap, et -> ((CandidateT)et).getRegisterDatetime(), (et, vl) -> ((CandidateT)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
+        setupEpg(_epgMap, et -> ((CandidateT)et).getRegisterUser(), (et, vl) -> ((CandidateT)et).setRegisterUser((String)vl), "registerUser");
+        setupEpg(_epgMap, et -> ((CandidateT)et).getUpdateDatetime(), (et, vl) -> ((CandidateT)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
+        setupEpg(_epgMap, et -> ((CandidateT)et).getUpdateUser(), (et, vl) -> ((CandidateT)et).setUpdateUser((String)vl), "updateUser");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -87,6 +91,10 @@ public class CandidateTDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnEventEndDatetime = cci("event_end_datetime", "event_end_datetime", null, null, java.time.LocalDateTime.class, "eventEndDatetime", null, false, false, false, "timestamp", 29, 6, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnStartDate = cci("start_date", "start_date", null, null, String.class, "startDate", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnStartTime = cci("start_time", "start_time", null, null, String.class, "startTime", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, false, "timestamp", 29, 6, "now()", true, null, null, null, null, null, false);
+    protected final ColumnInfo _columnRegisterUser = cci("register_user", "register_user", null, null, String.class, "registerUser", null, false, false, false, "text", 2147483647, 0, null, true, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUpdateDatetime = cci("update_datetime", "update_datetime", null, null, java.time.LocalDateTime.class, "updateDatetime", null, false, false, false, "timestamp", 29, 6, "now()", true, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUpdateUser = cci("update_user", "update_user", null, null, String.class, "updateUser", null, false, false, false, "text", 2147483647, 0, null, true, null, null, null, null, null, false);
 
     /**
      * candidate_no: {PK, ID, NotNull, serial(10)}
@@ -118,6 +126,26 @@ public class CandidateTDbm extends AbstractDBMeta {
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnStartTime() { return _columnStartTime; }
+    /**
+     * register_datetime: {timestamp(29, 6), default=[now()]}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnRegisterDatetime() { return _columnRegisterDatetime; }
+    /**
+     * register_user: {text(2147483647)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnRegisterUser() { return _columnRegisterUser; }
+    /**
+     * update_datetime: {timestamp(29, 6), default=[now()]}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnUpdateDatetime() { return _columnUpdateDatetime; }
+    /**
+     * update_user: {text(2147483647)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnUpdateUser() { return _columnUpdateUser; }
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
@@ -127,6 +155,10 @@ public class CandidateTDbm extends AbstractDBMeta {
         ls.add(columnEventEndDatetime());
         ls.add(columnStartDate());
         ls.add(columnStartTime());
+        ls.add(columnRegisterDatetime());
+        ls.add(columnRegisterUser());
+        ls.add(columnUpdateDatetime());
+        ls.add(columnUpdateUser());
         return ls;
     }
 
@@ -188,6 +220,13 @@ public class CandidateTDbm extends AbstractDBMeta {
     public String getSequenceName() { return "candidate_t_candidate_no_seq"; }
     public Integer getSequenceIncrementSize() { return 1; }
     public Integer getSequenceCacheSize() { return null; }
+    public boolean hasCommonColumn() { return true; }
+    public List<ColumnInfo> getCommonColumnInfoList()
+    { return newArrayList(columnRegisterDatetime(), columnRegisterUser(), columnUpdateDatetime(), columnUpdateUser()); }
+    public List<ColumnInfo> getCommonColumnInfoBeforeInsertList()
+    { return newArrayList(columnRegisterDatetime(), columnRegisterUser(), columnUpdateDatetime(), columnUpdateUser()); }
+    public List<ColumnInfo> getCommonColumnInfoBeforeUpdateList()
+    { return newArrayList(columnUpdateDatetime(), columnUpdateUser()); }
 
     // ===================================================================================
     //                                                                           Type Name

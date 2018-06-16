@@ -8,6 +8,7 @@ import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
 import org.dbflute.optional.OptionalEntity;
+import com.Bacchus.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.Bacchus.dbflute.allcommon.DBMetaInstanceHandler;
 import com.Bacchus.dbflute.exentity.*;
 
@@ -19,7 +20,7 @@ import com.Bacchus.dbflute.exentity.*;
  *     candidate_no
  *
  * [column]
- *     candidate_no, event_no, event_start_datetime, event_end_datetime, start_date, start_time
+ *     candidate_no, event_no, event_start_datetime, event_end_datetime, start_date, start_time, register_datetime, register_user, update_datetime, update_user
  *
  * [sequence]
  *     candidate_t_candidate_no_seq
@@ -50,17 +51,25 @@ import com.Bacchus.dbflute.exentity.*;
  * java.time.LocalDateTime eventEndDatetime = entity.getEventEndDatetime();
  * String startDate = entity.getStartDate();
  * String startTime = entity.getStartTime();
+ * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
+ * String registerUser = entity.getRegisterUser();
+ * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
+ * String updateUser = entity.getUpdateUser();
  * entity.setCandidateNo(candidateNo);
  * entity.setEventNo(eventNo);
  * entity.setEventStartDatetime(eventStartDatetime);
  * entity.setEventEndDatetime(eventEndDatetime);
  * entity.setStartDate(startDate);
  * entity.setStartTime(startTime);
+ * entity.setRegisterDatetime(registerDatetime);
+ * entity.setRegisterUser(registerUser);
+ * entity.setUpdateDatetime(updateDatetime);
+ * entity.setUpdateUser(updateUser);
  * = = = = = = = = = =/
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsCandidateT extends AbstractEntity implements DomainEntity {
+public abstract class BsCandidateT extends AbstractEntity implements DomainEntity, EntityDefinedCommonColumn {
 
     // ===================================================================================
     //                                                                          Definition
@@ -88,6 +97,18 @@ public abstract class BsCandidateT extends AbstractEntity implements DomainEntit
 
     /** start_time: {text(2147483647)} */
     protected String _startTime;
+
+    /** register_datetime: {timestamp(29, 6), default=[now()]} */
+    protected java.time.LocalDateTime _registerDatetime;
+
+    /** register_user: {text(2147483647)} */
+    protected String _registerUser;
+
+    /** update_datetime: {timestamp(29, 6), default=[now()]} */
+    protected java.time.LocalDateTime _updateDatetime;
+
+    /** update_user: {text(2147483647)} */
+    protected String _updateUser;
 
     // ===================================================================================
     //                                                                             DB Meta
@@ -219,6 +240,10 @@ public abstract class BsCandidateT extends AbstractEntity implements DomainEntit
         sb.append(dm).append(xfND(_eventEndDatetime));
         sb.append(dm).append(xfND(_startDate));
         sb.append(dm).append(xfND(_startTime));
+        sb.append(dm).append(xfND(_registerDatetime));
+        sb.append(dm).append(xfND(_registerUser));
+        sb.append(dm).append(xfND(_updateDatetime));
+        sb.append(dm).append(xfND(_updateUser));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
@@ -365,5 +390,85 @@ public abstract class BsCandidateT extends AbstractEntity implements DomainEntit
     public void setStartTime(String startTime) {
         registerModifiedProperty("startTime");
         _startTime = startTime;
+    }
+
+    /**
+     * [get] register_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * 作成日時
+     * @return The value of the column 'register_datetime'. (NullAllowed even if selected: for no constraint)
+     */
+    public java.time.LocalDateTime getRegisterDatetime() {
+        checkSpecifiedProperty("registerDatetime");
+        return _registerDatetime;
+    }
+
+    /**
+     * [set] register_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * 作成日時
+     * @param registerDatetime The value of the column 'register_datetime'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setRegisterDatetime(java.time.LocalDateTime registerDatetime) {
+        registerModifiedProperty("registerDatetime");
+        _registerDatetime = registerDatetime;
+    }
+
+    /**
+     * [get] register_user: {text(2147483647)} <br>
+     * 作成者
+     * @return The value of the column 'register_user'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getRegisterUser() {
+        checkSpecifiedProperty("registerUser");
+        return _registerUser;
+    }
+
+    /**
+     * [set] register_user: {text(2147483647)} <br>
+     * 作成者
+     * @param registerUser The value of the column 'register_user'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setRegisterUser(String registerUser) {
+        registerModifiedProperty("registerUser");
+        _registerUser = registerUser;
+    }
+
+    /**
+     * [get] update_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * 更新日時
+     * @return The value of the column 'update_datetime'. (NullAllowed even if selected: for no constraint)
+     */
+    public java.time.LocalDateTime getUpdateDatetime() {
+        checkSpecifiedProperty("updateDatetime");
+        return _updateDatetime;
+    }
+
+    /**
+     * [set] update_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * 更新日時
+     * @param updateDatetime The value of the column 'update_datetime'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setUpdateDatetime(java.time.LocalDateTime updateDatetime) {
+        registerModifiedProperty("updateDatetime");
+        _updateDatetime = updateDatetime;
+    }
+
+    /**
+     * [get] update_user: {text(2147483647)} <br>
+     * 更新者
+     * @return The value of the column 'update_user'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getUpdateUser() {
+        checkSpecifiedProperty("updateUser");
+        return _updateUser;
+    }
+
+    /**
+     * [set] update_user: {text(2147483647)} <br>
+     * 更新者
+     * @param updateUser The value of the column 'update_user'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setUpdateUser(String updateUser) {
+        registerModifiedProperty("updateUser");
+        _updateUser = updateUser;
     }
 }

@@ -44,6 +44,14 @@ CREATE TABLE Bacchus.candidate_t
 	start_date text,
 	-- 開始時分
 	start_time text,
+	-- 作成日時
+	REGISTER_DATETIME timestamp DEFAULT CURRENT_TIMESTAMP,
+	-- 作成者
+	REGISTER_USER text,
+	-- 更新日時
+	UPDATE_DATETIME timestamp DEFAULT CURRENT_TIMESTAMP,
+	-- 更新者
+	UPDATE_USER text,
 	PRIMARY KEY (candidate_no),
 	UNIQUE (event_no, start_date)
 ) WITHOUT OIDS;
@@ -79,6 +87,14 @@ CREATE TABLE Bacchus.entry_t
 	entry_div int,
 	-- ユーザーID
 	user_id int NOT NULL,
+	-- 作成日時
+	REGISTER_DATETIME timestamp DEFAULT CURRENT_TIMESTAMP,
+	-- 作成者
+	REGISTER_USER text,
+	-- 更新日時
+	UPDATE_DATETIME timestamp DEFAULT CURRENT_TIMESTAMP,
+	-- 更新者
+	UPDATE_USER text,
 	PRIMARY KEY (entry_id)
 ) WITHOUT OIDS;
 
@@ -94,8 +110,16 @@ CREATE TABLE Bacchus.event_notify
 	notify_datetime timestamp,
 	-- ユーザーID
 	user_id int NOT NULL,
+	-- 作成日時
+	REGISTER_DATETIME timestamp DEFAULT CURRENT_TIMESTAMP,
+	-- 作成者
+	REGISTER_USER text,
+	-- 更新日時
+	UPDATE_DATETIME timestamp DEFAULT CURRENT_TIMESTAMP,
+	-- 更新者
+	UPDATE_USER text,
 	PRIMARY KEY (event_notify_no),
-	UNIQUE (event_no, user_id)
+	UNIQUE (event_no)
 ) WITHOUT OIDS;
 
 
@@ -128,6 +152,14 @@ CREATE TABLE Bacchus.event_t
 	event_type_id int,
 	-- 幹事ユーザーID
 	user_id int,
+	-- 作成日時
+	REGISTER_DATETIME timestamp DEFAULT CURRENT_TIMESTAMP,
+	-- 作成者
+	REGISTER_USER text,
+	-- 更新日時
+	UPDATE_DATETIME timestamp DEFAULT CURRENT_TIMESTAMP,
+	-- 更新者
+	UPDATE_USER text,
 	PRIMARY KEY (event_no)
 ) WITHOUT OIDS;
 
@@ -224,6 +256,14 @@ CREATE TABLE Bacchus.user_t
 	user_type_id int NOT NULL,
 	-- 権限レベル
 	auth_level int NOT NULL,
+	-- 作成日時
+	REGISTER_DATETIME timestamp DEFAULT CURRENT_TIMESTAMP,
+	-- 作成者
+	REGISTER_USER text,
+	-- 更新日時
+	UPDATE_DATETIME timestamp DEFAULT CURRENT_TIMESTAMP,
+	-- 更新者
+	UPDATE_USER text,
 	PRIMARY KEY (user_id)
 ) WITHOUT OIDS;
 
@@ -329,6 +369,10 @@ COMMENT ON COLUMN Bacchus.candidate_t.event_start_datetime IS '開始日時';
 COMMENT ON COLUMN Bacchus.candidate_t.event_end_datetime IS '終了日時';
 COMMENT ON COLUMN Bacchus.candidate_t.start_date IS '開始年月日';
 COMMENT ON COLUMN Bacchus.candidate_t.start_time IS '開始時分';
+COMMENT ON COLUMN Bacchus.candidate_t.REGISTER_DATETIME IS '作成日時';
+COMMENT ON COLUMN Bacchus.candidate_t.REGISTER_USER IS '作成者';
+COMMENT ON COLUMN Bacchus.candidate_t.UPDATE_DATETIME IS '更新日時';
+COMMENT ON COLUMN Bacchus.candidate_t.UPDATE_USER IS '更新者';
 COMMENT ON TABLE Bacchus.display_def_m IS '画面名定義_M';
 COMMENT ON COLUMN Bacchus.display_def_m.display_id IS '画面ID';
 COMMENT ON COLUMN Bacchus.display_def_m.display_name IS '画面名';
@@ -341,11 +385,19 @@ COMMENT ON COLUMN Bacchus.entry_t.entry_id IS '参加ID';
 COMMENT ON COLUMN Bacchus.entry_t.candidate_no IS '候補日管理番号';
 COMMENT ON COLUMN Bacchus.entry_t.entry_div IS '参加区分';
 COMMENT ON COLUMN Bacchus.entry_t.user_id IS 'ユーザーID';
+COMMENT ON COLUMN Bacchus.entry_t.REGISTER_DATETIME IS '作成日時';
+COMMENT ON COLUMN Bacchus.entry_t.REGISTER_USER IS '作成者';
+COMMENT ON COLUMN Bacchus.entry_t.UPDATE_DATETIME IS '更新日時';
+COMMENT ON COLUMN Bacchus.entry_t.UPDATE_USER IS '更新者';
 COMMENT ON TABLE Bacchus.event_notify IS 'イベント通知_T';
 COMMENT ON COLUMN Bacchus.event_notify.event_notify_no IS 'イベント通知番号';
 COMMENT ON COLUMN Bacchus.event_notify.event_no IS 'イベント管理番号';
 COMMENT ON COLUMN Bacchus.event_notify.notify_datetime IS '通知日時';
 COMMENT ON COLUMN Bacchus.event_notify.user_id IS 'ユーザーID';
+COMMENT ON COLUMN Bacchus.event_notify.REGISTER_DATETIME IS '作成日時';
+COMMENT ON COLUMN Bacchus.event_notify.REGISTER_USER IS '作成者';
+COMMENT ON COLUMN Bacchus.event_notify.UPDATE_DATETIME IS '更新日時';
+COMMENT ON COLUMN Bacchus.event_notify.UPDATE_USER IS '更新者';
 COMMENT ON TABLE Bacchus.event_t IS 'イベント_T';
 COMMENT ON COLUMN Bacchus.event_t.event_no IS 'イベント管理番号';
 COMMENT ON COLUMN Bacchus.event_t.event_name IS 'イベント名';
@@ -360,6 +412,10 @@ COMMENT ON COLUMN Bacchus.event_t.candidate_no IS '候補日管理番号';
 COMMENT ON COLUMN Bacchus.event_t.store_name IS '店舗名';
 COMMENT ON COLUMN Bacchus.event_t.event_type_id IS 'イベント区分ID';
 COMMENT ON COLUMN Bacchus.event_t.user_id IS '幹事ユーザーID';
+COMMENT ON COLUMN Bacchus.event_t.REGISTER_DATETIME IS '作成日時';
+COMMENT ON COLUMN Bacchus.event_t.REGISTER_USER IS '作成者';
+COMMENT ON COLUMN Bacchus.event_t.UPDATE_DATETIME IS '更新日時';
+COMMENT ON COLUMN Bacchus.event_t.UPDATE_USER IS '更新者';
 COMMENT ON TABLE Bacchus.event_type_m IS 'イベント区分_M';
 COMMENT ON COLUMN Bacchus.event_type_m.event_type_id IS 'イベント区分ID';
 COMMENT ON COLUMN Bacchus.event_type_m.event_type_name IS 'イベント区分名称';
@@ -398,6 +454,10 @@ COMMENT ON COLUMN Bacchus.user_t.email IS 'Eメール';
 COMMENT ON COLUMN Bacchus.user_t.password IS '暗号化PWD';
 COMMENT ON COLUMN Bacchus.user_t.user_type_id IS 'ユーザー区分ID';
 COMMENT ON COLUMN Bacchus.user_t.auth_level IS '権限レベル';
+COMMENT ON COLUMN Bacchus.user_t.REGISTER_DATETIME IS '作成日時';
+COMMENT ON COLUMN Bacchus.user_t.REGISTER_USER IS '作成者';
+COMMENT ON COLUMN Bacchus.user_t.UPDATE_DATETIME IS '更新日時';
+COMMENT ON COLUMN Bacchus.user_t.UPDATE_USER IS '更新者';
 COMMENT ON TABLE Bacchus.user_type_m IS 'ユーザー区分_M';
 COMMENT ON COLUMN Bacchus.user_type_m.user_type_id IS 'ユーザー区分ID';
 COMMENT ON COLUMN Bacchus.user_type_m.user_type_name IS 'ユーザー区分名称';

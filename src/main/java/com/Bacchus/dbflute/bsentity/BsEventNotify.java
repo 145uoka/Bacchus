@@ -8,6 +8,7 @@ import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
 import org.dbflute.optional.OptionalEntity;
+import com.Bacchus.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.Bacchus.dbflute.allcommon.DBMetaInstanceHandler;
 import com.Bacchus.dbflute.exentity.*;
 
@@ -19,7 +20,7 @@ import com.Bacchus.dbflute.exentity.*;
  *     event_notify_no
  *
  * [column]
- *     event_notify_no, event_no, user_id, notify_datetime
+ *     event_notify_no, event_no, notify_datetime, user_id, register_datetime, register_user, update_datetime, update_user
  *
  * [sequence]
  *     event_notify_event_notify_no_seq
@@ -46,17 +47,25 @@ import com.Bacchus.dbflute.exentity.*;
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Integer eventNotifyNo = entity.getEventNotifyNo();
  * Integer eventNo = entity.getEventNo();
- * Integer userId = entity.getUserId();
  * java.time.LocalDateTime notifyDatetime = entity.getNotifyDatetime();
+ * Integer userId = entity.getUserId();
+ * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
+ * String registerUser = entity.getRegisterUser();
+ * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
+ * String updateUser = entity.getUpdateUser();
  * entity.setEventNotifyNo(eventNotifyNo);
  * entity.setEventNo(eventNo);
- * entity.setUserId(userId);
  * entity.setNotifyDatetime(notifyDatetime);
+ * entity.setUserId(userId);
+ * entity.setRegisterDatetime(registerDatetime);
+ * entity.setRegisterUser(registerUser);
+ * entity.setUpdateDatetime(updateDatetime);
+ * entity.setUpdateUser(updateUser);
  * = = = = = = = = = =/
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsEventNotify extends AbstractEntity implements DomainEntity {
+public abstract class BsEventNotify extends AbstractEntity implements DomainEntity, EntityDefinedCommonColumn {
 
     // ===================================================================================
     //                                                                          Definition
@@ -70,14 +79,26 @@ public abstract class BsEventNotify extends AbstractEntity implements DomainEnti
     /** event_notify_no: {PK, ID, NotNull, serial(10)} */
     protected Integer _eventNotifyNo;
 
-    /** event_no: {UQ+, NotNull, int4(10), FK to event_t} */
+    /** event_no: {UQ, NotNull, int4(10), FK to event_t} */
     protected Integer _eventNo;
-
-    /** user_id: {+UQ, NotNull, int4(10), FK to user_t} */
-    protected Integer _userId;
 
     /** notify_datetime: {timestamp(29, 6)} */
     protected java.time.LocalDateTime _notifyDatetime;
+
+    /** user_id: {NotNull, int4(10), FK to user_t} */
+    protected Integer _userId;
+
+    /** register_datetime: {timestamp(29, 6), default=[now()]} */
+    protected java.time.LocalDateTime _registerDatetime;
+
+    /** register_user: {text(2147483647)} */
+    protected String _registerUser;
+
+    /** update_datetime: {timestamp(29, 6), default=[now()]} */
+    protected java.time.LocalDateTime _updateDatetime;
+
+    /** update_user: {text(2147483647)} */
+    protected String _updateUser;
 
     // ===================================================================================
     //                                                                             DB Meta
@@ -104,14 +125,12 @@ public abstract class BsEventNotify extends AbstractEntity implements DomainEnti
     /**
      * To be unique by the unique column. <br>
      * You can update the entity by the key when entity update (NOT batch update).
-     * @param eventNo : UQ+, NotNull, int4(10), FK to event_t. (NotNull)
-     * @param userId : +UQ, NotNull, int4(10), FK to user_t. (NotNull)
+     * @param eventNo : UQ, NotNull, int4(10), FK to event_t. (NotNull)
      */
-    public void uniqueBy(Integer eventNo, Integer userId) {
+    public void uniqueBy(Integer eventNo) {
         __uniqueDrivenProperties.clear();
         __uniqueDrivenProperties.addPropertyName("eventNo");
-        __uniqueDrivenProperties.addPropertyName("userId");
-        setEventNo(eventNo);setUserId(userId);
+        setEventNo(eventNo);
     }
 
     // ===================================================================================
@@ -206,8 +225,12 @@ public abstract class BsEventNotify extends AbstractEntity implements DomainEnti
         StringBuilder sb = new StringBuilder();
         sb.append(dm).append(xfND(_eventNotifyNo));
         sb.append(dm).append(xfND(_eventNo));
-        sb.append(dm).append(xfND(_userId));
         sb.append(dm).append(xfND(_notifyDatetime));
+        sb.append(dm).append(xfND(_userId));
+        sb.append(dm).append(xfND(_registerDatetime));
+        sb.append(dm).append(xfND(_registerUser));
+        sb.append(dm).append(xfND(_updateDatetime));
+        sb.append(dm).append(xfND(_updateUser));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
@@ -257,7 +280,7 @@ public abstract class BsEventNotify extends AbstractEntity implements DomainEnti
     }
 
     /**
-     * [get] event_no: {UQ+, NotNull, int4(10), FK to event_t} <br>
+     * [get] event_no: {UQ, NotNull, int4(10), FK to event_t} <br>
      * イベント管理番号
      * @return The value of the column 'event_no'. (basically NotNull if selected: for the constraint)
      */
@@ -267,33 +290,13 @@ public abstract class BsEventNotify extends AbstractEntity implements DomainEnti
     }
 
     /**
-     * [set] event_no: {UQ+, NotNull, int4(10), FK to event_t} <br>
+     * [set] event_no: {UQ, NotNull, int4(10), FK to event_t} <br>
      * イベント管理番号
      * @param eventNo The value of the column 'event_no'. (basically NotNull if update: for the constraint)
      */
     public void setEventNo(Integer eventNo) {
         registerModifiedProperty("eventNo");
         _eventNo = eventNo;
-    }
-
-    /**
-     * [get] user_id: {+UQ, NotNull, int4(10), FK to user_t} <br>
-     * user_id
-     * @return The value of the column 'user_id'. (basically NotNull if selected: for the constraint)
-     */
-    public Integer getUserId() {
-        checkSpecifiedProperty("userId");
-        return _userId;
-    }
-
-    /**
-     * [set] user_id: {+UQ, NotNull, int4(10), FK to user_t} <br>
-     * user_id
-     * @param userId The value of the column 'user_id'. (basically NotNull if update: for the constraint)
-     */
-    public void setUserId(Integer userId) {
-        registerModifiedProperty("userId");
-        _userId = userId;
     }
 
     /**
@@ -314,5 +317,105 @@ public abstract class BsEventNotify extends AbstractEntity implements DomainEnti
     public void setNotifyDatetime(java.time.LocalDateTime notifyDatetime) {
         registerModifiedProperty("notifyDatetime");
         _notifyDatetime = notifyDatetime;
+    }
+
+    /**
+     * [get] user_id: {NotNull, int4(10), FK to user_t} <br>
+     * ユーザーID
+     * @return The value of the column 'user_id'. (basically NotNull if selected: for the constraint)
+     */
+    public Integer getUserId() {
+        checkSpecifiedProperty("userId");
+        return _userId;
+    }
+
+    /**
+     * [set] user_id: {NotNull, int4(10), FK to user_t} <br>
+     * ユーザーID
+     * @param userId The value of the column 'user_id'. (basically NotNull if update: for the constraint)
+     */
+    public void setUserId(Integer userId) {
+        registerModifiedProperty("userId");
+        _userId = userId;
+    }
+
+    /**
+     * [get] register_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * 作成日時
+     * @return The value of the column 'register_datetime'. (NullAllowed even if selected: for no constraint)
+     */
+    public java.time.LocalDateTime getRegisterDatetime() {
+        checkSpecifiedProperty("registerDatetime");
+        return _registerDatetime;
+    }
+
+    /**
+     * [set] register_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * 作成日時
+     * @param registerDatetime The value of the column 'register_datetime'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setRegisterDatetime(java.time.LocalDateTime registerDatetime) {
+        registerModifiedProperty("registerDatetime");
+        _registerDatetime = registerDatetime;
+    }
+
+    /**
+     * [get] register_user: {text(2147483647)} <br>
+     * 作成者
+     * @return The value of the column 'register_user'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getRegisterUser() {
+        checkSpecifiedProperty("registerUser");
+        return _registerUser;
+    }
+
+    /**
+     * [set] register_user: {text(2147483647)} <br>
+     * 作成者
+     * @param registerUser The value of the column 'register_user'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setRegisterUser(String registerUser) {
+        registerModifiedProperty("registerUser");
+        _registerUser = registerUser;
+    }
+
+    /**
+     * [get] update_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * 更新日時
+     * @return The value of the column 'update_datetime'. (NullAllowed even if selected: for no constraint)
+     */
+    public java.time.LocalDateTime getUpdateDatetime() {
+        checkSpecifiedProperty("updateDatetime");
+        return _updateDatetime;
+    }
+
+    /**
+     * [set] update_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * 更新日時
+     * @param updateDatetime The value of the column 'update_datetime'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setUpdateDatetime(java.time.LocalDateTime updateDatetime) {
+        registerModifiedProperty("updateDatetime");
+        _updateDatetime = updateDatetime;
+    }
+
+    /**
+     * [get] update_user: {text(2147483647)} <br>
+     * 更新者
+     * @return The value of the column 'update_user'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getUpdateUser() {
+        checkSpecifiedProperty("updateUser");
+        return _updateUser;
+    }
+
+    /**
+     * [set] update_user: {text(2147483647)} <br>
+     * 更新者
+     * @param updateUser The value of the column 'update_user'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setUpdateUser(String updateUser) {
+        registerModifiedProperty("updateUser");
+        _updateUser = updateUser;
     }
 }

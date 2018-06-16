@@ -27,6 +27,16 @@
             name="start_date" size="2147483647" type="VARCHAR"/>
         <column comment="開始時分" dbType="text" javaType="String"
             name="start_time" size="2147483647" type="VARCHAR"/>
+        <column comment="作成日時" dbType="timestamp" default="now()"
+            javaType="java.time.LocalDateTime" name="register_datetime"
+            size="29, 6" type="TIMESTAMP"/>
+        <column comment="作成者" dbType="text" javaType="String"
+            name="register_user" size="2147483647" type="VARCHAR"/>
+        <column comment="更新日時" dbType="timestamp" default="now()"
+            javaType="java.time.LocalDateTime" name="update_datetime"
+            size="29, 6" type="TIMESTAMP"/>
+        <column comment="更新者" dbType="text" javaType="String"
+            name="update_user" size="2147483647" type="VARCHAR"/>
         <foreign-key foreignSchema="bacchus" foreignTable="event_t" name="candidate_t_event_no_fkey">
             <reference foreign="event_no" local="event_no"/>
         </foreign-key>
@@ -60,10 +70,20 @@
             pkPosition="1" primaryKey="true" required="true" size="19" type="BIGINT"/>
         <column comment="候補日管理番号" dbType="int4" javaType="Integer"
             name="candidate_no" required="true" size="10" type="INTEGER"/>
-        <column comment="user_id" dbType="int4" javaType="Integer"
-            name="user_id" required="true" size="10" type="INTEGER"/>
         <column comment="参加区分" dbType="int4" javaType="Integer"
             name="entry_div" size="10" type="INTEGER"/>
+        <column comment="ユーザーID" dbType="int4" javaType="Integer"
+            name="user_id" required="true" size="10" type="INTEGER"/>
+        <column comment="作成日時" dbType="timestamp" default="now()"
+            javaType="java.time.LocalDateTime" name="register_datetime"
+            size="29, 6" type="TIMESTAMP"/>
+        <column comment="作成者" dbType="text" javaType="String"
+            name="register_user" size="2147483647" type="VARCHAR"/>
+        <column comment="更新日時" dbType="timestamp" default="now()"
+            javaType="java.time.LocalDateTime" name="update_datetime"
+            size="29, 6" type="TIMESTAMP"/>
+        <column comment="更新者" dbType="text" javaType="String"
+            name="update_user" size="2147483647" type="VARCHAR"/>
         <foreign-key foreignSchema="bacchus" foreignTable="candidate_t" name="entry_t_candidate_no_fkey">
             <reference foreign="candidate_no" local="candidate_no"/>
         </foreign-key>
@@ -80,20 +100,29 @@
             required="true" size="10" type="INTEGER"/>
         <column comment="イベント管理番号" dbType="int4" javaType="Integer"
             name="event_no" required="true" size="10" type="INTEGER"/>
-        <column comment="user_id" dbType="int4" javaType="Integer"
-            name="user_id" required="true" size="10" type="INTEGER"/>
         <column comment="通知日時" dbType="timestamp"
             javaType="java.time.LocalDateTime" name="notify_datetime"
             size="29, 6" type="TIMESTAMP"/>
+        <column comment="ユーザーID" dbType="int4" javaType="Integer"
+            name="user_id" required="true" size="10" type="INTEGER"/>
+        <column comment="作成日時" dbType="timestamp" default="now()"
+            javaType="java.time.LocalDateTime" name="register_datetime"
+            size="29, 6" type="TIMESTAMP"/>
+        <column comment="作成者" dbType="text" javaType="String"
+            name="register_user" size="2147483647" type="VARCHAR"/>
+        <column comment="更新日時" dbType="timestamp" default="now()"
+            javaType="java.time.LocalDateTime" name="update_datetime"
+            size="29, 6" type="TIMESTAMP"/>
+        <column comment="更新者" dbType="text" javaType="String"
+            name="update_user" size="2147483647" type="VARCHAR"/>
         <foreign-key foreignSchema="bacchus" foreignTable="event_t" name="event_notify_event_no_fkey">
             <reference foreign="event_no" local="event_no"/>
         </foreign-key>
         <foreign-key foreignSchema="bacchus" foreignTable="user_t" name="event_notify_user_id_fkey">
             <reference foreign="user_id" local="user_id"/>
         </foreign-key>
-        <unique name="event_notify_event_no_user_id_key">
+        <unique name="event_notify_event_no_key">
             <unique-column name="event_no" position="1"/>
-            <unique-column name="user_id" position="2"/>
         </unique>
     </table>
     <table comment="イベント_T" name="event_t" schema="postgres.bacchus" type="TABLE">
@@ -121,10 +150,20 @@
             name="candidate_no" size="10" type="INTEGER"/>
         <column comment="店舗名" dbType="text" javaType="String"
             name="store_name" size="2147483647" type="VARCHAR"/>
-        <column comment="幹事ユーザID" dbType="int4" javaType="Integer"
-            name="user_id" size="10" type="INTEGER"/>
         <column comment="イベント区分ID" dbType="int4" javaType="Integer"
             name="event_type_id" size="10" type="INTEGER"/>
+        <column comment="幹事ユーザーID" dbType="int4" javaType="Integer"
+            name="user_id" size="10" type="INTEGER"/>
+        <column comment="作成日時" dbType="timestamp" default="now()"
+            javaType="java.time.LocalDateTime" name="register_datetime"
+            size="29, 6" type="TIMESTAMP"/>
+        <column comment="作成者" dbType="text" javaType="String"
+            name="register_user" size="2147483647" type="VARCHAR"/>
+        <column comment="更新日時" dbType="timestamp" default="now()"
+            javaType="java.time.LocalDateTime" name="update_datetime"
+            size="29, 6" type="TIMESTAMP"/>
+        <column comment="更新者" dbType="text" javaType="String"
+            name="update_user" size="2147483647" type="VARCHAR"/>
         <foreign-key foreignSchema="bacchus" foreignTable="event_type_m" name="event_t_event_type_id_fkey">
             <reference foreign="event_type_id" local="event_type_id"/>
         </foreign-key>
@@ -198,7 +237,7 @@
             name="update_user" size="2147483647" type="VARCHAR"/>
     </table>
     <table comment="ユーザー_T" name="user_t" schema="postgres.bacchus" type="TABLE">
-        <column autoIncrement="true" comment="user_id" dbType="serial"
+        <column autoIncrement="true" comment="ユーザーID" dbType="serial"
             default="nextval('user_t_user_id_seq'::regclass)"
             javaType="Integer" name="user_id" pkName="user_t_pkey"
             pkPosition="1" primaryKey="true" required="true" size="10" type="INTEGER"/>
@@ -224,6 +263,16 @@
             name="user_type_id" required="true" size="10" type="INTEGER"/>
         <column comment="権限レベル" dbType="int4" javaType="Integer"
             name="auth_level" required="true" size="10" type="INTEGER"/>
+        <column comment="作成日時" dbType="timestamp" default="now()"
+            javaType="java.time.LocalDateTime" name="register_datetime"
+            size="29, 6" type="TIMESTAMP"/>
+        <column comment="作成者" dbType="text" javaType="String"
+            name="register_user" size="2147483647" type="VARCHAR"/>
+        <column comment="更新日時" dbType="timestamp" default="now()"
+            javaType="java.time.LocalDateTime" name="update_datetime"
+            size="29, 6" type="TIMESTAMP"/>
+        <column comment="更新者" dbType="text" javaType="String"
+            name="update_user" size="2147483647" type="VARCHAR"/>
         <foreign-key foreignSchema="bacchus" foreignTable="auth_m" name="user_t_auth_level_fkey">
             <reference foreign="auth_level" local="auth_level"/>
         </foreign-key>

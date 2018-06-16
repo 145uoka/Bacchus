@@ -34,4 +34,13 @@ public class EventTNss {
         _query.xdoNss(() -> _query.queryUserT());
         return new UserTNss(_query.queryUserT());
     }
+    /**
+     * With nested relation columns to select clause. <br>
+     * event_notify by event_no, named 'eventNotifyAsOne'.
+     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
+     */
+    public EventNotifyNss withEventNotifyAsOne() {
+        _query.xdoNss(() -> _query.queryEventNotifyAsOne());
+        return new EventNotifyNss(_query.queryEventNotifyAsOne());
+    }
 }

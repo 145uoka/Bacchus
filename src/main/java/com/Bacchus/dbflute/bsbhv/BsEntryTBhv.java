@@ -26,7 +26,7 @@ import com.Bacchus.dbflute.cbean.*;
  *     entry_id
  *
  * [column]
- *     entry_id, candidate_no, user_id, entry_div
+ *     entry_id, candidate_no, entry_div, user_id, register_datetime, register_user, update_datetime, update_user
  *
  * [sequence]
  *     entry_t_entry_id_seq

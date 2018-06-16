@@ -103,6 +103,10 @@ public class UserTCIQ extends AbstractBsUserTCQ {
     protected ConditionValue xgetCValuePassword() { return _myCQ.xdfgetPassword(); }
     protected ConditionValue xgetCValueUserTypeId() { return _myCQ.xdfgetUserTypeId(); }
     protected ConditionValue xgetCValueAuthLevel() { return _myCQ.xdfgetAuthLevel(); }
+    protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
+    protected ConditionValue xgetCValueRegisterUser() { return _myCQ.xdfgetRegisterUser(); }
+    protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }
+    protected ConditionValue xgetCValueUpdateUser() { return _myCQ.xdfgetUpdateUser(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(UserTCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

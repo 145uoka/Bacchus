@@ -63,8 +63,12 @@ public class EntryTCIQ extends AbstractBsEntryTCQ {
     //                                                                ====================
     protected ConditionValue xgetCValueEntryId() { return _myCQ.xdfgetEntryId(); }
     protected ConditionValue xgetCValueCandidateNo() { return _myCQ.xdfgetCandidateNo(); }
-    protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
     protected ConditionValue xgetCValueEntryDiv() { return _myCQ.xdfgetEntryDiv(); }
+    protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
+    protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
+    protected ConditionValue xgetCValueRegisterUser() { return _myCQ.xdfgetRegisterUser(); }
+    protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }
+    protected ConditionValue xgetCValueUpdateUser() { return _myCQ.xdfgetUpdateUser(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(EntryTCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

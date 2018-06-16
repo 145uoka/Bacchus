@@ -308,7 +308,7 @@ dl.procedurelist dd.column pre {
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
-		<td><a href="#candidate_t" title="type=TABLE, primaryKey={candidate_no}, nameLength=11, columnCount=6">candidate_t</a></td>
+		<td><a href="#candidate_t" title="type=TABLE, primaryKey={candidate_no}, nameLength=11, columnCount=10">candidate_t</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#event_t" title="candidate_t_event_no_fkey">event_t</a></td>
 		<td class="relcell"><a href="#entry_t" title="entry_t_candidate_no_fkey">entry_t</a></td>
@@ -326,7 +326,7 @@ dl.procedurelist dd.column pre {
 	</tr>
 	<tr>
 		<td class="rownumcell">4</td>
-		<td><a href="#entry_t" title="type=TABLE, primaryKey={entry_id}, nameLength=7, columnCount=4">entry_t</a></td>
+		<td><a href="#entry_t" title="type=TABLE, primaryKey={entry_id}, nameLength=7, columnCount=8">entry_t</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#candidate_t" title="entry_t_candidate_no_fkey">candidate_t</a>, <a href="#user_t" title="entry_t_user_id_fkey">user_t</a></td>
 		<td class="relcell">&nbsp;</td>
@@ -335,7 +335,7 @@ dl.procedurelist dd.column pre {
 	</tr>
 	<tr>
 		<td class="rownumcell">5</td>
-		<td><a href="#event_notify" title="type=TABLE, primaryKey={event_notify_no}, nameLength=12, columnCount=4">event_notify</a></td>
+		<td><a href="#event_notify" title="type=TABLE, primaryKey={event_notify_no}, nameLength=12, columnCount=8">event_notify</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#event_t" title="event_notify_event_no_fkey">event_t</a>, <a href="#user_t" title="event_notify_user_id_fkey">user_t</a></td>
 		<td class="relcell">&nbsp;</td>
@@ -344,7 +344,7 @@ dl.procedurelist dd.column pre {
 	</tr>
 	<tr>
 		<td class="rownumcell">6</td>
-		<td><a href="#event_t" title="type=TABLE, primaryKey={event_no}, nameLength=7, columnCount=13">event_t</a></td>
+		<td><a href="#event_t" title="type=TABLE, primaryKey={event_no}, nameLength=7, columnCount=17">event_t</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#event_type_m" title="event_t_event_type_id_fkey">event_type_m</a>, <a href="#user_t" title="event_t_user_id_fkey">user_t</a></td>
 		<td class="relcell"><a href="#candidate_t" title="candidate_t_event_no_fkey">candidate_t</a>, <a href="#event_notify" title="event_notify_event_no_fkey">event_notify</a></td>
@@ -380,7 +380,7 @@ dl.procedurelist dd.column pre {
 	</tr>
 	<tr>
 		<td class="rownumcell">10</td>
-		<td><a href="#user_t" title="type=TABLE, primaryKey={user_id}, nameLength=6, columnCount=12">user_t</a></td>
+		<td><a href="#user_t" title="type=TABLE, primaryKey={user_id}, nameLength=6, columnCount=16">user_t</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#auth_m" title="user_t_auth_level_fkey">auth_m</a>, <a href="#user_type_m" title="user_t_user_type_id_fkey">user_type_m</a></td>
 		<td class="relcell"><a href="#entry_t" title="entry_t_user_id_fkey">entry_t</a>, <a href="#event_notify" title="event_notify_user_id_fkey">event_notify</a>, <a href="#event_t" title="event_t_user_id_fkey">event_t</a></td>
@@ -458,7 +458,7 @@ auth_m
 		<td class="subcell">String</td>
 	</tr>
 </table>
-<h2 id="candidate_t" title="type=TABLE, primaryKey={candidate_no}, nameLength=11, columnCount=6">
+<h2 id="candidate_t" title="type=TABLE, primaryKey={candidate_no}, nameLength=11, columnCount=10">
 candidate_t
 </h2>
 <p class="tablecomment">候補日_T</p>
@@ -474,6 +474,7 @@ candidate_t
 		<th>Name</th>
 		<th>Type</th>
 		<th>Size</th>
+		<th>Default</th>
 		<th>ForeignTable</th>
 		<th>ReferrerTable</th>
 		<th>Classification</th>
@@ -492,6 +493,7 @@ candidate_t
 		<td id="candidate_t_candidate_no">candidate_no</td>
 		<td class="typecell">serial</td>
 		<td class="sizecell"> 10 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell"><a href="#entry_t" title="entry_t_candidate_no_fkey">entry_t</a>&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -509,6 +511,7 @@ candidate_t
 		<td id="candidate_t_event_no">event_no</td>
 		<td class="typecell">int4</td>
 		<td class="sizecell"> 10 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell"><a href="#event_t" title="candidate_t_event_no_fkey">event_t</a>&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -526,6 +529,7 @@ candidate_t
 		<td id="candidate_t_event_start_datetime">event_start_datetime</td>
 		<td class="typecell">timestamp</td>
 		<td class="sizecell"> 29, 6 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -543,6 +547,7 @@ candidate_t
 		<td id="candidate_t_event_end_datetime">event_end_datetime</td>
 		<td class="typecell">timestamp</td>
 		<td class="sizecell"> 29, 6 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -560,6 +565,7 @@ candidate_t
 		<td id="candidate_t_start_date">start_date</td>
 		<td class="typecell">text</td>
 		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -577,11 +583,84 @@ candidate_t
 		<td id="candidate_t_start_time">start_time</td>
 		<td class="typecell">text</td>
 		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"> 開始時分</td>
 		<td class="subcell">startTime</td>
+		<td class="subcell">String</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">7</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="candidate_t_register_datetime">register_datetime</td>
+		<td class="typecell">timestamp</td>
+		<td class="sizecell"> 29, 6 </td>
+		<td class="defvalcell"> now()</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 作成日時</td>
+		<td class="subcell">registerDatetime</td>
+		<td class="subcell">LocalDateTime</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">8</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="candidate_t_register_user">register_user</td>
+		<td class="typecell">text</td>
+		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 作成者</td>
+		<td class="subcell">registerUser</td>
+		<td class="subcell">String</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">9</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="candidate_t_update_datetime">update_datetime</td>
+		<td class="typecell">timestamp</td>
+		<td class="sizecell"> 29, 6 </td>
+		<td class="defvalcell"> now()</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 更新日時</td>
+		<td class="subcell">updateDatetime</td>
+		<td class="subcell">LocalDateTime</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">10</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="candidate_t_update_user">update_user</td>
+		<td class="typecell">text</td>
+		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 更新者</td>
+		<td class="subcell">updateUser</td>
 		<td class="subcell">String</td>
 	</tr>
 </table>
@@ -719,7 +798,7 @@ display_def_m
 		<td class="subcell">String</td>
 	</tr>
 </table>
-<h2 id="entry_t" title="type=TABLE, primaryKey={entry_id}, nameLength=7, columnCount=4">
+<h2 id="entry_t" title="type=TABLE, primaryKey={entry_id}, nameLength=7, columnCount=8">
 entry_t
 </h2>
 <p class="tablecomment">参加_T</p>
@@ -735,6 +814,7 @@ entry_t
 		<th>Name</th>
 		<th>Type</th>
 		<th>Size</th>
+		<th>Default</th>
 		<th>ForeignTable</th>
 		<th>ReferrerTable</th>
 		<th>Classification</th>
@@ -753,6 +833,7 @@ entry_t
 		<td id="entry_t_entry_id">entry_id</td>
 		<td class="typecell">bigserial</td>
 		<td class="sizecell"> 19 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -770,6 +851,7 @@ entry_t
 		<td id="entry_t_candidate_no">candidate_no</td>
 		<td class="typecell">int4</td>
 		<td class="sizecell"> 10 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell"><a href="#candidate_t" title="entry_t_candidate_no_fkey">candidate_t</a>&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -783,15 +865,16 @@ entry_t
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell">*</td>
-		<td id="entry_t_user_id">user_id</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td id="entry_t_entry_div">entry_div</td>
 		<td class="typecell">int4</td>
 		<td class="sizecell"> 10 </td>
-		<td class="relcell"><a href="#user_t" title="entry_t_user_id_fkey">user_t</a>&nbsp;</td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
-		<td class="commentcell"> user_id</td>
-		<td class="subcell">userId</td>
+		<td class="commentcell"> 参加区分</td>
+		<td class="subcell">entryDiv</td>
 		<td class="subcell">Integer</td>
 	</tr>
 	<tr>
@@ -800,19 +883,92 @@ entry_t
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell"> &nbsp;</td>
-		<td id="entry_t_entry_div">entry_div</td>
+		<td class="flgcell">*</td>
+		<td id="entry_t_user_id">user_id</td>
 		<td class="typecell">int4</td>
 		<td class="sizecell"> 10 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell"><a href="#user_t" title="entry_t_user_id_fkey">user_t</a>&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> ユーザーID</td>
+		<td class="subcell">userId</td>
+		<td class="subcell">Integer</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">5</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="entry_t_register_datetime">register_datetime</td>
+		<td class="typecell">timestamp</td>
+		<td class="sizecell"> 29, 6 </td>
+		<td class="defvalcell"> now()</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
-		<td class="commentcell"> 参加区分</td>
-		<td class="subcell">entryDiv</td>
-		<td class="subcell">Integer</td>
+		<td class="commentcell"> 作成日時</td>
+		<td class="subcell">registerDatetime</td>
+		<td class="subcell">LocalDateTime</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">6</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="entry_t_register_user">register_user</td>
+		<td class="typecell">text</td>
+		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 作成者</td>
+		<td class="subcell">registerUser</td>
+		<td class="subcell">String</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">7</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="entry_t_update_datetime">update_datetime</td>
+		<td class="typecell">timestamp</td>
+		<td class="sizecell"> 29, 6 </td>
+		<td class="defvalcell"> now()</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 更新日時</td>
+		<td class="subcell">updateDatetime</td>
+		<td class="subcell">LocalDateTime</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">8</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="entry_t_update_user">update_user</td>
+		<td class="typecell">text</td>
+		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 更新者</td>
+		<td class="subcell">updateUser</td>
+		<td class="subcell">String</td>
 	</tr>
 </table>
-<h2 id="event_notify" title="type=TABLE, primaryKey={event_notify_no}, nameLength=12, columnCount=4">
+<h2 id="event_notify" title="type=TABLE, primaryKey={event_notify_no}, nameLength=12, columnCount=8">
 event_notify
 </h2>
 <p class="tablecomment">イベント通知_T</p>
@@ -828,6 +984,7 @@ event_notify
 		<th>Name</th>
 		<th>Type</th>
 		<th>Size</th>
+		<th>Default</th>
 		<th>ForeignTable</th>
 		<th>ReferrerTable</th>
 		<th>Classification</th>
@@ -846,6 +1003,7 @@ event_notify
 		<td id="event_notify_event_notify_no">event_notify_no</td>
 		<td class="typecell">serial</td>
 		<td class="sizecell"> 10 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -857,12 +1015,13 @@ event_notify
 		<td class="rownumcell">2</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell"> &nbsp;</td>
-		<td class="flgcell" title="event_notify_event_no_user_id_key(event_no, user_id)">o<span class="flgplus">+</span></td>
+		<td class="flgcell" title="event_notify_event_no_key(event_no)">o</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">*</td>
 		<td id="event_notify_event_no">event_no</td>
 		<td class="typecell">int4</td>
 		<td class="sizecell"> 10 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell"><a href="#event_t" title="event_notify_event_no_fkey">event_t</a>&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -874,29 +1033,13 @@ event_notify
 		<td class="rownumcell">3</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell"> &nbsp;</td>
-		<td class="flgcell" title="event_notify_event_no_user_id_key(event_no, user_id)"><span class="flgplus">+</span>o</td>
-		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell">*</td>
-		<td id="event_notify_user_id">user_id</td>
-		<td class="typecell">int4</td>
-		<td class="sizecell"> 10 </td>
-		<td class="relcell"><a href="#user_t" title="event_notify_user_id_fkey">user_t</a>&nbsp;</td>
-		<td class="relcell">&nbsp;</td>
-		<td class="relcell"> &nbsp;</td>
-		<td class="commentcell"> user_id</td>
-		<td class="subcell">userId</td>
-		<td class="subcell">Integer</td>
-	</tr>
-	<tr>
-		<td class="rownumcell">4</td>
-		<td class="flgcell">&nbsp;</td>
-		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell"> &nbsp;</td>
 		<td id="event_notify_notify_datetime">notify_datetime</td>
 		<td class="typecell">timestamp</td>
 		<td class="sizecell"> 29, 6 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -904,8 +1047,98 @@ event_notify
 		<td class="subcell">notifyDatetime</td>
 		<td class="subcell">LocalDateTime</td>
 	</tr>
+	<tr>
+		<td class="rownumcell">4</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">*</td>
+		<td id="event_notify_user_id">user_id</td>
+		<td class="typecell">int4</td>
+		<td class="sizecell"> 10 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell"><a href="#user_t" title="event_notify_user_id_fkey">user_t</a>&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> ユーザーID</td>
+		<td class="subcell">userId</td>
+		<td class="subcell">Integer</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">5</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="event_notify_register_datetime">register_datetime</td>
+		<td class="typecell">timestamp</td>
+		<td class="sizecell"> 29, 6 </td>
+		<td class="defvalcell"> now()</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 作成日時</td>
+		<td class="subcell">registerDatetime</td>
+		<td class="subcell">LocalDateTime</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">6</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="event_notify_register_user">register_user</td>
+		<td class="typecell">text</td>
+		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 作成者</td>
+		<td class="subcell">registerUser</td>
+		<td class="subcell">String</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">7</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="event_notify_update_datetime">update_datetime</td>
+		<td class="typecell">timestamp</td>
+		<td class="sizecell"> 29, 6 </td>
+		<td class="defvalcell"> now()</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 更新日時</td>
+		<td class="subcell">updateDatetime</td>
+		<td class="subcell">LocalDateTime</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">8</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="event_notify_update_user">update_user</td>
+		<td class="typecell">text</td>
+		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 更新者</td>
+		<td class="subcell">updateUser</td>
+		<td class="subcell">String</td>
+	</tr>
 </table>
-<h2 id="event_t" title="type=TABLE, primaryKey={event_no}, nameLength=7, columnCount=13">
+<h2 id="event_t" title="type=TABLE, primaryKey={event_no}, nameLength=7, columnCount=17">
 event_t
 &nbsp;<span class="bqpcount"><a href="#event_t_sql">(outsideSql=1)</a></span>
 </h2>
@@ -922,6 +1155,7 @@ event_t
 		<th>Name</th>
 		<th>Type</th>
 		<th>Size</th>
+		<th>Default</th>
 		<th>ForeignTable</th>
 		<th>ReferrerTable</th>
 		<th>Classification</th>
@@ -940,6 +1174,7 @@ event_t
 		<td id="event_t_event_no">event_no</td>
 		<td class="typecell">serial</td>
 		<td class="sizecell"> 10 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell"><a href="#candidate_t" title="candidate_t_event_no_fkey">candidate_t</a>,<br><a href="#event_notify" title="event_notify_event_no_fkey">event_notify</a>&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -957,6 +1192,7 @@ event_t
 		<td id="event_t_event_name">event_name</td>
 		<td class="typecell">text</td>
 		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -974,6 +1210,7 @@ event_t
 		<td id="event_t_event_detail">event_detail</td>
 		<td class="typecell">text</td>
 		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -991,6 +1228,7 @@ event_t
 		<td id="event_t_event_place">event_place</td>
 		<td class="typecell">text</td>
 		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -1008,6 +1246,7 @@ event_t
 		<td id="event_t_event_url">event_url</td>
 		<td class="typecell">text</td>
 		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -1025,6 +1264,7 @@ event_t
 		<td id="event_t_tell">tell</td>
 		<td class="typecell">text</td>
 		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -1042,6 +1282,7 @@ event_t
 		<td id="event_t_event_entry_fee">event_entry_fee</td>
 		<td class="typecell">int4</td>
 		<td class="sizecell"> 10 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -1059,6 +1300,7 @@ event_t
 		<td id="event_t_auxiliary_flg">auxiliary_flg</td>
 		<td class="typecell">int2</td>
 		<td class="sizecell"> 5 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -1076,6 +1318,7 @@ event_t
 		<td id="event_t_fix_flg">fix_flg</td>
 		<td class="typecell">int2</td>
 		<td class="sizecell"> 5 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -1093,6 +1336,7 @@ event_t
 		<td id="event_t_candidate_no">candidate_no</td>
 		<td class="typecell">int4</td>
 		<td class="sizecell"> 10 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -1110,6 +1354,7 @@ event_t
 		<td id="event_t_store_name">store_name</td>
 		<td class="typecell">text</td>
 		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -1124,14 +1369,15 @@ event_t
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell"> &nbsp;</td>
-		<td id="event_t_user_id">user_id</td>
+		<td id="event_t_event_type_id">event_type_id</td>
 		<td class="typecell">int4</td>
 		<td class="sizecell"> 10 </td>
-		<td class="relcell"><a href="#user_t" title="event_t_user_id_fkey">user_t</a>&nbsp;</td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell"><a href="#event_type_m" title="event_t_event_type_id_fkey">event_type_m</a>&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
-		<td class="commentcell"> 幹事ユーザID</td>
-		<td class="subcell">userId</td>
+		<td class="commentcell"> イベント区分ID</td>
+		<td class="subcell">eventTypeId</td>
 		<td class="subcell">Integer</td>
 	</tr>
 	<tr>
@@ -1141,15 +1387,88 @@ event_t
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell"> &nbsp;</td>
-		<td id="event_t_event_type_id">event_type_id</td>
+		<td id="event_t_user_id">user_id</td>
 		<td class="typecell">int4</td>
 		<td class="sizecell"> 10 </td>
-		<td class="relcell"><a href="#event_type_m" title="event_t_event_type_id_fkey">event_type_m</a>&nbsp;</td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell"><a href="#user_t" title="event_t_user_id_fkey">user_t</a>&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
-		<td class="commentcell"> イベント区分ID</td>
-		<td class="subcell">eventTypeId</td>
+		<td class="commentcell"> 幹事ユーザーID</td>
+		<td class="subcell">userId</td>
 		<td class="subcell">Integer</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">14</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="event_t_register_datetime">register_datetime</td>
+		<td class="typecell">timestamp</td>
+		<td class="sizecell"> 29, 6 </td>
+		<td class="defvalcell"> now()</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 作成日時</td>
+		<td class="subcell">registerDatetime</td>
+		<td class="subcell">LocalDateTime</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">15</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="event_t_register_user">register_user</td>
+		<td class="typecell">text</td>
+		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 作成者</td>
+		<td class="subcell">registerUser</td>
+		<td class="subcell">String</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">16</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="event_t_update_datetime">update_datetime</td>
+		<td class="typecell">timestamp</td>
+		<td class="sizecell"> 29, 6 </td>
+		<td class="defvalcell"> now()</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 更新日時</td>
+		<td class="subcell">updateDatetime</td>
+		<td class="subcell">LocalDateTime</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">17</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="event_t_update_user">update_user</td>
+		<td class="typecell">text</td>
+		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 更新者</td>
+		<td class="subcell">updateUser</td>
+		<td class="subcell">String</td>
 	</tr>
 </table>
 <h2 id="event_type_m" title="type=TABLE, primaryKey={event_type_id}, nameLength=12, columnCount=3">
@@ -1622,7 +1941,7 @@ system_property_m
 		<td class="subcell">String</td>
 	</tr>
 </table>
-<h2 id="user_t" title="type=TABLE, primaryKey={user_id}, nameLength=6, columnCount=12">
+<h2 id="user_t" title="type=TABLE, primaryKey={user_id}, nameLength=6, columnCount=16">
 user_t
 &nbsp;<span class="bqpcount"><a href="#user_t_sql">(outsideSql=1)</a></span>
 </h2>
@@ -1662,7 +1981,7 @@ user_t
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell"><a href="#entry_t" title="entry_t_user_id_fkey">entry_t</a>,<br><a href="#event_notify" title="event_notify_user_id_fkey">event_notify</a>,<br><a href="#event_t" title="event_t_user_id_fkey">event_t</a>&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
-		<td class="commentcell"> user_id</td>
+		<td class="commentcell"> ユーザーID</td>
 		<td class="subcell">userId</td>
 		<td class="subcell">Integer</td>
 	</tr>
@@ -1863,6 +2182,78 @@ user_t
 		<td class="commentcell"> 権限レベル</td>
 		<td class="subcell">authLevel</td>
 		<td class="subcell">Integer</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">13</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="user_t_register_datetime">register_datetime</td>
+		<td class="typecell">timestamp</td>
+		<td class="sizecell"> 29, 6 </td>
+		<td class="defvalcell"> now()</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 作成日時</td>
+		<td class="subcell">registerDatetime</td>
+		<td class="subcell">LocalDateTime</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">14</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="user_t_register_user">register_user</td>
+		<td class="typecell">text</td>
+		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 作成者</td>
+		<td class="subcell">registerUser</td>
+		<td class="subcell">String</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">15</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="user_t_update_datetime">update_datetime</td>
+		<td class="typecell">timestamp</td>
+		<td class="sizecell"> 29, 6 </td>
+		<td class="defvalcell"> now()</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 更新日時</td>
+		<td class="subcell">updateDatetime</td>
+		<td class="subcell">LocalDateTime</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">16</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="comcolcell" id="user_t_update_user">update_user</td>
+		<td class="typecell">text</td>
+		<td class="sizecell"> 2147483647 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 更新者</td>
+		<td class="subcell">updateUser</td>
+		<td class="subcell">String</td>
 	</tr>
 </table>
 <h2 id="user_type_m" title="type=TABLE, primaryKey={user_type_id}, nameLength=11, columnCount=3">

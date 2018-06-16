@@ -13,7 +13,7 @@ import com.Bacchus.dbflute.exentity.*;
  *     event_notify_no
  *
  * [column]
- *     event_notify_no, event_no, user_id, notify_datetime
+ *     event_notify_no, event_no, notify_datetime, user_id, register_datetime, register_user, update_datetime, update_user
  *
  * [sequence]
  *     event_notify_event_notify_no_seq

@@ -82,30 +82,16 @@ public class BsEventTCQ extends AbstractBsEventTCQ {
     public Map<String, CandidateTCQ> xdfgetEventNo_ExistsReferrer_CandidateTList() { return xgetSQueMap("eventNo_ExistsReferrer_CandidateTList"); }
     public String keepEventNo_ExistsReferrer_CandidateTList(CandidateTCQ sq) { return xkeepSQue("eventNo_ExistsReferrer_CandidateTList", sq); }
 
-    public Map<String, EventNotifyCQ> xdfgetEventNo_ExistsReferrer_EventNotifyList() { return xgetSQueMap("eventNo_ExistsReferrer_EventNotifyList"); }
-    public String keepEventNo_ExistsReferrer_EventNotifyList(EventNotifyCQ sq) { return xkeepSQue("eventNo_ExistsReferrer_EventNotifyList", sq); }
-
     public Map<String, CandidateTCQ> xdfgetEventNo_NotExistsReferrer_CandidateTList() { return xgetSQueMap("eventNo_NotExistsReferrer_CandidateTList"); }
     public String keepEventNo_NotExistsReferrer_CandidateTList(CandidateTCQ sq) { return xkeepSQue("eventNo_NotExistsReferrer_CandidateTList", sq); }
 
-    public Map<String, EventNotifyCQ> xdfgetEventNo_NotExistsReferrer_EventNotifyList() { return xgetSQueMap("eventNo_NotExistsReferrer_EventNotifyList"); }
-    public String keepEventNo_NotExistsReferrer_EventNotifyList(EventNotifyCQ sq) { return xkeepSQue("eventNo_NotExistsReferrer_EventNotifyList", sq); }
-
     public Map<String, CandidateTCQ> xdfgetEventNo_SpecifyDerivedReferrer_CandidateTList() { return xgetSQueMap("eventNo_SpecifyDerivedReferrer_CandidateTList"); }
     public String keepEventNo_SpecifyDerivedReferrer_CandidateTList(CandidateTCQ sq) { return xkeepSQue("eventNo_SpecifyDerivedReferrer_CandidateTList", sq); }
-
-    public Map<String, EventNotifyCQ> xdfgetEventNo_SpecifyDerivedReferrer_EventNotifyList() { return xgetSQueMap("eventNo_SpecifyDerivedReferrer_EventNotifyList"); }
-    public String keepEventNo_SpecifyDerivedReferrer_EventNotifyList(EventNotifyCQ sq) { return xkeepSQue("eventNo_SpecifyDerivedReferrer_EventNotifyList", sq); }
 
     public Map<String, CandidateTCQ> xdfgetEventNo_QueryDerivedReferrer_CandidateTList() { return xgetSQueMap("eventNo_QueryDerivedReferrer_CandidateTList"); }
     public String keepEventNo_QueryDerivedReferrer_CandidateTList(CandidateTCQ sq) { return xkeepSQue("eventNo_QueryDerivedReferrer_CandidateTList", sq); }
     public Map<String, Object> xdfgetEventNo_QueryDerivedReferrer_CandidateTListParameter() { return xgetSQuePmMap("eventNo_QueryDerivedReferrer_CandidateTList"); }
     public String keepEventNo_QueryDerivedReferrer_CandidateTListParameter(Object pm) { return xkeepSQuePm("eventNo_QueryDerivedReferrer_CandidateTList", pm); }
-
-    public Map<String, EventNotifyCQ> xdfgetEventNo_QueryDerivedReferrer_EventNotifyList() { return xgetSQueMap("eventNo_QueryDerivedReferrer_EventNotifyList"); }
-    public String keepEventNo_QueryDerivedReferrer_EventNotifyList(EventNotifyCQ sq) { return xkeepSQue("eventNo_QueryDerivedReferrer_EventNotifyList", sq); }
-    public Map<String, Object> xdfgetEventNo_QueryDerivedReferrer_EventNotifyListParameter() { return xgetSQuePmMap("eventNo_QueryDerivedReferrer_EventNotifyList"); }
-    public String keepEventNo_QueryDerivedReferrer_EventNotifyListParameter(Object pm) { return xkeepSQuePm("eventNo_QueryDerivedReferrer_EventNotifyList", pm); }
 
     /** 
      * Add order-by as ascend. <br>
@@ -321,6 +307,26 @@ public class BsEventTCQ extends AbstractBsEventTCQ {
      */
     public BsEventTCQ addOrderBy_StoreName_Desc() { regOBD("store_name"); return this; }
 
+    protected ConditionValue _eventTypeId;
+    public ConditionValue xdfgetEventTypeId()
+    { if (_eventTypeId == null) { _eventTypeId = nCV(); }
+      return _eventTypeId; }
+    protected ConditionValue xgetCValueEventTypeId() { return xdfgetEventTypeId(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @return this. (NotNull)
+     */
+    public BsEventTCQ addOrderBy_EventTypeId_Asc() { regOBA("event_type_id"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @return this. (NotNull)
+     */
+    public BsEventTCQ addOrderBy_EventTypeId_Desc() { regOBD("event_type_id"); return this; }
+
     protected ConditionValue _userId;
     public ConditionValue xdfgetUserId()
     { if (_userId == null) { _userId = nCV(); }
@@ -341,25 +347,85 @@ public class BsEventTCQ extends AbstractBsEventTCQ {
      */
     public BsEventTCQ addOrderBy_UserId_Desc() { regOBD("user_id"); return this; }
 
-    protected ConditionValue _eventTypeId;
-    public ConditionValue xdfgetEventTypeId()
-    { if (_eventTypeId == null) { _eventTypeId = nCV(); }
-      return _eventTypeId; }
-    protected ConditionValue xgetCValueEventTypeId() { return xdfgetEventTypeId(); }
+    protected ConditionValue _registerDatetime;
+    public ConditionValue xdfgetRegisterDatetime()
+    { if (_registerDatetime == null) { _registerDatetime = nCV(); }
+      return _registerDatetime; }
+    protected ConditionValue xgetCValueRegisterDatetime() { return xdfgetRegisterDatetime(); }
 
     /** 
      * Add order-by as ascend. <br>
-     * event_type_id: {int4(10), FK to event_type_m}
+     * register_datetime: {timestamp(29, 6), default=[now()]}
      * @return this. (NotNull)
      */
-    public BsEventTCQ addOrderBy_EventTypeId_Asc() { regOBA("event_type_id"); return this; }
+    public BsEventTCQ addOrderBy_RegisterDatetime_Asc() { regOBA("register_datetime"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * event_type_id: {int4(10), FK to event_type_m}
+     * register_datetime: {timestamp(29, 6), default=[now()]}
      * @return this. (NotNull)
      */
-    public BsEventTCQ addOrderBy_EventTypeId_Desc() { regOBD("event_type_id"); return this; }
+    public BsEventTCQ addOrderBy_RegisterDatetime_Desc() { regOBD("register_datetime"); return this; }
+
+    protected ConditionValue _registerUser;
+    public ConditionValue xdfgetRegisterUser()
+    { if (_registerUser == null) { _registerUser = nCV(); }
+      return _registerUser; }
+    protected ConditionValue xgetCValueRegisterUser() { return xdfgetRegisterUser(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * register_user: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsEventTCQ addOrderBy_RegisterUser_Asc() { regOBA("register_user"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * register_user: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsEventTCQ addOrderBy_RegisterUser_Desc() { regOBD("register_user"); return this; }
+
+    protected ConditionValue _updateDatetime;
+    public ConditionValue xdfgetUpdateDatetime()
+    { if (_updateDatetime == null) { _updateDatetime = nCV(); }
+      return _updateDatetime; }
+    protected ConditionValue xgetCValueUpdateDatetime() { return xdfgetUpdateDatetime(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * update_datetime: {timestamp(29, 6), default=[now()]}
+     * @return this. (NotNull)
+     */
+    public BsEventTCQ addOrderBy_UpdateDatetime_Asc() { regOBA("update_datetime"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * update_datetime: {timestamp(29, 6), default=[now()]}
+     * @return this. (NotNull)
+     */
+    public BsEventTCQ addOrderBy_UpdateDatetime_Desc() { regOBD("update_datetime"); return this; }
+
+    protected ConditionValue _updateUser;
+    public ConditionValue xdfgetUpdateUser()
+    { if (_updateUser == null) { _updateUser = nCV(); }
+      return _updateUser; }
+    protected ConditionValue xgetCValueUpdateUser() { return xdfgetUpdateUser(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * update_user: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsEventTCQ addOrderBy_UpdateUser_Asc() { regOBA("update_user"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * update_user: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsEventTCQ addOrderBy_UpdateUser_Desc() { regOBD("update_user"); return this; }
 
     // ===================================================================================
     //                                                             SpecifiedDerivedOrderBy
@@ -408,6 +474,9 @@ public class BsEventTCQ extends AbstractBsEventTCQ {
         if (bq.hasConditionQueryUserT()) {
             uq.queryUserT().reflectRelationOnUnionQuery(bq.queryUserT(), uq.queryUserT());
         }
+        if (bq.hasConditionQueryEventNotifyAsOne()) {
+            uq.queryEventNotifyAsOne().reflectRelationOnUnionQuery(bq.queryEventNotifyAsOne(), uq.queryEventNotifyAsOne());
+        }
     }
 
     // ===================================================================================
@@ -452,6 +521,24 @@ public class BsEventTCQ extends AbstractBsEventTCQ {
     }
     protected void xsetupOuterJoinUserT() { xregOutJo("userT"); }
     public boolean hasConditionQueryUserT() { return xhasQueRlMap("userT"); }
+
+    /**
+     * Get the condition-query for relation table. <br>
+     * event_notify by event_no, named 'eventNotifyAsOne'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public EventNotifyCQ queryEventNotifyAsOne() { return xdfgetConditionQueryEventNotifyAsOne(); }
+    public EventNotifyCQ xdfgetConditionQueryEventNotifyAsOne() {
+        String prop = "eventNotifyAsOne";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryEventNotifyAsOne()); xsetupOuterJoinEventNotifyAsOne(); }
+        return xgetQueRlMap(prop);
+    }
+    protected EventNotifyCQ xcreateQueryEventNotifyAsOne() {
+        String nrp = xresolveNRP("event_t", "eventNotifyAsOne"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new EventNotifyCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "eventNotifyAsOne", nrp);
+    }
+    protected void xsetupOuterJoinEventNotifyAsOne() { xregOutJo("eventNotifyAsOne"); }
+    public boolean hasConditionQueryEventNotifyAsOne() { return xhasQueRlMap("eventNotifyAsOne"); }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;

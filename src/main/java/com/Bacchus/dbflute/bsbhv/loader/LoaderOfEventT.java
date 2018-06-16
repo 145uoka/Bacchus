@@ -15,7 +15,7 @@ import com.Bacchus.dbflute.cbean.*;
  *     event_no
  *
  * [column]
- *     event_no, event_name, event_detail, event_place, event_url, tell, event_entry_fee, auxiliary_flg, fix_flg, candidate_no, store_name, user_id, event_type_id
+ *     event_no, event_name, event_detail, event_place, event_url, tell, event_entry_fee, auxiliary_flg, fix_flg, candidate_no, store_name, event_type_id, user_id, register_datetime, register_user, update_datetime, update_user
  *
  * [sequence]
  *     event_t_event_no_seq
@@ -27,16 +27,16 @@ import com.Bacchus.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     event_type_m, user_t
+ *     event_type_m, user_t, event_notify(AsOne)
  *
  * [referrer table]
  *     candidate_t, event_notify
  *
  * [foreign property]
- *     eventTypeM, userT
+ *     eventTypeM, userT, eventNotifyAsOne
  *
  * [referrer property]
- *     candidateTList, eventNotifyList
+ *     candidateTList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -95,40 +95,6 @@ public class LoaderOfEventT {
         return hd -> hd.handle(new LoaderOfCandidateT().ready(_referrerCandidateT, _selector));
     }
 
-    protected List<EventNotify> _referrerEventNotify;
-
-    /**
-     * Load referrer of eventNotifyList by the set-upper of referrer. <br>
-     * event_notify by event_no, named 'eventNotifyList'.
-     * <pre>
-     * <span style="color: #0000C0">eventTBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">eventTList</span>, <span style="color: #553000">tLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">tLoader</span>.<span style="color: #CC4747">loadEventNotify</span>(<span style="color: #553000">notifyCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *         <span style="color: #553000">notifyCB</span>.setupSelect...
-     *         <span style="color: #553000">notifyCB</span>.query().set...
-     *         <span style="color: #553000">notifyCB</span>.query().addOrderBy...
-     *     }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">notifyLoader</span> -&gt; {</span>
-     *     <span style="color: #3F7E5E">//    notifyLoader.load...</span>
-     *     <span style="color: #3F7E5E">//});</span>
-     * });
-     * for (EventT eventT : <span style="color: #553000">eventTList</span>) {
-     *     ... = eventT.<span style="color: #CC4747">getEventNotifyList()</span>;
-     * }
-     * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
-     * The condition-bean, which the set-upper provides, has settings before callback as follows:
-     * <pre>
-     * cb.query().setEventNo_InScope(pkList);
-     * cb.query().addOrderBy_EventNo_Asc();
-     * </pre>
-     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    public NestedReferrerLoaderGateway<LoaderOfEventNotify> loadEventNotify(ReferrerConditionSetupper<EventNotifyCB> refCBLambda) {
-        myBhv().loadEventNotify(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerEventNotify = refLs);
-        return hd -> hd.handle(new LoaderOfEventNotify().ready(_referrerEventNotify, _selector));
-    }
-
     // ===================================================================================
     //                                                                    Pull out Foreign
     //                                                                    ================
@@ -144,6 +110,13 @@ public class LoaderOfEventT {
         if (_foreignUserTLoader == null)
         { _foreignUserTLoader = new LoaderOfUserT().ready(myBhv().pulloutUserT(_selectedList), _selector); }
         return _foreignUserTLoader;
+    }
+
+    protected LoaderOfEventNotify _foreignEventNotifyAsOneLoader;
+    public LoaderOfEventNotify pulloutEventNotifyAsOne() {
+        if (_foreignEventNotifyAsOneLoader == null)
+        { _foreignEventNotifyAsOneLoader = new LoaderOfEventNotify().ready(myBhv().pulloutEventNotifyAsOne(_selectedList), _selector); }
+        return _foreignEventNotifyAsOneLoader;
     }
 
     // ===================================================================================

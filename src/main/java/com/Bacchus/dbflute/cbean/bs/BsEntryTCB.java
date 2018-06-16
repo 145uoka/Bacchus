@@ -354,15 +354,35 @@ public class BsEntryTCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnCandidateNo() { return doColumn("candidate_no"); }
         /**
+         * entry_div: {int4(10)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnEntryDiv() { return doColumn("entry_div"); }
+        /**
          * user_id: {NotNull, int4(10), FK to user_t}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUserId() { return doColumn("user_id"); }
         /**
-         * entry_div: {int4(10)}
+         * register_datetime: {timestamp(29, 6), default=[now()]}
          * @return The information object of specified column. (NotNull)
          */
-        public SpecifiedColumn columnEntryDiv() { return doColumn("entry_div"); }
+        public SpecifiedColumn columnRegisterDatetime() { return doColumn("register_datetime"); }
+        /**
+         * register_user: {text(2147483647)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnRegisterUser() { return doColumn("register_user"); }
+        /**
+         * update_datetime: {timestamp(29, 6), default=[now()]}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnUpdateDatetime() { return doColumn("update_datetime"); }
+        /**
+         * update_user: {text(2147483647)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnUpdateUser() { return doColumn("update_user"); }
         public void everyColumn() { doEveryColumn(); }
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override

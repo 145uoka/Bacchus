@@ -19,6 +19,7 @@ import com.Bacchus.app.components.line.Event;
 import com.Bacchus.app.components.line.Events;
 import com.Bacchus.app.service.LineService;
 import com.Bacchus.app.service.SystemPropertyService;
+import com.Bacchus.app.service.api.LineMessageHandleService;
 import com.Bacchus.app.service.api.LinePostbackService;
 import com.Bacchus.webbase.appbase.BeforeLogin;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,6 +45,9 @@ public class LineReplyController {
 
     @Autowired
     LinePostbackService linePostbackService;
+
+    @Autowired
+    LineMessageHandleService lineMessageHandleService;
 
     @RequestMapping(value = "/reply", method = RequestMethod.POST)
     @ResponseBody
@@ -73,6 +77,7 @@ public class LineReplyController {
                     break;
 
                 case "message":
+                    lineMessageHandleService.handleMessage(event);
 //                    String receivedMessage = event.getMessage().getText();
 //                    String replyToken = event.getReplyToken();
 //

@@ -26,7 +26,7 @@ import com.Bacchus.dbflute.cbean.*;
  *     event_notify_no
  *
  * [column]
- *     event_notify_no, event_no, user_id, notify_datetime
+ *     event_notify_no, event_no, notify_datetime, user_id, register_datetime, register_user, update_datetime, update_user
  *
  * [sequence]
  *     event_notify_event_notify_no_seq
@@ -186,28 +186,27 @@ public abstract class BsEventNotifyBhv extends AbstractBehaviorWritable<EventNot
 
     /**
      * Select the entity by the unique-key value.
-     * @param eventNo : UQ+, NotNull, int4(10), FK to event_t. (NotNull)
-     * @param userId : +UQ, NotNull, int4(10), FK to user_t. (NotNull)
+     * @param eventNo : UQ, NotNull, int4(10), FK to event_t. (NotNull)
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public OptionalEntity<EventNotify> selectByUniqueOf(Integer eventNo, Integer userId) {
-        return facadeSelectByUniqueOf(eventNo, userId);
+    public OptionalEntity<EventNotify> selectByUniqueOf(Integer eventNo) {
+        return facadeSelectByUniqueOf(eventNo);
     }
 
-    protected OptionalEntity<EventNotify> facadeSelectByUniqueOf(Integer eventNo, Integer userId) {
-        return doSelectByUniqueOf(eventNo, userId, typeOfSelectedEntity());
+    protected OptionalEntity<EventNotify> facadeSelectByUniqueOf(Integer eventNo) {
+        return doSelectByUniqueOf(eventNo, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends EventNotify> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer eventNo, Integer userId, Class<? extends ENTITY> tp) {
-        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(eventNo, userId), tp), eventNo, userId);
+    protected <ENTITY extends EventNotify> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer eventNo, Class<? extends ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(eventNo), tp), eventNo);
     }
 
-    protected EventNotifyCB xprepareCBAsUniqueOf(Integer eventNo, Integer userId) {
-        assertObjectNotNull("eventNo", eventNo);assertObjectNotNull("userId", userId);
-        return newConditionBean().acceptUniqueOf(eventNo, userId);
+    protected EventNotifyCB xprepareCBAsUniqueOf(Integer eventNo) {
+        assertObjectNotNull("eventNo", eventNo);
+        return newConditionBean().acceptUniqueOf(eventNo);
     }
 
     // ===================================================================================
@@ -431,6 +430,14 @@ public abstract class BsEventNotifyBhv extends AbstractBehaviorWritable<EventNot
      */
     public List<Integer> extractEventNotifyNoList(List<EventNotify> eventNotifyList)
     { return helpExtractListInternally(eventNotifyList, "eventNotifyNo"); }
+
+    /**
+     * Extract the value list of (single) unique key eventNo.
+     * @param eventNotifyList The list of eventNotify. (NotNull, EmptyAllowed)
+     * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<Integer> extractEventNoList(List<EventNotify> eventNotifyList)
+    { return helpExtractListInternally(eventNotifyList, "eventNo"); }
 
     // ===================================================================================
     //                                                                       Entity Update

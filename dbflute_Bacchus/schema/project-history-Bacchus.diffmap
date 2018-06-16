@@ -1,4 +1,129 @@
 map:{
+    ; 2018/06/17 01:31:15 = map:{
+        ; diffDate = 2018/06/17 01:31:15
+        ; tableDiff = map:{
+            ; candidate_t = map:{
+                ; tableName = candidate_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = ADD
+                    }
+                    ; register_user = map:{
+                        ; columnName = register_user
+                        ; diffType = ADD
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = ADD
+                    }
+                    ; update_user = map:{
+                        ; columnName = update_user
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; entry_t = map:{
+                ; tableName = entry_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = ADD
+                    }
+                    ; register_user = map:{
+                        ; columnName = register_user
+                        ; diffType = ADD
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = ADD
+                    }
+                    ; update_user = map:{
+                        ; columnName = update_user
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; event_notify = map:{
+                ; tableName = event_notify
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = ADD
+                    }
+                    ; register_user = map:{
+                        ; columnName = register_user
+                        ; diffType = ADD
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = ADD
+                    }
+                    ; update_user = map:{
+                        ; columnName = update_user
+                        ; diffType = ADD
+                    }
+                }
+                ; uniqueKeyDiff = map:{
+                    ; event_notify_event_no_key = map:{
+                        ; constraintName = event_notify_event_no_key
+                        ; diffType = ADD
+                    }
+                    ; event_notify_event_no_user_id_key = map:{
+                        ; constraintName = event_notify_event_no_user_id_key
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; event_t = map:{
+                ; tableName = event_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = ADD
+                    }
+                    ; register_user = map:{
+                        ; columnName = register_user
+                        ; diffType = ADD
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = ADD
+                    }
+                    ; update_user = map:{
+                        ; columnName = update_user
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; user_t = map:{
+                ; tableName = user_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = ADD
+                    }
+                    ; register_user = map:{
+                        ; columnName = register_user
+                        ; diffType = ADD
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = ADD
+                    }
+                    ; update_user = map:{
+                        ; columnName = update_user
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
     ; 2018/05/30 13:30:26 = map:{
         ; diffDate = 2018/05/30 13:30:26
         ; tableDiff = map:{

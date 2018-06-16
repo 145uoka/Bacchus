@@ -177,25 +177,6 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
     public abstract String keepEventNo_ExistsReferrer_CandidateTList(CandidateTCQ sq);
 
     /**
-     * Set up ExistsReferrer (correlated sub-query). <br>
-     * {exists (select event_no from event_notify where ...)} <br>
-     * event_notify by event_no, named 'eventNotifyAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">existsEventNotify</span>(notifyCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     notifyCB.query().set...
-     * });
-     * </pre>
-     * @param subCBLambda The callback for sub-query of EventNotifyList for 'exists'. (NotNull)
-     */
-    public void existsEventNotify(SubQuery<EventNotifyCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        EventNotifyCB cb = new EventNotifyCB(); cb.xsetupForExistsReferrer(this);
-        lockCall(() -> subCBLambda.query(cb)); String pp = keepEventNo_ExistsReferrer_EventNotifyList(cb.query());
-        registerExistsReferrer(cb.query(), "event_no", "event_no", pp, "eventNotifyList");
-    }
-    public abstract String keepEventNo_ExistsReferrer_EventNotifyList(EventNotifyCQ sq);
-
-    /**
      * Set up NotExistsReferrer (correlated sub-query). <br>
      * {not exists (select event_no from candidate_t where ...)} <br>
      * candidate_t by event_no, named 'candidateTAsOne'.
@@ -214,25 +195,6 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
     }
     public abstract String keepEventNo_NotExistsReferrer_CandidateTList(CandidateTCQ sq);
 
-    /**
-     * Set up NotExistsReferrer (correlated sub-query). <br>
-     * {not exists (select event_no from event_notify where ...)} <br>
-     * event_notify by event_no, named 'eventNotifyAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">notExistsEventNotify</span>(notifyCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     notifyCB.query().set...
-     * });
-     * </pre>
-     * @param subCBLambda The callback for sub-query of EventNo_NotExistsReferrer_EventNotifyList for 'not exists'. (NotNull)
-     */
-    public void notExistsEventNotify(SubQuery<EventNotifyCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        EventNotifyCB cb = new EventNotifyCB(); cb.xsetupForExistsReferrer(this);
-        lockCall(() -> subCBLambda.query(cb)); String pp = keepEventNo_NotExistsReferrer_EventNotifyList(cb.query());
-        registerNotExistsReferrer(cb.query(), "event_no", "event_no", pp, "eventNotifyList");
-    }
-    public abstract String keepEventNo_NotExistsReferrer_EventNotifyList(EventNotifyCQ sq);
-
     public void xsderiveCandidateTList(String fn, SubQuery<CandidateTCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         CandidateTCB cb = new CandidateTCB(); cb.xsetupForDerivedReferrer(this);
@@ -240,14 +202,6 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
         registerSpecifyDerivedReferrer(fn, cb.query(), "event_no", "event_no", pp, "candidateTList", al, op);
     }
     public abstract String keepEventNo_SpecifyDerivedReferrer_CandidateTList(CandidateTCQ sq);
-
-    public void xsderiveEventNotifyList(String fn, SubQuery<EventNotifyCB> sq, String al, DerivedReferrerOption op) {
-        assertObjectNotNull("subQuery", sq);
-        EventNotifyCB cb = new EventNotifyCB(); cb.xsetupForDerivedReferrer(this);
-        lockCall(() -> sq.query(cb)); String pp = keepEventNo_SpecifyDerivedReferrer_EventNotifyList(cb.query());
-        registerSpecifyDerivedReferrer(fn, cb.query(), "event_no", "event_no", pp, "eventNotifyList", al, op);
-    }
-    public abstract String keepEventNo_SpecifyDerivedReferrer_EventNotifyList(EventNotifyCQ sq);
 
     /**
      * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
@@ -275,33 +229,6 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
     }
     public abstract String keepEventNo_QueryDerivedReferrer_CandidateTList(CandidateTCQ sq);
     public abstract String keepEventNo_QueryDerivedReferrer_CandidateTListParameter(Object vl);
-
-    /**
-     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
-     * {FOO &lt;= (select max(BAR) from event_notify where ...)} <br>
-     * event_notify by event_no, named 'eventNotifyAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">derivedEventNotify()</span>.<span style="color: #CC4747">max</span>(notifyCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     notifyCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
-     *     notifyCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
-     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
-     * </pre>
-     * @return The object to set up a function for referrer table. (NotNull)
-     */
-    public HpQDRFunction<EventNotifyCB> derivedEventNotify() {
-        return xcreateQDRFunctionEventNotifyList();
-    }
-    protected HpQDRFunction<EventNotifyCB> xcreateQDRFunctionEventNotifyList() {
-        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveEventNotifyList(fn, sq, rd, vl, op));
-    }
-    public void xqderiveEventNotifyList(String fn, SubQuery<EventNotifyCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-        assertObjectNotNull("subQuery", sq);
-        EventNotifyCB cb = new EventNotifyCB(); cb.xsetupForDerivedReferrer(this);
-        lockCall(() -> sq.query(cb)); String sqpp = keepEventNo_QueryDerivedReferrer_EventNotifyList(cb.query()); String prpp = keepEventNo_QueryDerivedReferrer_EventNotifyListParameter(vl);
-        registerQueryDerivedReferrer(fn, cb.query(), "event_no", "event_no", sqpp, "eventNotifyList", rd, vl, prpp, op);
-    }
-    public abstract String keepEventNo_QueryDerivedReferrer_EventNotifyList(EventNotifyCQ sq);
-    public abstract String keepEventNo_QueryDerivedReferrer_EventNotifyListParameter(Object vl);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
@@ -1754,6 +1681,135 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param eventTypeId The value of eventTypeId as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setEventTypeId_Equal(Integer eventTypeId) {
+        doSetEventTypeId_Equal(eventTypeId);
+    }
+
+    protected void doSetEventTypeId_Equal(Integer eventTypeId) {
+        regEventTypeId(CK_EQ, eventTypeId);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param eventTypeId The value of eventTypeId as notEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setEventTypeId_NotEqual(Integer eventTypeId) {
+        doSetEventTypeId_NotEqual(eventTypeId);
+    }
+
+    protected void doSetEventTypeId_NotEqual(Integer eventTypeId) {
+        regEventTypeId(CK_NES, eventTypeId);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param eventTypeId The value of eventTypeId as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setEventTypeId_GreaterThan(Integer eventTypeId) {
+        regEventTypeId(CK_GT, eventTypeId);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param eventTypeId The value of eventTypeId as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setEventTypeId_LessThan(Integer eventTypeId) {
+        regEventTypeId(CK_LT, eventTypeId);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param eventTypeId The value of eventTypeId as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setEventTypeId_GreaterEqual(Integer eventTypeId) {
+        regEventTypeId(CK_GE, eventTypeId);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param eventTypeId The value of eventTypeId as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setEventTypeId_LessEqual(Integer eventTypeId) {
+        regEventTypeId(CK_LE, eventTypeId);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param minNumber The min number of eventTypeId. (NullAllowed: if null, no from-condition)
+     * @param maxNumber The max number of eventTypeId. (NullAllowed: if null, no to-condition)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setEventTypeId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setEventTypeId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param minNumber The min number of eventTypeId. (NullAllowed: if null, no from-condition)
+     * @param maxNumber The max number of eventTypeId. (NullAllowed: if null, no to-condition)
+     * @param rangeOfOption The option of range-of. (NotNull)
+     */
+    protected void setEventTypeId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValueEventTypeId(), "event_type_id", rangeOfOption);
+    }
+
+    /**
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param eventTypeIdList The collection of eventTypeId as inScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setEventTypeId_InScope(Collection<Integer> eventTypeIdList) {
+        doSetEventTypeId_InScope(eventTypeIdList);
+    }
+
+    protected void doSetEventTypeId_InScope(Collection<Integer> eventTypeIdList) {
+        regINS(CK_INS, cTL(eventTypeIdList), xgetCValueEventTypeId(), "event_type_id");
+    }
+
+    /**
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @param eventTypeIdList The collection of eventTypeId as notInScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setEventTypeId_NotInScope(Collection<Integer> eventTypeIdList) {
+        doSetEventTypeId_NotInScope(eventTypeIdList);
+    }
+
+    protected void doSetEventTypeId_NotInScope(Collection<Integer> eventTypeIdList) {
+        regINS(CK_NINS, cTL(eventTypeIdList), xgetCValueEventTypeId(), "event_type_id");
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     */
+    public void setEventTypeId_IsNull() { regEventTypeId(CK_ISN, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * event_type_id: {int4(10), FK to event_type_m}
+     */
+    public void setEventTypeId_IsNotNull() { regEventTypeId(CK_ISNN, DOBJ); }
+
+    protected void regEventTypeId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueEventTypeId(), "event_type_id"); }
+    protected abstract ConditionValue xgetCValueEventTypeId();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * user_id: {int4(10), FK to user_t}
      * @param userId The value of userId as equal. (basically NotNull: error as default, or no condition as option)
      */
@@ -1883,132 +1939,483 @@ public abstract class AbstractBsEventTCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * event_type_id: {int4(10), FK to event_type_m}
-     * @param eventTypeId The value of eventTypeId as equal. (basically NotNull: error as default, or no condition as option)
+     * register_datetime: {timestamp(29, 6), default=[now()]}
+     * @param registerDatetime The value of registerDatetime as equal. (basically NotNull: error as default, or no condition as option)
      */
-    public void setEventTypeId_Equal(Integer eventTypeId) {
-        doSetEventTypeId_Equal(eventTypeId);
-    }
-
-    protected void doSetEventTypeId_Equal(Integer eventTypeId) {
-        regEventTypeId(CK_EQ, eventTypeId);
-    }
-
-    /**
-     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * event_type_id: {int4(10), FK to event_type_m}
-     * @param eventTypeId The value of eventTypeId as notEqual. (basically NotNull: error as default, or no condition as option)
-     */
-    public void setEventTypeId_NotEqual(Integer eventTypeId) {
-        doSetEventTypeId_NotEqual(eventTypeId);
-    }
-
-    protected void doSetEventTypeId_NotEqual(Integer eventTypeId) {
-        regEventTypeId(CK_NES, eventTypeId);
+    public void setRegisterDatetime_Equal(java.time.LocalDateTime registerDatetime) {
+        regRegisterDatetime(CK_EQ,  registerDatetime);
     }
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * event_type_id: {int4(10), FK to event_type_m}
-     * @param eventTypeId The value of eventTypeId as greaterThan. (basically NotNull: error as default, or no condition as option)
+     * register_datetime: {timestamp(29, 6), default=[now()]}
+     * @param registerDatetime The value of registerDatetime as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
-    public void setEventTypeId_GreaterThan(Integer eventTypeId) {
-        regEventTypeId(CK_GT, eventTypeId);
+    public void setRegisterDatetime_GreaterThan(java.time.LocalDateTime registerDatetime) {
+        regRegisterDatetime(CK_GT,  registerDatetime);
     }
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * event_type_id: {int4(10), FK to event_type_m}
-     * @param eventTypeId The value of eventTypeId as lessThan. (basically NotNull: error as default, or no condition as option)
+     * register_datetime: {timestamp(29, 6), default=[now()]}
+     * @param registerDatetime The value of registerDatetime as lessThan. (basically NotNull: error as default, or no condition as option)
      */
-    public void setEventTypeId_LessThan(Integer eventTypeId) {
-        regEventTypeId(CK_LT, eventTypeId);
+    public void setRegisterDatetime_LessThan(java.time.LocalDateTime registerDatetime) {
+        regRegisterDatetime(CK_LT,  registerDatetime);
     }
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * event_type_id: {int4(10), FK to event_type_m}
-     * @param eventTypeId The value of eventTypeId as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     * register_datetime: {timestamp(29, 6), default=[now()]}
+     * @param registerDatetime The value of registerDatetime as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setEventTypeId_GreaterEqual(Integer eventTypeId) {
-        regEventTypeId(CK_GE, eventTypeId);
+    public void setRegisterDatetime_GreaterEqual(java.time.LocalDateTime registerDatetime) {
+        regRegisterDatetime(CK_GE,  registerDatetime);
     }
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * event_type_id: {int4(10), FK to event_type_m}
-     * @param eventTypeId The value of eventTypeId as lessEqual. (basically NotNull: error as default, or no condition as option)
+     * register_datetime: {timestamp(29, 6), default=[now()]}
+     * @param registerDatetime The value of registerDatetime as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setEventTypeId_LessEqual(Integer eventTypeId) {
-        regEventTypeId(CK_LE, eventTypeId);
+    public void setRegisterDatetime_LessEqual(java.time.LocalDateTime registerDatetime) {
+        regRegisterDatetime(CK_LE, registerDatetime);
     }
 
     /**
-     * RangeOf with various options. (versatile) <br>
-     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * event_type_id: {int4(10), FK to event_type_m}
-     * @param minNumber The min number of eventTypeId. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of eventTypeId. (NullAllowed: if null, no to-condition)
-     * @param opLambda The callback for option of range-of. (NotNull)
+     * register_datetime: {timestamp(29, 6), default=[now()]}
+     * <pre>e.g. setRegisterDatetime_FromTo(fromDate, toDate, op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">compareAsDate()</span>);</pre>
+     * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param opLambda The callback for option of from-to. (NotNull)
      */
-    public void setEventTypeId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
-        setEventTypeId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    public void setRegisterDatetime_FromTo(java.time.LocalDateTime fromDatetime, java.time.LocalDateTime toDatetime, ConditionOptionCall<FromToOption> opLambda) {
+        setRegisterDatetime_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
     }
 
     /**
-     * RangeOf with various options. (versatile) <br>
-     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * event_type_id: {int4(10), FK to event_type_m}
-     * @param minNumber The min number of eventTypeId. (NullAllowed: if null, no from-condition)
-     * @param maxNumber The max number of eventTypeId. (NullAllowed: if null, no to-condition)
-     * @param rangeOfOption The option of range-of. (NotNull)
+     * register_datetime: {timestamp(29, 6), default=[now()]}
+     * <pre>e.g. setRegisterDatetime_FromTo(fromDate, toDate, new <span style="color: #CC4747">FromToOption</span>().compareAsDate());</pre>
+     * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param fromToOption The option of from-to. (NotNull)
      */
-    protected void setEventTypeId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
-        regROO(minNumber, maxNumber, xgetCValueEventTypeId(), "event_type_id", rangeOfOption);
-    }
-
-    /**
-     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * event_type_id: {int4(10), FK to event_type_m}
-     * @param eventTypeIdList The collection of eventTypeId as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setEventTypeId_InScope(Collection<Integer> eventTypeIdList) {
-        doSetEventTypeId_InScope(eventTypeIdList);
-    }
-
-    protected void doSetEventTypeId_InScope(Collection<Integer> eventTypeIdList) {
-        regINS(CK_INS, cTL(eventTypeIdList), xgetCValueEventTypeId(), "event_type_id");
-    }
-
-    /**
-     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * event_type_id: {int4(10), FK to event_type_m}
-     * @param eventTypeIdList The collection of eventTypeId as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setEventTypeId_NotInScope(Collection<Integer> eventTypeIdList) {
-        doSetEventTypeId_NotInScope(eventTypeIdList);
-    }
-
-    protected void doSetEventTypeId_NotInScope(Collection<Integer> eventTypeIdList) {
-        regINS(CK_NINS, cTL(eventTypeIdList), xgetCValueEventTypeId(), "event_type_id");
+    protected void setRegisterDatetime_FromTo(java.time.LocalDateTime fromDatetime, java.time.LocalDateTime toDatetime, FromToOption fromToOption) {
+        String nm = "register_datetime"; FromToOption op = fromToOption;
+        regFTQ(xfFTHD(fromDatetime, nm, op), xfFTHD(toDatetime, nm, op), xgetCValueRegisterDatetime(), nm, op);
     }
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * event_type_id: {int4(10), FK to event_type_m}
+     * register_datetime: {timestamp(29, 6), default=[now()]}
      */
-    public void setEventTypeId_IsNull() { regEventTypeId(CK_ISN, DOBJ); }
+    public void setRegisterDatetime_IsNull() { regRegisterDatetime(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * event_type_id: {int4(10), FK to event_type_m}
+     * register_datetime: {timestamp(29, 6), default=[now()]}
      */
-    public void setEventTypeId_IsNotNull() { regEventTypeId(CK_ISNN, DOBJ); }
+    public void setRegisterDatetime_IsNotNull() { regRegisterDatetime(CK_ISNN, DOBJ); }
 
-    protected void regEventTypeId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueEventTypeId(), "event_type_id"); }
-    protected abstract ConditionValue xgetCValueEventTypeId();
+    protected void regRegisterDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueRegisterDatetime(), "register_datetime"); }
+    protected abstract ConditionValue xgetCValueRegisterDatetime();
+
+    /**
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * register_user: {text(2147483647)}
+     * @param registerUser The value of registerUser as equal. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setRegisterUser_Equal(String registerUser) {
+        doSetRegisterUser_Equal(fRES(registerUser));
+    }
+
+    protected void doSetRegisterUser_Equal(String registerUser) {
+        regRegisterUser(CK_EQ, registerUser);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * register_user: {text(2147483647)}
+     * @param registerUser The value of registerUser as notEqual. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setRegisterUser_NotEqual(String registerUser) {
+        doSetRegisterUser_NotEqual(fRES(registerUser));
+    }
+
+    protected void doSetRegisterUser_NotEqual(String registerUser) {
+        regRegisterUser(CK_NES, registerUser);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * register_user: {text(2147483647)}
+     * @param registerUser The value of registerUser as greaterThan. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setRegisterUser_GreaterThan(String registerUser) {
+        regRegisterUser(CK_GT, fRES(registerUser));
+    }
+
+    /**
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * register_user: {text(2147483647)}
+     * @param registerUser The value of registerUser as lessThan. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setRegisterUser_LessThan(String registerUser) {
+        regRegisterUser(CK_LT, fRES(registerUser));
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * register_user: {text(2147483647)}
+     * @param registerUser The value of registerUser as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setRegisterUser_GreaterEqual(String registerUser) {
+        regRegisterUser(CK_GE, fRES(registerUser));
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * register_user: {text(2147483647)}
+     * @param registerUser The value of registerUser as lessEqual. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setRegisterUser_LessEqual(String registerUser) {
+        regRegisterUser(CK_LE, fRES(registerUser));
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * register_user: {text(2147483647)}
+     * @param registerUserList The collection of registerUser as inScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setRegisterUser_InScope(Collection<String> registerUserList) {
+        doSetRegisterUser_InScope(registerUserList);
+    }
+
+    protected void doSetRegisterUser_InScope(Collection<String> registerUserList) {
+        regINS(CK_INS, cTL(registerUserList), xgetCValueRegisterUser(), "register_user");
+    }
+
+    /**
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * register_user: {text(2147483647)}
+     * @param registerUserList The collection of registerUser as notInScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setRegisterUser_NotInScope(Collection<String> registerUserList) {
+        doSetRegisterUser_NotInScope(registerUserList);
+    }
+
+    protected void doSetRegisterUser_NotInScope(Collection<String> registerUserList) {
+        regINS(CK_NINS, cTL(registerUserList), xgetCValueRegisterUser(), "register_user");
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * register_user: {text(2147483647)} <br>
+     * <pre>e.g. setRegisterUser_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param registerUser The value of registerUser as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setRegisterUser_LikeSearch(String registerUser, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setRegisterUser_LikeSearch(registerUser, xcLSOP(opLambda));
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * register_user: {text(2147483647)} <br>
+     * <pre>e.g. setRegisterUser_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param registerUser The value of registerUser as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param likeSearchOption The option of like-search. (NotNull)
+     */
+    protected void setRegisterUser_LikeSearch(String registerUser, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(registerUser), xgetCValueRegisterUser(), "register_user", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * register_user: {text(2147483647)}
+     * @param registerUser The value of registerUser as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setRegisterUser_NotLikeSearch(String registerUser, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setRegisterUser_NotLikeSearch(registerUser, xcLSOP(opLambda));
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * register_user: {text(2147483647)}
+     * @param registerUser The value of registerUser as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param likeSearchOption The option of not-like-search. (NotNull)
+     */
+    protected void setRegisterUser_NotLikeSearch(String registerUser, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(registerUser), xgetCValueRegisterUser(), "register_user", likeSearchOption);
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * register_user: {text(2147483647)}
+     */
+    public void setRegisterUser_IsNull() { regRegisterUser(CK_ISN, DOBJ); }
+
+    /**
+     * IsNullOrEmpty {is null or empty}. And OnlyOnceRegistered. <br>
+     * register_user: {text(2147483647)}
+     */
+    public void setRegisterUser_IsNullOrEmpty() { regRegisterUser(CK_ISNOE, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * register_user: {text(2147483647)}
+     */
+    public void setRegisterUser_IsNotNull() { regRegisterUser(CK_ISNN, DOBJ); }
+
+    protected void regRegisterUser(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueRegisterUser(), "register_user"); }
+    protected abstract ConditionValue xgetCValueRegisterUser();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * update_datetime: {timestamp(29, 6), default=[now()]}
+     * @param updateDatetime The value of updateDatetime as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setUpdateDatetime_Equal(java.time.LocalDateTime updateDatetime) {
+        regUpdateDatetime(CK_EQ,  updateDatetime);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * update_datetime: {timestamp(29, 6), default=[now()]}
+     * @param updateDatetime The value of updateDatetime as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setUpdateDatetime_GreaterThan(java.time.LocalDateTime updateDatetime) {
+        regUpdateDatetime(CK_GT,  updateDatetime);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * update_datetime: {timestamp(29, 6), default=[now()]}
+     * @param updateDatetime The value of updateDatetime as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setUpdateDatetime_LessThan(java.time.LocalDateTime updateDatetime) {
+        regUpdateDatetime(CK_LT,  updateDatetime);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * update_datetime: {timestamp(29, 6), default=[now()]}
+     * @param updateDatetime The value of updateDatetime as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setUpdateDatetime_GreaterEqual(java.time.LocalDateTime updateDatetime) {
+        regUpdateDatetime(CK_GE,  updateDatetime);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * update_datetime: {timestamp(29, 6), default=[now()]}
+     * @param updateDatetime The value of updateDatetime as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setUpdateDatetime_LessEqual(java.time.LocalDateTime updateDatetime) {
+        regUpdateDatetime(CK_LE, updateDatetime);
+    }
+
+    /**
+     * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * update_datetime: {timestamp(29, 6), default=[now()]}
+     * <pre>e.g. setUpdateDatetime_FromTo(fromDate, toDate, op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">compareAsDate()</span>);</pre>
+     * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param opLambda The callback for option of from-to. (NotNull)
+     */
+    public void setUpdateDatetime_FromTo(java.time.LocalDateTime fromDatetime, java.time.LocalDateTime toDatetime, ConditionOptionCall<FromToOption> opLambda) {
+        setUpdateDatetime_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
+    }
+
+    /**
+     * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * update_datetime: {timestamp(29, 6), default=[now()]}
+     * <pre>e.g. setUpdateDatetime_FromTo(fromDate, toDate, new <span style="color: #CC4747">FromToOption</span>().compareAsDate());</pre>
+     * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param fromToOption The option of from-to. (NotNull)
+     */
+    protected void setUpdateDatetime_FromTo(java.time.LocalDateTime fromDatetime, java.time.LocalDateTime toDatetime, FromToOption fromToOption) {
+        String nm = "update_datetime"; FromToOption op = fromToOption;
+        regFTQ(xfFTHD(fromDatetime, nm, op), xfFTHD(toDatetime, nm, op), xgetCValueUpdateDatetime(), nm, op);
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * update_datetime: {timestamp(29, 6), default=[now()]}
+     */
+    public void setUpdateDatetime_IsNull() { regUpdateDatetime(CK_ISN, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * update_datetime: {timestamp(29, 6), default=[now()]}
+     */
+    public void setUpdateDatetime_IsNotNull() { regUpdateDatetime(CK_ISNN, DOBJ); }
+
+    protected void regUpdateDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueUpdateDatetime(), "update_datetime"); }
+    protected abstract ConditionValue xgetCValueUpdateDatetime();
+
+    /**
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * update_user: {text(2147483647)}
+     * @param updateUser The value of updateUser as equal. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setUpdateUser_Equal(String updateUser) {
+        doSetUpdateUser_Equal(fRES(updateUser));
+    }
+
+    protected void doSetUpdateUser_Equal(String updateUser) {
+        regUpdateUser(CK_EQ, updateUser);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * update_user: {text(2147483647)}
+     * @param updateUser The value of updateUser as notEqual. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setUpdateUser_NotEqual(String updateUser) {
+        doSetUpdateUser_NotEqual(fRES(updateUser));
+    }
+
+    protected void doSetUpdateUser_NotEqual(String updateUser) {
+        regUpdateUser(CK_NES, updateUser);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * update_user: {text(2147483647)}
+     * @param updateUser The value of updateUser as greaterThan. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setUpdateUser_GreaterThan(String updateUser) {
+        regUpdateUser(CK_GT, fRES(updateUser));
+    }
+
+    /**
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * update_user: {text(2147483647)}
+     * @param updateUser The value of updateUser as lessThan. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setUpdateUser_LessThan(String updateUser) {
+        regUpdateUser(CK_LT, fRES(updateUser));
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * update_user: {text(2147483647)}
+     * @param updateUser The value of updateUser as greaterEqual. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setUpdateUser_GreaterEqual(String updateUser) {
+        regUpdateUser(CK_GE, fRES(updateUser));
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * update_user: {text(2147483647)}
+     * @param updateUser The value of updateUser as lessEqual. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setUpdateUser_LessEqual(String updateUser) {
+        regUpdateUser(CK_LE, fRES(updateUser));
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * update_user: {text(2147483647)}
+     * @param updateUserList The collection of updateUser as inScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setUpdateUser_InScope(Collection<String> updateUserList) {
+        doSetUpdateUser_InScope(updateUserList);
+    }
+
+    protected void doSetUpdateUser_InScope(Collection<String> updateUserList) {
+        regINS(CK_INS, cTL(updateUserList), xgetCValueUpdateUser(), "update_user");
+    }
+
+    /**
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * update_user: {text(2147483647)}
+     * @param updateUserList The collection of updateUser as notInScope. (NullAllowed: if null (or empty), no condition)
+     */
+    public void setUpdateUser_NotInScope(Collection<String> updateUserList) {
+        doSetUpdateUser_NotInScope(updateUserList);
+    }
+
+    protected void doSetUpdateUser_NotInScope(Collection<String> updateUserList) {
+        regINS(CK_NINS, cTL(updateUserList), xgetCValueUpdateUser(), "update_user");
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * update_user: {text(2147483647)} <br>
+     * <pre>e.g. setUpdateUser_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param updateUser The value of updateUser as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setUpdateUser_LikeSearch(String updateUser, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setUpdateUser_LikeSearch(updateUser, xcLSOP(opLambda));
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * update_user: {text(2147483647)} <br>
+     * <pre>e.g. setUpdateUser_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param updateUser The value of updateUser as likeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param likeSearchOption The option of like-search. (NotNull)
+     */
+    protected void setUpdateUser_LikeSearch(String updateUser, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(updateUser), xgetCValueUpdateUser(), "update_user", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * update_user: {text(2147483647)}
+     * @param updateUser The value of updateUser as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setUpdateUser_NotLikeSearch(String updateUser, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setUpdateUser_NotLikeSearch(updateUser, xcLSOP(opLambda));
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * update_user: {text(2147483647)}
+     * @param updateUser The value of updateUser as notLikeSearch. (NullAllowed: if null (or empty), no condition)
+     * @param likeSearchOption The option of not-like-search. (NotNull)
+     */
+    protected void setUpdateUser_NotLikeSearch(String updateUser, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(updateUser), xgetCValueUpdateUser(), "update_user", likeSearchOption);
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * update_user: {text(2147483647)}
+     */
+    public void setUpdateUser_IsNull() { regUpdateUser(CK_ISN, DOBJ); }
+
+    /**
+     * IsNullOrEmpty {is null or empty}. And OnlyOnceRegistered. <br>
+     * update_user: {text(2147483647)}
+     */
+    public void setUpdateUser_IsNullOrEmpty() { regUpdateUser(CK_ISNOE, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * update_user: {text(2147483647)}
+     */
+    public void setUpdateUser_IsNotNull() { regUpdateUser(CK_ISNN, DOBJ); }
+
+    protected void regUpdateUser(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueUpdateUser(), "update_user"); }
+    protected abstract ConditionValue xgetCValueUpdateUser();
 
     // ===================================================================================
     //                                                                     ScalarCondition

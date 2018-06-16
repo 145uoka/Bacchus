@@ -272,7 +272,7 @@ public abstract class BsEventNotifyUser extends AbstractEntity implements Custom
     //                                                                            ========
     /**
      * [get] user_id: {serial(10), refers to user_t.user_id} <br>
-     * user_id
+     * ユーザーID
      * @return The value of the column 'user_id'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getUserId() {
@@ -282,7 +282,7 @@ public abstract class BsEventNotifyUser extends AbstractEntity implements Custom
 
     /**
      * [set] user_id: {serial(10), refers to user_t.user_id} <br>
-     * user_id
+     * ユーザーID
      * @param userId The value of the column 'user_id'. (NullAllowed: null update allowed for no constraint)
      */
     public void setUserId(Integer userId) {

@@ -64,23 +64,13 @@ public class EventTCIQ extends AbstractBsEventTCQ {
     protected ConditionValue xgetCValueEventNo() { return _myCQ.xdfgetEventNo(); }
     public String keepEventNo_ExistsReferrer_CandidateTList(CandidateTCQ sq)
     { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepEventNo_ExistsReferrer_EventNotifyList(EventNotifyCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
     public String keepEventNo_NotExistsReferrer_CandidateTList(CandidateTCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepEventNo_NotExistsReferrer_EventNotifyList(EventNotifyCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
     public String keepEventNo_SpecifyDerivedReferrer_CandidateTList(CandidateTCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepEventNo_SpecifyDerivedReferrer_EventNotifyList(EventNotifyCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepEventNo_QueryDerivedReferrer_CandidateTList(CandidateTCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepEventNo_QueryDerivedReferrer_CandidateTListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepEventNo_QueryDerivedReferrer_EventNotifyList(EventNotifyCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepEventNo_QueryDerivedReferrer_EventNotifyListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueEventName() { return _myCQ.xdfgetEventName(); }
     protected ConditionValue xgetCValueEventDetail() { return _myCQ.xdfgetEventDetail(); }
@@ -92,8 +82,12 @@ public class EventTCIQ extends AbstractBsEventTCQ {
     protected ConditionValue xgetCValueFixFlg() { return _myCQ.xdfgetFixFlg(); }
     protected ConditionValue xgetCValueCandidateNo() { return _myCQ.xdfgetCandidateNo(); }
     protected ConditionValue xgetCValueStoreName() { return _myCQ.xdfgetStoreName(); }
-    protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
     protected ConditionValue xgetCValueEventTypeId() { return _myCQ.xdfgetEventTypeId(); }
+    protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
+    protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
+    protected ConditionValue xgetCValueRegisterUser() { return _myCQ.xdfgetRegisterUser(); }
+    protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }
+    protected ConditionValue xgetCValueUpdateUser() { return _myCQ.xdfgetUpdateUser(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
     public String keepScalarCondition(EventTCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }

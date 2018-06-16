@@ -8,6 +8,7 @@ import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
 import org.dbflute.optional.OptionalEntity;
+import com.Bacchus.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.Bacchus.dbflute.allcommon.DBMetaInstanceHandler;
 import com.Bacchus.dbflute.exentity.*;
 
@@ -19,7 +20,7 @@ import com.Bacchus.dbflute.exentity.*;
  *     event_no
  *
  * [column]
- *     event_no, event_name, event_detail, event_place, event_url, tell, event_entry_fee, auxiliary_flg, fix_flg, candidate_no, store_name, user_id, event_type_id
+ *     event_no, event_name, event_detail, event_place, event_url, tell, event_entry_fee, auxiliary_flg, fix_flg, candidate_no, store_name, event_type_id, user_id, register_datetime, register_user, update_datetime, update_user
  *
  * [sequence]
  *     event_t_event_no_seq
@@ -31,16 +32,16 @@ import com.Bacchus.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     event_type_m, user_t
+ *     event_type_m, user_t, event_notify(AsOne)
  *
  * [referrer table]
  *     candidate_t, event_notify
  *
  * [foreign property]
- *     eventTypeM, userT
+ *     eventTypeM, userT, eventNotifyAsOne
  *
  * [referrer property]
- *     candidateTList, eventNotifyList
+ *     candidateTList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -55,8 +56,12 @@ import com.Bacchus.dbflute.exentity.*;
  * Integer fixFlg = entity.getFixFlg();
  * Integer candidateNo = entity.getCandidateNo();
  * String storeName = entity.getStoreName();
- * Integer userId = entity.getUserId();
  * Integer eventTypeId = entity.getEventTypeId();
+ * Integer userId = entity.getUserId();
+ * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
+ * String registerUser = entity.getRegisterUser();
+ * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
+ * String updateUser = entity.getUpdateUser();
  * entity.setEventNo(eventNo);
  * entity.setEventName(eventName);
  * entity.setEventDetail(eventDetail);
@@ -68,13 +73,17 @@ import com.Bacchus.dbflute.exentity.*;
  * entity.setFixFlg(fixFlg);
  * entity.setCandidateNo(candidateNo);
  * entity.setStoreName(storeName);
- * entity.setUserId(userId);
  * entity.setEventTypeId(eventTypeId);
+ * entity.setUserId(userId);
+ * entity.setRegisterDatetime(registerDatetime);
+ * entity.setRegisterUser(registerUser);
+ * entity.setUpdateDatetime(updateDatetime);
+ * entity.setUpdateUser(updateUser);
  * = = = = = = = = = =/
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsEventT extends AbstractEntity implements DomainEntity {
+public abstract class BsEventT extends AbstractEntity implements DomainEntity, EntityDefinedCommonColumn {
 
     // ===================================================================================
     //                                                                          Definition
@@ -118,11 +127,23 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
     /** store_name: {text(2147483647)} */
     protected String _storeName;
 
+    /** event_type_id: {int4(10), FK to event_type_m} */
+    protected Integer _eventTypeId;
+
     /** user_id: {int4(10), FK to user_t} */
     protected Integer _userId;
 
-    /** event_type_id: {int4(10), FK to event_type_m} */
-    protected Integer _eventTypeId;
+    /** register_datetime: {timestamp(29, 6), default=[now()]} */
+    protected java.time.LocalDateTime _registerDatetime;
+
+    /** register_user: {text(2147483647)} */
+    protected String _registerUser;
+
+    /** update_datetime: {timestamp(29, 6), default=[now()]} */
+    protected java.time.LocalDateTime _updateDatetime;
+
+    /** update_user: {text(2147483647)} */
+    protected String _updateUser;
 
     // ===================================================================================
     //                                                                             DB Meta
@@ -191,6 +212,27 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
         _userT = userT;
     }
 
+    /** event_notify by event_no, named 'eventNotifyAsOne'. */
+    protected OptionalEntity<EventNotify> _eventNotifyAsOne;
+
+    /**
+     * [get] event_notify by event_no, named 'eventNotifyAsOne'.
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return the entity of foreign property(referrer-as-one) 'eventNotifyAsOne'. (NotNull, EmptyAllowed: when e.g. no data, no setupSelect)
+     */
+    public OptionalEntity<EventNotify> getEventNotifyAsOne() {
+        if (_eventNotifyAsOne == null) { _eventNotifyAsOne = OptionalEntity.relationEmpty(this, "eventNotifyAsOne"); }
+        return _eventNotifyAsOne;
+    }
+
+    /**
+     * [set] event_notify by event_no, named 'eventNotifyAsOne'.
+     * @param eventNotifyAsOne The entity of foreign property(referrer-as-one) 'eventNotifyAsOne'. (NullAllowed)
+     */
+    public void setEventNotifyAsOne(OptionalEntity<EventNotify> eventNotifyAsOne) {
+        _eventNotifyAsOne = eventNotifyAsOne;
+    }
+
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
@@ -212,26 +254,6 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
      */
     public void setCandidateTList(List<CandidateT> candidateTList) {
         _candidateTList = candidateTList;
-    }
-
-    /** event_notify by event_no, named 'eventNotifyList'. */
-    protected List<EventNotify> _eventNotifyList;
-
-    /**
-     * [get] event_notify by event_no, named 'eventNotifyList'.
-     * @return The entity list of referrer property 'eventNotifyList'. (NotNull: even if no loading, returns empty list)
-     */
-    public List<EventNotify> getEventNotifyList() {
-        if (_eventNotifyList == null) { _eventNotifyList = newReferrerList(); }
-        return _eventNotifyList;
-    }
-
-    /**
-     * [set] event_notify by event_no, named 'eventNotifyList'.
-     * @param eventNotifyList The entity list of referrer property 'eventNotifyList'. (NullAllowed)
-     */
-    public void setEventNotifyList(List<EventNotify> eventNotifyList) {
-        _eventNotifyList = eventNotifyList;
     }
 
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
@@ -267,10 +289,10 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
         { sb.append(li).append(xbRDS(_eventTypeM, "eventTypeM")); }
         if (_userT != null && _userT.isPresent())
         { sb.append(li).append(xbRDS(_userT, "userT")); }
+        if (_eventNotifyAsOne != null && _eventNotifyAsOne.isPresent())
+        { sb.append(li).append(xbRDS(_eventNotifyAsOne, "eventNotifyAsOne")); }
         if (_candidateTList != null) { for (CandidateT et : _candidateTList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "candidateTList")); } } }
-        if (_eventNotifyList != null) { for (EventNotify et : _eventNotifyList)
-        { if (et != null) { sb.append(li).append(xbRDS(et, "eventNotifyList")); } } }
         return sb.toString();
     }
     protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
@@ -291,8 +313,12 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
         sb.append(dm).append(xfND(_fixFlg));
         sb.append(dm).append(xfND(_candidateNo));
         sb.append(dm).append(xfND(_storeName));
-        sb.append(dm).append(xfND(_userId));
         sb.append(dm).append(xfND(_eventTypeId));
+        sb.append(dm).append(xfND(_userId));
+        sb.append(dm).append(xfND(_registerDatetime));
+        sb.append(dm).append(xfND(_registerUser));
+        sb.append(dm).append(xfND(_updateDatetime));
+        sb.append(dm).append(xfND(_updateUser));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
@@ -307,10 +333,10 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
         { sb.append(dm).append("eventTypeM"); }
         if (_userT != null && _userT.isPresent())
         { sb.append(dm).append("userT"); }
+        if (_eventNotifyAsOne != null && _eventNotifyAsOne.isPresent())
+        { sb.append(dm).append("eventNotifyAsOne"); }
         if (_candidateTList != null && !_candidateTList.isEmpty())
         { sb.append(dm).append("candidateTList"); }
-        if (_eventNotifyList != null && !_eventNotifyList.isEmpty())
-        { sb.append(dm).append("eventNotifyList"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }
@@ -546,26 +572,6 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
     }
 
     /**
-     * [get] user_id: {int4(10), FK to user_t} <br>
-     * 幹事ユーザID
-     * @return The value of the column 'user_id'. (NullAllowed even if selected: for no constraint)
-     */
-    public Integer getUserId() {
-        checkSpecifiedProperty("userId");
-        return _userId;
-    }
-
-    /**
-     * [set] user_id: {int4(10), FK to user_t} <br>
-     * 幹事ユーザID
-     * @param userId The value of the column 'user_id'. (NullAllowed: null update allowed for no constraint)
-     */
-    public void setUserId(Integer userId) {
-        registerModifiedProperty("userId");
-        _userId = userId;
-    }
-
-    /**
      * [get] event_type_id: {int4(10), FK to event_type_m} <br>
      * イベント区分ID
      * @return The value of the column 'event_type_id'. (NullAllowed even if selected: for no constraint)
@@ -583,5 +589,105 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity {
     public void setEventTypeId(Integer eventTypeId) {
         registerModifiedProperty("eventTypeId");
         _eventTypeId = eventTypeId;
+    }
+
+    /**
+     * [get] user_id: {int4(10), FK to user_t} <br>
+     * 幹事ユーザーID
+     * @return The value of the column 'user_id'. (NullAllowed even if selected: for no constraint)
+     */
+    public Integer getUserId() {
+        checkSpecifiedProperty("userId");
+        return _userId;
+    }
+
+    /**
+     * [set] user_id: {int4(10), FK to user_t} <br>
+     * 幹事ユーザーID
+     * @param userId The value of the column 'user_id'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setUserId(Integer userId) {
+        registerModifiedProperty("userId");
+        _userId = userId;
+    }
+
+    /**
+     * [get] register_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * 作成日時
+     * @return The value of the column 'register_datetime'. (NullAllowed even if selected: for no constraint)
+     */
+    public java.time.LocalDateTime getRegisterDatetime() {
+        checkSpecifiedProperty("registerDatetime");
+        return _registerDatetime;
+    }
+
+    /**
+     * [set] register_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * 作成日時
+     * @param registerDatetime The value of the column 'register_datetime'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setRegisterDatetime(java.time.LocalDateTime registerDatetime) {
+        registerModifiedProperty("registerDatetime");
+        _registerDatetime = registerDatetime;
+    }
+
+    /**
+     * [get] register_user: {text(2147483647)} <br>
+     * 作成者
+     * @return The value of the column 'register_user'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getRegisterUser() {
+        checkSpecifiedProperty("registerUser");
+        return _registerUser;
+    }
+
+    /**
+     * [set] register_user: {text(2147483647)} <br>
+     * 作成者
+     * @param registerUser The value of the column 'register_user'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setRegisterUser(String registerUser) {
+        registerModifiedProperty("registerUser");
+        _registerUser = registerUser;
+    }
+
+    /**
+     * [get] update_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * 更新日時
+     * @return The value of the column 'update_datetime'. (NullAllowed even if selected: for no constraint)
+     */
+    public java.time.LocalDateTime getUpdateDatetime() {
+        checkSpecifiedProperty("updateDatetime");
+        return _updateDatetime;
+    }
+
+    /**
+     * [set] update_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * 更新日時
+     * @param updateDatetime The value of the column 'update_datetime'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setUpdateDatetime(java.time.LocalDateTime updateDatetime) {
+        registerModifiedProperty("updateDatetime");
+        _updateDatetime = updateDatetime;
+    }
+
+    /**
+     * [get] update_user: {text(2147483647)} <br>
+     * 更新者
+     * @return The value of the column 'update_user'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getUpdateUser() {
+        checkSpecifiedProperty("updateUser");
+        return _updateUser;
+    }
+
+    /**
+     * [set] update_user: {text(2147483647)} <br>
+     * 更新者
+     * @param updateUser The value of the column 'update_user'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setUpdateUser(String updateUser) {
+        registerModifiedProperty("updateUser");
+        _updateUser = updateUser;
     }
 }

@@ -26,7 +26,7 @@ import com.Bacchus.dbflute.cbean.*;
  *     event_no
  *
  * [column]
- *     event_no, event_name, event_detail, event_place, event_url, tell, event_entry_fee, auxiliary_flg, fix_flg, candidate_no, store_name, user_id, event_type_id
+ *     event_no, event_name, event_detail, event_place, event_url, tell, event_entry_fee, auxiliary_flg, fix_flg, candidate_no, store_name, event_type_id, user_id, register_datetime, register_user, update_datetime, update_user
  *
  * [sequence]
  *     event_t_event_no_seq
@@ -38,16 +38,16 @@ import com.Bacchus.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     event_type_m, user_t
+ *     event_type_m, user_t, event_notify(AsOne)
  *
  * [referrer table]
  *     candidate_t, event_notify
  *
  * [foreign property]
- *     eventTypeM, userT
+ *     eventTypeM, userT, eventNotifyAsOne
  *
  * [referrer property]
- *     candidateTList, eventNotifyList
+ *     candidateTList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -442,70 +442,6 @@ public abstract class BsEventTBhv extends AbstractBehaviorWritable<EventT, Event
         return helpLoadReferrerInternally(eventTList, option, "candidateTList");
     }
 
-    /**
-     * Load referrer of eventNotifyList by the set-upper of referrer. <br>
-     * event_notify by event_no, named 'eventNotifyList'.
-     * <pre>
-     * <span style="color: #0000C0">eventTBhv</span>.<span style="color: #CC4747">loadEventNotify</span>(<span style="color: #553000">eventTList</span>, <span style="color: #553000">notifyCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">notifyCB</span>.setupSelect...
-     *     <span style="color: #553000">notifyCB</span>.query().set...
-     *     <span style="color: #553000">notifyCB</span>.query().addOrderBy...
-     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
-     * <span style="color: #3F7E5E">//    ...</span>
-     * <span style="color: #3F7E5E">//});</span>
-     * <span style="color: #70226C">for</span> (EventT eventT : <span style="color: #553000">eventTList</span>) {
-     *     ... = eventT.<span style="color: #CC4747">getEventNotifyList()</span>;
-     * }
-     * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
-     * The condition-bean, which the set-upper provides, has settings before callback as follows:
-     * <pre>
-     * cb.query().setEventNo_InScope(pkList);
-     * cb.query().addOrderBy_EventNo_Asc();
-     * </pre>
-     * @param eventTList The entity list of eventT. (NotNull)
-     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    public NestedReferrerListGateway<EventNotify> loadEventNotify(List<EventT> eventTList, ReferrerConditionSetupper<EventNotifyCB> refCBLambda) {
-        xassLRArg(eventTList, refCBLambda);
-        return doLoadEventNotify(eventTList, new LoadReferrerOption<EventNotifyCB, EventNotify>().xinit(refCBLambda));
-    }
-
-    /**
-     * Load referrer of eventNotifyList by the set-upper of referrer. <br>
-     * event_notify by event_no, named 'eventNotifyList'.
-     * <pre>
-     * <span style="color: #0000C0">eventTBhv</span>.<span style="color: #CC4747">loadEventNotify</span>(<span style="color: #553000">eventT</span>, <span style="color: #553000">notifyCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">notifyCB</span>.setupSelect...
-     *     <span style="color: #553000">notifyCB</span>.query().set...
-     *     <span style="color: #553000">notifyCB</span>.query().addOrderBy...
-     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
-     * <span style="color: #3F7E5E">//    ...</span>
-     * <span style="color: #3F7E5E">//});</span>
-     * ... = <span style="color: #553000">eventT</span>.<span style="color: #CC4747">getEventNotifyList()</span>;
-     * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
-     * The condition-bean, which the set-upper provides, has settings before callback as follows:
-     * <pre>
-     * cb.query().setEventNo_InScope(pkList);
-     * cb.query().addOrderBy_EventNo_Asc();
-     * </pre>
-     * @param eventT The entity of eventT. (NotNull)
-     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    public NestedReferrerListGateway<EventNotify> loadEventNotify(EventT eventT, ReferrerConditionSetupper<EventNotifyCB> refCBLambda) {
-        xassLRArg(eventT, refCBLambda);
-        return doLoadEventNotify(xnewLRLs(eventT), new LoadReferrerOption<EventNotifyCB, EventNotify>().xinit(refCBLambda));
-    }
-
-    protected NestedReferrerListGateway<EventNotify> doLoadEventNotify(List<EventT> eventTList, LoadReferrerOption<EventNotifyCB, EventNotify> option) {
-        return helpLoadReferrerInternally(eventTList, option, "eventNotifyList");
-    }
-
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
@@ -524,6 +460,14 @@ public abstract class BsEventTBhv extends AbstractBehaviorWritable<EventT, Event
      */
     public List<UserT> pulloutUserT(List<EventT> eventTList)
     { return helpPulloutInternally(eventTList, "userT"); }
+
+    /**
+     * Pull out the list of referrer-as-one table 'EventNotify'.
+     * @param eventTList The list of eventT. (NotNull, EmptyAllowed)
+     * @return The list of referrer-as-one table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<EventNotify> pulloutEventNotifyAsOne(List<EventT> eventTList)
+    { return helpPulloutInternally(eventTList, "eventNotifyAsOne"); }
 
     // ===================================================================================
     //                                                                      Extract Column

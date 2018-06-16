@@ -624,7 +624,7 @@ public abstract class BsEventIndex extends AbstractEntity implements CustomizeEn
 
     /**
      * [get] user_id: {int4(10), refers to event_t.user_id} <br>
-     * 幹事ユーザID
+     * 幹事ユーザーID
      * @return The value of the column 'user_id'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getUserId() {
@@ -634,7 +634,7 @@ public abstract class BsEventIndex extends AbstractEntity implements CustomizeEn
 
     /**
      * [set] user_id: {int4(10), refers to event_t.user_id} <br>
-     * 幹事ユーザID
+     * 幹事ユーザーID
      * @param userId The value of the column 'user_id'. (NullAllowed: null update allowed for no constraint)
      */
     public void setUserId(Integer userId) {

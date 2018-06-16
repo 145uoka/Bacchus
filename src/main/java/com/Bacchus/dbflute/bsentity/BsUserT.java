@@ -8,6 +8,7 @@ import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
 import org.dbflute.optional.OptionalEntity;
+import com.Bacchus.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.Bacchus.dbflute.allcommon.DBMetaInstanceHandler;
 import com.Bacchus.dbflute.exentity.*;
 
@@ -19,7 +20,7 @@ import com.Bacchus.dbflute.exentity.*;
  *     user_id
  *
  * [column]
- *     user_id, login_id, line_flg, line_id, line_user_name, user_name, last_name, first_name, email, password, user_type_id, auth_level
+ *     user_id, login_id, line_flg, line_id, line_user_name, user_name, last_name, first_name, email, password, user_type_id, auth_level, register_datetime, register_user, update_datetime, update_user
  *
  * [sequence]
  *     user_t_user_id_seq
@@ -56,6 +57,10 @@ import com.Bacchus.dbflute.exentity.*;
  * String password = entity.getPassword();
  * Integer userTypeId = entity.getUserTypeId();
  * Integer authLevel = entity.getAuthLevel();
+ * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
+ * String registerUser = entity.getRegisterUser();
+ * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
+ * String updateUser = entity.getUpdateUser();
  * entity.setUserId(userId);
  * entity.setLoginId(loginId);
  * entity.setLineFlg(lineFlg);
@@ -68,11 +73,15 @@ import com.Bacchus.dbflute.exentity.*;
  * entity.setPassword(password);
  * entity.setUserTypeId(userTypeId);
  * entity.setAuthLevel(authLevel);
+ * entity.setRegisterDatetime(registerDatetime);
+ * entity.setRegisterUser(registerUser);
+ * entity.setUpdateDatetime(updateDatetime);
+ * entity.setUpdateUser(updateUser);
  * = = = = = = = = = =/
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsUserT extends AbstractEntity implements DomainEntity {
+public abstract class BsUserT extends AbstractEntity implements DomainEntity, EntityDefinedCommonColumn {
 
     // ===================================================================================
     //                                                                          Definition
@@ -118,6 +127,18 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
 
     /** auth_level: {NotNull, int4(10), FK to auth_m} */
     protected Integer _authLevel;
+
+    /** register_datetime: {timestamp(29, 6), default=[now()]} */
+    protected java.time.LocalDateTime _registerDatetime;
+
+    /** register_user: {text(2147483647)} */
+    protected String _registerUser;
+
+    /** update_datetime: {timestamp(29, 6), default=[now()]} */
+    protected java.time.LocalDateTime _updateDatetime;
+
+    /** update_user: {text(2147483647)} */
+    protected String _updateUser;
 
     // ===================================================================================
     //                                                                             DB Meta
@@ -320,6 +341,10 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
         sb.append(dm).append(xfND(_password));
         sb.append(dm).append(xfND(_userTypeId));
         sb.append(dm).append(xfND(_authLevel));
+        sb.append(dm).append(xfND(_registerDatetime));
+        sb.append(dm).append(xfND(_registerUser));
+        sb.append(dm).append(xfND(_updateDatetime));
+        sb.append(dm).append(xfND(_updateUser));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
@@ -356,7 +381,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     //                                                                            ========
     /**
      * [get] user_id: {PK, ID, NotNull, serial(10)} <br>
-     * user_id
+     * ユーザーID
      * @return The value of the column 'user_id'. (basically NotNull if selected: for the constraint)
      */
     public Integer getUserId() {
@@ -366,7 +391,7 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
 
     /**
      * [set] user_id: {PK, ID, NotNull, serial(10)} <br>
-     * user_id
+     * ユーザーID
      * @param userId The value of the column 'user_id'. (basically NotNull if update: for the constraint)
      */
     public void setUserId(Integer userId) {
@@ -592,5 +617,85 @@ public abstract class BsUserT extends AbstractEntity implements DomainEntity {
     public void setAuthLevel(Integer authLevel) {
         registerModifiedProperty("authLevel");
         _authLevel = authLevel;
+    }
+
+    /**
+     * [get] register_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * 作成日時
+     * @return The value of the column 'register_datetime'. (NullAllowed even if selected: for no constraint)
+     */
+    public java.time.LocalDateTime getRegisterDatetime() {
+        checkSpecifiedProperty("registerDatetime");
+        return _registerDatetime;
+    }
+
+    /**
+     * [set] register_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * 作成日時
+     * @param registerDatetime The value of the column 'register_datetime'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setRegisterDatetime(java.time.LocalDateTime registerDatetime) {
+        registerModifiedProperty("registerDatetime");
+        _registerDatetime = registerDatetime;
+    }
+
+    /**
+     * [get] register_user: {text(2147483647)} <br>
+     * 作成者
+     * @return The value of the column 'register_user'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getRegisterUser() {
+        checkSpecifiedProperty("registerUser");
+        return _registerUser;
+    }
+
+    /**
+     * [set] register_user: {text(2147483647)} <br>
+     * 作成者
+     * @param registerUser The value of the column 'register_user'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setRegisterUser(String registerUser) {
+        registerModifiedProperty("registerUser");
+        _registerUser = registerUser;
+    }
+
+    /**
+     * [get] update_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * 更新日時
+     * @return The value of the column 'update_datetime'. (NullAllowed even if selected: for no constraint)
+     */
+    public java.time.LocalDateTime getUpdateDatetime() {
+        checkSpecifiedProperty("updateDatetime");
+        return _updateDatetime;
+    }
+
+    /**
+     * [set] update_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * 更新日時
+     * @param updateDatetime The value of the column 'update_datetime'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setUpdateDatetime(java.time.LocalDateTime updateDatetime) {
+        registerModifiedProperty("updateDatetime");
+        _updateDatetime = updateDatetime;
+    }
+
+    /**
+     * [get] update_user: {text(2147483647)} <br>
+     * 更新者
+     * @return The value of the column 'update_user'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getUpdateUser() {
+        checkSpecifiedProperty("updateUser");
+        return _updateUser;
+    }
+
+    /**
+     * [set] update_user: {text(2147483647)} <br>
+     * 更新者
+     * @param updateUser The value of the column 'update_user'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setUpdateUser(String updateUser) {
+        registerModifiedProperty("updateUser");
+        _updateUser = updateUser;
     }
 }

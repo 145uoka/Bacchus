@@ -54,8 +54,12 @@ public class EventTDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((EventT)et).getFixFlg(), (et, vl) -> ((EventT)et).setFixFlg(cti(vl)), "fixFlg");
         setupEpg(_epgMap, et -> ((EventT)et).getCandidateNo(), (et, vl) -> ((EventT)et).setCandidateNo(cti(vl)), "candidateNo");
         setupEpg(_epgMap, et -> ((EventT)et).getStoreName(), (et, vl) -> ((EventT)et).setStoreName((String)vl), "storeName");
-        setupEpg(_epgMap, et -> ((EventT)et).getUserId(), (et, vl) -> ((EventT)et).setUserId(cti(vl)), "userId");
         setupEpg(_epgMap, et -> ((EventT)et).getEventTypeId(), (et, vl) -> ((EventT)et).setEventTypeId(cti(vl)), "eventTypeId");
+        setupEpg(_epgMap, et -> ((EventT)et).getUserId(), (et, vl) -> ((EventT)et).setUserId(cti(vl)), "userId");
+        setupEpg(_epgMap, et -> ((EventT)et).getRegisterDatetime(), (et, vl) -> ((EventT)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
+        setupEpg(_epgMap, et -> ((EventT)et).getRegisterUser(), (et, vl) -> ((EventT)et).setRegisterUser((String)vl), "registerUser");
+        setupEpg(_epgMap, et -> ((EventT)et).getUpdateDatetime(), (et, vl) -> ((EventT)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
+        setupEpg(_epgMap, et -> ((EventT)et).getUpdateUser(), (et, vl) -> ((EventT)et).setUpdateUser((String)vl), "updateUser");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -69,6 +73,7 @@ public class EventTDbm extends AbstractDBMeta {
     protected void xsetupEfpg() {
         setupEfpg(_efpgMap, et -> ((EventT)et).getEventTypeM(), (et, vl) -> ((EventT)et).setEventTypeM((OptionalEntity<EventTypeM>)vl), "eventTypeM");
         setupEfpg(_efpgMap, et -> ((EventT)et).getUserT(), (et, vl) -> ((EventT)et).setUserT((OptionalEntity<UserT>)vl), "userT");
+        setupEfpg(_efpgMap, et -> ((EventT)et).getEventNotifyAsOne(), (et, vl) -> ((EventT)et).setEventNotifyAsOne((OptionalEntity<EventNotify>)vl), "eventNotifyAsOne");
     }
     public PropertyGateway findForeignPropertyGateway(String prop)
     { return doFindEfpg(_efpgMap, prop); }
@@ -89,7 +94,7 @@ public class EventTDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnEventNo = cci("event_no", "event_no", null, null, Integer.class, "eventNo", null, true, true, true, "serial", 10, 0, "nextval('event_t_event_no_seq'::regclass)", false, null, null, null, "candidateTList,eventNotifyList", null, false);
+    protected final ColumnInfo _columnEventNo = cci("event_no", "event_no", null, null, Integer.class, "eventNo", null, true, true, true, "serial", 10, 0, "nextval('event_t_event_no_seq'::regclass)", false, null, null, null, "candidateTList", null, false);
     protected final ColumnInfo _columnEventName = cci("event_name", "event_name", null, null, String.class, "eventName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEventDetail = cci("event_detail", "event_detail", null, null, String.class, "eventDetail", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnEventPlace = cci("event_place", "event_place", null, null, String.class, "eventPlace", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
@@ -100,8 +105,12 @@ public class EventTDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnFixFlg = cci("fix_flg", "fix_flg", null, null, Integer.class, "fixFlg", null, false, false, false, "int2", 5, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnCandidateNo = cci("candidate_no", "candidate_no", null, null, Integer.class, "candidateNo", null, false, false, false, "int4", 10, 0, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnStoreName = cci("store_name", "store_name", null, null, String.class, "storeName", null, false, false, false, "text", 2147483647, 0, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, false, "int4", 10, 0, null, false, null, null, "userT", null, null, false);
     protected final ColumnInfo _columnEventTypeId = cci("event_type_id", "event_type_id", null, null, Integer.class, "eventTypeId", null, false, false, false, "int4", 10, 0, null, false, null, null, "eventTypeM", null, null, false);
+    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, false, "int4", 10, 0, null, false, null, null, "userT", null, null, false);
+    protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, false, "timestamp", 29, 6, "now()", true, null, null, null, null, null, false);
+    protected final ColumnInfo _columnRegisterUser = cci("register_user", "register_user", null, null, String.class, "registerUser", null, false, false, false, "text", 2147483647, 0, null, true, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUpdateDatetime = cci("update_datetime", "update_datetime", null, null, java.time.LocalDateTime.class, "updateDatetime", null, false, false, false, "timestamp", 29, 6, "now()", true, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUpdateUser = cci("update_user", "update_user", null, null, String.class, "updateUser", null, false, false, false, "text", 2147483647, 0, null, true, null, null, null, null, null, false);
 
     /**
      * event_no: {PK, ID, NotNull, serial(10)}
@@ -159,15 +168,35 @@ public class EventTDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnStoreName() { return _columnStoreName; }
     /**
+     * event_type_id: {int4(10), FK to event_type_m}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnEventTypeId() { return _columnEventTypeId; }
+    /**
      * user_id: {int4(10), FK to user_t}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUserId() { return _columnUserId; }
     /**
-     * event_type_id: {int4(10), FK to event_type_m}
+     * register_datetime: {timestamp(29, 6), default=[now()]}
      * @return The information object of specified column. (NotNull)
      */
-    public ColumnInfo columnEventTypeId() { return _columnEventTypeId; }
+    public ColumnInfo columnRegisterDatetime() { return _columnRegisterDatetime; }
+    /**
+     * register_user: {text(2147483647)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnRegisterUser() { return _columnRegisterUser; }
+    /**
+     * update_datetime: {timestamp(29, 6), default=[now()]}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnUpdateDatetime() { return _columnUpdateDatetime; }
+    /**
+     * update_user: {text(2147483647)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnUpdateUser() { return _columnUpdateUser; }
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
@@ -182,8 +211,12 @@ public class EventTDbm extends AbstractDBMeta {
         ls.add(columnFixFlg());
         ls.add(columnCandidateNo());
         ls.add(columnStoreName());
-        ls.add(columnUserId());
         ls.add(columnEventTypeId());
+        ls.add(columnUserId());
+        ls.add(columnRegisterDatetime());
+        ls.add(columnRegisterUser());
+        ls.add(columnUpdateDatetime());
+        ls.add(columnUpdateUser());
         return ls;
     }
 
@@ -223,6 +256,14 @@ public class EventTDbm extends AbstractDBMeta {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), UserTDbm.getInstance().columnUserId());
         return cfi("event_t_user_id_fkey", "userT", this, UserTDbm.getInstance(), mp, 1, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "eventTList", false);
     }
+    /**
+     * event_notify by event_no, named 'eventNotifyAsOne'.
+     * @return The information object of foreign property(referrer-as-one). (NotNull)
+     */
+    public ForeignInfo foreignEventNotifyAsOne() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnEventNo(), EventNotifyDbm.getInstance().columnEventNo());
+        return cfi("event_notify_event_no_fkey", "eventNotifyAsOne", this, EventNotifyDbm.getInstance(), mp, 2, org.dbflute.optional.OptionalEntity.class, true, false, true, false, null, null, false, "eventT", false);
+    }
 
     // -----------------------------------------------------
     //                                     Referrer Property
@@ -235,14 +276,6 @@ public class EventTDbm extends AbstractDBMeta {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnEventNo(), CandidateTDbm.getInstance().columnEventNo());
         return cri("candidate_t_event_no_fkey", "candidateTList", this, CandidateTDbm.getInstance(), mp, false, "eventT");
     }
-    /**
-     * event_notify by event_no, named 'eventNotifyList'.
-     * @return The information object of referrer property. (NotNull)
-     */
-    public ReferrerInfo referrerEventNotifyList() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnEventNo(), EventNotifyDbm.getInstance().columnEventNo());
-        return cri("event_notify_event_no_fkey", "eventNotifyList", this, EventNotifyDbm.getInstance(), mp, false, "eventT");
-    }
 
     // ===================================================================================
     //                                                                        Various Info
@@ -251,6 +284,13 @@ public class EventTDbm extends AbstractDBMeta {
     public String getSequenceName() { return "event_t_event_no_seq"; }
     public Integer getSequenceIncrementSize() { return 1; }
     public Integer getSequenceCacheSize() { return null; }
+    public boolean hasCommonColumn() { return true; }
+    public List<ColumnInfo> getCommonColumnInfoList()
+    { return newArrayList(columnRegisterDatetime(), columnRegisterUser(), columnUpdateDatetime(), columnUpdateUser()); }
+    public List<ColumnInfo> getCommonColumnInfoBeforeInsertList()
+    { return newArrayList(columnRegisterDatetime(), columnRegisterUser(), columnUpdateDatetime(), columnUpdateUser()); }
+    public List<ColumnInfo> getCommonColumnInfoBeforeUpdateList()
+    { return newArrayList(columnUpdateDatetime(), columnUpdateUser()); }
 
     // ===================================================================================
     //                                                                           Type Name

@@ -287,6 +287,32 @@ public class BsEventTCB extends AbstractConditionBean {
         return _nssUserT;
     }
 
+    protected EventNotifyNss _nssEventNotifyAsOne;
+    public EventNotifyNss xdfgetNssEventNotifyAsOne() {
+        if (_nssEventNotifyAsOne == null) { _nssEventNotifyAsOne = new EventNotifyNss(null); }
+        return _nssEventNotifyAsOne;
+    }
+    /**
+     * Set up relation columns to select clause. <br>
+     * event_notify by event_no, named 'eventNotifyAsOne'.
+     * <pre>
+     * <span style="color: #0000C0">eventTBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_EventNotifyAsOne()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">eventT</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">eventT</span>.<span style="color: #CC4747">getEventNotifyAsOne()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
+     */
+    public EventNotifyNss setupSelect_EventNotifyAsOne() {
+        assertSetupSelectPurpose("eventNotifyAsOne");
+        doSetupSelect(() -> query().queryEventNotifyAsOne());
+        if (_nssEventNotifyAsOne == null || !_nssEventNotifyAsOne.hasConditionQuery())
+        { _nssEventNotifyAsOne = new EventNotifyNss(query().queryEventNotifyAsOne()); }
+        return _nssEventNotifyAsOne;
+    }
+
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -330,6 +356,7 @@ public class BsEventTCB extends AbstractConditionBean {
     public static class HpSpecification extends HpAbstractSpecification<EventTCQ> {
         protected EventTypeMCB.HpSpecification _eventTypeM;
         protected UserTCB.HpSpecification _userT;
+        protected EventNotifyCB.HpSpecification _eventNotifyAsOne;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<EventTCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
@@ -390,15 +417,35 @@ public class BsEventTCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnStoreName() { return doColumn("store_name"); }
         /**
+         * event_type_id: {int4(10), FK to event_type_m}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnEventTypeId() { return doColumn("event_type_id"); }
+        /**
          * user_id: {int4(10), FK to user_t}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUserId() { return doColumn("user_id"); }
         /**
-         * event_type_id: {int4(10), FK to event_type_m}
+         * register_datetime: {timestamp(29, 6), default=[now()]}
          * @return The information object of specified column. (NotNull)
          */
-        public SpecifiedColumn columnEventTypeId() { return doColumn("event_type_id"); }
+        public SpecifiedColumn columnRegisterDatetime() { return doColumn("register_datetime"); }
+        /**
+         * register_user: {text(2147483647)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnRegisterUser() { return doColumn("register_user"); }
+        /**
+         * update_datetime: {timestamp(29, 6), default=[now()]}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnUpdateDatetime() { return doColumn("update_datetime"); }
+        /**
+         * update_user: {text(2147483647)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnUpdateUser() { return doColumn("update_user"); }
         public void everyColumn() { doEveryColumn(); }
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override
@@ -456,6 +503,26 @@ public class BsEventTCB extends AbstractConditionBean {
             return _userT;
         }
         /**
+         * Prepare to specify functions about relation table. <br>
+         * event_notify by event_no, named 'eventNotifyAsOne'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public EventNotifyCB.HpSpecification specifyEventNotifyAsOne() {
+            assertRelation("eventNotifyAsOne");
+            if (_eventNotifyAsOne == null) {
+                _eventNotifyAsOne = new EventNotifyCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryEventNotifyAsOne()
+                                    , () -> _qyCall.qy().queryEventNotifyAsOne())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _eventNotifyAsOne.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryEventNotifyAsOne()
+                      , () -> xsyncQyCall().qy().queryEventNotifyAsOne()));
+                }
+            }
+            return _eventNotifyAsOne;
+        }
+        /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
          * {select max(FOO) from candidate_t where ...) as FOO_MAX} <br>
          * candidate_t by event_no, named 'candidateTList'.
@@ -471,23 +538,6 @@ public class BsEventTCB extends AbstractConditionBean {
             assertDerived("candidateTList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<CandidateTCB> sq, EventTCQ cq, String al, DerivedReferrerOption op)
                     -> cq.xsderiveCandidateTList(fn, sq, al, op), _dbmetaProvider);
-        }
-        /**
-         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from event_notify where ...) as FOO_MAX} <br>
-         * event_notify by event_no, named 'eventNotifyList'.
-         * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(notifyCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     notifyCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     notifyCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, EventNotify.<span style="color: #CC4747">ALIAS_foo...</span>);
-         * </pre>
-         * @return The object to set up a function for referrer table. (NotNull)
-         */
-        public HpSDRFunction<EventNotifyCB, EventTCQ> derivedEventNotify() {
-            assertDerived("eventNotifyList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<EventNotifyCB> sq, EventTCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveEventNotifyList(fn, sq, al, op), _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).

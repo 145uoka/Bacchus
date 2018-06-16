@@ -101,37 +101,17 @@ public class BsEventNotifyCQ extends AbstractBsEventNotifyCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * event_no: {UQ+, NotNull, int4(10), FK to event_t}
+     * event_no: {UQ, NotNull, int4(10), FK to event_t}
      * @return this. (NotNull)
      */
     public BsEventNotifyCQ addOrderBy_EventNo_Asc() { regOBA("event_no"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * event_no: {UQ+, NotNull, int4(10), FK to event_t}
+     * event_no: {UQ, NotNull, int4(10), FK to event_t}
      * @return this. (NotNull)
      */
     public BsEventNotifyCQ addOrderBy_EventNo_Desc() { regOBD("event_no"); return this; }
-
-    protected ConditionValue _userId;
-    public ConditionValue xdfgetUserId()
-    { if (_userId == null) { _userId = nCV(); }
-      return _userId; }
-    protected ConditionValue xgetCValueUserId() { return xdfgetUserId(); }
-
-    /** 
-     * Add order-by as ascend. <br>
-     * user_id: {+UQ, NotNull, int4(10), FK to user_t}
-     * @return this. (NotNull)
-     */
-    public BsEventNotifyCQ addOrderBy_UserId_Asc() { regOBA("user_id"); return this; }
-
-    /**
-     * Add order-by as descend. <br>
-     * user_id: {+UQ, NotNull, int4(10), FK to user_t}
-     * @return this. (NotNull)
-     */
-    public BsEventNotifyCQ addOrderBy_UserId_Desc() { regOBD("user_id"); return this; }
 
     protected ConditionValue _notifyDatetime;
     public ConditionValue xdfgetNotifyDatetime()
@@ -152,6 +132,106 @@ public class BsEventNotifyCQ extends AbstractBsEventNotifyCQ {
      * @return this. (NotNull)
      */
     public BsEventNotifyCQ addOrderBy_NotifyDatetime_Desc() { regOBD("notify_datetime"); return this; }
+
+    protected ConditionValue _userId;
+    public ConditionValue xdfgetUserId()
+    { if (_userId == null) { _userId = nCV(); }
+      return _userId; }
+    protected ConditionValue xgetCValueUserId() { return xdfgetUserId(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * user_id: {NotNull, int4(10), FK to user_t}
+     * @return this. (NotNull)
+     */
+    public BsEventNotifyCQ addOrderBy_UserId_Asc() { regOBA("user_id"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * user_id: {NotNull, int4(10), FK to user_t}
+     * @return this. (NotNull)
+     */
+    public BsEventNotifyCQ addOrderBy_UserId_Desc() { regOBD("user_id"); return this; }
+
+    protected ConditionValue _registerDatetime;
+    public ConditionValue xdfgetRegisterDatetime()
+    { if (_registerDatetime == null) { _registerDatetime = nCV(); }
+      return _registerDatetime; }
+    protected ConditionValue xgetCValueRegisterDatetime() { return xdfgetRegisterDatetime(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * register_datetime: {timestamp(29, 6), default=[now()]}
+     * @return this. (NotNull)
+     */
+    public BsEventNotifyCQ addOrderBy_RegisterDatetime_Asc() { regOBA("register_datetime"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * register_datetime: {timestamp(29, 6), default=[now()]}
+     * @return this. (NotNull)
+     */
+    public BsEventNotifyCQ addOrderBy_RegisterDatetime_Desc() { regOBD("register_datetime"); return this; }
+
+    protected ConditionValue _registerUser;
+    public ConditionValue xdfgetRegisterUser()
+    { if (_registerUser == null) { _registerUser = nCV(); }
+      return _registerUser; }
+    protected ConditionValue xgetCValueRegisterUser() { return xdfgetRegisterUser(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * register_user: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsEventNotifyCQ addOrderBy_RegisterUser_Asc() { regOBA("register_user"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * register_user: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsEventNotifyCQ addOrderBy_RegisterUser_Desc() { regOBD("register_user"); return this; }
+
+    protected ConditionValue _updateDatetime;
+    public ConditionValue xdfgetUpdateDatetime()
+    { if (_updateDatetime == null) { _updateDatetime = nCV(); }
+      return _updateDatetime; }
+    protected ConditionValue xgetCValueUpdateDatetime() { return xdfgetUpdateDatetime(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * update_datetime: {timestamp(29, 6), default=[now()]}
+     * @return this. (NotNull)
+     */
+    public BsEventNotifyCQ addOrderBy_UpdateDatetime_Asc() { regOBA("update_datetime"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * update_datetime: {timestamp(29, 6), default=[now()]}
+     * @return this. (NotNull)
+     */
+    public BsEventNotifyCQ addOrderBy_UpdateDatetime_Desc() { regOBD("update_datetime"); return this; }
+
+    protected ConditionValue _updateUser;
+    public ConditionValue xdfgetUpdateUser()
+    { if (_updateUser == null) { _updateUser = nCV(); }
+      return _updateUser; }
+    protected ConditionValue xgetCValueUpdateUser() { return xdfgetUpdateUser(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * update_user: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsEventNotifyCQ addOrderBy_UpdateUser_Asc() { regOBA("update_user"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * update_user: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsEventNotifyCQ addOrderBy_UpdateUser_Desc() { regOBD("update_user"); return this; }
 
     // ===================================================================================
     //                                                             SpecifiedDerivedOrderBy

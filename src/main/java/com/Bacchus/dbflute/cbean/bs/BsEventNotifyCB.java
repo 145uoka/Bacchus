@@ -93,14 +93,13 @@ public class BsEventNotifyCB extends AbstractConditionBean {
 
     /**
      * Accept the query condition of unique key as equal.
-     * @param eventNo : UQ+, NotNull, int4(10), FK to event_t. (NotNull)
-     * @param userId : +UQ, NotNull, int4(10), FK to user_t. (NotNull)
+     * @param eventNo : UQ, NotNull, int4(10), FK to event_t. (NotNull)
      * @return this. (NotNull)
      */
-    public EventNotifyCB acceptUniqueOf(Integer eventNo, Integer userId) {
-        assertObjectNotNull("eventNo", eventNo);assertObjectNotNull("userId", userId);
+    public EventNotifyCB acceptUniqueOf(Integer eventNo) {
+        assertObjectNotNull("eventNo", eventNo);
         BsEventNotifyCB cb = this;
-        cb.query().setEventNo_Equal(eventNo);cb.query().setUserId_Equal(userId);
+        cb.query().setEventNo_Equal(eventNo);
         return (EventNotifyCB)this;
     }
 
@@ -362,20 +361,40 @@ public class BsEventNotifyCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnEventNotifyNo() { return doColumn("event_notify_no"); }
         /**
-         * event_no: {UQ+, NotNull, int4(10), FK to event_t}
+         * event_no: {UQ, NotNull, int4(10), FK to event_t}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnEventNo() { return doColumn("event_no"); }
-        /**
-         * user_id: {+UQ, NotNull, int4(10), FK to user_t}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnUserId() { return doColumn("user_id"); }
         /**
          * notify_datetime: {timestamp(29, 6)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnNotifyDatetime() { return doColumn("notify_datetime"); }
+        /**
+         * user_id: {NotNull, int4(10), FK to user_t}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnUserId() { return doColumn("user_id"); }
+        /**
+         * register_datetime: {timestamp(29, 6), default=[now()]}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnRegisterDatetime() { return doColumn("register_datetime"); }
+        /**
+         * register_user: {text(2147483647)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnRegisterUser() { return doColumn("register_user"); }
+        /**
+         * update_datetime: {timestamp(29, 6), default=[now()]}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnUpdateDatetime() { return doColumn("update_datetime"); }
+        /**
+         * update_user: {text(2147483647)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnUpdateUser() { return doColumn("update_user"); }
         public void everyColumn() { doEveryColumn(); }
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override

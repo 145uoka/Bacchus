@@ -113,6 +113,26 @@ public class BsEntryTCQ extends AbstractBsEntryTCQ {
      */
     public BsEntryTCQ addOrderBy_CandidateNo_Desc() { regOBD("candidate_no"); return this; }
 
+    protected ConditionValue _entryDiv;
+    public ConditionValue xdfgetEntryDiv()
+    { if (_entryDiv == null) { _entryDiv = nCV(); }
+      return _entryDiv; }
+    protected ConditionValue xgetCValueEntryDiv() { return xdfgetEntryDiv(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * entry_div: {int4(10)}
+     * @return this. (NotNull)
+     */
+    public BsEntryTCQ addOrderBy_EntryDiv_Asc() { regOBA("entry_div"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * entry_div: {int4(10)}
+     * @return this. (NotNull)
+     */
+    public BsEntryTCQ addOrderBy_EntryDiv_Desc() { regOBD("entry_div"); return this; }
+
     protected ConditionValue _userId;
     public ConditionValue xdfgetUserId()
     { if (_userId == null) { _userId = nCV(); }
@@ -133,25 +153,85 @@ public class BsEntryTCQ extends AbstractBsEntryTCQ {
      */
     public BsEntryTCQ addOrderBy_UserId_Desc() { regOBD("user_id"); return this; }
 
-    protected ConditionValue _entryDiv;
-    public ConditionValue xdfgetEntryDiv()
-    { if (_entryDiv == null) { _entryDiv = nCV(); }
-      return _entryDiv; }
-    protected ConditionValue xgetCValueEntryDiv() { return xdfgetEntryDiv(); }
+    protected ConditionValue _registerDatetime;
+    public ConditionValue xdfgetRegisterDatetime()
+    { if (_registerDatetime == null) { _registerDatetime = nCV(); }
+      return _registerDatetime; }
+    protected ConditionValue xgetCValueRegisterDatetime() { return xdfgetRegisterDatetime(); }
 
     /** 
      * Add order-by as ascend. <br>
-     * entry_div: {int4(10)}
+     * register_datetime: {timestamp(29, 6), default=[now()]}
      * @return this. (NotNull)
      */
-    public BsEntryTCQ addOrderBy_EntryDiv_Asc() { regOBA("entry_div"); return this; }
+    public BsEntryTCQ addOrderBy_RegisterDatetime_Asc() { regOBA("register_datetime"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * entry_div: {int4(10)}
+     * register_datetime: {timestamp(29, 6), default=[now()]}
      * @return this. (NotNull)
      */
-    public BsEntryTCQ addOrderBy_EntryDiv_Desc() { regOBD("entry_div"); return this; }
+    public BsEntryTCQ addOrderBy_RegisterDatetime_Desc() { regOBD("register_datetime"); return this; }
+
+    protected ConditionValue _registerUser;
+    public ConditionValue xdfgetRegisterUser()
+    { if (_registerUser == null) { _registerUser = nCV(); }
+      return _registerUser; }
+    protected ConditionValue xgetCValueRegisterUser() { return xdfgetRegisterUser(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * register_user: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsEntryTCQ addOrderBy_RegisterUser_Asc() { regOBA("register_user"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * register_user: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsEntryTCQ addOrderBy_RegisterUser_Desc() { regOBD("register_user"); return this; }
+
+    protected ConditionValue _updateDatetime;
+    public ConditionValue xdfgetUpdateDatetime()
+    { if (_updateDatetime == null) { _updateDatetime = nCV(); }
+      return _updateDatetime; }
+    protected ConditionValue xgetCValueUpdateDatetime() { return xdfgetUpdateDatetime(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * update_datetime: {timestamp(29, 6), default=[now()]}
+     * @return this. (NotNull)
+     */
+    public BsEntryTCQ addOrderBy_UpdateDatetime_Asc() { regOBA("update_datetime"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * update_datetime: {timestamp(29, 6), default=[now()]}
+     * @return this. (NotNull)
+     */
+    public BsEntryTCQ addOrderBy_UpdateDatetime_Desc() { regOBD("update_datetime"); return this; }
+
+    protected ConditionValue _updateUser;
+    public ConditionValue xdfgetUpdateUser()
+    { if (_updateUser == null) { _updateUser = nCV(); }
+      return _updateUser; }
+    protected ConditionValue xgetCValueUpdateUser() { return xdfgetUpdateUser(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * update_user: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsEntryTCQ addOrderBy_UpdateUser_Asc() { regOBA("update_user"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * update_user: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsEntryTCQ addOrderBy_UpdateUser_Desc() { regOBD("update_user"); return this; }
 
     // ===================================================================================
     //                                                             SpecifiedDerivedOrderBy

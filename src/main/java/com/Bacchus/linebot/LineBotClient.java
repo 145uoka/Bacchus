@@ -12,6 +12,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.Bacchus.linebot.constants.LineApiConstants;
 import com.Bacchus.linebot.dto.MulticastRequestDto;
@@ -23,6 +25,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 
 public class LineBotClient {
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private static final String CONTENT_TYPE = "application/json";
     private String channnelAccessToken;
@@ -118,6 +122,8 @@ public class LineBotClient {
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(builder.toString());
+
+        logger.debug(builder.toString());
 
         switch (type) {
         case LineApiConstants.EventType.PROFILE:

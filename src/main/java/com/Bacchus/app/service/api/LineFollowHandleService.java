@@ -101,7 +101,7 @@ public class LineFollowHandleService extends AbstractService {
         ListResultBean<UserT> userTList = userTBhv.selectList(cb->{
             cb.query().setDeleteFlag_Equal(Flag.OFF.isBoolValue());
             cb.query().setAuthLevel_Equal(Permissions.ADMIN.getAuthType());
-            cb.query().setLineFlg_Equal(Flag.OFF.getIntegerValue());
+            cb.query().setLineFlg_Equal(Flag.ON.getIntegerValue());
             cb.query().setLineId_IsNotNull();
         });
 

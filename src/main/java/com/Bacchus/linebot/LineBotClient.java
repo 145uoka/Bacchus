@@ -127,7 +127,7 @@ public class LineBotClient {
 
         switch (type) {
 
-        case LineApiConstants.EventType.PROFILE:
+        case LineApiConstants.EventType.FOLLOW:
             String displayName = null;
             String userId = null;
             String pictureUrl = null;

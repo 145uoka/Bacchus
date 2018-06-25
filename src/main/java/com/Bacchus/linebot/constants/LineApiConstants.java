@@ -14,7 +14,6 @@ public class LineApiConstants {
         public final static String LEAVE = "leave";
         public final static String BEACON = "beacon";
         public final static String ACCOUNTLINK = "accountLink";
-        public final static String PROFILE = "profile";
 
     }
     public static class MessageType {

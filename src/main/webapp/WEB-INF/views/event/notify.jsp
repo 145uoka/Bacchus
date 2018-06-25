@@ -90,6 +90,7 @@
               <th class="text-center">No</th>
               <th class="text-center">選択</th>
               <th class="text-center">氏名</th>
+              <th class="text-center">LINEユーザ名</th>
               <th class="text-center">ユーザー区分</th>
               <th class="text-center">直近通知日時</th>
             </tr>
@@ -99,6 +100,7 @@
               <td class="text-center"><c:out value="${status.count}" /></td>
               <td class="text-center"><input type="checkbox" name="userIds" value="${list.userId}" /></td>
               <td class="text-center"><c:out value="${list.lastName} ${list.firstName}" /></td>
+              <td><c:out value="${list.lineUserName}" /></td>
               <td class="text-center"><c:out value="${list.userTypeName }" /></td>
               <td class="text-center"><c:choose>
                   <c:when test="${empty list.notifyDatetimeDisplay}">

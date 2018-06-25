@@ -1,8 +1,12 @@
 package com.Bacchus.app.service.api;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.optional.OptionalEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +21,7 @@ import com.Bacchus.app.service.SystemPropertyService;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.dbflute.exentity.UserT;
 import com.Bacchus.linebot.LineBotClient;
+import com.Bacchus.linebot.dto.MulticastRequestDto;
 import com.Bacchus.linebot.dto.ReplyRequestDto;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.Flag;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.Permissions;
@@ -44,12 +49,13 @@ public class LineFollowHandleService extends AbstractService {
 
         LineBotClient lineBotClient = new LineBotClient(token);
 
-        addAccount(event, lineBotClient);
+        UserT userT = addAccount(event, lineBotClient);
 
         replyMessage(event, lineBotClient);
+        notifyFollow(userT, lineBotClient);
     }
 
-    private void addAccount(Event event, LineBotClient lineBotClient) throws JsonProcessingException, IOException {
+    private UserT addAccount(Event event, LineBotClient lineBotClient) throws JsonProcessingException, IOException {
 
         OptionalEntity<UserT> optUserT = userTBhv.selectEntity(cb->{
            cb.query().setLineId_Equal(event.getSource().getUserId());
@@ -74,16 +80,50 @@ public class LineFollowHandleService extends AbstractService {
         userT.setLineUserName(userProfileResponse.getDisplayName());
 
         userTBhv.insertOrUpdate(userT);
+
+        return userT;
     }
 
     private void replyMessage(Event event, LineBotClient lineBotClient) {
 
-        TextMessage textMessage = new TextMessage("友達追加ありがとうございます！");
+        String msg = super.getMsg("follow", null);
+        TextMessage textMessage = new TextMessage(msg);
 
         ReplyRequestDto replyRequestDto = new ReplyRequestDto();
         replyRequestDto.setReplyToken(event.getReplyToken());
         replyRequestDto.setMessages(Arrays.asList(textMessage));
 
         lineBotClient.reply(replyRequestDto);
+    }
+
+    private void notifyFollow(UserT userT, LineBotClient lineBotClient) {
+
+        ListResultBean<UserT> userTList = userTBhv.selectList(cb->{
+            cb.query().setDeleteFlag_Equal(Flag.OFF.isBoolValue());
+            cb.query().setAuthLevel_Equal(Permissions.ADMIN.getAuthType());
+            cb.query().setLineFlg_Equal(Flag.OFF.getIntegerValue());
+            cb.query().setLineId_IsNotNull();
+        });
+
+        List<String> lineIdList = new ArrayList<String>();
+
+        for (UserT notifyUserT : userTList) {
+            lineIdList.add(notifyUserT.getLineId());
+        }
+
+        if (CollectionUtils.isEmpty(lineIdList)) {
+            return;
+        }
+
+        String msg = super.getMsg("follow.notify", new Object[]{userT.getLineUserName()});
+        TextMessage textMessage = new TextMessage(msg);
+        List<TextMessage> textMessageList = new ArrayList<TextMessage>();
+        textMessageList.add(textMessage);
+
+        MulticastRequestDto multicastRequestDto = new MulticastRequestDto();
+        multicastRequestDto.setTo(lineIdList);
+        multicastRequestDto.setMessages(textMessageList);
+
+        lineBotClient.multicast(multicastRequestDto);
     }
 }

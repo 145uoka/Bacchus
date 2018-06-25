@@ -47,6 +47,7 @@ public class LineBotClient {
 
     public <T> void multicast(MulticastRequestDto multicastRequestDto) {
         String body = encodeBody(multicastRequestDto);
+        logger.debug("multicast!! to:" + body);
         postRequest("https://api.line.me/v2/bot/message/multicast", body);
     }
 

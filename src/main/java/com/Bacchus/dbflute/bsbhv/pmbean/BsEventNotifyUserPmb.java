@@ -26,6 +26,9 @@ public class BsEventNotifyUserPmb implements ListHandlingPmb<UserTBhv, EventNoti
     /** The parameter of lineFlg. */
     protected Integer _lineFlg;
 
+    /** The parameter of deleteFlag. */
+    protected Boolean _deleteFlag;
+
     /** The max size of safety result. */
     protected int _safetyMaxResultSize;
 
@@ -125,6 +128,7 @@ public class BsEventNotifyUserPmb implements ListHandlingPmb<UserTBhv, EventNoti
         final StringBuilder sb = new StringBuilder();
         sb.append(dm).append(_eventNo);
         sb.append(dm).append(_lineFlg);
+        sb.append(dm).append(_deleteFlag);
         if (sb.length() > 0) { sb.delete(0, dm.length()); }
         sb.insert(0, "{").append("}");
         return sb.toString();
@@ -163,5 +167,21 @@ public class BsEventNotifyUserPmb implements ListHandlingPmb<UserTBhv, EventNoti
      */
     public void setLineFlg(Integer lineFlg) {
         _lineFlg = lineFlg;
+    }
+
+    /**
+     * [get] deleteFlag <br>
+     * @return The value of deleteFlag. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
+     */
+    public Boolean getDeleteFlag() {
+        return _deleteFlag;
+    }
+
+    /**
+     * [set] deleteFlag <br>
+     * @param deleteFlag The value of deleteFlag. (NullAllowed)
+     */
+    public void setDeleteFlag(Boolean deleteFlag) {
+        _deleteFlag = deleteFlag;
     }
 }

@@ -554,6 +554,7 @@ public class EventService extends AbstractService {
 
        ListResultBean<UserT> userTList = userTBhv.selectList(cb->{
            cb.query().setLineFlg_Equal(Flag.ON.getIntegerValue());
+           cb.query().setDeleteFlag_Equal(Flag.OFF.isBoolValue());
            cb.query().addOrderBy_LastName_Asc();
            cb.query().addOrderBy_FirstName_Asc();
        });

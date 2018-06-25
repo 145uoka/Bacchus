@@ -355,14 +355,14 @@ public class BsEventTCQ extends AbstractBsEventTCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * register_datetime: {timestamp(29, 6), default=[now()]}
+     * register_datetime: {timestamp(29, 6), default=[CURRENT_TIMESTAMP]}
      * @return this. (NotNull)
      */
     public BsEventTCQ addOrderBy_RegisterDatetime_Asc() { regOBA("register_datetime"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * register_datetime: {timestamp(29, 6), default=[now()]}
+     * register_datetime: {timestamp(29, 6), default=[CURRENT_TIMESTAMP]}
      * @return this. (NotNull)
      */
     public BsEventTCQ addOrderBy_RegisterDatetime_Desc() { regOBD("register_datetime"); return this; }
@@ -395,14 +395,14 @@ public class BsEventTCQ extends AbstractBsEventTCQ {
 
     /** 
      * Add order-by as ascend. <br>
-     * update_datetime: {timestamp(29, 6), default=[now()]}
+     * update_datetime: {timestamp(29, 6), default=[CURRENT_TIMESTAMP]}
      * @return this. (NotNull)
      */
     public BsEventTCQ addOrderBy_UpdateDatetime_Asc() { regOBA("update_datetime"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * update_datetime: {timestamp(29, 6), default=[now()]}
+     * update_datetime: {timestamp(29, 6), default=[CURRENT_TIMESTAMP]}
      * @return this. (NotNull)
      */
     public BsEventTCQ addOrderBy_UpdateDatetime_Desc() { regOBD("update_datetime"); return this; }

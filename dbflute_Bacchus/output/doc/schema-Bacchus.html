@@ -270,7 +270,7 @@ dl.procedurelist dd.column pre {
 
 <body>
 <h1>Schema for Bacchus (postgresql)</h1>
-<p class="mainschema">generated from <strong>postgres.bacchus</strong></p>
+<p class="mainschema">generated from <strong>d6tgfg2q2aqst5.bacchus</strong></p>
 <div class="navilinkarea">
 <p class="sublink">
  <a href="#outsidesql">OutsideSql List</a>
@@ -485,7 +485,7 @@ candidate_t
 	</thead>
 	<tr>
 		<td class="rownumcell">1</td>
-		<td class="flgcell" title="candidate_t_pkey :: sequence=candidate_t_candidate_no_seq:minimum(1),maximum(9223372036854775807),increment(1)">o</td>
+		<td class="flgcell" title="candidate_t_pkey :: sequence=candidate_t_candidate_no_seq:minimum(1),maximum(2147483647),increment(1)">o</td>
 		<td class="flgcell">o</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
@@ -601,7 +601,7 @@ candidate_t
 		<td class="comcolcell" id="candidate_t_register_datetime">register_datetime</td>
 		<td class="typecell">timestamp</td>
 		<td class="sizecell"> 29, 6 </td>
-		<td class="defvalcell"> now()</td>
+		<td class="defvalcell"> CURRENT_TIMESTAMP</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -637,7 +637,7 @@ candidate_t
 		<td class="comcolcell" id="candidate_t_update_datetime">update_datetime</td>
 		<td class="typecell">timestamp</td>
 		<td class="sizecell"> 29, 6 </td>
-		<td class="defvalcell"> now()</td>
+		<td class="defvalcell"> CURRENT_TIMESTAMP</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -753,7 +753,7 @@ display_def_m
 		<td class="comcolcell" id="display_def_m_register_datetime">register_datetime</td>
 		<td class="typecell">timestamp</td>
 		<td class="sizecell"> 29, 6 </td>
-		<td class="defvalcell"> now()</td>
+		<td class="defvalcell"> CURRENT_TIMESTAMP</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -789,7 +789,7 @@ display_def_m
 		<td class="comcolcell" id="display_def_m_update_datetime">update_datetime</td>
 		<td class="typecell">timestamp</td>
 		<td class="sizecell"> 29, 6 </td>
-		<td class="defvalcell"> now()</td>
+		<td class="defvalcell"> CURRENT_TIMESTAMP</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -941,7 +941,7 @@ entry_t
 		<td class="comcolcell" id="entry_t_register_datetime">register_datetime</td>
 		<td class="typecell">timestamp</td>
 		<td class="sizecell"> 29, 6 </td>
-		<td class="defvalcell"> now()</td>
+		<td class="defvalcell"> CURRENT_TIMESTAMP</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -977,7 +977,7 @@ entry_t
 		<td class="comcolcell" id="entry_t_update_datetime">update_datetime</td>
 		<td class="typecell">timestamp</td>
 		<td class="sizecell"> 29, 6 </td>
-		<td class="defvalcell"> now()</td>
+		<td class="defvalcell"> CURRENT_TIMESTAMP</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -1049,7 +1049,7 @@ event_notify
 	</thead>
 	<tr>
 		<td class="rownumcell">1</td>
-		<td class="flgcell" title="event_notify_pkey :: sequence=event_notify_event_notify_no_seq:minimum(1),maximum(9223372036854775807),increment(1)">o</td>
+		<td class="flgcell" title="event_notify_pkey :: sequence=event_notify_event_notify_no_seq:minimum(1),maximum(2147483647),increment(1)">o</td>
 		<td class="flgcell">o</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
@@ -1129,7 +1129,7 @@ event_notify
 		<td class="comcolcell" id="event_notify_register_datetime">register_datetime</td>
 		<td class="typecell">timestamp</td>
 		<td class="sizecell"> 29, 6 </td>
-		<td class="defvalcell"> now()</td>
+		<td class="defvalcell"> CURRENT_TIMESTAMP</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -1165,7 +1165,7 @@ event_notify
 		<td class="comcolcell" id="event_notify_update_datetime">update_datetime</td>
 		<td class="typecell">timestamp</td>
 		<td class="sizecell"> 29, 6 </td>
-		<td class="defvalcell"> now()</td>
+		<td class="defvalcell"> CURRENT_TIMESTAMP</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -1238,7 +1238,7 @@ event_t
 	</thead>
 	<tr>
 		<td class="rownumcell">1</td>
-		<td class="flgcell" title="event_t_pkey :: sequence=event_t_event_no_seq:minimum(1),maximum(9223372036854775807),increment(1)">o</td>
+		<td class="flgcell" title="event_t_pkey :: sequence=event_t_event_no_seq:minimum(1),maximum(2147483647),increment(1)">o</td>
 		<td class="flgcell">o</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
@@ -1480,7 +1480,7 @@ event_t
 		<td class="comcolcell" id="event_t_register_datetime">register_datetime</td>
 		<td class="typecell">timestamp</td>
 		<td class="sizecell"> 29, 6 </td>
-		<td class="defvalcell"> now()</td>
+		<td class="defvalcell"> CURRENT_TIMESTAMP</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -1516,7 +1516,7 @@ event_t
 		<td class="comcolcell" id="event_t_update_datetime">update_datetime</td>
 		<td class="typecell">timestamp</td>
 		<td class="sizecell"> 29, 6 </td>
-		<td class="defvalcell"> now()</td>
+		<td class="defvalcell"> CURRENT_TIMESTAMP</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -1587,7 +1587,7 @@ event_type_m
 	</thead>
 	<tr>
 		<td class="rownumcell">1</td>
-		<td class="flgcell" title="event_type_m_pkey :: sequence=event_type_m_event_type_id_seq:minimum(1),maximum(9223372036854775807),increment(1)">o</td>
+		<td class="flgcell" title="event_type_m_pkey :: sequence=event_type_m_event_type_id_seq:minimum(1),maximum(2147483647),increment(1)">o</td>
 		<td class="flgcell">o</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
@@ -1664,7 +1664,7 @@ general_code_m
 	</thead>
 	<tr>
 		<td class="rownumcell">1</td>
-		<td class="flgcell" title="general_code_m_pkey :: sequence=general_code_m_code_id_seq:minimum(1),maximum(9223372036854775807),increment(1)">o</td>
+		<td class="flgcell" title="general_code_m_pkey :: sequence=general_code_m_code_id_seq:minimum(1),maximum(2147483647),increment(1)">o</td>
 		<td class="flgcell">o</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
@@ -1798,7 +1798,7 @@ general_code_m
 		<td class="comcolcell" id="general_code_m_register_datetime">register_datetime</td>
 		<td class="typecell">timestamp</td>
 		<td class="sizecell"> 29, 6 </td>
-		<td class="defvalcell"> now()</td>
+		<td class="defvalcell"> CURRENT_TIMESTAMP</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -1834,7 +1834,7 @@ general_code_m
 		<td class="comcolcell" id="general_code_m_update_datetime">update_datetime</td>
 		<td class="typecell">timestamp</td>
 		<td class="sizecell"> 29, 6 </td>
-		<td class="defvalcell"> now()</td>
+		<td class="defvalcell"> CURRENT_TIMESTAMP</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -1986,7 +1986,7 @@ system_property_m
 		<td class="comcolcell" id="system_property_m_register_datetime">register_datetime</td>
 		<td class="typecell">timestamp</td>
 		<td class="sizecell"> 29, 6 </td>
-		<td class="defvalcell"> now()</td>
+		<td class="defvalcell"> CURRENT_TIMESTAMP</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -2022,7 +2022,7 @@ system_property_m
 		<td class="comcolcell" id="system_property_m_update_datetime">update_datetime</td>
 		<td class="typecell">timestamp</td>
 		<td class="sizecell"> 29, 6 </td>
-		<td class="defvalcell"> now()</td>
+		<td class="defvalcell"> CURRENT_TIMESTAMP</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -2095,7 +2095,7 @@ user_t
 	</thead>
 	<tr>
 		<td class="rownumcell">1</td>
-		<td class="flgcell" title="user_t_pkey :: sequence=user_t_user_id_seq:minimum(1),maximum(9223372036854775807),increment(1)">o</td>
+		<td class="flgcell" title="user_t_pkey :: sequence=user_t_user_id_seq:minimum(1),maximum(2147483647),increment(1)">o</td>
 		<td class="flgcell">o</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
@@ -2319,7 +2319,7 @@ user_t
 		<td class="comcolcell" id="user_t_register_datetime">register_datetime</td>
 		<td class="typecell">timestamp</td>
 		<td class="sizecell"> 29, 6 </td>
-		<td class="defvalcell"> now()</td>
+		<td class="defvalcell"> CURRENT_TIMESTAMP</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -2355,7 +2355,7 @@ user_t
 		<td class="comcolcell" id="user_t_update_datetime">update_datetime</td>
 		<td class="typecell">timestamp</td>
 		<td class="sizecell"> 29, 6 </td>
-		<td class="defvalcell"> now()</td>
+		<td class="defvalcell"> CURRENT_TIMESTAMP</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
@@ -2427,7 +2427,7 @@ user_type_m
 	</thead>
 	<tr>
 		<td class="rownumcell">1</td>
-		<td class="flgcell" title="user_type_m_pkey :: sequence=user_type_m_user_type_id_seq:minimum(1),maximum(9223372036854775807),increment(1)">o</td>
+		<td class="flgcell" title="user_type_m_pkey :: sequence=user_type_m_user_type_id_seq:minimum(1),maximum(2147483647),increment(1)">o</td>
 		<td class="flgcell">o</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>

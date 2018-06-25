@@ -68,6 +68,7 @@ public class UserService extends AbstractService {
         userTCb.setupSelect_AuthM();
         userTCb.query().queryUserTypeM().innerJoin();
         userTCb.query().queryAuthM().innerJoin();
+        userTCb.query().setDeleteFlag_Equal(Flag.OFF.isBoolValue());
         userTCb.query().addOrderBy_UserId_Asc();
 
         List<UserT> userTList = userTBhv.readList(userTCb);
@@ -103,6 +104,7 @@ public class UserService extends AbstractService {
         EventNotifyUserPmb pmb = new EventNotifyUserPmb();
         pmb.setEventNo(eventNo);
         pmb.setLineFlg(Flag.ON.getIntegerValue());
+        pmb.setDeleteFlag(Flag.OFF.isBoolValue());
 
         // DB - SELECT (外だしSQL - EventTBhv_selectEventIndex.sql)
         List<EventNotifyUser> eventNotifyUserEntityList = userTBhv.outsideSql().selectList(pmb);

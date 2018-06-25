@@ -12,7 +12,6 @@ import com.Bacchus.app.service.CommonService;
 import com.Bacchus.app.service.LoggerService;
 import com.Bacchus.app.service.SystemPropertyService;
 import com.Bacchus.app.service.user.UserService;
-import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.dbflute.exbhv.UserTypeMBhv;
 import com.Bacchus.webbase.appbase.BaseController;
 import com.Bacchus.webbase.common.constants.DisplayIdConstants;
@@ -36,9 +35,6 @@ public class UserIndexController extends BaseController {
 
     @Autowired
     UserService userService;
-
-    @Autowired
-    UserTBhv userTBhv;
 
     @Autowired
     UserTypeMBhv userTypeMBhv;

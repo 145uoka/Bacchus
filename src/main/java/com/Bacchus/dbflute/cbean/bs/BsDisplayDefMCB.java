@@ -293,7 +293,7 @@ public class BsDisplayDefMCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnDisplayName() { return doColumn("display_name"); }
         /**
-         * register_datetime: {timestamp(29, 6), default=[now()]}
+         * register_datetime: {timestamp(29, 6), default=[CURRENT_TIMESTAMP]}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnRegisterDatetime() { return doColumn("register_datetime"); }
@@ -303,7 +303,7 @@ public class BsDisplayDefMCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnRegisterUser() { return doColumn("register_user"); }
         /**
-         * update_datetime: {timestamp(29, 6), default=[now()]}
+         * update_datetime: {timestamp(29, 6), default=[CURRENT_TIMESTAMP]}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUpdateDatetime() { return doColumn("update_datetime"); }

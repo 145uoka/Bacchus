@@ -27,7 +27,6 @@ import com.Bacchus.app.service.event.EventService;
 import com.Bacchus.app.service.user.UserService;
 import com.Bacchus.app.util.MessageKeyUtil;
 import com.Bacchus.dbflute.exbhv.CandidateTBhv;
-import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.dbflute.exbhv.UserTypeMBhv;
 import com.Bacchus.webbase.appbase.BaseController;
 import com.Bacchus.webbase.common.beanvalidation.NumRequired;
@@ -50,9 +49,6 @@ public class EventNotifyController extends BaseController {
 
     @Autowired
     UserService userService;
-
-    @Autowired
-    UserTBhv userTBhv;
 
     @Autowired
     UserTypeMBhv userTypeMBhv;

@@ -171,6 +171,7 @@ public class LoginController extends BaseController {
         userTBhv.selectEntity(cb -> {
             cb.query().setLoginId_Equal(loginId);
             cb.query().setPassword_Equal(encPassword);
+            cb.query().setDeleteFlag_Equal(Flag.OFF.isBoolValue());
         }).ifPresent(userT -> {
             // called if present
             userService.initUserInfo(userT.getUserId());

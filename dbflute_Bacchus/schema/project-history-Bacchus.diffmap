@@ -1,4 +1,307 @@
 map:{
+    ; 2018/06/25 13:26:01 = map:{
+        ; diffDate = 2018/06/25 13:26:01
+        ; tableDiff = map:{
+            ; auth_m = map:{
+                ; tableName = auth_m
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = d6tgfg2q2aqst5.bacchus
+                    ; previous = postgres.bacchus
+                }
+            }
+            ; candidate_t = map:{
+                ; tableName = candidate_t
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = d6tgfg2q2aqst5.bacchus
+                    ; previous = postgres.bacchus
+                }
+                ; columnDiff = map:{
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = "CURRENT_TIMESTAMP"
+                            ; previous = "now()"
+                        }
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = "CURRENT_TIMESTAMP"
+                            ; previous = "now()"
+                        }
+                    }
+                }
+            }
+            ; display_def_m = map:{
+                ; tableName = display_def_m
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = d6tgfg2q2aqst5.bacchus
+                    ; previous = postgres.bacchus
+                }
+                ; columnDiff = map:{
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = "CURRENT_TIMESTAMP"
+                            ; previous = "now()"
+                        }
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = "CURRENT_TIMESTAMP"
+                            ; previous = "now()"
+                        }
+                    }
+                }
+            }
+            ; entry_t = map:{
+                ; tableName = entry_t
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = d6tgfg2q2aqst5.bacchus
+                    ; previous = postgres.bacchus
+                }
+                ; columnDiff = map:{
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = "CURRENT_TIMESTAMP"
+                            ; previous = "now()"
+                        }
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = "CURRENT_TIMESTAMP"
+                            ; previous = "now()"
+                        }
+                    }
+                }
+            }
+            ; event_notify = map:{
+                ; tableName = event_notify
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = d6tgfg2q2aqst5.bacchus
+                    ; previous = postgres.bacchus
+                }
+                ; columnDiff = map:{
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = "CURRENT_TIMESTAMP"
+                            ; previous = "now()"
+                        }
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = "CURRENT_TIMESTAMP"
+                            ; previous = "now()"
+                        }
+                    }
+                }
+            }
+            ; event_t = map:{
+                ; tableName = event_t
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = d6tgfg2q2aqst5.bacchus
+                    ; previous = postgres.bacchus
+                }
+                ; columnDiff = map:{
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = "CURRENT_TIMESTAMP"
+                            ; previous = "now()"
+                        }
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = "CURRENT_TIMESTAMP"
+                            ; previous = "now()"
+                        }
+                    }
+                }
+            }
+            ; event_type_m = map:{
+                ; tableName = event_type_m
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = d6tgfg2q2aqst5.bacchus
+                    ; previous = postgres.bacchus
+                }
+            }
+            ; general_code_m = map:{
+                ; tableName = general_code_m
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = d6tgfg2q2aqst5.bacchus
+                    ; previous = postgres.bacchus
+                }
+                ; columnDiff = map:{
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = "CURRENT_TIMESTAMP"
+                            ; previous = "now()"
+                        }
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = "CURRENT_TIMESTAMP"
+                            ; previous = "now()"
+                        }
+                    }
+                }
+            }
+            ; system_property_m = map:{
+                ; tableName = system_property_m
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = d6tgfg2q2aqst5.bacchus
+                    ; previous = postgres.bacchus
+                }
+                ; columnDiff = map:{
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = "CURRENT_TIMESTAMP"
+                            ; previous = "now()"
+                        }
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = "CURRENT_TIMESTAMP"
+                            ; previous = "now()"
+                        }
+                    }
+                }
+            }
+            ; user_t = map:{
+                ; tableName = user_t
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = d6tgfg2q2aqst5.bacchus
+                    ; previous = postgres.bacchus
+                }
+                ; columnDiff = map:{
+                    ; register_datetime = map:{
+                        ; columnName = register_datetime
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = "CURRENT_TIMESTAMP"
+                            ; previous = "now()"
+                        }
+                    }
+                    ; update_datetime = map:{
+                        ; columnName = update_datetime
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = "CURRENT_TIMESTAMP"
+                            ; previous = "now()"
+                        }
+                    }
+                }
+            }
+            ; user_type_m = map:{
+                ; tableName = user_type_m
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = d6tgfg2q2aqst5.bacchus
+                    ; previous = postgres.bacchus
+                }
+            }
+        }
+        ; sequenceDiff = map:{
+            ; d6tgfg2q2aqst5.bacchus.user_t_user_id_seq = map:{
+                ; sequenceName = d6tgfg2q2aqst5.bacchus.user_t_user_id_seq
+                ; diffType = ADD
+            }
+            ; d6tgfg2q2aqst5.bacchus.general_code_m_code_id_seq = map:{
+                ; sequenceName = d6tgfg2q2aqst5.bacchus.general_code_m_code_id_seq
+                ; diffType = ADD
+            }
+            ; d6tgfg2q2aqst5.bacchus.user_type_m_user_type_id_seq = map:{
+                ; sequenceName = d6tgfg2q2aqst5.bacchus.user_type_m_user_type_id_seq
+                ; diffType = ADD
+            }
+            ; d6tgfg2q2aqst5.bacchus.candidate_t_candidate_no_seq = map:{
+                ; sequenceName = d6tgfg2q2aqst5.bacchus.candidate_t_candidate_no_seq
+                ; diffType = ADD
+            }
+            ; d6tgfg2q2aqst5.bacchus.entry_t_entry_id_seq = map:{
+                ; sequenceName = d6tgfg2q2aqst5.bacchus.entry_t_entry_id_seq
+                ; diffType = ADD
+            }
+            ; d6tgfg2q2aqst5.bacchus.event_notify_event_notify_no_seq = map:{
+                ; sequenceName = d6tgfg2q2aqst5.bacchus.event_notify_event_notify_no_seq
+                ; diffType = ADD
+            }
+            ; d6tgfg2q2aqst5.bacchus.event_t_event_no_seq = map:{
+                ; sequenceName = d6tgfg2q2aqst5.bacchus.event_t_event_no_seq
+                ; diffType = ADD
+            }
+            ; d6tgfg2q2aqst5.bacchus.event_type_m_event_type_id_seq = map:{
+                ; sequenceName = d6tgfg2q2aqst5.bacchus.event_type_m_event_type_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.bacchus.entry_t_entry_id_seq = map:{
+                ; sequenceName = postgres.bacchus.entry_t_entry_id_seq
+                ; diffType = DELETE
+            }
+            ; postgres.bacchus.event_notify_event_notify_no_seq = map:{
+                ; sequenceName = postgres.bacchus.event_notify_event_notify_no_seq
+                ; diffType = DELETE
+            }
+            ; postgres.bacchus.event_t_event_no_seq = map:{
+                ; sequenceName = postgres.bacchus.event_t_event_no_seq
+                ; diffType = DELETE
+            }
+            ; postgres.bacchus.event_type_m_event_type_id_seq = map:{
+                ; sequenceName = postgres.bacchus.event_type_m_event_type_id_seq
+                ; diffType = DELETE
+            }
+            ; postgres.bacchus.general_code_m_code_id_seq = map:{
+                ; sequenceName = postgres.bacchus.general_code_m_code_id_seq
+                ; diffType = DELETE
+            }
+            ; postgres.bacchus.user_t_user_id_seq = map:{
+                ; sequenceName = postgres.bacchus.user_t_user_id_seq
+                ; diffType = DELETE
+            }
+            ; postgres.bacchus.user_type_m_user_type_id_seq = map:{
+                ; sequenceName = postgres.bacchus.user_type_m_user_type_id_seq
+                ; diffType = DELETE
+            }
+            ; postgres.bacchus.candidate_t_candidate_no_seq = map:{
+                ; sequenceName = postgres.bacchus.candidate_t_candidate_no_seq
+                ; diffType = DELETE
+            }
+        }
+    }
     ; 2018/06/25 12:31:26 = map:{
         ; diffDate = 2018/06/25 12:31:26
         ; tableDiff = map:{

@@ -90,13 +90,13 @@ public abstract class BsEntryT extends AbstractEntity implements DomainEntity, E
     /** user_id: {NotNull, int4(10), FK to user_t} */
     protected Integer _userId;
 
-    /** register_datetime: {timestamp(29, 6), default=[now()]} */
+    /** register_datetime: {timestamp(29, 6), default=[CURRENT_TIMESTAMP]} */
     protected java.time.LocalDateTime _registerDatetime;
 
     /** register_user: {text(2147483647)} */
     protected String _registerUser;
 
-    /** update_datetime: {timestamp(29, 6), default=[now()]} */
+    /** update_datetime: {timestamp(29, 6), default=[CURRENT_TIMESTAMP]} */
     protected java.time.LocalDateTime _updateDatetime;
 
     /** update_user: {text(2147483647)} */
@@ -335,7 +335,7 @@ public abstract class BsEntryT extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [get] register_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * [get] register_datetime: {timestamp(29, 6), default=[CURRENT_TIMESTAMP]} <br>
      * 作成日時
      * @return The value of the column 'register_datetime'. (NullAllowed even if selected: for no constraint)
      */
@@ -345,7 +345,7 @@ public abstract class BsEntryT extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] register_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * [set] register_datetime: {timestamp(29, 6), default=[CURRENT_TIMESTAMP]} <br>
      * 作成日時
      * @param registerDatetime The value of the column 'register_datetime'. (NullAllowed: null update allowed for no constraint)
      */
@@ -375,7 +375,7 @@ public abstract class BsEntryT extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [get] update_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * [get] update_datetime: {timestamp(29, 6), default=[CURRENT_TIMESTAMP]} <br>
      * 更新日時
      * @return The value of the column 'update_datetime'. (NullAllowed even if selected: for no constraint)
      */
@@ -385,7 +385,7 @@ public abstract class BsEntryT extends AbstractEntity implements DomainEntity, E
     }
 
     /**
-     * [set] update_datetime: {timestamp(29, 6), default=[now()]} <br>
+     * [set] update_datetime: {timestamp(29, 6), default=[CURRENT_TIMESTAMP]} <br>
      * 更新日時
      * @param updateDatetime The value of the column 'update_datetime'. (NullAllowed: null update allowed for no constraint)
      */

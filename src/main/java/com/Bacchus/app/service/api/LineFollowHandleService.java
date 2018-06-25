@@ -59,6 +59,7 @@ public class LineFollowHandleService extends AbstractService {
 
         if (optUserT.isPresent()) {
             userT = optUserT.get();
+            userT.setDeleteFlag(Flag.OFF.isBoolValue());
         } else {
             userT.setUserTypeId(1);
             userT.setAuthLevel(Permissions.GENERAL.getAuthType());

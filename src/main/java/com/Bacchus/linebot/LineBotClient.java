@@ -126,13 +126,29 @@ public class LineBotClient {
         logger.debug(builder.toString());
 
         switch (type) {
+
         case LineApiConstants.EventType.PROFILE:
+            String displayName = null;
+            String userId = null;
+            String pictureUrl = null;
+            String statusMessage = null;
+
+            if (node.get("displayName") != null) {
+                displayName = node.get("displayName").asText();
+            }
+            if (node.get("userId") != null) {
+                userId = node.get("userId").asText();
+            }
+            if (node.get("pictureUrl") != null) {
+                pictureUrl = node.get("pictureUrl").asText();
+            }
+            if (node.get("statusMessage") != null) {
+                statusMessage = node.get("statusMessage").asText();
+            }
+
             UserProfileResponse userProfileResponse = new UserProfileResponse(
-                    node.get("displayName").asText(),
-                    node.get("userId").asText(),
-                    node.get("pictureUrl").asText(),
-                    node.get("statusMessage").asText()
-                    );
+                    displayName, userId, pictureUrl, statusMessage);
+
             return userProfileResponse;
         }
 

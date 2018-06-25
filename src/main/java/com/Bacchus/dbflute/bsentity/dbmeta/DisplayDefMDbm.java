@@ -48,6 +48,7 @@ public class DisplayDefMDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((DisplayDefM)et).getRegisterUser(), (et, vl) -> ((DisplayDefM)et).setRegisterUser((String)vl), "registerUser");
         setupEpg(_epgMap, et -> ((DisplayDefM)et).getUpdateDatetime(), (et, vl) -> ((DisplayDefM)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
         setupEpg(_epgMap, et -> ((DisplayDefM)et).getUpdateUser(), (et, vl) -> ((DisplayDefM)et).setUpdateUser((String)vl), "updateUser");
+        setupEpg(_epgMap, et -> ((DisplayDefM)et).getDeleteFlag(), (et, vl) -> ((DisplayDefM)et).setDeleteFlag((Boolean)vl), "deleteFlag");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -74,6 +75,7 @@ public class DisplayDefMDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnRegisterUser = cci("register_user", "register_user", null, null, String.class, "registerUser", null, false, false, false, "text", 2147483647, 0, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateDatetime = cci("update_datetime", "update_datetime", null, null, java.time.LocalDateTime.class, "updateDatetime", null, false, false, false, "timestamp", 29, 6, "now()", true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateUser = cci("update_user", "update_user", null, null, String.class, "updateUser", null, false, false, false, "text", 2147483647, 0, null, true, null, null, null, null, null, false);
+    protected final ColumnInfo _columnDeleteFlag = cci("delete_flag", "delete_flag", null, null, Boolean.class, "deleteFlag", null, false, false, false, "bool", 1, 0, "false", false, null, null, null, null, null, false);
 
     /**
      * display_id: {PK, NotNull, text(2147483647)}
@@ -105,6 +107,11 @@ public class DisplayDefMDbm extends AbstractDBMeta {
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUpdateUser() { return _columnUpdateUser; }
+    /**
+     * delete_flag: {bool(1), default=[false]}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnDeleteFlag() { return _columnDeleteFlag; }
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
@@ -114,6 +121,7 @@ public class DisplayDefMDbm extends AbstractDBMeta {
         ls.add(columnRegisterUser());
         ls.add(columnUpdateDatetime());
         ls.add(columnUpdateUser());
+        ls.add(columnDeleteFlag());
         return ls;
     }
 

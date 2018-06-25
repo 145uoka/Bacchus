@@ -287,6 +287,26 @@ public class BsCandidateTCQ extends AbstractBsCandidateTCQ {
      */
     public BsCandidateTCQ addOrderBy_UpdateUser_Desc() { regOBD("update_user"); return this; }
 
+    protected ConditionValue _deleteFlag;
+    public ConditionValue xdfgetDeleteFlag()
+    { if (_deleteFlag == null) { _deleteFlag = nCV(); }
+      return _deleteFlag; }
+    protected ConditionValue xgetCValueDeleteFlag() { return xdfgetDeleteFlag(); }
+
+    /** 
+     * Add order-by as ascend. <br>
+     * delete_flag: {bool(1), default=[false]}
+     * @return this. (NotNull)
+     */
+    public BsCandidateTCQ addOrderBy_DeleteFlag_Asc() { regOBA("delete_flag"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * delete_flag: {bool(1), default=[false]}
+     * @return this. (NotNull)
+     */
+    public BsCandidateTCQ addOrderBy_DeleteFlag_Desc() { regOBD("delete_flag"); return this; }
+
     // ===================================================================================
     //                                                             SpecifiedDerivedOrderBy
     //                                                             =======================

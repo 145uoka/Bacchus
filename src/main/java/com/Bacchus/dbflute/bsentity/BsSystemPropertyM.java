@@ -18,7 +18,7 @@ import com.Bacchus.dbflute.exentity.*;
  *     prop_key
  *
  * [column]
- *     prop_key, prop_group, prop_value, description, register_datetime, register_user, update_datetime, update_user
+ *     prop_key, prop_group, prop_value, description, register_datetime, register_user, update_datetime, update_user, delete_flag
  *
  * [sequence]
  *     
@@ -51,6 +51,7 @@ import com.Bacchus.dbflute.exentity.*;
  * String registerUser = entity.getRegisterUser();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateUser = entity.getUpdateUser();
+ * Boolean deleteFlag = entity.getDeleteFlag();
  * entity.setPropKey(propKey);
  * entity.setPropGroup(propGroup);
  * entity.setPropValue(propValue);
@@ -59,6 +60,7 @@ import com.Bacchus.dbflute.exentity.*;
  * entity.setRegisterUser(registerUser);
  * entity.setUpdateDatetime(updateDatetime);
  * entity.setUpdateUser(updateUser);
+ * entity.setDeleteFlag(deleteFlag);
  * = = = = = = = = = =/
  * </pre>
  * @author DBFlute(AutoGenerator)
@@ -97,6 +99,9 @@ public abstract class BsSystemPropertyM extends AbstractEntity implements Domain
 
     /** update_user: {text(2147483647)} */
     protected String _updateUser;
+
+    /** delete_flag: {bool(1), default=[false]} */
+    protected Boolean _deleteFlag;
 
     // ===================================================================================
     //                                                                             DB Meta
@@ -168,6 +173,7 @@ public abstract class BsSystemPropertyM extends AbstractEntity implements Domain
         sb.append(dm).append(xfND(_registerUser));
         sb.append(dm).append(xfND(_updateDatetime));
         sb.append(dm).append(xfND(_updateUser));
+        sb.append(dm).append(xfND(_deleteFlag));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
@@ -346,5 +352,25 @@ public abstract class BsSystemPropertyM extends AbstractEntity implements Domain
     public void setUpdateUser(String updateUser) {
         registerModifiedProperty("updateUser");
         _updateUser = updateUser;
+    }
+
+    /**
+     * [get] delete_flag: {bool(1), default=[false]} <br>
+     * 削除フラグ
+     * @return The value of the column 'delete_flag'. (NullAllowed even if selected: for no constraint)
+     */
+    public Boolean getDeleteFlag() {
+        checkSpecifiedProperty("deleteFlag");
+        return _deleteFlag;
+    }
+
+    /**
+     * [set] delete_flag: {bool(1), default=[false]} <br>
+     * 削除フラグ
+     * @param deleteFlag The value of the column 'delete_flag'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setDeleteFlag(Boolean deleteFlag) {
+        registerModifiedProperty("deleteFlag");
+        _deleteFlag = deleteFlag;
     }
 }

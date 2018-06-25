@@ -13,7 +13,7 @@ import com.Bacchus.dbflute.exentity.*;
  *     code_id
  *
  * [column]
- *     code_id, code_div, code, name, order_number, remarks, del_flg, register_datetime, register_user, update_datetime, update_user
+ *     code_id, code_div, code, name, order_number, remarks, del_flg, register_datetime, register_user, update_datetime, update_user, delete_flag
  *
  * [sequence]
  *     general_code_m_code_id_seq

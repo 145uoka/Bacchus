@@ -1129,6 +1129,30 @@ public abstract class AbstractBsSystemPropertyMCQ extends AbstractConditionQuery
     protected void regUpdateUser(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueUpdateUser(), "update_user"); }
     protected abstract ConditionValue xgetCValueUpdateUser();
 
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * delete_flag: {bool(1), default=[false]}
+     * @param deleteFlag The value of deleteFlag as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setDeleteFlag_Equal(Boolean deleteFlag) {
+        regDeleteFlag(CK_EQ, deleteFlag);
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * delete_flag: {bool(1), default=[false]}
+     */
+    public void setDeleteFlag_IsNull() { regDeleteFlag(CK_ISN, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * delete_flag: {bool(1), default=[false]}
+     */
+    public void setDeleteFlag_IsNotNull() { regDeleteFlag(CK_ISNN, DOBJ); }
+
+    protected void regDeleteFlag(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueDeleteFlag(), "delete_flag"); }
+    protected abstract ConditionValue xgetCValueDeleteFlag();
+
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============

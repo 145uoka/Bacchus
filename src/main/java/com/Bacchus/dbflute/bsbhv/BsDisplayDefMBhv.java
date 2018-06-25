@@ -26,7 +26,7 @@ import com.Bacchus.dbflute.cbean.*;
  *     display_id
  *
  * [column]
- *     display_id, display_name, register_datetime, register_user, update_datetime, update_user
+ *     display_id, display_name, register_datetime, register_user, update_datetime, update_user, delete_flag
  *
  * [sequence]
  *     

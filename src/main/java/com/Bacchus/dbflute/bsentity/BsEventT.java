@@ -20,7 +20,7 @@ import com.Bacchus.dbflute.exentity.*;
  *     event_no
  *
  * [column]
- *     event_no, event_name, event_detail, event_place, event_url, tell, event_entry_fee, auxiliary_flg, fix_flg, candidate_no, store_name, event_type_id, user_id, register_datetime, register_user, update_datetime, update_user
+ *     event_no, event_name, event_detail, event_place, event_url, tell, event_entry_fee, auxiliary_flg, fix_flg, candidate_no, store_name, event_type_id, user_id, register_datetime, register_user, update_datetime, update_user, delete_flag
  *
  * [sequence]
  *     event_t_event_no_seq
@@ -62,6 +62,7 @@ import com.Bacchus.dbflute.exentity.*;
  * String registerUser = entity.getRegisterUser();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateUser = entity.getUpdateUser();
+ * Boolean deleteFlag = entity.getDeleteFlag();
  * entity.setEventNo(eventNo);
  * entity.setEventName(eventName);
  * entity.setEventDetail(eventDetail);
@@ -79,6 +80,7 @@ import com.Bacchus.dbflute.exentity.*;
  * entity.setRegisterUser(registerUser);
  * entity.setUpdateDatetime(updateDatetime);
  * entity.setUpdateUser(updateUser);
+ * entity.setDeleteFlag(deleteFlag);
  * = = = = = = = = = =/
  * </pre>
  * @author DBFlute(AutoGenerator)
@@ -144,6 +146,9 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity, E
 
     /** update_user: {text(2147483647)} */
     protected String _updateUser;
+
+    /** delete_flag: {bool(1), default=[false]} */
+    protected Boolean _deleteFlag;
 
     // ===================================================================================
     //                                                                             DB Meta
@@ -319,6 +324,7 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity, E
         sb.append(dm).append(xfND(_registerUser));
         sb.append(dm).append(xfND(_updateDatetime));
         sb.append(dm).append(xfND(_updateUser));
+        sb.append(dm).append(xfND(_deleteFlag));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
@@ -689,5 +695,25 @@ public abstract class BsEventT extends AbstractEntity implements DomainEntity, E
     public void setUpdateUser(String updateUser) {
         registerModifiedProperty("updateUser");
         _updateUser = updateUser;
+    }
+
+    /**
+     * [get] delete_flag: {bool(1), default=[false]} <br>
+     * 削除フラグ
+     * @return The value of the column 'delete_flag'. (NullAllowed even if selected: for no constraint)
+     */
+    public Boolean getDeleteFlag() {
+        checkSpecifiedProperty("deleteFlag");
+        return _deleteFlag;
+    }
+
+    /**
+     * [set] delete_flag: {bool(1), default=[false]} <br>
+     * 削除フラグ
+     * @param deleteFlag The value of the column 'delete_flag'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setDeleteFlag(Boolean deleteFlag) {
+        registerModifiedProperty("deleteFlag");
+        _deleteFlag = deleteFlag;
     }
 }

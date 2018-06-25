@@ -1,4 +1,89 @@
 map:{
+    ; 2018/06/25 12:31:26 = map:{
+        ; diffDate = 2018/06/25 12:31:26
+        ; tableDiff = map:{
+            ; candidate_t = map:{
+                ; tableName = candidate_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; display_def_m = map:{
+                ; tableName = display_def_m
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; entry_t = map:{
+                ; tableName = entry_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; event_notify = map:{
+                ; tableName = event_notify
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; event_t = map:{
+                ; tableName = event_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; general_code_m = map:{
+                ; tableName = general_code_m
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; system_property_m = map:{
+                ; tableName = system_property_m
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; user_t = map:{
+                ; tableName = user_t
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; delete_flag = map:{
+                        ; columnName = delete_flag
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
     ; 2018/06/17 01:31:15 = map:{
         ; diffDate = 2018/06/17 01:31:15
         ; tableDiff = map:{

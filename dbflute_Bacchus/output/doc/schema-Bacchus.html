@@ -308,7 +308,7 @@ dl.procedurelist dd.column pre {
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
-		<td><a href="#candidate_t" title="type=TABLE, primaryKey={candidate_no}, nameLength=11, columnCount=10">candidate_t</a></td>
+		<td><a href="#candidate_t" title="type=TABLE, primaryKey={candidate_no}, nameLength=11, columnCount=11">candidate_t</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#event_t" title="candidate_t_event_no_fkey">event_t</a></td>
 		<td class="relcell"><a href="#entry_t" title="entry_t_candidate_no_fkey">entry_t</a></td>
@@ -317,7 +317,7 @@ dl.procedurelist dd.column pre {
 	</tr>
 	<tr>
 		<td class="rownumcell">3</td>
-		<td><a href="#display_def_m" title="type=TABLE, primaryKey={display_id}, nameLength=13, columnCount=6">display_def_m</a></td>
+		<td><a href="#display_def_m" title="type=TABLE, primaryKey={display_id}, nameLength=13, columnCount=7">display_def_m</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
@@ -326,7 +326,7 @@ dl.procedurelist dd.column pre {
 	</tr>
 	<tr>
 		<td class="rownumcell">4</td>
-		<td><a href="#entry_t" title="type=TABLE, primaryKey={entry_id}, nameLength=7, columnCount=8">entry_t</a></td>
+		<td><a href="#entry_t" title="type=TABLE, primaryKey={entry_id}, nameLength=7, columnCount=9">entry_t</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#candidate_t" title="entry_t_candidate_no_fkey">candidate_t</a>, <a href="#user_t" title="entry_t_user_id_fkey">user_t</a></td>
 		<td class="relcell">&nbsp;</td>
@@ -335,7 +335,7 @@ dl.procedurelist dd.column pre {
 	</tr>
 	<tr>
 		<td class="rownumcell">5</td>
-		<td><a href="#event_notify" title="type=TABLE, primaryKey={event_notify_no}, nameLength=12, columnCount=8">event_notify</a></td>
+		<td><a href="#event_notify" title="type=TABLE, primaryKey={event_notify_no}, nameLength=12, columnCount=9">event_notify</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#event_t" title="event_notify_event_no_fkey">event_t</a>, <a href="#user_t" title="event_notify_user_id_fkey">user_t</a></td>
 		<td class="relcell">&nbsp;</td>
@@ -344,7 +344,7 @@ dl.procedurelist dd.column pre {
 	</tr>
 	<tr>
 		<td class="rownumcell">6</td>
-		<td><a href="#event_t" title="type=TABLE, primaryKey={event_no}, nameLength=7, columnCount=17">event_t</a></td>
+		<td><a href="#event_t" title="type=TABLE, primaryKey={event_no}, nameLength=7, columnCount=18">event_t</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#event_type_m" title="event_t_event_type_id_fkey">event_type_m</a>, <a href="#user_t" title="event_t_user_id_fkey">user_t</a></td>
 		<td class="relcell"><a href="#candidate_t" title="candidate_t_event_no_fkey">candidate_t</a>, <a href="#event_notify" title="event_notify_event_no_fkey">event_notify</a></td>
@@ -362,7 +362,7 @@ dl.procedurelist dd.column pre {
 	</tr>
 	<tr>
 		<td class="rownumcell">8</td>
-		<td><a href="#general_code_m" title="type=TABLE, primaryKey={code_id}, nameLength=14, columnCount=11">general_code_m</a></td>
+		<td><a href="#general_code_m" title="type=TABLE, primaryKey={code_id}, nameLength=14, columnCount=12">general_code_m</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
@@ -371,7 +371,7 @@ dl.procedurelist dd.column pre {
 	</tr>
 	<tr>
 		<td class="rownumcell">9</td>
-		<td><a href="#system_property_m" title="type=TABLE, primaryKey={prop_key}, nameLength=17, columnCount=8">system_property_m</a></td>
+		<td><a href="#system_property_m" title="type=TABLE, primaryKey={prop_key}, nameLength=17, columnCount=9">system_property_m</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
@@ -380,7 +380,7 @@ dl.procedurelist dd.column pre {
 	</tr>
 	<tr>
 		<td class="rownumcell">10</td>
-		<td><a href="#user_t" title="type=TABLE, primaryKey={user_id}, nameLength=6, columnCount=16">user_t</a></td>
+		<td><a href="#user_t" title="type=TABLE, primaryKey={user_id}, nameLength=6, columnCount=17">user_t</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell"><a href="#auth_m" title="user_t_auth_level_fkey">auth_m</a>, <a href="#user_type_m" title="user_t_user_type_id_fkey">user_type_m</a></td>
 		<td class="relcell"><a href="#entry_t" title="entry_t_user_id_fkey">entry_t</a>, <a href="#event_notify" title="event_notify_user_id_fkey">event_notify</a>, <a href="#event_t" title="event_t_user_id_fkey">event_t</a></td>
@@ -458,7 +458,7 @@ auth_m
 		<td class="subcell">String</td>
 	</tr>
 </table>
-<h2 id="candidate_t" title="type=TABLE, primaryKey={candidate_no}, nameLength=11, columnCount=10">
+<h2 id="candidate_t" title="type=TABLE, primaryKey={candidate_no}, nameLength=11, columnCount=11">
 candidate_t
 </h2>
 <p class="tablecomment">候補日_T</p>
@@ -663,8 +663,26 @@ candidate_t
 		<td class="subcell">updateUser</td>
 		<td class="subcell">String</td>
 	</tr>
+	<tr>
+		<td class="rownumcell">11</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td id="candidate_t_delete_flag">delete_flag</td>
+		<td class="typecell">bool</td>
+		<td class="sizecell"> 1 </td>
+		<td class="defvalcell"> false</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 削除フラグ</td>
+		<td class="subcell">deleteFlag</td>
+		<td class="subcell">Boolean</td>
+	</tr>
 </table>
-<h2 id="display_def_m" title="type=TABLE, primaryKey={display_id}, nameLength=13, columnCount=6">
+<h2 id="display_def_m" title="type=TABLE, primaryKey={display_id}, nameLength=13, columnCount=7">
 display_def_m
 </h2>
 <p class="tablecomment">画面名定義_M</p>
@@ -797,8 +815,26 @@ display_def_m
 		<td class="subcell">updateUser</td>
 		<td class="subcell">String</td>
 	</tr>
+	<tr>
+		<td class="rownumcell">7</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td id="display_def_m_delete_flag">delete_flag</td>
+		<td class="typecell">bool</td>
+		<td class="sizecell"> 1 </td>
+		<td class="defvalcell"> false</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 削除フラグ</td>
+		<td class="subcell">deleteFlag</td>
+		<td class="subcell">Boolean</td>
+	</tr>
 </table>
-<h2 id="entry_t" title="type=TABLE, primaryKey={entry_id}, nameLength=7, columnCount=8">
+<h2 id="entry_t" title="type=TABLE, primaryKey={entry_id}, nameLength=7, columnCount=9">
 entry_t
 </h2>
 <p class="tablecomment">参加_T</p>
@@ -967,8 +1003,26 @@ entry_t
 		<td class="subcell">updateUser</td>
 		<td class="subcell">String</td>
 	</tr>
+	<tr>
+		<td class="rownumcell">9</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td id="entry_t_delete_flag">delete_flag</td>
+		<td class="typecell">bool</td>
+		<td class="sizecell"> 1 </td>
+		<td class="defvalcell"> false</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 削除フラグ</td>
+		<td class="subcell">deleteFlag</td>
+		<td class="subcell">Boolean</td>
+	</tr>
 </table>
-<h2 id="event_notify" title="type=TABLE, primaryKey={event_notify_no}, nameLength=12, columnCount=8">
+<h2 id="event_notify" title="type=TABLE, primaryKey={event_notify_no}, nameLength=12, columnCount=9">
 event_notify
 </h2>
 <p class="tablecomment">イベント通知_T</p>
@@ -1137,8 +1191,26 @@ event_notify
 		<td class="subcell">updateUser</td>
 		<td class="subcell">String</td>
 	</tr>
+	<tr>
+		<td class="rownumcell">9</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td id="event_notify_delete_flag">delete_flag</td>
+		<td class="typecell">bool</td>
+		<td class="sizecell"> 1 </td>
+		<td class="defvalcell"> false</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 削除フラグ</td>
+		<td class="subcell">deleteFlag</td>
+		<td class="subcell">Boolean</td>
+	</tr>
 </table>
-<h2 id="event_t" title="type=TABLE, primaryKey={event_no}, nameLength=7, columnCount=17">
+<h2 id="event_t" title="type=TABLE, primaryKey={event_no}, nameLength=7, columnCount=18">
 event_t
 &nbsp;<span class="bqpcount"><a href="#event_t_sql">(outsideSql=1)</a></span>
 </h2>
@@ -1470,6 +1542,24 @@ event_t
 		<td class="subcell">updateUser</td>
 		<td class="subcell">String</td>
 	</tr>
+	<tr>
+		<td class="rownumcell">18</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td id="event_t_delete_flag">delete_flag</td>
+		<td class="typecell">bool</td>
+		<td class="sizecell"> 1 </td>
+		<td class="defvalcell"> false</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 削除フラグ</td>
+		<td class="subcell">deleteFlag</td>
+		<td class="subcell">Boolean</td>
+	</tr>
 </table>
 <h2 id="event_type_m" title="type=TABLE, primaryKey={event_type_id}, nameLength=12, columnCount=3">
 event_type_m
@@ -1547,7 +1637,7 @@ event_type_m
 		<td class="subcell">Integer</td>
 	</tr>
 </table>
-<h2 id="general_code_m" title="type=TABLE, primaryKey={code_id}, nameLength=14, columnCount=11">
+<h2 id="general_code_m" title="type=TABLE, primaryKey={code_id}, nameLength=14, columnCount=12">
 general_code_m
 </h2>
 <p class="tablecomment">汎用コード_M</p>
@@ -1770,8 +1860,26 @@ general_code_m
 		<td class="subcell">updateUser</td>
 		<td class="subcell">String</td>
 	</tr>
+	<tr>
+		<td class="rownumcell">12</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td id="general_code_m_delete_flag">delete_flag</td>
+		<td class="typecell">bool</td>
+		<td class="sizecell"> 1 </td>
+		<td class="defvalcell"> false</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 削除フラグ</td>
+		<td class="subcell">deleteFlag</td>
+		<td class="subcell">Boolean</td>
+	</tr>
 </table>
-<h2 id="system_property_m" title="type=TABLE, primaryKey={prop_key}, nameLength=17, columnCount=8">
+<h2 id="system_property_m" title="type=TABLE, primaryKey={prop_key}, nameLength=17, columnCount=9">
 system_property_m
 </h2>
 <p class="tablecomment">システムプロパティ_M</p>
@@ -1940,8 +2048,26 @@ system_property_m
 		<td class="subcell">updateUser</td>
 		<td class="subcell">String</td>
 	</tr>
+	<tr>
+		<td class="rownumcell">9</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td id="system_property_m_delete_flag">delete_flag</td>
+		<td class="typecell">bool</td>
+		<td class="sizecell"> 1 </td>
+		<td class="defvalcell"> false</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 削除フラグ</td>
+		<td class="subcell">deleteFlag</td>
+		<td class="subcell">Boolean</td>
+	</tr>
 </table>
-<h2 id="user_t" title="type=TABLE, primaryKey={user_id}, nameLength=6, columnCount=16">
+<h2 id="user_t" title="type=TABLE, primaryKey={user_id}, nameLength=6, columnCount=17">
 user_t
 &nbsp;<span class="bqpcount"><a href="#user_t_sql">(outsideSql=1)</a></span>
 </h2>
@@ -2254,6 +2380,24 @@ user_t
 		<td class="commentcell"> 更新者</td>
 		<td class="subcell">updateUser</td>
 		<td class="subcell">String</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">17</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td id="user_t_delete_flag">delete_flag</td>
+		<td class="typecell">bool</td>
+		<td class="sizecell"> 1 </td>
+		<td class="defvalcell"> false</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"> 削除フラグ</td>
+		<td class="subcell">deleteFlag</td>
+		<td class="subcell">Boolean</td>
 	</tr>
 </table>
 <h2 id="user_type_m" title="type=TABLE, primaryKey={user_type_id}, nameLength=11, columnCount=3">

@@ -26,7 +26,7 @@ import com.Bacchus.dbflute.cbean.*;
  *     event_notify_no
  *
  * [column]
- *     event_notify_no, event_no, notify_datetime, user_id, register_datetime, register_user, update_datetime, update_user
+ *     event_notify_no, event_no, notify_datetime, user_id, register_datetime, register_user, update_datetime, update_user, delete_flag
  *
  * [sequence]
  *     event_notify_event_notify_no_seq

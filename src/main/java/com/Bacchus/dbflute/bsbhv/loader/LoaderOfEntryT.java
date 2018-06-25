@@ -13,7 +13,7 @@ import com.Bacchus.dbflute.exentity.*;
  *     entry_id
  *
  * [column]
- *     entry_id, candidate_no, entry_div, user_id, register_datetime, register_user, update_datetime, update_user
+ *     entry_id, candidate_no, entry_div, user_id, register_datetime, register_user, update_datetime, update_user, delete_flag
  *
  * [sequence]
  *     entry_t_entry_id_seq

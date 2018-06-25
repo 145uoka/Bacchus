@@ -60,6 +60,7 @@ public class EventTDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((EventT)et).getRegisterUser(), (et, vl) -> ((EventT)et).setRegisterUser((String)vl), "registerUser");
         setupEpg(_epgMap, et -> ((EventT)et).getUpdateDatetime(), (et, vl) -> ((EventT)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
         setupEpg(_epgMap, et -> ((EventT)et).getUpdateUser(), (et, vl) -> ((EventT)et).setUpdateUser((String)vl), "updateUser");
+        setupEpg(_epgMap, et -> ((EventT)et).getDeleteFlag(), (et, vl) -> ((EventT)et).setDeleteFlag((Boolean)vl), "deleteFlag");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -111,6 +112,7 @@ public class EventTDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnRegisterUser = cci("register_user", "register_user", null, null, String.class, "registerUser", null, false, false, false, "text", 2147483647, 0, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateDatetime = cci("update_datetime", "update_datetime", null, null, java.time.LocalDateTime.class, "updateDatetime", null, false, false, false, "timestamp", 29, 6, "now()", true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateUser = cci("update_user", "update_user", null, null, String.class, "updateUser", null, false, false, false, "text", 2147483647, 0, null, true, null, null, null, null, null, false);
+    protected final ColumnInfo _columnDeleteFlag = cci("delete_flag", "delete_flag", null, null, Boolean.class, "deleteFlag", null, false, false, false, "bool", 1, 0, "false", false, null, null, null, null, null, false);
 
     /**
      * event_no: {PK, ID, NotNull, serial(10)}
@@ -197,6 +199,11 @@ public class EventTDbm extends AbstractDBMeta {
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUpdateUser() { return _columnUpdateUser; }
+    /**
+     * delete_flag: {bool(1), default=[false]}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnDeleteFlag() { return _columnDeleteFlag; }
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
@@ -217,6 +224,7 @@ public class EventTDbm extends AbstractDBMeta {
         ls.add(columnRegisterUser());
         ls.add(columnUpdateDatetime());
         ls.add(columnUpdateUser());
+        ls.add(columnDeleteFlag());
         return ls;
     }
 

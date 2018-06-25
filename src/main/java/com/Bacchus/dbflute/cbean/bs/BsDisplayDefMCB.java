@@ -312,6 +312,11 @@ public class BsDisplayDefMCB extends AbstractConditionBean {
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUpdateUser() { return doColumn("update_user"); }
+        /**
+         * delete_flag: {bool(1), default=[false]}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnDeleteFlag() { return doColumn("delete_flag"); }
         public void everyColumn() { doEveryColumn(); }
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override

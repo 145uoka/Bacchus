@@ -26,7 +26,7 @@ import com.Bacchus.dbflute.cbean.*;
  *     prop_key
  *
  * [column]
- *     prop_key, prop_group, prop_value, description, register_datetime, register_user, update_datetime, update_user
+ *     prop_key, prop_group, prop_value, description, register_datetime, register_user, update_datetime, update_user, delete_flag
  *
  * [sequence]
  *     

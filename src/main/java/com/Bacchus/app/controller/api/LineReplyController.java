@@ -19,11 +19,14 @@ import com.Bacchus.app.components.line.Event;
 import com.Bacchus.app.components.line.Events;
 import com.Bacchus.app.service.LineService;
 import com.Bacchus.app.service.SystemPropertyService;
+import com.Bacchus.app.service.api.LineFollowHandleService;
 import com.Bacchus.app.service.api.LineMessageHandleService;
 import com.Bacchus.app.service.api.LinePostbackService;
+import com.Bacchus.app.service.api.LineUnFollowHandleService;
+import com.Bacchus.linebot.constants.LineApiConstants;
 import com.Bacchus.webbase.appbase.BeforeLogin;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.linecorp.bot.client.LineMessagingClient;
 
 /**
  * 呼び覚ましのコントローラー．
@@ -49,10 +52,16 @@ public class LineReplyController {
     @Autowired
     LineMessageHandleService lineMessageHandleService;
 
+    @Autowired
+    LineFollowHandleService lineFollowHandleService;
+
+    @Autowired
+    LineUnFollowHandleService lineUnFollowHandleService;
+
     @RequestMapping(value = "/reply", method = RequestMethod.POST)
     @ResponseBody
     public void reply(@RequestBody String events) throws RecordNotFoundException, InterruptedException,
-    ExecutionException, AbnormalRecordsDetection {
+    ExecutionException, AbnormalRecordsDetection, JsonProcessingException, IOException {
 
         logger.info("[CALL] : reply!!");
         logger.info("[events] : " + events);
@@ -65,28 +74,25 @@ public class LineReplyController {
             e.printStackTrace();
         }
 
-        LineMessagingClient lineMessagingClient = lineService.buildLineMessagingClient();
-
         if (eventList != null && !CollectionUtils.isEmpty(eventList.getEvents())) {
             for (Event event : eventList.getEvents()) {
                 String type = event.getType();
 
                 switch (type) {
-                case "postback":
+                case LineApiConstants.EventType.POSTBACK:
                     linePostbackService.postback(event);
                     break;
 
-                case "message":
+                case LineApiConstants.EventType.MESSAGE:
                     lineMessageHandleService.handleMessage(event);
-//                    String receivedMessage = event.getMessage().getText();
-//                    String replyToken = event.getReplyToken();
-//
-//                    logger.debug("reply_token : " + replyToken);
-//                    logger.debug("receivedMessage : " + receivedMessage);
-//
-//                    ReplyMessage replyMessage = new ReplyMessage(replyToken, new TextMessage(receivedMessage));
-//                    BotApiResponse response = lineMessagingClient.replyMessage(replyMessage).get();
-//                    logger.info("Sent messages: {}", response);
+                    break;
+
+                case LineApiConstants.EventType.FOLLOW:
+                    lineFollowHandleService.handleFollow(event);
+                    break;
+
+                case LineApiConstants.EventType.UNFOLLOW:
+                    lineUnFollowHandleService.handleUnFollow(event);
                     break;
                 }
             }

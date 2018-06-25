@@ -37,6 +37,8 @@
             size="29, 6" type="TIMESTAMP"/>
         <column comment="更新者" dbType="text" javaType="String"
             name="update_user" size="2147483647" type="VARCHAR"/>
+        <column comment="削除フラグ" dbType="bool" default="false"
+            javaType="Boolean" name="delete_flag" size="1" type="BIT"/>
         <foreign-key foreignSchema="bacchus" foreignTable="event_t" name="candidate_t_event_no_fkey">
             <reference foreign="event_no" local="event_no"/>
         </foreign-key>
@@ -62,6 +64,8 @@
             size="29, 6" type="TIMESTAMP"/>
         <column comment="更新者" dbType="text" javaType="String"
             name="update_user" size="2147483647" type="VARCHAR"/>
+        <column comment="削除フラグ" dbType="bool" default="false"
+            javaType="Boolean" name="delete_flag" size="1" type="BIT"/>
     </table>
     <table comment="参加_T" name="entry_t" schema="postgres.bacchus" type="TABLE">
         <column autoIncrement="true" comment="参加ID" dbType="bigserial"
@@ -84,6 +88,8 @@
             size="29, 6" type="TIMESTAMP"/>
         <column comment="更新者" dbType="text" javaType="String"
             name="update_user" size="2147483647" type="VARCHAR"/>
+        <column comment="削除フラグ" dbType="bool" default="false"
+            javaType="Boolean" name="delete_flag" size="1" type="BIT"/>
         <foreign-key foreignSchema="bacchus" foreignTable="candidate_t" name="entry_t_candidate_no_fkey">
             <reference foreign="candidate_no" local="candidate_no"/>
         </foreign-key>
@@ -115,6 +121,8 @@
             size="29, 6" type="TIMESTAMP"/>
         <column comment="更新者" dbType="text" javaType="String"
             name="update_user" size="2147483647" type="VARCHAR"/>
+        <column comment="削除フラグ" dbType="bool" default="false"
+            javaType="Boolean" name="delete_flag" size="1" type="BIT"/>
         <foreign-key foreignSchema="bacchus" foreignTable="event_t" name="event_notify_event_no_fkey">
             <reference foreign="event_no" local="event_no"/>
         </foreign-key>
@@ -164,6 +172,8 @@
             size="29, 6" type="TIMESTAMP"/>
         <column comment="更新者" dbType="text" javaType="String"
             name="update_user" size="2147483647" type="VARCHAR"/>
+        <column comment="削除フラグ" dbType="bool" default="false"
+            javaType="Boolean" name="delete_flag" size="1" type="BIT"/>
         <foreign-key foreignSchema="bacchus" foreignTable="event_type_m" name="event_t_event_type_id_fkey">
             <reference foreign="event_type_id" local="event_type_id"/>
         </foreign-key>
@@ -212,6 +222,8 @@
             size="29, 6" type="TIMESTAMP"/>
         <column comment="更新者" dbType="text" javaType="String"
             name="update_user" size="2147483647" type="VARCHAR"/>
+        <column comment="削除フラグ" dbType="bool" default="false"
+            javaType="Boolean" name="delete_flag" size="1" type="BIT"/>
     </table>
     <table comment="システムプロパティ_M" name="system_property_m"
         schema="postgres.bacchus" type="TABLE">
@@ -235,6 +247,8 @@
             size="29, 6" type="TIMESTAMP"/>
         <column comment="更新者" dbType="text" javaType="String"
             name="update_user" size="2147483647" type="VARCHAR"/>
+        <column comment="削除フラグ" dbType="bool" default="false"
+            javaType="Boolean" name="delete_flag" size="1" type="BIT"/>
     </table>
     <table comment="ユーザー_T" name="user_t" schema="postgres.bacchus" type="TABLE">
         <column autoIncrement="true" comment="ユーザーID" dbType="serial"
@@ -273,6 +287,8 @@
             size="29, 6" type="TIMESTAMP"/>
         <column comment="更新者" dbType="text" javaType="String"
             name="update_user" size="2147483647" type="VARCHAR"/>
+        <column comment="削除フラグ" dbType="bool" default="false"
+            javaType="Boolean" name="delete_flag" size="1" type="BIT"/>
         <foreign-key foreignSchema="bacchus" foreignTable="auth_m" name="user_t_auth_level_fkey">
             <reference foreign="auth_level" local="auth_level"/>
         </foreign-key>
@@ -298,8 +314,6 @@
     </table>
     <sequenceGroup>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
-            minimumValue="1" name="candidate_t_candidate_no_seq" schema="postgres.bacchus"/>
-        <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="entry_t_entry_id_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="event_notify_event_notify_no_seq" schema="postgres.bacchus"/>
@@ -313,5 +327,7 @@
             minimumValue="1" name="user_t_user_id_seq" schema="postgres.bacchus"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="user_type_m_user_type_id_seq" schema="postgres.bacchus"/>
+        <sequence incrementSize="1" maximumValue="9223372036854775807"
+            minimumValue="1" name="candidate_t_candidate_no_seq" schema="postgres.bacchus"/>
     </sequenceGroup>
 </database>

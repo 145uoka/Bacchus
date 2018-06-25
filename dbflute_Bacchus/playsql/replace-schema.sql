@@ -52,6 +52,8 @@ CREATE TABLE Bacchus.candidate_t
 	UPDATE_DATETIME timestamp DEFAULT CURRENT_TIMESTAMP,
 	-- 更新者
 	UPDATE_USER text,
+	-- 削除フラグ
+	DELETE_FLAG boolean DEFAULT 'false',
 	PRIMARY KEY (candidate_no),
 	UNIQUE (event_no, start_date)
 ) WITHOUT OIDS;
@@ -72,6 +74,8 @@ CREATE TABLE Bacchus.display_def_m
 	UPDATE_DATETIME timestamp DEFAULT CURRENT_TIMESTAMP,
 	-- 更新者
 	UPDATE_USER text,
+	-- 削除フラグ
+	DELETE_FLAG boolean DEFAULT 'false',
 	CONSTRAINT display_def_m_pkey PRIMARY KEY (display_id)
 ) WITHOUT OIDS;
 
@@ -95,6 +99,8 @@ CREATE TABLE Bacchus.entry_t
 	UPDATE_DATETIME timestamp DEFAULT CURRENT_TIMESTAMP,
 	-- 更新者
 	UPDATE_USER text,
+	-- 削除フラグ
+	DELETE_FLAG boolean DEFAULT 'false',
 	PRIMARY KEY (entry_id)
 ) WITHOUT OIDS;
 
@@ -118,6 +124,8 @@ CREATE TABLE Bacchus.event_notify
 	UPDATE_DATETIME timestamp DEFAULT CURRENT_TIMESTAMP,
 	-- 更新者
 	UPDATE_USER text,
+	-- 削除フラグ
+	DELETE_FLAG boolean DEFAULT 'false',
 	PRIMARY KEY (event_notify_no),
 	UNIQUE (event_no)
 ) WITHOUT OIDS;
@@ -160,6 +168,8 @@ CREATE TABLE Bacchus.event_t
 	UPDATE_DATETIME timestamp DEFAULT CURRENT_TIMESTAMP,
 	-- 更新者
 	UPDATE_USER text,
+	-- 削除フラグ
+	DELETE_FLAG boolean DEFAULT 'false',
 	PRIMARY KEY (event_no)
 ) WITHOUT OIDS;
 
@@ -202,6 +212,8 @@ CREATE TABLE Bacchus.general_code_m
 	UPDATE_DATETIME timestamp DEFAULT CURRENT_TIMESTAMP,
 	-- 更新者
 	UPDATE_USER text,
+	-- 削除フラグ
+	DELETE_FLAG boolean DEFAULT 'false',
 	CONSTRAINT general_code_m_pkey PRIMARY KEY (code_id)
 ) WITHOUT OIDS;
 
@@ -225,6 +237,8 @@ CREATE TABLE Bacchus.system_property_m
 	UPDATE_DATETIME timestamp DEFAULT CURRENT_TIMESTAMP,
 	-- 更新者
 	UPDATE_USER text,
+	-- 削除フラグ
+	DELETE_FLAG boolean DEFAULT 'false',
 	CONSTRAINT system_property_m_pkey PRIMARY KEY (prop_key)
 ) WITHOUT OIDS;
 
@@ -264,6 +278,8 @@ CREATE TABLE Bacchus.user_t
 	UPDATE_DATETIME timestamp DEFAULT CURRENT_TIMESTAMP,
 	-- 更新者
 	UPDATE_USER text,
+	-- 削除フラグ
+	DELETE_FLAG boolean DEFAULT 'false',
 	PRIMARY KEY (user_id)
 ) WITHOUT OIDS;
 
@@ -373,6 +389,7 @@ COMMENT ON COLUMN Bacchus.candidate_t.REGISTER_DATETIME IS '作成日時';
 COMMENT ON COLUMN Bacchus.candidate_t.REGISTER_USER IS '作成者';
 COMMENT ON COLUMN Bacchus.candidate_t.UPDATE_DATETIME IS '更新日時';
 COMMENT ON COLUMN Bacchus.candidate_t.UPDATE_USER IS '更新者';
+COMMENT ON COLUMN Bacchus.candidate_t.DELETE_FLAG IS '削除フラグ';
 COMMENT ON TABLE Bacchus.display_def_m IS '画面名定義_M';
 COMMENT ON COLUMN Bacchus.display_def_m.display_id IS '画面ID';
 COMMENT ON COLUMN Bacchus.display_def_m.display_name IS '画面名';
@@ -380,6 +397,7 @@ COMMENT ON COLUMN Bacchus.display_def_m.REGISTER_DATETIME IS '作成日時';
 COMMENT ON COLUMN Bacchus.display_def_m.REGISTER_USER IS '作成者';
 COMMENT ON COLUMN Bacchus.display_def_m.UPDATE_DATETIME IS '更新日時';
 COMMENT ON COLUMN Bacchus.display_def_m.UPDATE_USER IS '更新者';
+COMMENT ON COLUMN Bacchus.display_def_m.DELETE_FLAG IS '削除フラグ';
 COMMENT ON TABLE Bacchus.entry_t IS '参加_T';
 COMMENT ON COLUMN Bacchus.entry_t.entry_id IS '参加ID';
 COMMENT ON COLUMN Bacchus.entry_t.candidate_no IS '候補日管理番号';
@@ -389,6 +407,7 @@ COMMENT ON COLUMN Bacchus.entry_t.REGISTER_DATETIME IS '作成日時';
 COMMENT ON COLUMN Bacchus.entry_t.REGISTER_USER IS '作成者';
 COMMENT ON COLUMN Bacchus.entry_t.UPDATE_DATETIME IS '更新日時';
 COMMENT ON COLUMN Bacchus.entry_t.UPDATE_USER IS '更新者';
+COMMENT ON COLUMN Bacchus.entry_t.DELETE_FLAG IS '削除フラグ';
 COMMENT ON TABLE Bacchus.event_notify IS 'イベント通知_T';
 COMMENT ON COLUMN Bacchus.event_notify.event_notify_no IS 'イベント通知番号';
 COMMENT ON COLUMN Bacchus.event_notify.event_no IS 'イベント管理番号';
@@ -398,6 +417,7 @@ COMMENT ON COLUMN Bacchus.event_notify.REGISTER_DATETIME IS '作成日時';
 COMMENT ON COLUMN Bacchus.event_notify.REGISTER_USER IS '作成者';
 COMMENT ON COLUMN Bacchus.event_notify.UPDATE_DATETIME IS '更新日時';
 COMMENT ON COLUMN Bacchus.event_notify.UPDATE_USER IS '更新者';
+COMMENT ON COLUMN Bacchus.event_notify.DELETE_FLAG IS '削除フラグ';
 COMMENT ON TABLE Bacchus.event_t IS 'イベント_T';
 COMMENT ON COLUMN Bacchus.event_t.event_no IS 'イベント管理番号';
 COMMENT ON COLUMN Bacchus.event_t.event_name IS 'イベント名';
@@ -416,6 +436,7 @@ COMMENT ON COLUMN Bacchus.event_t.REGISTER_DATETIME IS '作成日時';
 COMMENT ON COLUMN Bacchus.event_t.REGISTER_USER IS '作成者';
 COMMENT ON COLUMN Bacchus.event_t.UPDATE_DATETIME IS '更新日時';
 COMMENT ON COLUMN Bacchus.event_t.UPDATE_USER IS '更新者';
+COMMENT ON COLUMN Bacchus.event_t.DELETE_FLAG IS '削除フラグ';
 COMMENT ON TABLE Bacchus.event_type_m IS 'イベント区分_M';
 COMMENT ON COLUMN Bacchus.event_type_m.event_type_id IS 'イベント区分ID';
 COMMENT ON COLUMN Bacchus.event_type_m.event_type_name IS 'イベント区分名称';
@@ -432,6 +453,7 @@ COMMENT ON COLUMN Bacchus.general_code_m.REGISTER_DATETIME IS '作成日時';
 COMMENT ON COLUMN Bacchus.general_code_m.REGISTER_USER IS '作成者';
 COMMENT ON COLUMN Bacchus.general_code_m.UPDATE_DATETIME IS '更新日時';
 COMMENT ON COLUMN Bacchus.general_code_m.UPDATE_USER IS '更新者';
+COMMENT ON COLUMN Bacchus.general_code_m.DELETE_FLAG IS '削除フラグ';
 COMMENT ON TABLE Bacchus.system_property_m IS 'システムプロパティ_M';
 COMMENT ON COLUMN Bacchus.system_property_m.prop_key IS 'プロパティキー';
 COMMENT ON COLUMN Bacchus.system_property_m.prop_group IS 'プロパティグループ';
@@ -441,6 +463,7 @@ COMMENT ON COLUMN Bacchus.system_property_m.REGISTER_DATETIME IS '作成日時';
 COMMENT ON COLUMN Bacchus.system_property_m.REGISTER_USER IS '作成者';
 COMMENT ON COLUMN Bacchus.system_property_m.UPDATE_DATETIME IS '更新日時';
 COMMENT ON COLUMN Bacchus.system_property_m.UPDATE_USER IS '更新者';
+COMMENT ON COLUMN Bacchus.system_property_m.DELETE_FLAG IS '削除フラグ';
 COMMENT ON TABLE Bacchus.user_t IS 'ユーザー_T';
 COMMENT ON COLUMN Bacchus.user_t.user_id IS 'ユーザーID';
 COMMENT ON COLUMN Bacchus.user_t.login_id IS 'ログインID';
@@ -458,6 +481,7 @@ COMMENT ON COLUMN Bacchus.user_t.REGISTER_DATETIME IS '作成日時';
 COMMENT ON COLUMN Bacchus.user_t.REGISTER_USER IS '作成者';
 COMMENT ON COLUMN Bacchus.user_t.UPDATE_DATETIME IS '更新日時';
 COMMENT ON COLUMN Bacchus.user_t.UPDATE_USER IS '更新者';
+COMMENT ON COLUMN Bacchus.user_t.DELETE_FLAG IS '削除フラグ';
 COMMENT ON TABLE Bacchus.user_type_m IS 'ユーザー区分_M';
 COMMENT ON COLUMN Bacchus.user_type_m.user_type_id IS 'ユーザー区分ID';
 COMMENT ON COLUMN Bacchus.user_type_m.user_type_name IS 'ユーザー区分名称';

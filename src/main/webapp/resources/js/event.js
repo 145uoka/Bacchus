@@ -3,6 +3,12 @@
  */
 var startDateCnt = 0;
 function addCandidate() {
+
+    if (startDateCnt >= 3) {
+        alert("設定できる候補日は最大3つまでです。");
+        return false;
+    }
+
 	//候補日追加（最終行1行追加）
 	++startDateCnt;
 

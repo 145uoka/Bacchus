@@ -19,8 +19,13 @@
 var startDateCnt = <c:out value="${fn:length(form.startDate)}"/>;
 
 function updateCandidate() {
-	//候補日追加（最終行1行追加）
 
+    if (startDateCnt >= 3) {
+        alert("設定できる候補日は最大3つまでです。");
+        return false;
+    }
+
+	//候補日追加（最終行1行追加）
 	var table = document.getElementById('candidateTable');
 	var tr = table.insertRow(-1);
 	var td1 = tr.insertCell(-1), td2 = tr.insertCell(-1), td3 = tr

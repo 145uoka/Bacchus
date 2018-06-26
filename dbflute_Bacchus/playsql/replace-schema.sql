@@ -126,8 +126,7 @@ CREATE TABLE Bacchus.event_notify
 	UPDATE_USER text,
 	-- 削除フラグ
 	DELETE_FLAG boolean DEFAULT 'false',
-	PRIMARY KEY (event_notify_no),
-	UNIQUE (event_no)
+	PRIMARY KEY (event_notify_no)
 ) WITHOUT OIDS;
 
 

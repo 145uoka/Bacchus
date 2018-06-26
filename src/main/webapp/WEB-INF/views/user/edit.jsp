@@ -111,7 +111,29 @@
         <div class="col-md-offset-1 col-md-10">
           <div class="panel panel-default main-border-color">
             <div class="panel-body sub-background-color">
-            <div class="form-group <ext:isErrors path='firstName' value='has-error'/> <ext:isErrors path='lastName' value='has-error'/>">
+
+              <div class="form-group">
+                <label class="col-md-4 control-label">LINE 設定</label>
+                <c:choose>
+                  <c:when test="${userTDto.lineFlg == 1}">
+                    <div class="col-md-6">
+                      <label class="control-label"><span class="label label-success">設定済</span></label>
+                    </div>
+                  </c:when>
+                  <c:otherwise>
+                    <div class="col-md-6 text-left">
+                      <label class="control-label"><span class="label label-danger">未設定</span></label>
+                    </div>
+                  </c:otherwise>
+                </c:choose>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">LINE ユーザ名</label>
+                <div class="col-md-6">
+                  <form:input path="lineUserName" class="form-control" disabled="true" />
+                </div>
+              </div>
+              <div class="form-group <ext:isErrors path='firstName' value='has-error'/> <ext:isErrors path='lastName' value='has-error'/>">
                 <label class="col-md-4 control-label">氏名<span class="label label-danger" style="margin-left: 10px">必須</span></label>
                 <div class="col-md-3">
                   <%-- <form:input path="lastName" class="form-control" maxlength="${ext:getMaxLen('CNT0001') }" placeholder="氏"/> --%>

@@ -76,25 +76,25 @@ public class UserEditController extends BaseController {
      */
     @RequestMapping(value = ProcConstants.Operation.EDIT, method = RequestMethod.GET)
     public String index(@ModelAttribute("form") UserEditForm form, Model model) throws Exception {
-        model.addAttribute("form", form);
-        super.setDisplayTitle(model, DisplayIdConstants.User.BACCHUS_0103);
 
-        //        // ユーザー区分のプルダウン項目の取得
-        //        model.addAttribute("userTypeSelectList", userService.createUserTypePullDown());
-        //
-        //        // 権限のレベルプルダウン項目の取得
-        //        model.addAttribute("authList", userService.createAuthLevelPullDown(SystemCodeConstants.PLEASE_SELECT_MSG));
+        super.setDisplayTitle(model, DisplayIdConstants.User.BACCHUS_0103);
 
         initPulldown(model);
 
+        UserDto userDto = userEditService.selectUser(form);
+
         // 編集項目の取得
-        model.addAttribute("userTDto", userEditService.selectUser(form));
+        model.addAttribute("userTDto", userDto);
 
         // 権限レベルのセット
-        form.setAuthLevel(String.valueOf(userEditService.selectUser(form).getAuthLevel()));
+        form.setAuthLevel(String.valueOf(userDto.getAuthLevel()));
 
         // ユーザー区分のセット
-        form.setUserTypeId(String.valueOf(userEditService.selectUser(form).getUserTypeId()));
+        form.setUserTypeId(String.valueOf(userDto.getUserTypeId()));
+
+        form.setLineUserName(userDto.getLineUserName());
+
+        model.addAttribute("form", form);
 
         return ProcConstants.USER + ProcConstants.Operation.EDIT;
 

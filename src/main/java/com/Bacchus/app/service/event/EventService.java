@@ -530,7 +530,7 @@ public class EventService extends AbstractService {
      * @param model
      */
     public void setPullDownList(Model model) {
-        // ユーザー名のプルダウン取得.
+        // 幹事のプルダウン取得.
         List<LabelValueDto> userNameSelectList = userNamePullDown();
         model.addAttribute("userNameSelectList", userNameSelectList);
 
@@ -570,7 +570,17 @@ public class EventService extends AbstractService {
        for (UserT userT : userTList) {
            LabelValueDto dto = new LabelValueDto();
            dto.setValue(userT.getUserId());
-           dto.setLabel(userT.getLastName() + userT.getFirstName());
+           StringBuilder sb = new StringBuilder();
+           if (StringUtils.isNotEmpty(userT.getLastName())) {
+               sb.append(userT.getLastName());
+           }
+           if (StringUtils.isNotEmpty(userT.getFirstName())) {
+               sb.append(userT.getFirstName());
+           }
+           sb.append("（");
+           sb.append(userT.getLineUserName());
+           sb.append("）");
+           dto.setLabel(sb.toString());
            userIdSelectList.add(dto);
        }
 

@@ -16,6 +16,7 @@ package com.Bacchus.app.service.user;
 //import org.apache.commons.codec.binary.StringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dbflute.optional.OptionalEntity;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -57,18 +58,10 @@ public class UserEditService {
 
         }
 
-        UserT userT = optionalEntity.get();
-
         // 初期表示画面の項目をセット
         UserDto userTDto = new UserDto();
-        userTDto.setUserId(userT.getUserId());
-//        userTDto.setUserName(userT.getUserName());
-        userTDto.setFirstName(userT.getFirstName());
-        userTDto.setLastName(userT.getLastName());
-        userTDto.setLoginId(userT.getLoginId());
-        userTDto.setAuthLevel(userT.getAuthLevel());
-        userTDto.setUserTypeId(userT.getUserTypeId());
-        userTDto.setEmail(userT.getEmail());
+
+        BeanUtils.copyProperties(optionalEntity.get(), userTDto);
 
         return userTDto;
 

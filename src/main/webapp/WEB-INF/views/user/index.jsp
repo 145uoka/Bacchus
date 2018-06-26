@@ -41,6 +41,7 @@
               <tr>
                 <th class="text-center">No</th>
                 <th class="text-center">氏名</th>
+                <th class="text-center">LINEユーザ名</th>
                 <th class="text-center">権限</th>
                 <th class="text-center">ユーザー区分</th>
               </tr>
@@ -50,7 +51,7 @@
                 <td class="text-center"><c:out value="${status.count}"></c:out></td>
 
                 <td class="text-center"><c:out value="${list.lastName} ${list.firstName}" /></td>
-
+                <td class="text-center"><c:out value="${list.lineUserName}" /></td>
                 <td class="text-center"><c:out value="${list.authDto.authName}"></c:out></td>
 
                 <td class="text-center"><c:out value="${list.userTypeDto.userTypeName }"></c:out></td>

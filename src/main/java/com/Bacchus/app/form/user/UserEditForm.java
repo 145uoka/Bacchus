@@ -25,7 +25,7 @@ public class UserEditForm implements Serializable {
 
     /** ログインID */
 
-	
+
     private String loginId;
 
     private String loginCheck;
@@ -35,6 +35,8 @@ public class UserEditForm implements Serializable {
 
 	@NotEmpty
 	private String firstName;
+
+	private String lineUserName;
 
 //	@NotEmpty
 //	@Email
@@ -165,6 +167,12 @@ public class UserEditForm implements Serializable {
 		this.passwardCheck = passwardCheck;
 	}
 
+    public String getLineUserName() {
+        return lineUserName;
+    }
 
+    public void setLineUserName(String lineUserName) {
+        this.lineUserName = lineUserName;
+    }
 
 }

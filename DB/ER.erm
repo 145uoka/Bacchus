@@ -11,8 +11,8 @@
 	</page_setting>
 	<category_index>0</category_index>
 	<zoom>0.8</zoom>
-	<x>45</x>
-	<y>480</y>
+	<x>68</x>
+	<y>414</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -138,7 +138,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2017-04-12 17:17:54</creation_date>
-			<updated_date>2018-06-25 12:37:47</updated_date>
+			<updated_date>2018-06-26 11:18:25</updated_date>
 			<model_property>
 				<name>プロジェクト名</name>
 				<value></value>
@@ -1951,15 +1951,6 @@
 			<indexes>
 			</indexes>
 			<complex_unique_key_list>
-				<complex_unique_key>
-					<id>0</id>
-					<name></name>
-					<columns>
-						<column>
-							<id>24</id>
-						</column>
-					</columns>
-				</complex_unique_key>
 			</complex_unique_key_list>
 			<table_properties>
 				<schema></schema>
@@ -2346,7 +2337,7 @@
 			</indexes>
 			<complex_unique_key_list>
 				<complex_unique_key>
-					<id>1</id>
+					<id>0</id>
 					<name></name>
 					<columns>
 						<column>

@@ -15,7 +15,11 @@
     <td class="text-center col-md-9"><c:out value="${eventDto.eventTypeDto.eventTypeName}" /></td>
   </tr>
   <tr>
-    <th class="main-background-color col-md-3 text-center">場所</th>
+    <th class="main-background-color col-md-3 text-center">店舗名</th>
+    <td class="text-center col-md-9"><c:out value="${eventDto.storeName}" /></td>
+  </tr>
+  <tr>
+    <th class="main-background-color col-md-3 text-center">住所</th>
     <td class="text-center col-md-9">
     <c:if test="${!empty eventDto.eventPlaceUrlEncode}">
       <a href="http://maps.google.co.jp/maps?q=${eventDto.eventPlaceUrlEncode}" target = "_blank">
@@ -47,10 +51,6 @@
   <tr>
     <th class="main-background-color col-md-3 text-center">経費補助有無</th>
     <td class="text-center col-md-9"><c:out value="${eventDto.auxiliaryFlgDisplay}" /></td>
-  </tr>
-  <tr>
-    <th class="main-background-color col-md-3 text-center">店舗名</th>
-    <td class="text-center col-md-9"><c:out value="${eventDto.storeName}" /></td>
   </tr>
   <tr>
     <th class="main-background-color col-md-3 text-center">幹事</th>

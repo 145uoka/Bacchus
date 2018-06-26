@@ -132,7 +132,7 @@
               </div>
               <div class="form-group <ext:isErrors path='eventPlace' value='has-error'/>">
                 <label class="col-md-4 control-label">
-                  場所
+                  住所
                   <span class="label label-danger" style="margin-left: 10px"></span>
                 </label>
                 <div class="col-md-6">

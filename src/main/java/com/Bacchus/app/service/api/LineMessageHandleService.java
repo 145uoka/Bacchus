@@ -13,9 +13,10 @@ import com.Bacchus.app.Exception.RecordNotFoundException;
 import com.Bacchus.app.components.line.Event;
 import com.Bacchus.app.service.AbstractService;
 import com.Bacchus.app.service.event.EventService;
+import com.Bacchus.dbflute.exbhv.EventNotifyBhv;
 import com.Bacchus.dbflute.exbhv.EventTBhv;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
-import com.Bacchus.dbflute.exentity.EventT;
+import com.Bacchus.dbflute.exentity.EventNotify;
 import com.Bacchus.dbflute.exentity.UserT;
 
 @Service
@@ -29,6 +30,10 @@ public class LineMessageHandleService extends AbstractService {
 
     @Autowired
     EventTBhv eventTBhv;
+
+    @Autowired
+    EventNotifyBhv eventNotifyBhv;
+
 
     @Autowired
     EventService eventService;
@@ -62,8 +67,9 @@ public class LineMessageHandleService extends AbstractService {
             return;
         }
 
-        OptionalEntity<EventT> optEventT = eventTBhv.selectEntity(cb->{
-            cb.query().addOrderBy_RegisterDatetime_Desc();
+        OptionalEntity<EventNotify> optEventT = eventNotifyBhv.selectEntity(cb->{
+            cb.query().setUserId_Equal(optUserT.get().getUserId());
+            cb.query().addOrderBy_NotifyDatetime_Desc();
             cb.fetchFirst(1);
         });
 
@@ -72,6 +78,8 @@ public class LineMessageHandleService extends AbstractService {
             return;
         }
 
-        eventService.notifyEvent(Arrays.asList(optUserT.get().getUserId()), optEventT.get().getEventNo());
+        eventService.notifyEvent(Arrays.asList(optUserT.get().getUserId()),
+                optEventT.get().getEventNo(),
+                false);
     }
 }

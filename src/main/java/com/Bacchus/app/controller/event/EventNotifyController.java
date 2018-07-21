@@ -142,7 +142,7 @@ public class EventNotifyController extends BaseController {
         }
 
         // イベントの通知
-        eventService.notifyEvent(userIds, form.getEventNo());
+        eventService.notifyEvent(userIds, form.getEventNo(), true);
 
         // 完了メッセージの設定
         String message = messageSource.getMessage(

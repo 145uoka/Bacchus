@@ -69,6 +69,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.linecorp.bot.model.action.Action;
 import com.linecorp.bot.model.action.PostbackAction;
+import com.linecorp.bot.model.action.URIAction;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
@@ -675,10 +676,10 @@ public class EventService extends AbstractService {
         return resultDtoList;
     }
 
-    public void notifyEvent(List<Integer> userIds, Integer eventNo) throws RecordNotFoundException {
+    public void notifyEvent(List<Integer> userIds, Integer eventNo, boolean isEntryQuestion) throws RecordNotFoundException {
 
         // line multicast!!
-        multicastNotifyEvent(eventNo, userIds);
+        multicastNotifyEvent(eventNo, userIds, isEntryQuestion);
 
         List<EventNotify> existsEventNotifyList = eventNotifyBhv.selectList(cb ->{
             cb.query().setEventNo_Equal(eventNo);
@@ -718,7 +719,7 @@ public class EventService extends AbstractService {
         }
     }
 
-    private void multicastNotifyEvent(int eventNo, List<Integer> userIds) throws RecordNotFoundException {
+    private void multicastNotifyEvent(int eventNo, List<Integer> userIds, boolean isEntryQuestion) throws RecordNotFoundException {
 
         LineSourceListDto lineSourceListDto = lineService.createLineSourceListDto(userIds);
 
@@ -740,16 +741,69 @@ public class EventService extends AbstractService {
         List<Message> messageList = new ArrayList<Message>();
 
         // イベント内容の設定
+        String msg = super.getMsg("event.notify", new Object[]{
+                eventT.getEventName(),
+                eventT.getStoreName(),
+                eventT.getEventPlace()
+        });
+
+        List<Action> actionList = new ArrayList<Action>();
+
         String url = systemPropertyService.getSystemPropertyValue(SystemPropertyKeyConstants.BACCHUS_URL);
         url += ProcConstants.EVENT + ProcConstants.Operation.SHOW + "/" + eventNo;
 
-        String msg = super.getMsg("event.notify", new Object[]{
-                eventT.getEventName(),
-                url
-        });
+        URIAction detailURIAction = new URIAction("詳細", url);
+        actionList.add(detailURIAction);
+
+        URIAction mapURIAction = new URIAction("Map", "http://maps.google.co.jp/maps?q=" + eventT.getEventPlace());
+        actionList.add(mapURIAction);
+
+        TemplateMessage templateMessage = new TemplateMessage("【イベント通知】",
+                new ButtonsTemplate(null, "【イベント通知】", msg, actionList));
+        messageList.add(templateMessage);
 
         messageList.add(new TextMessage(msg));
 
+        if (isEntryQuestion) {
+            List<Message> entryQuestionMessageList = createMessageQuestionEntry(eventNo, candidateTList, eventT);
+            messageList.addAll(entryQuestionMessageList);
+        }
+
+        String token = systemPropertyService.getSystemPropertyValue(
+                SystemPropertyKeyConstants.LineApi.MESSAGING_API_ACCESS_TOKEN);
+
+        // multicast!!
+        LineBotClient lineBotClient = new LineBotClient(token);
+        MulticastRequestDto multicastRequestDto = new MulticastRequestDto();
+        multicastRequestDto.setTo(lineSourceListDto.getSendUserLineId());
+        multicastRequestDto.setMessages(messageList);
+
+        if(!commonService.isDevelopMode()) {
+            lineBotClient.multicast(multicastRequestDto);
+         }
+
+        if (!lineSourceListDto.getNotSendUserMap().isEmpty()){
+            // 非LINEユーザが存在
+            // ログ出力
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0001,
+                    new Object[]{LineApiType.MULTICAST, lineSourceListDto.getNotSendUserMap(), msg});
+        }
+
+        if (CollectionUtils.isNotEmpty(lineSourceListDto.getUnknownUserIds())) {
+            // 存在しないユーザ
+            // ログ出力
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0002,
+                    new Object[]{LineApiType.MULTICAST, lineSourceListDto.getUnknownUserIds().toString(), msg});
+        }
+    }
+
+    /**
+     * @param eventNo
+     * @param candidateTList
+     * @param eventT
+     * @param messageList
+     */
+    private List<Message> createMessageQuestionEntry(int eventNo, ListResultBean<CandidateT> candidateTList, EventT eventT) {
         // 参加可否ボタンの設定
         List<LabelValueDto> entrySelectList = commonService.creatOptionalLabelValueList(
                         SystemCodeConstants.GeneralCodeKbn.ENTRY_DIV, false, SystemCodeConstants.PLEASE_SELECT_MSG);
@@ -757,6 +811,8 @@ public class EventService extends AbstractService {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         String data = null;
+
+        List<Message> messageList = new ArrayList<Message>();
 
         for (CandidateT candidateT : candidateTList) {
 
@@ -791,32 +847,7 @@ public class EventService extends AbstractService {
             messageList.add(templateMessage);
         }
 
-        String token = systemPropertyService.getSystemPropertyValue(
-                SystemPropertyKeyConstants.LineApi.MESSAGING_API_ACCESS_TOKEN);
-
-        // multicast!!
-        LineBotClient lineBotClient = new LineBotClient(token);
-        MulticastRequestDto multicastRequestDto = new MulticastRequestDto();
-        multicastRequestDto.setTo(lineSourceListDto.getSendUserLineId());
-        multicastRequestDto.setMessages(messageList);
-
-        if(!commonService.isDevelopMode()) {
-            lineBotClient.multicast(multicastRequestDto);
-         }
-
-        if (!lineSourceListDto.getNotSendUserMap().isEmpty()){
-            // 非LINEユーザが存在
-            // ログ出力
-            loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0001,
-                    new Object[]{LineApiType.MULTICAST, lineSourceListDto.getNotSendUserMap(), msg});
-        }
-
-        if (CollectionUtils.isNotEmpty(lineSourceListDto.getUnknownUserIds())) {
-            // 存在しないユーザ
-            // ログ出力
-            loggerService.outLog(LogMessageKeyConstants.Warn.W_05_0002,
-                    new Object[]{LineApiType.MULTICAST, lineSourceListDto.getUnknownUserIds().toString(), msg});
-        }
+        return messageList;
     }
 
     /**

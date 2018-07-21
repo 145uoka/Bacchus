@@ -28,6 +28,7 @@ import com.Bacchus.app.components.EventIndexDto;
 import com.Bacchus.app.components.EventTypeDto;
 import com.Bacchus.app.components.LabelValueDto;
 import com.Bacchus.app.components.LineSourceListDto;
+import com.Bacchus.app.components.PostbackDataEventEntry;
 import com.Bacchus.app.components.PostbackDataEventNotify;
 import com.Bacchus.app.components.UserDto;
 import com.Bacchus.app.form.event.AbstractEventRegisterForm;
@@ -72,7 +73,6 @@ import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.action.URIAction;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TemplateMessage;
-import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
 
 /**
@@ -719,6 +719,41 @@ public class EventService extends AbstractService {
         }
     }
 
+    public void multicastEventNotify(int eventNo, List<Integer> userIds) throws RecordNotFoundException {
+        LineSourceListDto lineSourceListDto = lineService.createLineSourceListDto(userIds);
+
+        OptionalEntity<EventT> optEvent = eventTBhv.selectEntity(cb->{
+            cb.query().setEventNo_Equal(eventNo);
+        });
+
+        if (!optEvent.isPresent()) {
+            // TODO notfound!!
+        }
+
+        ListResultBean<CandidateT> candidateTList = candidateTbhv.selectList(cb->{
+            cb.query().setEventNo_Equal(eventNo);
+            cb.query().addOrderBy_EventStartDatetime_Asc();
+        });
+
+        EventT eventT = optEvent.get();
+
+        List<Message> entryQuestionMessageList = createMessageQuestionEntry(eventNo, candidateTList, eventT);
+
+        String token = systemPropertyService.getSystemPropertyValue(
+                SystemPropertyKeyConstants.LineApi.MESSAGING_API_ACCESS_TOKEN);
+
+        // multicast!!
+        LineBotClient lineBotClient = new LineBotClient(token);
+        MulticastRequestDto multicastRequestDto = new MulticastRequestDto();
+        multicastRequestDto.setTo(lineSourceListDto.getSendUserLineId());
+        multicastRequestDto.setMessages(entryQuestionMessageList);
+
+        if(!commonService.isDevelopMode()) {
+            lineBotClient.multicast(multicastRequestDto);
+        }
+
+    }
+
     private void multicastNotifyEvent(int eventNo, List<Integer> userIds, boolean isEntryQuestion) throws RecordNotFoundException {
 
         LineSourceListDto lineSourceListDto = lineService.createLineSourceListDto(userIds);
@@ -758,11 +793,29 @@ public class EventService extends AbstractService {
         URIAction mapURIAction = new URIAction("Map", "http://maps.google.co.jp/maps?q=" + eventT.getEventPlace());
         actionList.add(mapURIAction);
 
+        PostbackDataEventEntry postbackDataEventEntry = new PostbackDataEventEntry();
+        postbackDataEventEntry.setEventNo(eventNo);
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        String data = null;
+
+        try {
+            data = mapper.writeValueAsString(postbackDataEventEntry);
+            data = data.replace("\r\n", "");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        PostbackAction postbackAction = new PostbackAction(
+                "参加可否入力",
+                data,
+                "参加可否入力");
+        actionList.add(postbackAction);
+
         TemplateMessage templateMessage = new TemplateMessage("【イベント通知】",
                 new ButtonsTemplate(null, "【イベント通知】", msg, actionList));
         messageList.add(templateMessage);
-
-        messageList.add(new TextMessage(msg));
 
         if (isEntryQuestion) {
             List<Message> entryQuestionMessageList = createMessageQuestionEntry(eventNo, candidateTList, eventT);
@@ -780,7 +833,7 @@ public class EventService extends AbstractService {
 
         if(!commonService.isDevelopMode()) {
             lineBotClient.multicast(multicastRequestDto);
-         }
+        }
 
         if (!lineSourceListDto.getNotSendUserMap().isEmpty()){
             // 非LINEユーザが存在

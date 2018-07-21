@@ -1,6 +1,7 @@
 package com.Bacchus.app.service.api;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -14,11 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.Bacchus.app.Exception.AbnormalRecordsDetection;
 import com.Bacchus.app.Exception.RecordNotFoundException;
+import com.Bacchus.app.components.PostbackDataEventEntry;
 import com.Bacchus.app.components.PostbackDataEventNotify;
 import com.Bacchus.app.components.line.Event;
 import com.Bacchus.app.service.AbstractService;
 import com.Bacchus.app.service.CommonService;
 import com.Bacchus.app.service.SystemPropertyService;
+import com.Bacchus.app.service.event.EventService;
 import com.Bacchus.app.util.DateUtil;
 import com.Bacchus.dbflute.exbhv.CandidateTBhv;
 import com.Bacchus.dbflute.exbhv.EntryTBhv;
@@ -55,6 +58,9 @@ public class LinePostbackService extends AbstractService {
     @Autowired
     CommonService commonService;
 
+    @Autowired
+    EventService eventService;
+
     public void postback(Event event) throws RecordNotFoundException, AbnormalRecordsDetection {
         String data = event.getPostback().getData();
         logger.debug("[postback-data] :" + data);
@@ -72,9 +78,46 @@ public class LinePostbackService extends AbstractService {
         case "eventNotify":
             eventEntry(event);
             break;
+
+        case "eventEntry":
+            multicastEventNotify(event);
+            break;
+        }
+    }
+
+    private void multicastEventNotify(Event event) throws RecordNotFoundException {
+
+        String data = event.getPostback().getData();
+
+        ObjectMapper mapper = new ObjectMapper();
+        PostbackDataEventEntry postbackDataEventEntry = null;
+
+        try {
+            postbackDataEventEntry = mapper.readValue(data, PostbackDataEventEntry.class);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
+
+        String lineId = event.getSource().getUserId();
+
+        OptionalEntity<UserT> optUser = userTBhv.selectEntity(cb->{
+           cb.query().setLineId_Equal(lineId);
+        });
+        if (!optUser.isPresent()) {
+            // TODO
+            logger.error("Unkown user!!!!");
+        }
+
+        Integer userId = optUser.get().getUserId();
+        ArrayList<Integer> userIds = new ArrayList<Integer>();
+        userIds.add(userId);
+
+        eventService.multicastEventNotify(postbackDataEventEntry.getEventNo(), userIds);
+
     }
+
+
 
     private void eventEntry(Event event) throws RecordNotFoundException, AbnormalRecordsDetection {
 

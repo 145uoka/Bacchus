@@ -676,7 +676,8 @@ public class EventService extends AbstractService {
         return resultDtoList;
     }
 
-    public void notifyEvent(List<Integer> userIds, Integer eventNo, boolean isEntryQuestion) throws RecordNotFoundException {
+    public void notifyEvent(List<Integer> userIds, Integer eventNo, boolean isEntryQuestion)
+            throws RecordNotFoundException, UnsupportedEncodingException {
 
         // line multicast!!
         multicastNotifyEvent(eventNo, userIds, isEntryQuestion);
@@ -754,7 +755,8 @@ public class EventService extends AbstractService {
 
     }
 
-    private void multicastNotifyEvent(int eventNo, List<Integer> userIds, boolean isEntryQuestion) throws RecordNotFoundException {
+    private void multicastNotifyEvent(int eventNo, List<Integer> userIds, boolean isEntryQuestion)
+            throws RecordNotFoundException, UnsupportedEncodingException {
 
         LineSourceListDto lineSourceListDto = lineService.createLineSourceListDto(userIds);
 
@@ -790,7 +792,9 @@ public class EventService extends AbstractService {
         URIAction detailURIAction = new URIAction("詳細", url);
         actionList.add(detailURIAction);
 
-        URIAction mapURIAction = new URIAction("Map", "http://maps.google.co.jp/maps?q=" + eventT.getEventPlace());
+        String eventPlace = CommonUtil.urlEncode(eventT.getEventPlace());
+
+        URIAction mapURIAction = new URIAction("Map", "http://maps.google.co.jp/maps?q=" + eventPlace);
         actionList.add(mapURIAction);
 
         PostbackDataEventEntry postbackDataEventEntry = new PostbackDataEventEntry();

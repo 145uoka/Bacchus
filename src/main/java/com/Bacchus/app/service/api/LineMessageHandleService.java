@@ -1,5 +1,6 @@
 package com.Bacchus.app.service.api;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
 import org.dbflute.optional.OptionalEntity;
@@ -38,7 +39,7 @@ public class LineMessageHandleService extends AbstractService {
     @Autowired
     EventService eventService;
 
-    public void handleMessage(Event event) throws RecordNotFoundException {
+    public void handleMessage(Event event) throws RecordNotFoundException, UnsupportedEncodingException {
 
         switch (event.getMessage().getType()) {
         case "text":
@@ -47,7 +48,7 @@ public class LineMessageHandleService extends AbstractService {
         }
     }
 
-    private void handleText(Event event) throws RecordNotFoundException {
+    private void handleText(Event event) throws RecordNotFoundException, UnsupportedEncodingException {
 
         switch (event.getMessage().getText()) {
         case "直近のイベント通知":
@@ -56,7 +57,7 @@ public class LineMessageHandleService extends AbstractService {
         }
     }
 
-    private void notifyEvent(Event event) throws RecordNotFoundException {
+    private void notifyEvent(Event event) throws RecordNotFoundException, UnsupportedEncodingException {
 
         OptionalEntity<UserT> optUserT = userTBhv.selectEntity(cb->{
            cb.query().setLineId_Equal(event.getSource().getUserId());

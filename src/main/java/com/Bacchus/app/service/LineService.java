@@ -1,7 +1,7 @@
 package com.Bacchus.app.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -22,16 +22,20 @@ import com.Bacchus.app.components.UserDto;
 import com.Bacchus.app.service.user.UserService;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.dbflute.exentity.UserT;
+import com.Bacchus.linebot.LineBotClient;
 import com.Bacchus.webbase.common.constants.LogMessageKeyConstants;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.Flag;
 import com.Bacchus.webbase.common.constants.SystemCodeConstants.LineApiType;
+import com.Bacchus.webbase.common.constants.SystemCodeConstants.Permissions;
 import com.Bacchus.webbase.common.constants.SystemPropertyKeyConstants;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.LineMessagingClientBuilder;
 import com.linecorp.bot.model.Multicast;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 
 
@@ -209,6 +213,35 @@ public class LineService extends AbstractService {
         return new LineMessagingClientBuilder(token).build();
     }
 
+    public UserT addAccount(String lineId, String type, LineBotClient lineBotClient) throws JsonProcessingException, IOException {
+
+        OptionalEntity<UserT> optUserT = userTBhv.selectEntity(cb->{
+           cb.query().setLineId_Equal(lineId);
+        });
+
+        UserT userT = new UserT();
+
+        if (optUserT.isPresent()) {
+            userT = optUserT.get();
+            userT.setDeleteFlag(Flag.OFF.isBoolValue());
+        } else {
+            userT.setUserTypeId(1);
+            userT.setAuthLevel(Permissions.GENERAL.getAuthType());
+            userT.setLineFlg(Flag.ON.getIntegerValue().intValue());
+            userT.setLineId(lineId);
+            userT.setRegisterUser("system");
+        }
+
+        UserProfileResponse userProfileResponse =
+                lineBotClient.profile(userT.getLineId(), type);
+
+        userT.setLineUserName(userProfileResponse.getDisplayName());
+
+        userTBhv.insertOrUpdate(userT);
+
+        return userT;
+    }
+
     /**
      * LINE_IDから、ユーザー情報を取得。
      *
@@ -216,20 +249,14 @@ public class LineService extends AbstractService {
      * @return UserT
      * @throws RecordNotFoundException
      */
-    public UserT getUserByLineId(String lineId) throws RecordNotFoundException {
+    public UserT getUserByLineId(String lineId) {
 
         OptionalEntity<UserT> optUserT = userTBhv.selectEntity(cb->{
             cb.query().setLineId_Equal(lineId);
          });
 
          if (!optUserT.isPresent()) {
-             logger.error(getMsg(LogMessageKeyConstants.Error.E_00_0001,
-                     new Object[]{lineId}));
-
-             Map<String, Object> conditionMap = new HashMap<String, Object>();
-             conditionMap.put("lineId", lineId);
-             throw new RecordNotFoundException("userT",
-                     RecordNotFoundException.createKeyInfoMessage(conditionMap));
+             return null;
          }
 
          return optUserT.get();

@@ -13,12 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.Bacchus.app.Exception.RecordNotFoundException;
 import com.Bacchus.app.components.line.Event;
 import com.Bacchus.app.service.AbstractService;
+import com.Bacchus.app.service.LineService;
 import com.Bacchus.app.service.event.EventService;
 import com.Bacchus.dbflute.exbhv.EventNotifyBhv;
 import com.Bacchus.dbflute.exbhv.EventTBhv;
 import com.Bacchus.dbflute.exbhv.UserTBhv;
 import com.Bacchus.dbflute.exentity.EventNotify;
 import com.Bacchus.dbflute.exentity.UserT;
+import com.Bacchus.webbase.common.constants.LogMessageKeyConstants;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -34,6 +36,9 @@ public class LineMessageHandleService extends AbstractService {
 
     @Autowired
     EventNotifyBhv eventNotifyBhv;
+
+    @Autowired
+    LineService lineService;
 
 
     @Autowired
@@ -59,27 +64,22 @@ public class LineMessageHandleService extends AbstractService {
 
     private void notifyEvent(Event event) throws RecordNotFoundException, UnsupportedEncodingException {
 
-        OptionalEntity<UserT> optUserT = userTBhv.selectEntity(cb->{
-           cb.query().setLineId_Equal(event.getSource().getUserId());
-        });
-
-        if (!optUserT.isPresent()) {
-            logger.error("Unknown user!!!");
-            return;
-        }
+        UserT userT = lineService.getUserByLineId(event.getSource().getUserId());
 
         OptionalEntity<EventNotify> optEventT = eventNotifyBhv.selectEntity(cb->{
-            cb.query().setUserId_Equal(optUserT.get().getUserId());
+            cb.query().setUserId_Equal(userT.getUserId());
             cb.query().addOrderBy_NotifyDatetime_Desc();
             cb.fetchFirst(1);
         });
 
         if (!optEventT.isPresent()) {
-            // TODO まだないよ
+            logger.info(getMsg(LogMessageKeyConstants.Info.I_02_0501,
+                     new Object[]{userT.getUserId(), userT.getUserName()}));
+
             return;
         }
 
-        eventService.notifyEvent(Arrays.asList(optUserT.get().getUserId()),
+        eventService.notifyEvent(Arrays.asList(userT.getUserId()),
                 optEventT.get().getEventNo(),
                 false);
     }

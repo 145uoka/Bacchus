@@ -230,8 +230,10 @@ public class EventService extends AbstractService {
         registerFixDate(form, eventNo);
 
         // ログ出力
-        loggerService.outLog(LogMessageKeyConstants.Info.I_03_0001,
-                new Object[] { eventT.getEventNo(), eventT.getEventName() });
+        loggerService.outLog(LogMessageKeyConstants.Info.I_02_0001,
+                new Object[] {ProcConstants.OperationName.CREATE,
+                        eventT.getEventNo(),
+                        eventT.getEventName() });
 
     }
 
@@ -336,8 +338,10 @@ public class EventService extends AbstractService {
         registerFixDate(form, form.getEventNo());
 
         // ログ出力
-        loggerService.outLog(LogMessageKeyConstants.Info.I_03_0002,
-                new Object[] { eventTEntity.getEventNo(), eventTEntity.getEventName() });
+        loggerService.outLog(LogMessageKeyConstants.Info.I_02_0001,
+                new Object[] {ProcConstants.OperationName.UPDATE,
+                        eventTEntity.getEventNo(),
+                        eventTEntity.getEventName() });
 
     }
 

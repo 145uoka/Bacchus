@@ -1,6 +1,7 @@
 package com.Bacchus.app.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,8 @@ import java.util.concurrent.ExecutionException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dbflute.optional.OptionalEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +39,9 @@ import com.linecorp.bot.model.response.BotApiResponse;
  * LineAPIに関するサービスクラス。
  */
 @Service
-public class LineService {
+public class LineService extends AbstractService {
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     LoggerService loggerService;
@@ -202,5 +207,31 @@ public class LineService {
                 SystemPropertyKeyConstants.LineApi.MESSAGING_API_ACCESS_TOKEN);
 
         return new LineMessagingClientBuilder(token).build();
+    }
+
+    /**
+     * LINE_IDから、ユーザー情報を取得。
+     *
+     * @param lineId LINE_ID
+     * @return UserT
+     * @throws RecordNotFoundException
+     */
+    public UserT getUserByLineId(String lineId) throws RecordNotFoundException {
+
+        OptionalEntity<UserT> optUserT = userTBhv.selectEntity(cb->{
+            cb.query().setLineId_Equal(lineId);
+         });
+
+         if (!optUserT.isPresent()) {
+             logger.error(getMsg(LogMessageKeyConstants.Error.E_00_0001,
+                     new Object[]{lineId}));
+
+             Map<String, Object> conditionMap = new HashMap<String, Object>();
+             conditionMap.put("lineId", lineId);
+             throw new RecordNotFoundException("userT",
+                     RecordNotFoundException.createKeyInfoMessage(conditionMap));
+         }
+
+         return optUserT.get();
     }
 }

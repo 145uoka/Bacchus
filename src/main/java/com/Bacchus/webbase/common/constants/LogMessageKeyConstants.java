@@ -19,11 +19,11 @@ public class LogMessageKeyConstants {
         /** プロフィール編集を実施しました。ユーザーID = [{0}], ユーザー名 = [{1}], Email = [{2}] */
         public static final String I_01_0301 = "I_01_0301";
         /** イベントの参加可否を登録しました。イベント管理番号 = [{0}], イベント名 = [{1}], 回答者ユーザーID = [{2}], 回答者ユーザー名 = [{3}] */
+        public static final String I_03_0101 = "I_03_0101";
+        /** イベント情報を{0}しました。ID = [{1}], イベント名 = [{2}] */
+        public static final String I_02_0001 = "I_02_0001";
+        /** 通知したイベントがまだ存在しません。ユーザーID = [{0}], ユーザー名 = [{1}] */
         public static final String I_02_0501 = "I_02_0501";
-        /** イベントを新規登録しました。ID = [{0}], イベント名 = [{1}] */
-        public static final String I_03_0001 = "I_03_0001";
-        /** イベント更新を実施しました。ID = [{0}], イベント名 = [{1}] */
-        public static final String I_03_0002 = "I_03_0002";
         /** ユーザーを削除しました。ID = [{0}], ユーザー名 = [{1}] */
         public static final String I_04_0002 = "I_04_0002";
         /** LINE Messaging API [{0}]を実行しました。宛先 = [{1}], メッセージ = [{2}] */
@@ -46,6 +46,8 @@ public class LogMessageKeyConstants {
      * ERRORログのメッセージID。
      */
     public static class Error {
+        /** LINE IDに対応するユーザー情報が存在しません。LINE ID = [{0}] */
+        public static final String E_00_0001 = "E_00_0001";
     }
 
 }

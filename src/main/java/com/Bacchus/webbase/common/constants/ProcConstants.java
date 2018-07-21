@@ -7,15 +7,28 @@ public class ProcConstants {
     public static final String PROFILE = "/profile";
 
     public class Operation {
-    public static final String INDEX = "/index";
-    public static final String CREATE = "/create";
-    public static final String STORE = "/store";
-    public static final String SHOW = "/show";
-    public static final String EDIT = "/edit";
-    public static final String UPDATE = "/update";
-    public static final String DELETE= "/delete";
-    public static final String NOTIFY = "/notify";
-    public static final String EXEC = "/exec";
-    public static final String COPY = "/copy";
+        public static final String INDEX = "/index";
+        public static final String CREATE = "/create";
+        public static final String STORE = "/store";
+        public static final String SHOW = "/show";
+        public static final String EDIT = "/edit";
+        public static final String UPDATE = "/update";
+        public static final String DELETE= "/delete";
+        public static final String NOTIFY = "/notify";
+        public static final String EXEC = "/exec";
+        public static final String COPY = "/copy";
+    }
+
+    public class OperationName {
+//        public static final String INDEX = "/index";
+        public static final String CREATE = "新規登録";
+//        public static final String STORE = "/store";
+//        public static final String SHOW = "/show";
+//        public static final String EDIT = "更新";
+        public static final String UPDATE = "更新";
+        public static final String DELETE= "削除";
+        public static final String NOTIFY = "通知";
+        public static final String EXEC = "実行";
+        public static final String COPY = "コピー";
     }
 }

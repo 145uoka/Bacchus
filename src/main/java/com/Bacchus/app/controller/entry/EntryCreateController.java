@@ -198,7 +198,7 @@ public class EntryCreateController extends BaseController {
         OptionalEntity<EventT> eventTEntity =eventTBhv.selectByPK(eventNo);
         OptionalEntity<UserT> userTEntity = userTBhv.selectByPK(this.userInfo.getUserId());
 
-        loggerService.outLog(LogMessageKeyConstants.Info.I_02_0501,
+        loggerService.outLog(LogMessageKeyConstants.Info.I_03_0101,
                 new String[] {
                         eventTEntity.get().getEventNo().toString(),
                         eventTEntity.get().getEventName(),
